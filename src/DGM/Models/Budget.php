@@ -2,7 +2,8 @@
 
 namespace DGM\Models;
 
-class Budget extends Model {
+class Budget extends Model
+{
 
 
 

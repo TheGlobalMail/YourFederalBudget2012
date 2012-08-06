@@ -2,6 +2,7 @@
 
 namespace DGM\Models;
 
-abstract class Model {
+abstract class Model
+{
 
 }
