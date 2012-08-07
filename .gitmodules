@@ -4,3 +4,9 @@
 [submodule "web/vendor/less"]
 	path = web/vendor/less
 	url = git://github.com/cloudhead/less.js.git
+[submodule "web/vendor/path"]
+	path = web/vendor/path
+	url = git://github.com/documentcloud/backbone.git
+[submodule "web/vendor/underscore"]
+	path = web/vendor/underscore
+	url = git://github.com/documentcloud/underscore.git
