@@ -5,7 +5,12 @@ error_reporting(-1);
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$app = require 'bootstrap.php';
+$app = require __DIR__.'/../src/bootstrap.php';
 $app['debug'] = true;
+
+$filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
+if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+    return false;
+}
 
 $app->run();
