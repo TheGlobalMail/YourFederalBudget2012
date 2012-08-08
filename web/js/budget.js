@@ -1,3 +1,3 @@
 $(function() {
-    $("#main").html('<p>Welcome</p>');
+    $("#main").html('<p>Welcome, Backbone v' + Backbone.VERSION + '</p>');
 });
