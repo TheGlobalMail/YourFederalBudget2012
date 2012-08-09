@@ -6,7 +6,7 @@ $app = new Silex\Application();
 ## SETUP ##
 $app['debug'] = false;
 
-$app['config'] = [
+$config = [
     'frontend' => [
         'scripts' => [
             'vendor/jquery/jquery-1.7.2',
@@ -19,7 +19,9 @@ $app['config'] = [
     'gitHash' => `git rev-parse HEAD`
 ];
 
-$app['config']['buildId'] = substr($app['config']['gitHash'], 0, 16);
+$config['buildId'] = substr($config['gitHash'], 0, 16);
+
+$app['config'] = $config;
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../templates',
