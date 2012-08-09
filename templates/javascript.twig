@@ -1,0 +1,7 @@
+{% if app.debug %}
+    {% for script in app.config.frontend.scripts %}
+        <script src="{{script}}.js"></script>
+    {% endfor %}
+{% else %}
+    <script src="/build/budget-{{app.config.gitHash|slice(0, 16)}}.min.js"></script>
+{% endif %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your Federal Budget 2012</title>
+
+        {% include 'less.twig' %}
+    </head>
+    <body>
+        <header class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a href="/" class="brand">Your Federal Budget <small>{{app.config.gitHash}}</small></a>
+                </div>
+            </div>
+        </header>
+
+        <div id="main" class="container"></div>
+
+        {% include 'javascript.twig' %}
+    </body>
+</html>
