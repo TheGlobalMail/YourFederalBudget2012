@@ -46,8 +46,8 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
     $repo = $request->request->get('repository');
 
     if ($repo['url'] == $app['config']['repoUrl']) {
-        $exec = realpath(__DIR__ . '/../build.php');
-        return new Response(shell_exec("php -f $exec"));
+        $dir = realpath(__DIR__ . '/../');
+        return new Response(shell_exec("cd $dir && git pull && ./build.php"));
     }
 
     $app->abort(400, "Invalid request.");

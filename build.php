@@ -35,7 +35,7 @@ function executeTarget($target, $app) {
 
         case 'default':
         default:
-            executeTargets('pull clean javascript less', $app);
+            executeTargets('clean javascript less', $app);
         break;
     }
 }
