@@ -1,5 +1,5 @@
 {
-    "hash": "e14fcad137bf4860f190751fd1b1bbb2",
+    "hash": "4e888c3661a092bb2ec207f5015258c3",
     "packages": [
         {
             "package": "pimple/pimple",
@@ -22,8 +22,8 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "ee00393c33b3de861082602747a84d49897b9315",
-            "commit-date": "1344077943"
+            "source-reference": "6d7cf048c704c0c58276b01eccfacab4dd11d013",
+            "commit-date": "1344453846"
         },
         {
             "package": "symfony/event-dispatcher",
