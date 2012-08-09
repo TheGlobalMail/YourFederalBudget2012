@@ -29,6 +29,10 @@ function executeTarget($target, $app) {
             Targets::less($app);
         break;
 
+        case 'pull':
+            Targets::pull();
+        break;
+
         case 'default':
         default:
             executeTargets('clean javascript less', $app);
@@ -39,5 +43,5 @@ function executeTarget($target, $app) {
 if (count($argv) == 1) {
     executeTarget("default", $app);
 } else if (count($argv) > 1) {
-    executeTargets(implode(" ", array_slice($argv, 0, 1)));
+    executeTargets(implode(" ", array_slice($argv, 1)), $app);
 }

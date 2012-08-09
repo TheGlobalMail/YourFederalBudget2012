@@ -44,4 +44,9 @@ class Targets {
         Util::lessCompile($lessFile, $minCssFile, true);
     }
 
+    public static function pull()
+    {
+        Util::write(shell_exec('cd ' . self::$basePath . ' && git pull'));
+    }
+
 }
