@@ -1,5 +1,5 @@
 {
-    "hash": "4e888c3661a092bb2ec207f5015258c3",
+    "hash": "251ba8a7ffb9da1747de3166635891ba",
     "packages": [
         {
             "package": "pimple/pimple",
@@ -82,8 +82,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "51c866f415bbee670cd9ba13591307bce8dabdca",
-            "commit-date": "1343464333"
+            "source-reference": "f2f698c820d4396f519ef4175ad6fe79fcfb9ecf",
+            "commit-date": "1344328685"
         }
     ],
     "packages-dev": null,
