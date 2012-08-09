@@ -19,7 +19,8 @@ $config = [
         ],
         'less' => 'less/budget'
     ],
-    'gitHash' => `git rev-parse HEAD`
+    'gitHash' => `git rev-parse HEAD`,
+    'repoUrl' => 'https://github.com/TheGlobalMail/YourFederalBudget2012'
 ];
 
 $config['buildId'] = substr($config['gitHash'], 0, 16);
@@ -30,15 +31,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../templates',
 ));
 
-## EVENTS ##
-
-$app->before(function (Request $request) {
-    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-        $data = json_decode($request->getContent(), true);
-        $request->request->replace(is_array($data) ? $data : array());
-    }
-});
-
 ## CONTROLLERS ##
 $app->get('/', function() use ($app) {
     return $app['twig']->render('index.twig', array(
@@ -47,9 +39,17 @@ $app->get('/', function() use ($app) {
     ));
 });
 
-$app->post('/git-post-receive/', function(Request $request) use ($app) {
+$app->post('/git-post-receive', function(Request $request) use ($app) {
+    $data = json_decode($request->getContent(), true);
+    $request->request->replace(is_array($data) ? $data : array());
     $repo = $request->request->get('repository');
 
+    if ($repo['url'] == $app['config']['repoUrl']) {
+        $exec = realpath(__DIR__ . '/../build.php');
+        return shell_exec("php -f $exec");
+    }
+
+    $app->abort(400, "Invalid request.");
 });
 
 
