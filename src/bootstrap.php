@@ -40,10 +40,6 @@ $app->get('/', function() use ($app) {
     ));
 });
 
-$app->get('/routing-test', function() use ($app) {
-    return new Response('Yolo Routing Test');
-});
-
 $app->post('/git-post-receive', function(Request $request) use ($app) {
     $data = json_decode($request->getContent(), true);
     $request->request->replace(is_array($data) ? $data : array());
