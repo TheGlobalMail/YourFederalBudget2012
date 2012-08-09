@@ -41,7 +41,7 @@ $app->get('/', function() use ($app) {
 });
 
 $app->get('/routing-test', function() use ($app) {
-    return new Reponse('Yolo Routing Test');
+    return new Response('Yolo Routing Test');
 });
 
 $app->post('/git-post-receive', function(Request $request) use ($app) {
