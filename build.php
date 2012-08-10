@@ -3,7 +3,7 @@
 
 require 'vendor/autoload.php';
 
-use DGM\Util,
+use DGM\Build\Util,
     DGM\Build\Targets;
 
 Targets::$basePath = __DIR__;

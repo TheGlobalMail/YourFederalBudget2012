@@ -2,8 +2,6 @@
 
 namespace DGM\Build;
 
-use DGM\Util;
-
 class Targets {
 
     public static $basePath;

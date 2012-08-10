@@ -1,6 +1,6 @@
 <?php
 
-namespace DGM;
+namespace DGM\Build;
 
 class Util {
 
