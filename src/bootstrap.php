@@ -14,6 +14,7 @@ $config = [
     'frontend' => [
         'scripts' => [
             'vendor/jquery/jquery-1.7.2',
+            'vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js',
             'vendor/underscore/underscore',
             'vendor/backbone/backbone',
             'js/budget'

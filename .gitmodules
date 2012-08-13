@@ -10,3 +10,6 @@
 [submodule "web/vendor/underscore"]
 	path = web/vendor/underscore
 	url = git://github.com/documentcloud/underscore.git
+[submodule "web/vendor/jquery-ui-bootstrap"]
+	path = web/vendor/jquery-ui-bootstrap
+	url = git://github.com/addyosmani/jquery-ui-bootstrap.git
