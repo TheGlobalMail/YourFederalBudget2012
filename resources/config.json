@@ -14,7 +14,7 @@
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 200,
+            "max": 364,
             "step": 2
         }
     },
