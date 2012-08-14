@@ -15,7 +15,7 @@
         "slider": {
             "min": 0,
             "max": 364,
-            "step": 2
+            "step": 1
         }
     },
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012"
