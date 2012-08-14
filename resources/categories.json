@@ -1,0 +1,34 @@
+{
+    "defense": {
+        "label": "Defense",
+        "federalAllocation": 55
+    },
+    "health": {
+        "label": "Health",
+        "federalAllocation": 48
+    },
+    "immigration": {
+        "label": "Immigration",
+        "federalAllocation": 50
+    },
+    "welfare": {
+        "label": "Welfare/Social Security",
+        "federalAllocation": 52
+    },
+    "taxBreaks": {
+        "label": "Tax Breaks",
+        "federalAllocation": 25
+    },
+    "agriculture": {
+        "label": "Agriculture",
+        "federalAllocation": 38
+    },
+    "education": {
+        "label": "Education",
+        "federalAllocation": 47
+    },
+    "energy": {
+        "label": "Energy",
+        "federalAllocation": 49
+    }
+}

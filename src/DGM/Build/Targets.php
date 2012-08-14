@@ -13,14 +13,7 @@ class Targets {
         $outFile    = "$base/build/budget-$gitHash.js";
         $minOutFile = "$base/build/budget-$gitHash.min.js";
 
-        $files = [];
-
-        // Add .js extension to files
-        foreach ($app['config']['frontend']['scripts'] as $jsFile) {
-            $files[] = "$jsFile.js";
-        }
-
-        Util::concatFiles($files, $outFile, $base);
+        Util::concatFiles($app['config']['frontend']['scripts'], $outFile, $base);
         Util::uglifyJs($outFile, $minOutFile);
     }
 

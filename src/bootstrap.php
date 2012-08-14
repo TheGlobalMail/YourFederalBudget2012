@@ -1,8 +1,9 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpFoundation\Response,
+    Symfony\Component\HttpFoundation\ParameterBag,
+    DGM\Models\Budget;
 
 $app = new Silex\Application();
 
@@ -11,23 +12,19 @@ $app = new Silex\Application();
 $app['debug'] = false;
 
 $config = [
-    'frontend' => [
-        'scripts' => [
-            'vendor/jquery/jquery-1.7.2',
-            'vendor/jquery-ui/ui/jquery-ui-1.8.22.custom',
-            'vendor/underscore/underscore',
-            'vendor/backbone/backbone',
-            'js/budget'
-        ],
-        'less' => 'less/budget'
-    ],
     'gitHash' => `git rev-parse HEAD`,
-    'repoUrl' => 'https://github.com/TheGlobalMail/YourFederalBudget2012'
+    'buildId' => substr(`git rev-parse HEAD`, 0, 16),
+    'categories' => json_decode(file_get_contents(__DIR__ . '/../resources/categories.json'), true),
 ];
 
-$config['buildId'] = substr($config['gitHash'], 0, 16);
+$fileConfig = json_decode(file_get_contents(__DIR__ . '/../resources/config.json'), true);
+$config = array_merge($config, $fileConfig);
 
 $app['config'] = $config;
+
+$app['db'] = $app->share(function() {
+    return new \DGM\Database\MongoDB();
+});
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../templates',
@@ -47,7 +44,7 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
     $repo = $request->request->get('repository');
 
     $dir = realpath(__DIR__ . '/../');
-    $exec = shell_exec("cd $dir && git pull && ./build.php 2>&1");
+    $exec = shell_exec("cd $dir && git pull && composer update && ./build.php 2>&1");
     $response = $exec == null ? 500 : 200;
     return new Response($exec, $response);
 });

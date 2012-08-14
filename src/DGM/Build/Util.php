@@ -10,9 +10,12 @@ class Util {
         $contents = "";
 
         foreach ($files as $file) {
-            self::writeln("- Adding File " . basename($file));
             $file = ($base) ? $base . "/" . $file : $file;
-            $contents .= file_get_contents($file);
+
+            foreach (glob($file) as $f) {
+                self::writeln("- Adding File " . basename($f));
+                $contents .= file_get_contents($f);
+            }
         }
 
         file_put_contents($outFile, $contents);

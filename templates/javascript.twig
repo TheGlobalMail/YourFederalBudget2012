@@ -1,7 +1,15 @@
+{% autoescape false %}
+<script>
+    var DATA = {};
+    DATA.categories = {{ app.config.categories|json_encode }};
+    DATA.sliderConfig = {{ app.config.frontend.slider|json_encode }};
+</script>
+{% endautoescape %}
+
 {% if app.debug %}
     {% for script in app.config.frontend.scripts %}
-        <script src="{{script}}.js"></script>
+        <script src="{{script}}"></script>
     {% endfor %}
 {% else %}
-    <script src="/build/budget-{{app.config.gitHash|slice(0, 16)}}.min.js"></script>
+    <script src="/build/budget-{{app.config.buildId}}.min.js"></script>
 {% endif %}

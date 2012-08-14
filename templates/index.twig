@@ -9,22 +9,24 @@
         <header class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <a href="/" class="brand">Your Federal Budget <small>{{app.config.gitHash}}</small></a>
+                    <a href="/" class="brand">How to spend 364 billion dollars</a>
                 </div>
             </div>
         </header>
 
         <div id="main" class="container">
-            <div id="app-container">
-                <div id="left-column">
-                    <div id="budget-allocator">
-                        Budget Tool
+            <div id="left-column">
+                <div id="budget-allocator">
+                    <div class="categories">
+                        {% for key, category in app.config.categories %}
+                            {% include 'slider-box.twig' with { 'id': key, 'label': category.label, 'federalAllocation': category.federalAllocation } %}
+                        {% endfor %}
                     </div>
                 </div>
-                <div id="right-column">
-                    <div id="visualisation">Graph</div>
-                    <div id="information">More Info</div>
-                </div>
+            </div>
+            <div id="right-column">
+                <div id="visualisation">Graph</div>
+                <div id="information">More Info</div>
             </div>
         </div>
 

@@ -4,17 +4,19 @@ header.navbar {
 }
 
 #main {
+    @appWidth: 940px;
+    @columnRatio: 0.3;
     height: 600px;
-    width: 940px;
+    width: @appWidth;
     margin: 5px auto;
-}
 
-#left-column {
-    float: left;
-    width: 360px;
-}
+    #left-column {
+        float: left;
+        width: @appWidth * @columnRatio;
+    }
 
-#right-column {
-    float: right;
-    width: 560px;
+    #right-column {
+        float: right;
+        width: (@appWidth * (1 - @columnRatio)) - 20px;
+    }
 }
