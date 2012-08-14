@@ -5,6 +5,7 @@
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
             "vendor/underscore/underscore.js",
             "vendor/backbone/backbone.js",
+            "vendor/bootstrap/js/bootstrap-tooltip.js",
             "js/bootstrap.js",
             "js/models/Budget.js",
             "js/views/CategoryAllocationView.js",

@@ -1,7 +1,9 @@
 <div class="category {{ id }}" data-id="{{ id }}">
     <div class="top">
         <div class="title"><i class="icon-{{ id }}"></i>{{ label }}</div>
-        <div class="spent-box">$ <span class="amount">0</span> b</div>
+        <div class="spent-box input-prepend input-append">
+            <span class="add-on">$</span><input type="text" class="input-mini amount" value="0"><span class="add-on">b</span>
+        </div>
         <div class="info-icon"><i class="icon-info-sign"></i></div>
     </div>
 
@@ -9,5 +11,5 @@
         <div class="slider-control"></div>
     </div>
 
-    <div class="federal-allocation">$ {{ federalAllocation }} b</div>
+    <div class="federal-allocation"><div class="arrow"></div>$ {{ federalAllocation }} b</div>
 </div>

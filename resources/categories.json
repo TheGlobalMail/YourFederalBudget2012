@@ -1,34 +1,42 @@
 {
     "defense": {
         "label": "Defense",
-        "federalAllocation": 55
+        "federalAllocation": 55,
+        "tooltip": "This is the Defense tooltip for help and quick info"
     },
     "health": {
         "label": "Health",
-        "federalAllocation": 48
+        "federalAllocation": 48,
+        "tooltip": "This is the Health tooltip for help and quick info"
     },
     "immigration": {
         "label": "Immigration",
-        "federalAllocation": 50
+        "federalAllocation": 50,
+        "tooltip": "This is the Immigration tooltip for help and quick info"
     },
     "welfare": {
         "label": "Welfare/Social Security",
-        "federalAllocation": 52
+        "federalAllocation": 52,
+        "tooltip": "This is the Welfare/Social Security tooltip for help and quick info"
     },
     "taxBreaks": {
         "label": "Tax Breaks",
-        "federalAllocation": 25
+        "federalAllocation": 25,
+        "tooltip": "This is the Tax Breaks tooltip for help and quick info"
     },
     "agriculture": {
         "label": "Agriculture",
-        "federalAllocation": 38
+        "federalAllocation": 38,
+        "tooltip": "This is the Agriculture tooltip for help and quick info"
     },
     "education": {
         "label": "Education",
-        "federalAllocation": 47
+        "federalAllocation": 47,
+        "tooltip": "This is the Education tooltip for help and quick info"
     },
     "energy": {
         "label": "Energy",
-        "federalAllocation": 49
+        "federalAllocation": 49,
+        "tooltip": "This is the Energy tooltip for help and quick info"
     }
 }

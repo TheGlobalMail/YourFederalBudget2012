@@ -4,15 +4,19 @@
         border: @grayLight 1px solid;
         .border-radius(5px);
         margin-bottom: 5px;
-        height: 65px;
         position: relative;
+
+        .top {
+            height: 30px;
+        }
 
         .top, .slider {
             position: relative;
         }
 
         .slider {
-            margin-top: 30px;
+            margin-top: 5px;
+            height: 15px;
 
             .slider-control {
                 width: 240px;
@@ -29,10 +33,11 @@
         .spent-box {
             position: absolute;
             right: 30px;
-            padding: 3px;
-            border: @grayLighter 1px solid;
-            .border-radius(5px);
-            text-align: right;
+
+            .amount {
+                width: 25px;
+                text-align: center;
+            }
         }
 
         .info-icon {
@@ -42,8 +47,24 @@
         }
 
         .federal-allocation {
-            position: absolute;
-            bottom: 5px;
+            @background-color: @gray;
+            position: relative;
+            height: 15px;
+            background-color: @background-color;
+            color: @grayLighter;
+            .border-radius(5px);
+            padding: 1px 4px 2px;
+            display: inline-block;
+            font-size: 12px;
+            top: 1px;
+
+            .arrow {
+                .triangle-up(6px, @background-color);
+                position: absolute;
+                top: -5px;
+                left: 50%;
+                margin-left: -3px;
+            }
         }
     }
 

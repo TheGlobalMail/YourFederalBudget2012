@@ -13,3 +13,6 @@
 [submodule "web/vendor/jquery-ui-bootstrap"]
 	path = web/vendor/jquery-ui-bootstrap
 	url = git://github.com/addyosmani/jquery-ui-bootstrap.git
+[submodule "web/vendor/LESS-CSS-Shapes-Library"]
+	path = web/vendor/LESS-CSS-Shapes-Library
+	url = git://github.com/NathanStrutz/LESS-CSS-Shapes-Library.git
