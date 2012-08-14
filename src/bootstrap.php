@@ -44,7 +44,8 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
     $repo = $request->request->get('repository');
 
     $dir = realpath(__DIR__ . '/../');
-    $exec = shell_exec("cd $dir && git pull && composer update && ./build.php 2>&1");
+    // @TODO refactor epic one-liner?
+    $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer update && ./build.php 2>&1");
     $response = $exec == null ? 500 : 200;
     return new Response($exec, $response);
 });
