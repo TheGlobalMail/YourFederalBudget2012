@@ -3,12 +3,15 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
     events: {
         "slide .slider-control": "onSlide",
         "slidestop .slider-control": "onSlide",
-        "keyup .amount": "onManualEntry"
+        "keyup .amount": "onManualEntry",
+        "click": "expand"
     },
+
+    animationSpeed: 500,
 
     initialize: function(options)
     {
-        _.bindAll(this, 'refreshAmount');
+        _.bindAll(this);
         this.$slider = this.$('.slider-control').slider(DATA.sliderConfig);
         this.$amount = this.$('.amount');
         this.model.on("change:" + options.category, this.refreshAmount);
@@ -65,10 +68,35 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
 
     render: function()
     {
-        this.$('.info-icon').tooltip({ title: this.category.tooltip, placement: "right" });
+        this.$('.info-icon').popover({ content: this.category.tooltip, placement: "right" });
         this.$slider.slider('value', this.model.get(this.options.category));
         this.refreshAmount(null, this.$slider.slider('value'));
         this.placeFederalAllocation();
+    },
+
+    expand: function()
+    {
+        if (this.isExpanded()) {
+            return false;
+        }
+
+        TGM.vent.trigger('BudgetAllocatorCategory:expanding', this);
+        this.$('.expander').slideDown();
+    },
+
+    collapse: function()
+    {
+        this.$('.expander').slideUp({ speed: this.animationSpeed });
+    },
+
+    hide: function()
+    {
+        this.$('.expander').hide({ speed: this.animationSpeed });
+    },
+
+    isExpanded: function()
+    {
+        return this.$('.expander').is(":visible");
     }
 
 });

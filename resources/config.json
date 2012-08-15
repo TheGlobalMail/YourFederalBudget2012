@@ -6,8 +6,10 @@
             "vendor/underscore/underscore.js",
             "vendor/backbone/backbone.js",
             "vendor/bootstrap/js/bootstrap-tooltip.js",
+            "vendor/bootstrap/js/bootstrap-popover.js",
             "js/bootstrap.js",
             "js/models/Budget.js",
+            "js/views/BudgetAllocatorView.js",
             "js/views/CategoryAllocationView.js",
             "js/main.js"
         ],
