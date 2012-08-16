@@ -38,6 +38,17 @@ TGM.Models.Budget = Backbone.Model.extend({
         });
 
         return total;
+    },
+
+    resetBudget: function()
+    {
+        _.each(this.defaults, function(amount, category) {
+            if (category in DATA.categories) {
+                this.set(category, amount);
+            }
+        }, this);
+
+        this.trigger('reset');
     }
 
 });
