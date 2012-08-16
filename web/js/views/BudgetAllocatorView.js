@@ -1,5 +1,7 @@
 TGM.Views.BudgetAllocatorView = Backbone.View.extend({
 
+    el: $('#budget-allocator'),
+
     initialize: function()
     {
         _.bindAll(this);
@@ -21,11 +23,12 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
             .invoke("hide");
 
         this.expandedCategory = this.categoryViews[0];
+
+        this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: TGM.userBudget });
     },
 
     switchCategory: function(newCategory)
     {
-        console.log(arguments);
         this.expandedCategory.collapse();
         this.expandedCategory = newCategory;
     }

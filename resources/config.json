@@ -11,6 +11,7 @@
             "js/models/Budget.js",
             "js/views/BudgetAllocatorView.js",
             "js/views/CategoryAllocationView.js",
+            "js/views/BudgetOverviewView.js",
             "js/main.js"
         ],
         "less": "less/budget",
@@ -20,5 +21,9 @@
             "step": 1
         }
     },
-    "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012"
+    "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
+    "budgetAllowance": 400,
+    "messages": {
+        "budgetFullyAllocated": "You've spent all your monies!"
+    }
 }

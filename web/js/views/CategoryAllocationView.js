@@ -12,16 +12,53 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
     initialize: function(options)
     {
         _.bindAll(this);
-        this.$slider = this.$('.slider-control').slider(DATA.sliderConfig);
-        this.$amount = this.$('.amount');
+
+            this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
+            this.$sliderHandle = this.$('.ui-slider-handle');
+            this.$amount       = this.$('.amount');
+            this.$expander     = this.$('.expander');
+
         this.model.on("change:" + options.category, this.refreshAmount);
+
         this.category = DATA.categories[options.category];
-        this.render();
+
+        this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
+        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right' });
+        this.$slider.slider('value', this.model.get(this.options.category));
+
+        this.refreshAmount(null, this.$slider.slider('value'));
+        this.placeFederalAllocation();
     },
 
     onSlide: function(e, ui)
     {
+        // do we need to hide the tooltip?
+        if (this.budgetFullyAllocatedTooltipOpen) {
+            // cahce function to hide tooltip
+            var hideTooltip = _.bind(function() {
+                this.$sliderHandle.tooltip('hide');
+                this.budgetFullyAllocatedTooltipOpen = false;
+            }, this);
+
+            if (+new Date - this.budgetFullyAllocatedTooltipOpen > 3000 || ui.value < this.model.get(this.options.category)) {
+                hideTooltip(); // it's been open longer than 3s, lets hide OR moving slider down
+            } else {
+                // hasn't been up for long, delay hiding it
+                setTimeout(hideTooltip, 3000 - (+new Date - this.budgetFullyAllocatedTooltipOpen));
+            }
+        }
+
         this.model.set(this.options.category, ui.value);
+
+        if (ui.value != this.model.get(this.options.category)) {
+            if (!this.budgetFullyAllocatedTooltipOpen) {
+                this.$sliderHandle.tooltip('show');
+                this.budgetFullyAllocatedTooltipOpen = +new Date;
+            }
+            return false;
+        }
+
+        this.$slider.slider('value', this.model.get(this.options.category));
     },
 
     onManualEntry: function()
@@ -32,46 +69,31 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
             return false; // let them enter nothing, will default to 0 onblur
         }
 
-        newVal = parseInt(newVal, 10);
-
-        if (_.isNaN(newVal)) {
-            this.$amount.val(this.$slider.slider('value'));
-            return false;
-        }
-
-        newVal = Math.max(DATA.sliderConfig.min, newVal);
-        newVal = Math.min(DATA.sliderConfig.max, newVal);
-
-        this.$amount.val(newVal);
-        this.$slider.slider('value', newVal);
+        this.model.set(this.options.category, newVal);
     },
 
     refreshAmount: function(model, value)
     {
-        if (!(value >= DATA.sliderConfig.min && value <= DATA.sliderConfig.max)) {
+        if (value < DATA.sliderConfig.min && value > DATA.sliderConfig.max) {
             value = 0;
         }
-        this.$amount.val(value);
+
+        if (this.$amount.val() != value) {
+            this.$amount.val(value);
+        }
+
+        this.$slider.slider('value', value);
     },
 
     placeFederalAllocation: function()
     {
         var federalAllocation = this.category.federalAllocation;
         var $federalAllocation = this.$('.federal-allocation');
-        var maxAmount = DATA.sliderConfig.max;
         var sliderWidth = this.$slider.width();
-        var federalAllocationOffsetPercentage = federalAllocation / maxAmount;
-        var sliderControlWidth = this.$slider.find('a').width();
+        var federalAllocationPercentage = federalAllocation / DATA.sliderConfig.max;
+        var sliderControlWidth = this.$sliderHandle.width();
 
-        $federalAllocation.css('left', sliderWidth * federalAllocationOffsetPercentage - $federalAllocation.width() / 2 + sliderControlWidth / 2 - 1);
-    },
-
-    render: function()
-    {
-        this.$('.info-icon').popover({ content: this.category.tooltip, placement: "right" });
-        this.$slider.slider('value', this.model.get(this.options.category));
-        this.refreshAmount(null, this.$slider.slider('value'));
-        this.placeFederalAllocation();
+        $federalAllocation.css('left', sliderWidth * federalAllocationPercentage - $federalAllocation.width() / 2 + sliderControlWidth / 2 - 1);
     },
 
     expand: function()
@@ -81,22 +103,22 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
         }
 
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this);
-        this.$('.expander').slideDown();
+        this.$expander.slideDown({ speed: this.animationSpeed });
     },
 
     collapse: function()
     {
-        this.$('.expander').slideUp({ speed: this.animationSpeed });
+        this.$expander.slideUp({ speed: this.animationSpeed });
     },
 
     hide: function()
     {
-        this.$('.expander').hide({ speed: this.animationSpeed });
+        this.$expander.hide();
     },
 
     isExpanded: function()
     {
-        return this.$('.expander').is(":visible");
+        return this.$expander.is(":visible");
     }
 
 });
