@@ -75,19 +75,29 @@
 
 #budget-overview {
     position: relative;
-    height: 100px;
+    height: 130px;
 
-    .title {
-        position: absolute;
-    }
+    .top {
+        .clearfix;
 
-    .spent {
-        position: absolute;
-        right: 0;
+        .title {
+            width: 50%;
+            float: left;
+        }
+
+        .spent {
+            width: 50%;
+            float: right;
+            text-align: right;
+        }
     }
 
     .progress-bar {
-        position: relative;
-        top: 25px;
+        margin-bottom: 8px;
+
+        .progress {
+            margin-bottom: 0;
+        }
     }
+
 }
