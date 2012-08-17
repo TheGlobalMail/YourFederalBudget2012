@@ -70,6 +70,7 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
         }
 
         this.model.set(this.options.category, newVal);
+        this.$amount.val(this.model.get(this.options.category));
     },
 
     refreshAmount: function(model, value)
