@@ -5,25 +5,44 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     set: function(attribute, value, options)
     {
-        if (attribute in DATA.categories) {
-            value = parseInt(value, 10);
+        var attrs, attr;
 
-            // not a number, reset to original value
-            if (_.isNaN(value)) {
-                value = this.get(attribute);
-            }
-
-            // make sure value is in the slider range
-            value = Math.max(DATA.sliderConfig.min, value);
-            value = Math.min(DATA.sliderConfig.max, value);
-
-            // cap input so value doesn't go over the max budget allowance
-            if (this.getTotal() - this.get(attribute) + value > DATA.budgetAllowance) {
-                value = DATA.budgetAllowance - this.getTotal() + this.get(attribute);
-            }
+        // Handle both `"key", value` and `{key: value}` -style arguments.
+        if (_.isObject(attribute) || attribute == null) {
+            attrs = attribute;
+            options = value;
+        } else {
+            attrs = {};
+            attrs[attribute] = value;
         }
 
-        return Backbone.Model.prototype.set.call(this, attribute, value, options);
+        // process amount if setting category value
+        _.each(attrs, function(val, key) {
+            if (key in DATA.categories) {
+                val = parseFloat(val);
+
+                // not a number, reset to original value
+                if (_.isNaN(val)) {
+                    attrs[key] = this.get(key);
+                    return;
+                }
+
+                val = Math.round(val);
+
+                // make sure value is in the slider range
+                val = Math.max(DATA.sliderConfig.min, val);
+                val = Math.min(DATA.sliderConfig.max, val);
+
+                // cap input so value doesn't go over the max budget allowance
+                if (this.getTotal() - (this.get(key) - val) > DATA.budgetAllowance) {
+                    val = DATA.budgetAllowance - (this.getTotal() - this.get(key));
+                }
+
+                attrs[key] = val;
+            }
+        }, this);
+
+        return Backbone.Model.prototype.set.call(this, attrs, null, options);
     },
 
     getTotal: function()
