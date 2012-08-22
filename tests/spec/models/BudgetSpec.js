@@ -61,7 +61,7 @@ describe("Budget", function() {
         budget.set('defense', 999);
 
         // max slider value is 364 in config
-        expect(budget.get('defense')).toEqual(364);
+        expect(budget.get('defense')).toEqual(DATA.sliderConfig.max);
     });
 
     it("should ignore anything other than numbers as a category value", function() {
