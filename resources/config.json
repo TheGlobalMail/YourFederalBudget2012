@@ -9,6 +9,7 @@
             "vendor/bootstrap/js/bootstrap-popover.js",
             "js/bootstrap.js",
             "js/models/Budget.js",
+            "js/views/BarGraphView.js",
             "js/views/BudgetAllocatorView.js",
             "js/views/CategoryAllocationView.js",
             "js/views/BudgetOverviewView.js",
@@ -17,7 +18,7 @@
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 364,
+            "max": 200,
             "step": 1
         }
     },
