@@ -23,18 +23,25 @@ TGM.Views.BarGraphView = Backbone.View.extend({
         var html = $('<div class="category"/>');
         html.prop('id', 'bar-' + id).addClass(id);
 
+        var budgetsCount = 0;
+        var barWidth = (100 / _.size(this.budgets));
+
         _.each(this.budgets, function(budget, bid) {
             var bh = $('<div class="bar"/>');
             bh.addClass(bid);
             bh.css({
                 height: this.calculateBarHeight(budget.get(id)),
-                backgroundColor: '#aaa'
+                backgroundColor: DATA.budgetColours[bid],
+                width: barWidth + "%",
+                left: (barWidth * budgetsCount) + "%"
             });
             bh.appendTo(html);
 
-            this.model.on('change:' + id, function(model, value, options) {
+            budget.on('change:' + id, function(model, value, options) {
                 bh.css('height', this.calculateBarHeight(value));
             }, this);
+
+            budgetsCount += 1;
         }, this);
 
         html.css({
@@ -50,7 +57,7 @@ TGM.Views.BarGraphView = Backbone.View.extend({
 
     calculateCategoryOffset: function(count)
     {
-        var width = this.$el.width() / (_.size(this.categories));
+        var width = this.$el.width() / _.size(this.categories);
 
         return (width * (count - 1)) + 'px';
     },
@@ -67,12 +74,6 @@ TGM.Views.BarGraphView = Backbone.View.extend({
     {
         this._renderedCategories = 1;
         _.each(this.categories, this._renderCategory);
-        this.refresh();
-    },
-
-    refresh: function()
-    {
-
     }
 
 });

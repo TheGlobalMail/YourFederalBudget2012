@@ -7,8 +7,10 @@ _.each(DATA.categories, function(value, id) {
 
 TGM.vent = _.extend({}, Backbone.Events);
 TGM.userBudget = new TGM.Models.Budget();
+TGM.federalBudget = new TGM.Models.Budget();
 barGraph.model = TGM.userBudget;
 barGraph.addBudget("user", TGM.userBudget);
+barGraph.addBudget("federal", TGM.federalBudget);
 
 TGM.budgetAllocatorView = new TGM.Views.BudgetAllocatorView();
 barGraph.render();

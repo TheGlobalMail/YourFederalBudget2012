@@ -20,6 +20,10 @@
             "min": 0,
             "max": 200,
             "step": 1
+        },
+        "budgetColours": {
+            "federal": "#aaa",
+            "user": "#777"
         }
     },
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
