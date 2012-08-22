@@ -18,10 +18,12 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
 
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.switchCategory);
 
+        // collapse all categories except the first one
         _.chain(this.categoryViews)
             .rest(1)
             .invoke("hide");
 
+        // currently expanded category is the first one
         this.expandedCategory = this.categoryViews[0];
 
         this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: TGM.userBudget });
