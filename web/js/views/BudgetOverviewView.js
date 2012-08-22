@@ -9,10 +9,10 @@ TGM.Views.BudgetOverviewView = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this);
-        this.$total = $("#budget-total");
+        this.$total = this.$("#budget-total");
         this.$progress = this.$('.bar');
         this.updateTotal();
-        this.model.on("change", _.debounce(this.updateTotal, 80));
+        this.model.on("change", _.throttle(this.updateTotal, 80));
     },
 
     updateTotal: function()
