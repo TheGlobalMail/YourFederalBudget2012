@@ -28,6 +28,8 @@ $app = require __DIR__ .'/../src/bootstrap.php';
 
   <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
   <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine-html.js"></script>
+  <script src="/tests/lib/jasmine-jquery/lib/jasmine-jquery.js"></script>
+  <script src="/tests/lib/sinon/sinon-1.4.2.js"></script>
 
   <?php foreach($app['config']['frontend']['scripts'] as $script): ?>
     <?php if (stripos($script, "main.js") === false): ?>
@@ -36,6 +38,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   <?php endforeach; ?>
 
   <script src="/tests/spec/models/BudgetSpec.js"></script>
+  <script src="/tests/spec/views/BudgetOverviewViewSpec.js"></script>
 
   <script type="text/javascript">
     (function() {
