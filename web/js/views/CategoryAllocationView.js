@@ -13,10 +13,10 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
     {
         _.bindAll(this);
 
-            this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
-            this.$sliderHandle = this.$('.ui-slider-handle');
-            this.$amount       = this.$('.amount');
-            this.$expander     = this.$('.expander');
+        this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
+        this.$sliderHandle = this.$('.ui-slider-handle');
+        this.$amount       = this.$('.amount');
+        this.$expander     = this.$('.expander');
 
         this.model.on("change:" + options.category, this.refreshAmount);
 
@@ -103,7 +103,7 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
             return false;
         }
 
-        TGM.vent.trigger('BudgetAllocatorCategory:expanding', this);
+        TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
         this.$expander.slideDown({ speed: this.animationSpeed });
     },
 
