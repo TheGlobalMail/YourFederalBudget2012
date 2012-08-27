@@ -104,7 +104,7 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
             doAnimation: true
         }
 
-        options =_.defaults(defaults, options);
+        _.defaults(options, defaults);
 
         if (this.isExpanded() && !options.force) {
             return false;
