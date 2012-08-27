@@ -13,7 +13,7 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
             var view = new TGM.Views.CategoryAllocationView({
                 el: el,
                 category: id,
-                model: TGM.userBudget
+                model: this.model
             });
             this.categoryViews[id] = view;
         }, this);
@@ -31,7 +31,7 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
         this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: TGM.userBudget });
 
         // tell everyone the first category is open before we listen to the event ourself
-        TGM.vent.trigger('BudgetAllocatorCategory:expanding', firstCategoryId);
+        this.expandedCategory.expand({ force: true, doAnimation: false });
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.switchCategory);
     },
 

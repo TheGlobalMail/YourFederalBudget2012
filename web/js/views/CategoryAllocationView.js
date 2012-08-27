@@ -97,14 +97,24 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
         $federalAllocation.css('left', sliderWidth * federalAllocationPercentage - $federalAllocation.width() / 2 + sliderControlWidth / 2 - 1);
     },
 
-    expand: function()
+    expand: function(options)
     {
-        if (this.isExpanded()) {
+        var defaults = {
+            force: false,
+            doAnimation: true
+        }
+
+        options =_.defaults(defaults, options);
+
+        if (this.isExpanded() && !options.force) {
             return false;
         }
 
+        if (options.doAnimation) {
+            this.$expander.slideDown({ speed: this.animationSpeed });
+        }
+
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
-        this.$expander.slideDown({ speed: this.animationSpeed });
         this.$el.addClass('visible');
     },
 
