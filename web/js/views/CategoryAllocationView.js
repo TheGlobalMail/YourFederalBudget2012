@@ -105,11 +105,13 @@ TGM.Views.CategoryAllocationView = Backbone.View.extend({
 
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
         this.$expander.slideDown({ speed: this.animationSpeed });
+        this.$el.addClass('visible');
     },
 
     collapse: function()
     {
         this.$expander.slideUp({ speed: this.animationSpeed });
+        this.$el.removeClass('visible');
     },
 
     hide: function()
