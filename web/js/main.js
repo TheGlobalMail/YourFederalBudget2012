@@ -12,5 +12,5 @@ barGraph.model = TGM.userBudget;
 barGraph.addBudget("user", TGM.userBudget);
 barGraph.addBudget("federal", TGM.federalBudget);
 
-TGM.budgetAllocatorView = new TGM.Views.BudgetAllocatorView();
+TGM.budgetAllocatorView = new TGM.Views.BudgetAllocatorView({ model: TGM.userBudget });
 barGraph.render();
