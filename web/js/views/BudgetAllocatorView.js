@@ -28,7 +28,7 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
         // currently expanded category is the first one
         this.expandedCategory = this.categoryViews[firstCategoryId];
 
-        this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: TGM.userBudget });
+        this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: this.model });
 
         // tell everyone the first category is open before we listen to the event ourself
         this.expandedCategory.expand({ force: true, doAnimation: false });
