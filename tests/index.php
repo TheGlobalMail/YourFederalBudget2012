@@ -25,6 +25,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   DATA.sliderConfig = <?php echo json_encode($app['config']['frontend']['slider']); ?>;
   DATA.budgetColours = <?php echo json_encode($app['config']['frontend']['budgetColours']); ?>;
   DATA.budgetAllowance = 400;
+  DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
   </script>
 
   <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
@@ -41,6 +42,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   <script src="/tests/spec/models/BudgetSpec.js"></script>
   <script src="/tests/spec/views/BudgetOverviewViewSpec.js"></script>
   <script src="/tests/spec/views/BarGraphViewSpec.js"></script>
+  <script src="/tests/spec/views/BudgetAllocatorViewSpec.js"></script>
 
   <script type="text/javascript">
     (function() {
