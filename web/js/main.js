@@ -5,7 +5,6 @@ _.each(DATA.categories, function(value, id) {
     barGraph.addCategory(id, value);
 });
 
-TGM.vent = _.extend({}, Backbone.Events);
 TGM.userBudget = new TGM.Models.Budget();
 TGM.federalBudget = new TGM.Models.Budget();
 barGraph.model = TGM.userBudget;
