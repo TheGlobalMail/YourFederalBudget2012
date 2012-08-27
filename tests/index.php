@@ -23,6 +23,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   var DATA = {};
   DATA.categories = <?php echo json_encode($app['config']['categories']); ?>;
   DATA.sliderConfig = <?php echo json_encode($app['config']['frontend']['slider']); ?>;
+  DATA.budgetColours = <?php echo json_encode($app['config']['frontend']['budgetColours']); ?>;
   DATA.budgetAllowance = 400;
   </script>
 
@@ -39,6 +40,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
 
   <script src="/tests/spec/models/BudgetSpec.js"></script>
   <script src="/tests/spec/views/BudgetOverviewViewSpec.js"></script>
+  <script src="/tests/spec/views/BarGraphViewSpec.js"></script>
 
   <script type="text/javascript">
     (function() {
