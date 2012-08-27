@@ -24,11 +24,8 @@ describe("BudgetOverview", function() {
 
     describe("Budget Total", function() {
         it("should updated the exact total amount when the model changes", function() {
-
             model.set('defense', 13);
-
             this.clock.tick(110);
-
             expect(budgetOverviewView.$el.find("#budget-total").text()).toEqual("294");
         });
 
