@@ -1,4 +1,4 @@
-describe("BudgetOverview", function() {
+describe("Budget Overview View", function() {
     var budgetOverviewView, model, sampleData = {
         defense: 50,
         health: 52,

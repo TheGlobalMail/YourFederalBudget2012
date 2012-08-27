@@ -1,4 +1,4 @@
-describe("BarGraphView", function() {
+describe("Bar Graph Visualisation", function() {
     // use slider max for easy comparison in bar height
     var $el = $("<div/>").css({ width: "100px", height: DATA.sliderConfig.max + "px" });
     var barGraphView;
