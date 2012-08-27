@@ -1,4 +1,5 @@
 var barGraph = new TGM.Views.BarGraphView({ el: $("#visualisation") });
+var moreInfoView = new TGM.Views.MoreInfoView({ el: $("#more-info") });
 
 _.each(DATA.categories, function(value, id) {
     TGM.Models.Budget.prototype.defaults[id] = value.federalAllocation;

@@ -13,6 +13,7 @@
             "js/views/BudgetAllocatorView.js",
             "js/views/CategoryAllocationView.js",
             "js/views/BudgetOverviewView.js",
+            "js/views/MoreInfoView.js",
             "js/main.js"
         ],
         "less": "less/budget",

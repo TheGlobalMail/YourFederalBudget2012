@@ -3,48 +3,56 @@
         "label": "Defense",
         "federalAllocation": 55,
         "tooltip": "This is the Defense tooltip for help and quick info",
-        "color": "#C8C78C"
+        "color": "#C8C78C",
+        "info": "<p>More information about Defense</p>"
     },
     "health": {
         "label": "Health",
         "federalAllocation": 48,
         "tooltip": "This is the Health tooltip for help and quick info",
-        "color": "#FF5F53"
+        "color": "#FF5F53",
+        "info": "<p>More information about Health</p>"
     },
     "immigration": {
         "label": "Immigration",
         "federalAllocation": 50,
         "tooltip": "This is the Immigration tooltip for help and quick info",
-        "color": "#FF9AC8"
+        "color": "#FF9AC8",
+        "info": "<p>More information about Immigration</p>"
     },
     "welfare": {
         "label": "Welfare/Social Security",
         "federalAllocation": 52,
         "tooltip": "This is the Welfare/Social Security tooltip for help and quick info",
-        "color": "#81AAC7"
+        "color": "#81AAC7",
+        "info": "<p>More information about Welfare and Social Security</p>"
     },
     "taxBreaks": {
         "label": "Tax Breaks",
         "federalAllocation": 25,
         "tooltip": "This is the Tax Breaks tooltip for help and quick info",
-        "color": "#A890C7"
+        "color": "#A890C7",
+        "info": "<p>More information about Tax Breaks</p>"
     },
     "agriculture": {
         "label": "Agriculture",
         "federalAllocation": 38,
         "tooltip": "This is the Agriculture tooltip for help and quick info",
-        "color": "#7FC689"
+        "color": "#7FC689",
+        "info": "<p>More information about Agriculture</p>"
     },
     "education": {
         "label": "Education",
         "federalAllocation": 47,
         "tooltip": "This is the Education tooltip for help and quick info",
-        "color": "#0D99FC"
+        "color": "#0D99FC",
+        "info": "<p>More information about Education</p>"
     },
     "energy": {
         "label": "Energy",
         "federalAllocation": 49,
         "tooltip": "This is the Energy tooltip for help and quick info",
-        "color": "#FEFC99"
+        "color": "#FEFC99",
+        "info": "<p>More information about Energy</p>"
     }
 }
