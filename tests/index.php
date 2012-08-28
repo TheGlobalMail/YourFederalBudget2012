@@ -45,6 +45,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   <script src="/tests/spec/views/BarGraphViewSpec.js"></script>
   <script src="/tests/spec/views/BudgetAllocatorViewSpec.js"></script>
   <script src="/tests/spec/views/CategoryAllocationViewSpec.js"></script>
+  <script src="/tests/spec/views/MoreInfoViewSpec.js"></script>
 
 </head>
 
