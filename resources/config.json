@@ -9,6 +9,7 @@
             "vendor/bootstrap/js/bootstrap-tooltip.js",
             "vendor/bootstrap/js/bootstrap-popover.js",
             "vendor/bootstrap/js/bootstrap-modal.js",
+            "vendor/tgm/popovers.js",
             "js/bootstrap.js",
             "js/models/Budget.js",
             "js/views/BarGraphView.js",
@@ -29,6 +30,7 @@
             "user": "#777"
         }
     },
+    "appUrl": "http://.thegmail.net.au:8080/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
     "budgetAllowance": 400,
     "messages": {
