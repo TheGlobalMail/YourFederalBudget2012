@@ -19,3 +19,6 @@
 [submodule "tests/lib/jasmine-jquery"]
 	path = tests/lib/jasmine-jquery
 	url = git://github.com/velesin/jasmine-jquery.git
+[submodule "tests/lib/phantom-jasmine"]
+	path = tests/lib/phantom-jasmine
+	url = git://github.com/jcarver989/phantom-jasmine.git

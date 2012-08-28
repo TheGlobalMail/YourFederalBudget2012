@@ -30,6 +30,7 @@ $app = require __DIR__ .'/../src/bootstrap.php';
 
   <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
   <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine-html.js"></script>
+  <script src="/tests/lib/phantom-jasmine/lib/console-runner.js"></script>
   <script src="/tests/lib/jasmine-jquery/lib/jasmine-jquery.js"></script>
   <script src="/tests/lib/sinon/sinon-1.4.2.js"></script>
 
@@ -45,37 +46,14 @@ $app = require __DIR__ .'/../src/bootstrap.php';
   <script src="/tests/spec/views/BudgetAllocatorViewSpec.js"></script>
   <script src="/tests/spec/views/CategoryAllocationViewSpec.js"></script>
 
-  <script type="text/javascript">
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
-
-      var htmlReporter = new jasmine.HtmlReporter();
-
-      jasmineEnv.addReporter(htmlReporter);
-
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
-
-      var currentWindowOnload = window.onload;
-
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
-
-    })();
-  </script>
-
 </head>
 
 <body>
+  <script type="text/javascript">
+  var console_reporter = new jasmine.ConsoleReporter()
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().addReporter(console_reporter);
+  jasmine.getEnv().execute();
+  </script>
 </body>
 </html>
