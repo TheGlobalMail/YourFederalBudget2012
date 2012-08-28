@@ -40,26 +40,28 @@ describe("Bar Graph Visualisation", function() {
         barGraphView.addBudget("federal", budget2);
     });
 
+    describe("Bars", {
+        it("should render a column for each category", function() {
+            barGraphView.render();
+            expect(barGraphView.$el.find('.category').length).toEqual(_.size(DATA.categories));
+        });
 
-    it("should render a column for each category", function() {
-        barGraphView.render();
-        expect(barGraphView.$el.find('.category').length).toEqual(_.size(DATA.categories));
+        it("should render a bar in each column for each category", function() {
+            barGraphView.render();
+            expect(barGraphView.$el.find(".category:first .bar").length).toEqual(2); // budgets added
+            expect(barGraphView.$el.find(".bar").length).toEqual(_.size(DATA.categories) * 2); // 2 budget per category
+        });
+
+        it("should render bars at the right height", function() {
+            barGraphView.render();
+            expect(barGraphView.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
+        });
+
+        it("should update bar height when the model changes", function() {
+            barGraphView.render();
+            budget1.set('defense', 40);
+            expect(barGraphView.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
+        });
     });
 
-    it("should render a bar in each column for each category", function() {
-        barGraphView.render();
-        expect(barGraphView.$el.find(".category:first .bar").length).toEqual(2); // budgets added
-        expect(barGraphView.$el.find(".bar").length).toEqual(_.size(DATA.categories) * 2); // 2 budget per category
-    });
-
-    it("should render bars at the right height", function() {
-        barGraphView.render();
-        expect(barGraphView.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
-    });
-
-    it("should update bar height when the model changes", function() {
-        barGraphView.render();
-        budget1.set('defense', 40);
-        expect(barGraphView.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
-    });
 });
