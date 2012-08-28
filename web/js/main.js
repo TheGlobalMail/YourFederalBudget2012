@@ -6,6 +6,10 @@ _.each(DATA.categories, function(value, id) {
     barGraph.addCategory(id, value);
 });
 
+$('.popover-link').arrowPopover({
+        actionToActivatePopover: 'click'
+    });
+
 TGM.userBudget = new TGM.Models.Budget();
 TGM.federalBudget = new TGM.Models.Budget();
 barGraph.model = TGM.userBudget;
