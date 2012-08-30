@@ -4,7 +4,8 @@ TGM.Views.EmailPageView = Backbone.View.extend({
         "shown": "onShow",
         "hidden": "onClose",
         "click .add-another-to-email": "addToEmailField",
-        "submit form": "onFormSubmit"
+        "submit form": "onFormSubmit",
+        "reset form": "onFormReset"
     },
 
     initialize: function()
@@ -14,6 +15,8 @@ TGM.Views.EmailPageView = Backbone.View.extend({
         this.$toEmailFields = this.$('.to-email-fields');
         this.$form = this.$('form');
         this.$toEmailField = this.$toEmailFields.children('div:first').clone();
+        this.$success = this.$('.alert-success');
+        this.successfullySent = false;
     },
 
     addToEmailField: function()
@@ -26,6 +29,11 @@ TGM.Views.EmailPageView = Backbone.View.extend({
 
     show: function(event)
     {
+        if (this.successfullySent) {
+            this.$form[0].reset();
+            this.successfullySent = false;
+        }
+
         if (event) {
             event.preventDefault();
             // hide popover
@@ -43,6 +51,8 @@ TGM.Views.EmailPageView = Backbone.View.extend({
     onShow: function()
     {
         $('body').css('overflow', 'hidden');
+        this.$el.removeClass('hide');
+        this.$('.your-name-wrapper input').focus();
     },
 
     onClose: function()
@@ -85,11 +95,15 @@ TGM.Views.EmailPageView = Backbone.View.extend({
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
-            success: function(data, textStatus, jqXHR) {
-                console.log(arguments);
-            },
+            success: this.sendSuccess,
             error: _.debounce(this.showErrors, 700)
         });
+    },
+
+    onFormReset: function()
+    {
+        this.$success.removeClass('in').addClass('hide');
+        this.$toEmailFields.html(this.$toEmailField.clone());
     },
 
     showErrors: function(jqXHR)
@@ -126,6 +140,16 @@ TGM.Views.EmailPageView = Backbone.View.extend({
         }
 
         $help.html(message);
+    },
+
+    sendSuccess: function()
+    {
+        this.toggleSending();
+        this.$success.removeClass('hide').addClass('in');
+        setTimeout(_.bind(function() {
+            this.$el.modal('hide');
+            this.successfullySent = true;
+        }, this), 3000);
     }
 
 });
