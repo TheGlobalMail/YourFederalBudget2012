@@ -1,7 +1,8 @@
 {
     "require": {
         "silex/silex": "1.0.*",
-        "twig/twig": "1.*"
+        "twig/twig": "1.*",
+        "sendgrid/sendgrid-php": "dev-master"
     },
     "minimum-stability": "dev",
     "autoload": {

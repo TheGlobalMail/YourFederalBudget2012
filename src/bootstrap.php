@@ -30,6 +30,13 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../templates',
 ));
 
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
+
 ## CONTROLLERS ##
 $app->get('/', function() use ($app) {
     return $app['twig']->render('index.twig', array(
@@ -50,5 +57,16 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
     return new Response($exec, $response);
 });
 
+$app->post('/email-page', function(Request $request) use ($app) {
+    $epf = new \DGM\Form\EmailPageForm(new SendGrid('theglobamail', 've*P6ZnB0pX'), $request->request->all());
+    $epf->validate();
+
+    if ($epf->isValid()) {
+        //$epf->send();
+        return $app->json(['message' => 'Email(s) sent']);
+    }
+
+    return $app->json($epf->getErrors(), 400);
+});
 
 return $app;

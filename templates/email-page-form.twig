@@ -1,0 +1,46 @@
+<div class="modal hide fade" id="email-page-form">
+    <form action="#">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 class="title">Share via Email</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group your-name-wrapper">
+                <label for="your-name" class="control-label">Your Name</label>
+                <div class="controls">
+                    <input type="text" name="your-name" id="your-name">
+                    <div class="help-block"></div>
+                </div>
+            </div>
+
+            <div class="control-group your-email-wrapper">
+                <label for="your-email" class="control-label">Your Email</label>
+
+                <div class="controls">
+                    <input type="email" name="your-email" id="your-email">
+                    <div class="help-block"></div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="to-email-fields">
+                <div class="control-group">
+                    <label class="control-label">
+                        <div class="controls">
+                            To Email
+                            <input type="email" name="toEmail[]" class="toEmail">
+                            <div class="help-block"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="btn add-another-to-email">Add Another</div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-link" data-dismiss="modal">Cancel</a>
+            <button type="submit" class="btn btn-primary">Send Email <i class="icon-share icon-white"></i></button>
+        </div>
+    </form>
+</div>

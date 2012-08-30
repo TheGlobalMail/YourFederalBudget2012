@@ -1,8 +1,10 @@
 {
     "frontend": {
         "scripts": [
+            "vendor/JSON-js/json2.js",
             "vendor/jquery/jquery-1.7.2.js",
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
+            "vendor/jquery-ui/ui/jquery.effects.shake.js",
             "vendor/underscore/underscore.js",
             "vendor/backbone/backbone.js",
             "vendor/bootstrap/js/bootstrap-transition.js",
@@ -17,6 +19,7 @@
             "js/views/CategoryAllocationView.js",
             "js/views/BudgetOverviewView.js",
             "js/views/MoreInfoView.js",
+            "js/views/EmailPageView.js",
             "js/main.js"
         ],
         "less": "less/budget",

@@ -17,7 +17,7 @@
                             <div class="arrow"></div>
                             <div class="popover-inner">
                                 <h3>Share the budget tool</h3>
-                                <a class="btn email-button" href="#" storyId="356">
+                                <a class="btn email-button email-page-link">
                                     <img src="/vendor/tgm/images/mail-icon.png" alt="mail icon">
                                     email
                                 </a>
@@ -75,17 +75,9 @@
             </div>
         </div>
 
-        <div class="modal email-it hide fade">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h3 class="title">Share via Email</h3>
-            </div>
-            <div class="modal-body">
-                Email Form
-            </div>
-            div.
-        </div>
+        {% include 'email-page-form.twig' %}
 
         {% include 'javascript.twig' %}
+
     </body>
 </html>

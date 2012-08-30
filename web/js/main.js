@@ -7,8 +7,8 @@ _.each(DATA.categories, function(value, id) {
 });
 
 $('.popover-link').arrowPopover({
-        actionToActivatePopover: 'click'
-    });
+    actionToActivatePopover: 'click'
+});
 
 TGM.userBudget = new TGM.Models.Budget();
 TGM.federalBudget = new TGM.Models.Budget();
@@ -18,3 +18,5 @@ barGraph.addBudget("federal", TGM.federalBudget);
 
 TGM.budgetAllocatorView = new TGM.Views.BudgetAllocatorView({ model: TGM.userBudget });
 barGraph.render();
+
+emailPageView = new TGM.Views.EmailPageView({ el: $("#email-page-form") });

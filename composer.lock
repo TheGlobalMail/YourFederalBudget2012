@@ -1,5 +1,5 @@
 {
-    "hash": "251ba8a7ffb9da1747de3166635891ba",
+    "hash": "da00ccb4e4330b3f007d6f1badcacad3",
     "packages": [
         {
             "package": "pimple/pimple",
@@ -14,6 +14,12 @@
             "commit-date": "1343051648"
         },
         {
+            "package": "sendgrid/sendgrid-php",
+            "version": "dev-master",
+            "source-reference": "c4835707b25de9ee840d34f23b38f9c2340734cd",
+            "commit-date": "1342721675"
+        },
+        {
             "package": "silex/silex",
             "version": "dev-master",
             "alias-pretty-version": "1.0.x-dev",
@@ -22,8 +28,8 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "6d7cf048c704c0c58276b01eccfacab4dd11d013",
-            "commit-date": "1344453846"
+            "source-reference": "5b796aeb3ee2d7448e108abfded9fd838d05e4e6",
+            "commit-date": "1346245569"
         },
         {
             "package": "symfony/event-dispatcher",
@@ -34,8 +40,8 @@
         {
             "package": "symfony/event-dispatcher",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA4",
-            "commit-date": "1342739894"
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
         },
         {
             "package": "symfony/http-foundation",
@@ -46,8 +52,8 @@
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "9a509ac3bb52076f5a765a85e9552042b40ce287",
-            "commit-date": "1344594770"
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
         },
         {
             "package": "symfony/http-kernel",
@@ -58,8 +64,8 @@
         {
             "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "0d0ee371ab0425f3399dba9e25d7ad98ca5c0d62",
-            "commit-date": "1344074675"
+            "source-reference": "aeffdc93a69b65dad2f61c917f73c84b8e387ba4",
+            "commit-date": "1346143430"
         },
         {
             "package": "symfony/routing",
@@ -70,8 +76,8 @@
         {
             "package": "symfony/routing",
             "version": "dev-master",
-            "source-reference": "v2.1.0-RC1",
-            "commit-date": "1343744077"
+            "source-reference": "56fa8f9759e550e98e88602a7f4f3a2abb285d18",
+            "commit-date": "1346222178"
         },
         {
             "package": "twig/twig",
@@ -82,8 +88,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "f2f698c820d4396f519ef4175ad6fe79fcfb9ecf",
-            "commit-date": "1344328685"
+            "source-reference": "300b26cf8eee5645bb3b07e83fd81760ab452768",
+            "commit-date": "1346219047"
         }
     ],
     "packages-dev": null,
@@ -91,7 +97,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "sendgrid/sendgrid-php": 20
+    }
 }
