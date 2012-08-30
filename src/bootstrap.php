@@ -62,7 +62,7 @@ $app->post('/email-page', function(Request $request) use ($app) {
     $epf->validate();
 
     if ($epf->isValid()) {
-        //$epf->send();
+        $epf->send();
         return $app->json(['message' => 'Email(s) sent']);
     }
 
