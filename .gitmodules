@@ -22,3 +22,6 @@
 [submodule "tests/lib/phantom-jasmine"]
 	path = tests/lib/phantom-jasmine
 	url = git://github.com/jcarver989/phantom-jasmine.git
+[submodule "web/vendor/JSON-js"]
+	path = web/vendor/JSON-js
+	url = git://github.com/douglascrockford/JSON-js.git
