@@ -2,10 +2,6 @@ TGM.Views.BudgetOverviewView = Backbone.View.extend({
 
     el: $("#budget-overview"),
 
-    events: {
-        "click #reset": "resetBudget"
-    },
-
     initialize: function()
     {
         _.bindAll(this);
@@ -19,11 +15,6 @@ TGM.Views.BudgetOverviewView = Backbone.View.extend({
     {
         this.$total.text(this.model.getTotal());
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
-    },
-
-    resetBudget: function()
-    {
-        this.model.resetBudget();
     }
 
 });

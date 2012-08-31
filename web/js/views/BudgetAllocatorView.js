@@ -1,5 +1,9 @@
 TGM.Views.BudgetAllocatorView = Backbone.View.extend({
 
+    events: {
+        "click #reset-budget-btn": "resetBudget"
+    },
+
     el: $('#budget-allocator'),
 
     categoryViews: {},
@@ -39,6 +43,11 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
     {
         this.expandedCategory.collapse();
         this.expandedCategory = this.categoryViews[newCategory];
+    },
+
+    resetBudget: function()
+    {
+        this.model.resetBudget();
     }
 
 });
