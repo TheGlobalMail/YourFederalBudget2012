@@ -81,8 +81,8 @@ TGM.Views.EmailPageView = Backbone.View.extend({
         this.toggleSending(true);
 
         var data = {
-            "yourName": this.$('[name="your-name"]').val(),
-            "yourEmail": this.$('[name="your-email"]').val(),
+            "yourName": this.$('[name="yourName"]').val(),
+            "yourEmail": this.$('[name="yourEmail"]').val(),
             toEmails: []
         };
 
