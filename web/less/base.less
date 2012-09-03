@@ -1,0 +1,75 @@
+header.navbar {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+#main {
+    @appWidth: 940px;
+    @columnRatio: 0.3;
+    height: 600px;
+    width: @appWidth;
+    margin: 5px auto;
+
+    #left-column {
+        float: left;
+        width: @appWidth * @columnRatio;
+        position: relative;
+
+        .nav-tabs {
+            margin-bottom: 0;
+
+            li {
+                width: 50%;
+                text-align: center;
+
+                a {
+                    .ui-title;
+                    color: @textColor;
+                    font-size: 110%;
+                }
+
+                &:last-child {
+                    .pull-right;
+
+                    a {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        .tab-content {
+            padding: 18px 5px 5px 5px;
+            height: 510px;
+            border: 1px solid #ddd;
+            border-top-color: transparent;
+            position: relative;
+            // force all content up so there's no gaps in the side borders
+            top: -1px;
+        }
+    }
+
+    #right-column {
+        float: right;
+        width: (@appWidth * (1 - @columnRatio)) - 20px;
+    }
+}
+
+.ui-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.help-block {
+    margin-bottom: 0;
+}
+
+.control-label {
+    .ui-title;
+    font-size: 90%;
+
+    .help-block {
+        font-weight: normal;
+        text-transform: none;
+    }
+}
