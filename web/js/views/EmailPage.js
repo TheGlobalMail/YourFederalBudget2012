@@ -1,4 +1,4 @@
-TGM.Views.EmailPageView = Backbone.View.extend({
+TGM.Views.EmailPage = Backbone.View.extend({
 
     events: {
         "shown": "onShow",

@@ -1,5 +1,5 @@
 describe("Budget Allocator View", function() {
-    var budgetAllocatorView, model, sampleData = {
+    var budgetAllocator, model, sampleData = {
         defense: 50,
         health: 52,
         immigration: 49,
@@ -27,24 +27,24 @@ describe("Budget Allocator View", function() {
 
     beforeEach(function() {
         model = new TGM.Models.Budget(sampleData);
-        budgetAllocatorView = new TGM.Views.BudgetAllocatorView({ model: model, el: $el.clone() });
-        budgetAllocatorView.$el.appendTo('body');
+        budgetAllocator = new TGM.Views.BudgetAllocator({ model: model, el: $el.clone() });
+        budgetAllocator.$el.appendTo('body');
         this.clock = sinon.useFakeTimers();
     });
 
     afterEach(function() {
-        budgetAllocatorView.$el.remove();
+        budgetAllocator.$el.remove();
         this.clock.restore();
     });
 
     it("should show the first category slider", function() {
-        var first = budgetAllocatorView.$('.category:first');
+        var first = budgetAllocator.$('.category:first');
         expect(first.find('.expander')).toBeVisible();
         expect(first).toHaveClass('visible');
     });
 
     it("should hide all other categories", function() {
-        var rest = budgetAllocatorView.$('.category').not(':first');
+        var rest = budgetAllocator.$('.category').not(':first');
         expect(rest.find('.expander')).toBeHidden();
         expect(rest).not.toHaveClass('visible');
     });
@@ -54,7 +54,7 @@ describe("Budget Allocator View", function() {
         // let animation run
         this.clock.tick(1000);
 
-        var first = budgetAllocatorView.$('.category:first');
+        var first = budgetAllocator.$('.category:first');
         expect(first.find('.expander')).toBeHidden();
         expect(first).not.toHaveClass('visible');
     });

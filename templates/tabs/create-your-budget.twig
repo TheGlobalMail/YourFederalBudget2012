@@ -19,20 +19,21 @@
     </div>
 
     <div class="derpa-derp">
-        <button class="btn" id="reset-budget-btn">Reset</button>
-        <button class="btn btn-primary pull-right" id="save-budget-btn">Save &amp; Share</button>
+        <button class="btn btn-link" id="reset-budget-btn"><i class="icon-repeat"></i> Reset</button>
+        <button class="btn btn-primary pull-right" id="save-budget-btn"><i class="icon-ok"></i> Save &amp; Share</button>
     </div>
 </div>
 
 <div id="save-budget-pane" class="sidepane hide">
-    <h2>Save your budget</h2>
+    <h3>Save your budget</h3>
+
     <form action="#" id="save-budget-form">
         <div class="control-group your-name-wrapper">
             <label class="control-label">
                 Your Name and State
-                <small class="help-block">This is how you can identify your budget ie. &quot;John's Budget&quot;. No personal information other than this will be displayed.</small>
+                <small class="help-block">This is required so you can name your budget ie. &quot;John's Budget - NSW&quot;. No personal information other than this will be displayed.</small>
                 <div class="controls">
-                    <input type="text" name="yourName">
+                    <input type="text" name="yourName" placeholder="Your firstname">
                     <select name="yourState">
                         <option value="ACT">ACT</option>
                         <option value="NSW">NSW</option>
@@ -45,6 +46,43 @@
                     </select>
                 </div>
             </label>
+        </div>
+
+        <div class="control-group your-email-wrapper">
+            <label class="control-label">
+                Your Email Address
+                <small class="help-block">A link to your budget will be sent. Your email address wil not displayed publicly</small>
+                <div class="controls">
+                    <input type="email" name="yourEmail" placeholder="Your email">
+                </div>
+            </label>
+        </div>
+
+        <div class="control-group budget-description-wrapper">
+            <label class="control-label">
+                Describe Your Budget <em>(Optional)</em>
+                <small class="help-block">A link to your budget will be sent. Your email address wil not displayed publicly</small>
+                <div class="controls">
+                    <textarea name="budgetDescription" placeholder="Why you created it the way you did"></textarea>
+                </div>
+            </label>
+        </div>
+
+        <div class="control-group subscribe-wrapper">
+            <label class="control-label light">
+                <input type="checkbox" name="subscribe"> Subscribe to The Global Mail newsletter
+            </label>
+        </div>
+
+        <hr>
+
+        <div class="control-group buttons">
+            <button type="reset" class="btn btn-link" id="cancel-save-budget">Cancel</button>
+            <button type="submit" class="btn btn-inverse" id="submit-save-budget">Save</button>
+
+            <div class="help-block">
+                You'll be able to share your budget after saving.
+            </div>
         </div>
     </form>
 </div>

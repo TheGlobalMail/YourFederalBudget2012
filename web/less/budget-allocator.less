@@ -116,6 +116,16 @@
 }
 
 #save-budget-pane {
+    .full-width {
+            width: 100%;
+            .box-sizing(border-box);
+            display: block;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
     .your-name-wrapper {
         input {
             width: 183px;
@@ -124,7 +134,65 @@
 
         select {
             width: 75px;
+            height: 28px;
             .pull-right;
+        }
+    }
+
+    .your-email-wrapper {
+        input {
+            .full-width;
+            height: 28px;
+        }
+    }
+
+    .budget-description-wrapper {
+        textarea {
+            .full-width;
+            height: 80px;
+        }
+    }
+
+    .subscribe-wrapper {
+        label {
+            font-weight: normal;
+            text-transform: none;
+            cursor: pointer;
+        }
+
+        input {
+            margin: 0;
+        }
+    }
+
+    .control-group.buttons {
+        button {
+            display: block;
+            margin: 0;
+            .ui-title;
+            height: 40px;
+        }
+
+        #cancel-save-budget {
+            .pull-left;
+            color: @grayLight;
+            margin-left: 12px;
+            width: 32%;
+        }
+
+        #submit-save-budget {
+            .pull-right;
+            margin-right: 12px;
+            width: 50%;
+        }
+
+        .help-block {
+            width: 55%;
+            font-size: @grayLight;
+            font-size: 90%;
+            .pull-right;
+            margin-top: 5px;
+            text-align: center;
         }
     }
 }

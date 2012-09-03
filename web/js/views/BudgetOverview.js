@@ -1,6 +1,4 @@
-TGM.Views.BudgetOverviewView = Backbone.View.extend({
-
-    el: $("#budget-overview"),
+TGM.Views.BudgetOverview = Backbone.View.extend({
 
     initialize: function()
     {

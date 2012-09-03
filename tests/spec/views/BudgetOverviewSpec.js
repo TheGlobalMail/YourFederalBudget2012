@@ -1,5 +1,5 @@
-describe("Budget Overview View", function() {
-    var budgetOverviewView, model, sampleData = {
+describe("Budget Over View", function() {
+    var budgetOverview, model, sampleData = {
         defense: 50,
         health: 52,
         immigration: 49,
@@ -14,7 +14,7 @@ describe("Budget Overview View", function() {
 
     beforeEach(function() {
         model = new TGM.Models.Budget(sampleData);
-        budgetOverviewView = new TGM.Views.BudgetOverviewView({ model: model, el: $el });
+        budgetOverview = new TGM.Views.BudgetOverview({ model: model, el: $el });
         this.clock = sinon.useFakeTimers();
     });
 
@@ -26,13 +26,13 @@ describe("Budget Overview View", function() {
         it("should updated the exact total amount when the model changes", function() {
             model.set('defense', 13);
             this.clock.tick(110);
-            expect(budgetOverviewView.$el.find("#budget-total").text()).toEqual("294");
+            expect(budgetOverview.$el.find("#budget-total").text()).toEqual("294");
         });
 
         it("should update the allowance bar width", function() {
-            var currentWidth = budgetOverviewView.$progress.width();
+            var currentWidth = budgetOverview.$progress.width();
             model.set('defense', 60);
-            expect(budgetOverviewView.$progress.width()).toBeGreaterThan(currentWidth);
+            expect(budgetOverview.$progress.width()).toBeGreaterThan(currentWidth);
         });
     });
 });

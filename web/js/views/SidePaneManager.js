@@ -1,4 +1,4 @@
-TGM.Views.SidePaneManagerView = Backbone.View.extend({
+TGM.Views.SidePaneManager = Backbone.View.extend({
 
     sidePanes: {},
 
@@ -18,8 +18,8 @@ TGM.Views.SidePaneManagerView = Backbone.View.extend({
         if (!this.currentPane) {
             var paneEl = this.$('.sidepane:visible');
 
-            this.currentPane = _.find(this.sidePanes, function(paneView) {
-                return paneView.$el[0] == paneEl[0];
+            this.currentPane = _.find(this.sidePanes, function(pane) {
+                return pane.$el[0] == paneEl[0];
             });
         }
 

@@ -1,4 +1,4 @@
-TGM.Views.MoreInfoView = Backbone.View.extend({
+TGM.Views.MoreInfo = Backbone.View.extend({
 
     events: {
         'click .read-more': "readMore"

@@ -1,4 +1,4 @@
-TGM.Views.BudgetAllocatorView = TGM.Views.SidePaneView.extend({
+TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     events: {
         "click #save-budget-btn": "saveBudget",
@@ -7,7 +7,7 @@ TGM.Views.BudgetAllocatorView = TGM.Views.SidePaneView.extend({
 
     el: $('#budget-allocator'),
 
-    categoryViews: {},
+    categorys: {},
 
     initialize: function()
     {
@@ -15,25 +15,25 @@ TGM.Views.BudgetAllocatorView = TGM.Views.SidePaneView.extend({
 
         _.each(this.$('.category'), function(el) {
             var id = $(el).data('id');
-            var view = new TGM.Views.CategoryAllocationView({
+            var view = new TGM.Views.CategoryAllocation({
                 el: el,
                 category: id,
                 model: this.model
             });
-            this.categoryViews[id] = view;
+            this.categorys[id] = view;
         }, this);
 
-        var firstCategoryId = _.chain(this.categoryViews).keys().first().value();
+        var firstCategoryId = _.chain(this.categorys).keys().first().value();
 
         // collapse all categories except the first one
-        _.chain(this.categoryViews)
+        _.chain(this.categorys)
             .filter(function(view, categoryId) { return categoryId != firstCategoryId; })
             .invoke("hide");
 
         // currently expanded category is the first one
-        this.expandedCategory = this.categoryViews[firstCategoryId];
+        this.expandedCategory = this.categorys[firstCategoryId];
 
-        this.budgetOverview = new TGM.Views.BudgetOverviewView({ model: this.model });
+        this.budgetOverview = new TGM.Views.BudgetOverview({ model: this.model, el: $("#budget-overview") });
 
         // tell everyone the first category is open before we listen to the event ourself
         this.expandedCategory.expand({ force: true, doAnimation: false });
@@ -43,7 +43,7 @@ TGM.Views.BudgetAllocatorView = TGM.Views.SidePaneView.extend({
     switchCategory: function(newCategory)
     {
         this.expandedCategory.collapse();
-        this.expandedCategory = this.categoryViews[newCategory];
+        this.expandedCategory = this.categorys[newCategory];
     },
 
     saveBudget: function()

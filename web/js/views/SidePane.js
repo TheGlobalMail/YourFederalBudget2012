@@ -1,4 +1,4 @@
-TGM.Views.SidePaneView = Backbone.View.extend({
+TGM.Views.SidePane = Backbone.View.extend({
 
     animationSpeed: 150,
 

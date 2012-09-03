@@ -1,4 +1,4 @@
-TGM.Views.BarGraphView = Backbone.View.extend({
+TGM.Views.BarGraph = Backbone.View.extend({
 
     categories: {},
     budgets: {},

@@ -1,5 +1,5 @@
 describe("More Info View", function() {
-    var moreInfoView, $el = $([
+    var moreInfo, $el = $([
         '<div>',
             '<div class="title"></div>',
             '<div class="info"></div>',
@@ -11,21 +11,21 @@ describe("More Info View", function() {
     ].join(""));
 
     beforeEach(function() {
-        moreInfoView = new TGM.Views.MoreInfoView({ el: $el.clone() });
+        moreInfo = new TGM.Views.MoreInfo({ el: $el.clone() });
         this.clock = sinon.useFakeTimers();
-        moreInfoView.$el.appendTo('body');
+        moreInfo.$el.appendTo('body');
     });
 
     afterEach(function() {
-        moreInfoView.$el.remove();
+        moreInfo.$el.remove();
         this.clock.restore();
     });
 
     it("should update short info and title when active category changes", function() {
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'health');
 
-        expect(moreInfoView.$title).toHaveText(/Health/);
-        expect(moreInfoView.$info).toHaveText(/Health/);
+        expect(moreInfo.$title).toHaveText(/Health/);
+        expect(moreInfo.$info).toHaveText(/Health/);
     });
 
     describe("Extended Info", function() {
@@ -34,19 +34,19 @@ describe("More Info View", function() {
         });
 
         it("shouldn't be visible by default", function() {
-            expect(moreInfoView.$extendedInfo).toHaveClass('hide');
+            expect(moreInfo.$extendedInfo).toHaveClass('hide');
         });
 
         it("should show the modal when read more is click", function() {
-            moreInfoView.$('.read-more').trigger('click');
+            moreInfo.$('.read-more').trigger('click');
             this.clock.tick(200)
 
-            expect(moreInfoView.$extendedInfo).toBeVisible();
+            expect(moreInfo.$extendedInfo).toBeVisible();
         });
 
         it("should update the extended info when active category changes", function() {
             TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'education');
-            expect(moreInfoView.$modalBody).toHaveText(/Education/);
+            expect(moreInfo.$modalBody).toHaveText(/Education/);
         });
     });
 });

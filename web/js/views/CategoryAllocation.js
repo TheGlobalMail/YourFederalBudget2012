@@ -1,4 +1,4 @@
-TGM.Views.CategoryAllocationView = Backbone.View.extend({
+TGM.Views.CategoryAllocation = Backbone.View.extend({
 
     events: {
         "slide .slider-control": "onSlide",

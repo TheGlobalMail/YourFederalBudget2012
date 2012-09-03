@@ -44,11 +44,11 @@ $app['config'] = $config;
   <?php endforeach; ?>
 
   <script src="/tests/spec/models/BudgetSpec.js"></script>
-  <script src="/tests/spec/views/BudgetOverviewViewSpec.js"></script>
-  <script src="/tests/spec/views/BarGraphViewSpec.js"></script>
-  <script src="/tests/spec/views/BudgetAllocatorViewSpec.js"></script>
-  <script src="/tests/spec/views/CategoryAllocationViewSpec.js"></script>
-  <script src="/tests/spec/views/MoreInfoViewSpec.js"></script>
+  <script src="/tests/spec/views/BudgetOverviewSpec.js"></script>
+  <script src="/tests/spec/views/BarGraphSpec.js"></script>
+  <script src="/tests/spec/views/BudgetAllocatorPaneSpec.js"></script>
+  <script src="/tests/spec/views/CategoryAllocationPaneSpec.js"></script>
+  <script src="/tests/spec/views/MoreInfoPaneSpec.js"></script>
 
 </head>
 
