@@ -8,6 +8,9 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = require __DIR__ .'/../src/bootstrap.php';
+$config = $app['config'];
+$config['categories'] = json_decode(file_get_contents(__DIR__ . '/categories.json'), true);
+$app['config'] = $config;
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
