@@ -1,0 +1,50 @@
+<div id="budget-allocator" class="sidepane">
+    <div id="budget-overview">
+        <div class="top">
+            <div class="title">Total Tax Dollars</div>
+            <div class="spent">$<span id="budget-total">0</span>b</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress">
+                <div class="bar" style="width: 60%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories">
+        {% for key, category in app.config.categories %}
+            {% include 'slider-box.twig' with { 'id': key, 'label': category.label, 'federalAllocation': category.federalAllocation } %}
+        {% endfor %}
+    </div>
+
+    <div class="derpa-derp">
+        <button class="btn" id="reset-budget-btn">Reset</button>
+        <button class="btn btn-primary pull-right" id="save-budget-btn">Save &amp; Share</button>
+    </div>
+</div>
+
+<div id="save-budget-pane" class="sidepane hide">
+    <h2>Save your budget</h2>
+    <form action="#" id="save-budget-form">
+        <div class="control-group your-name-wrapper">
+            <label class="control-label">
+                Your Name and State
+                <small class="help-block">This is how you can identify your budget ie. &quot;John's Budget&quot;. No personal information other than this will be displayed.</small>
+                <div class="controls">
+                    <input type="text" name="yourName">
+                    <select name="yourState">
+                        <option value="ACT">ACT</option>
+                        <option value="NSW">NSW</option>
+                        <option value="NT">NT</option>
+                        <option value="QLD">QLD</option>
+                        <option value="SA">SA</option>
+                        <option value="TAS">TAS</option>
+                        <option value="WA">WA</option>
+                        <option value="NONE">Outside Australia</option>
+                    </select>
+                </div>
+            </label>
+        </div>
+    </form>
+</div>

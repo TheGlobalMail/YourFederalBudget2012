@@ -12,29 +12,22 @@
 
         <div id="main" class="container">
             <div id="left-column">
-                <div id="budget-allocator">
-                    <div class="categories">
-                        {% for key, category in app.config.categories %}
-                            {% include 'slider-box.twig' with { 'id': key, 'label': category.label, 'federalAllocation': category.federalAllocation } %}
-                        {% endfor %}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#budget-allocator-tab" data-toggle="tab">Create your budget</a></li>
+                    <li><a href="#other-budgets-tab" data-toggle="tab">From other readers</a></li>
+                </ul>
 
-                        <div id="budget-overview">
-                            <div class="top">
-                                <div class="title">Your Budget</div>
-                                <div class="spent">$<span id="budget-total">0</span>b</div>
-                            </div>
+                <div class="tab-content">
+                    <div id="budget-allocator-tab" class="tab-pane active fade in">
+                        {% include 'tabs/create-your-budget.twig' %}
+                    </div>
 
-                            <div class="progress-bar">
-                                <div class="progress">
-                                    <div class="bar" style="width: 60%"></div>
-                                </div>
-                            </div>
-
-                            <button class="btn" id="reset-budget-btn">Reset</button>
-                        </div>
+                    <div id="other-budgets-tab" class="tab-pane fade">
+                        Other budgets
                     </div>
                 </div>
             </div>
+
             <div id="right-column">
                 <div id="visualisation"></div>
                 <div id="more-info">

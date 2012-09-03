@@ -11,6 +11,7 @@
             "vendor/bootstrap/js/bootstrap-tooltip.js",
             "vendor/bootstrap/js/bootstrap-popover.js",
             "vendor/bootstrap/js/bootstrap-modal.js",
+            "vendor/bootstrap/js/bootstrap-tab.js",
             "vendor/tgm/popovers.js",
             "js/bootstrap.js",
             "js/models/Budget.js",
