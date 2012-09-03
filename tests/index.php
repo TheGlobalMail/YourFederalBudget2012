@@ -47,8 +47,8 @@ $app['config'] = $config;
   <script src="/tests/spec/views/BudgetOverviewSpec.js"></script>
   <script src="/tests/spec/views/BarGraphSpec.js"></script>
   <script src="/tests/spec/views/BudgetAllocatorPaneSpec.js"></script>
-  <script src="/tests/spec/views/CategoryAllocationPaneSpec.js"></script>
-  <script src="/tests/spec/views/MoreInfoPaneSpec.js"></script>
+  <script src="/tests/spec/views/CategoryAllocationSpec.js"></script>
+  <script src="/tests/spec/views/MoreInfoSpec.js"></script>
 
 </head>
 

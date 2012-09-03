@@ -27,7 +27,7 @@ describe("Budget Allocator View", function() {
 
     beforeEach(function() {
         model = new TGM.Models.Budget(sampleData);
-        budgetAllocator = new TGM.Views.BudgetAllocator({ model: model, el: $el.clone() });
+        budgetAllocator = new TGM.Views.BudgetAllocatorPane({ model: model, el: $el.clone() });
         budgetAllocator.$el.appendTo('body');
         this.clock = sinon.useFakeTimers();
     });
