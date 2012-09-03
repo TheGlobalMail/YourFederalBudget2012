@@ -7,30 +7,7 @@
     </head>
     <body>
         <header class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a href="/" class="brand">How to spend 364 billion dollars</a>
-
-                    <div class="icons">
-                        <a class="share popover-link carousel-sticky-popover-link" href="javascript:void(0)"><span class="text">share</span></a>
-                        <div id="share-box" class="popover share-box">
-                            <div class="arrow"></div>
-                            <div class="popover-inner">
-                                <h3>Share the budget tool</h3>
-                                <a class="btn email-button email-page-link">
-                                    <img src="/vendor/tgm/images/mail-icon.png" alt="mail icon">
-                                    email
-                                </a>
-                                <div class="addthis_toolbox">
-                                    <a class="addthis_button_facebook_like" fb:like:layout="box_count" fb:like:href="http://budget2012-dev/" fb:like:width="49" fb:like:height="62"></a>
-                                    <a class="addthis_button_tweet" tw:count="vertical" tw:url="http://budget2012-dev.thegmail.net.au:8080/"></a>
-                                    <a class="addthis_button_google_plusone" g:plusone:size="tall" g:plusone:href="http://budget2012-dev/"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include 'header.twig' %}
         </header>
 
         <div id="main" class="container">
