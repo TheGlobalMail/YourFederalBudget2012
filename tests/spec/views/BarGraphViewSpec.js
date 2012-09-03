@@ -40,7 +40,7 @@ describe("Bar Graph Visualisation", function() {
         barGraphView.addBudget("federal", budget2);
     });
 
-    describe("Bars", {
+    describe("Bars", function() {
         it("should render a column for each category", function() {
             barGraphView.render();
             expect(barGraphView.$el.find('.category').length).toEqual(_.size(DATA.categories));

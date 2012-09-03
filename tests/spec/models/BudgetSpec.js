@@ -35,7 +35,7 @@ describe("Budget", function() {
     });
 
     it("should be able to calculate it's total", function() {
-        budget.set(sampleData)
+        budget.set(sampleData);
 
         expect(budget.getTotal()).toEqual(331);
     });
