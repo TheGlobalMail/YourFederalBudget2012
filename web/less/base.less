@@ -5,7 +5,7 @@ header.navbar {
 
 #main {
     @appWidth: 940px;
-    @columnRatio: 0.3;
+    @columnRatio: 0.33;
     height: 600px;
     width: @appWidth;
     margin: 5px auto;
@@ -20,12 +20,15 @@ header.navbar {
 
             li {
                 width: 50%;
-                text-align: center;
 
                 a {
                     .ui-title;
-                    color: @textColor;
                     font-size: 110%;
+                    text-align: center;
+                    .border-radius(0px);
+                    color: @textColor;
+                    .opacity(70);
+                    background-color: #eee;
                 }
 
                 &:last-child {
@@ -34,6 +37,15 @@ header.navbar {
                     a {
                         margin-right: 0;
                     }
+                }
+            }
+
+            li.active {
+                a {
+                    .opacity(100);
+                    color: @textColor;
+                    background-color: #fff;
+                    border-top: 3px solid @blue;
                 }
             }
         }
