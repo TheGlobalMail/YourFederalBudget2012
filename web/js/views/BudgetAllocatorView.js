@@ -1,6 +1,7 @@
-TGM.Views.BudgetAllocatorView = Backbone.View.extend({
+TGM.Views.BudgetAllocatorView = TGM.Views.SidePaneView.extend({
 
     events: {
+        "click #save-budget-btn": "saveBudget",
         "click #reset-budget-btn": "resetBudget"
     },
 
@@ -43,6 +44,11 @@ TGM.Views.BudgetAllocatorView = Backbone.View.extend({
     {
         this.expandedCategory.collapse();
         this.expandedCategory = this.categoryViews[newCategory];
+    },
+
+    saveBudget: function()
+    {
+        TGM.vent.trigger("showSidePane", "save-budget");
     },
 
     resetBudget: function()

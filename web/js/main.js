@@ -15,8 +15,14 @@ TGM.federalBudget = new TGM.Models.Budget();
 barGraph.model = TGM.userBudget;
 barGraph.addBudget("user", TGM.userBudget);
 barGraph.addBudget("federal", TGM.federalBudget);
-
-TGM.budgetAllocatorView = new TGM.Views.BudgetAllocatorView({ model: TGM.userBudget });
 barGraph.render();
 
 emailPageView = new TGM.Views.EmailPageView({ el: $("#email-page-form") });
+
+TGM.sidePanes = {
+    "budget-allocator": new TGM.Views.BudgetAllocatorView({ model: TGM.userBudget }),
+    "save-budget": new TGM.Views.SaveBudgetPaneView({ el: $("#save-budget-pane") })
+};
+sidePaneManager = new TGM.Views.SidePaneManagerView({ el: $("#budget-allocator-tab")});
+sidePaneManager.addSidePane("budget-allocator", TGM.sidePanes["budget-allocator"]);
+sidePaneManager.addSidePane("save-budget", TGM.sidePanes["save-budget"]);
