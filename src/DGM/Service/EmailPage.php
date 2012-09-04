@@ -1,17 +1,16 @@
 <?php
 
-namespace DGM\Form;
+namespace DGM\Service;
 
-class EmailPageForm
+class EmailPage extends BaseService implements Sanitizable
 {
 
     private $data;
     private $errors = array();
     private $sendGrid;
 
-    public function __construct(\SendGrid $sendGrid, array $data)
+    public function __construct(\SendGrid $sendGrid)
     {
-        $this->data = $data;
         $this->sendGrid = $sendGrid;
     }
 
@@ -28,9 +27,9 @@ class EmailPageForm
     public function validate()
     {
         $this->sanitize();
-        $this->errors = array();
+        $this->reset();
 
-        if (!strlen($this->data['yourName'])) {
+        if (!mb_strlen($this->data['yourName'])) {
             $this->errors['yourName'] = "Please enter your name";
         }
 
@@ -47,16 +46,6 @@ class EmailPageForm
                 $this->errors['toEmails'][$i] = "Please enter a valid email address";
             }
         }
-    }
-
-    public function isValid()
-    {
-        return !$this->getErrors();
-    }
-
-    public function getErrors()
-    {
-        return $this->errors;
     }
 
     public function send()
