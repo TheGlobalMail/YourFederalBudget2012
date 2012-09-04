@@ -35,14 +35,9 @@
                 <div class="controls">
                     <input type="text" name="yourName" placeholder="Your firstname">
                     <select name="yourState">
-                        <option value="ACT">ACT</option>
-                        <option value="NSW">NSW</option>
-                        <option value="NT">NT</option>
-                        <option value="QLD">QLD</option>
-                        <option value="SA">SA</option>
-                        <option value="TAS">TAS</option>
-                        <option value="WA">WA</option>
-                        <option value="NONE">Outside Australia</option>
+                        {% for key, value in app.config.frontend.states %}
+                        <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </label>
@@ -51,7 +46,7 @@
         <div class="control-group your-email-wrapper">
             <label class="control-label">
                 Your Email Address
-                <small class="help-block">A link to your budget will be sent. Your email address wil not displayed publicly</small>
+                <small class="help-block">A link to your budget will be sent here. Your email address will not displayed publicly</small>
                 <div class="controls">
                     <input type="email" name="yourEmail" placeholder="Your email">
                 </div>

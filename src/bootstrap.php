@@ -21,6 +21,7 @@ $fileConfig = json_decode(file_get_contents(__DIR__ . '/../resources/config.json
 $config = array_merge($config, $fileConfig);
 
 $app['config'] = $config;
+DGM\Models\Budget::$categoryData = $config['categories'];
 
 $app['db'] = $app->share(function() {
     return new \DGM\Database\MongoDB();
@@ -58,7 +59,8 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
 });
 
 $app->post('/email-page', function(Request $request) use ($app) {
-    $epf = new \DGM\Form\EmailPageForm(new SendGrid('theglobamail', 've*P6ZnB0pX'), $request->request->all());
+    $epf = new \DGM\Form\EmailPageForm(new SendGrid('theglobamail', 've*P6ZnB0pX'));
+    $epf->setData($request->request->all());
     $epf->validate();
 
     if ($epf->isValid()) {
