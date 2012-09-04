@@ -5,6 +5,7 @@
             "vendor/jquery/jquery-1.7.2.js",
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
             "vendor/jquery-ui/ui/jquery.effects.shake.js",
+            "vendor/jquery-ui-touch-punch/jquery.io.touch-punch.js",
             "vendor/underscore/underscore.js",
             "vendor/backbone/backbone.js",
             "vendor/bootstrap/js/bootstrap-transition.js",
