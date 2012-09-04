@@ -25,3 +25,6 @@
 [submodule "web/vendor/JSON-js"]
 	path = web/vendor/JSON-js
 	url = git://github.com/douglascrockford/JSON-js.git
+[submodule "web/vendor/jquery-ui-touch-punch"]
+	path = web/vendor/jquery-ui-touch-punch
+	url = git://github.com/furf/jquery-ui-touch-punch.git
