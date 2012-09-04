@@ -5,141 +5,121 @@ namespace DGM\Models;
 class Budget extends Model implements \JsonSerializable
 {
 
-    private $defense = 0;
-    private $health = 0;
-    private $immigration = 0;
-    private $welfare = 0;
-    private $taxBreaks = 0;
-    private $agriculture = 0;
-    private $education = 0;
-    private $energy = 0;
+    static public $categoryData;
 
-    public function __construct(array $data = array())
+    // id is controlled by Model
+    protected $id;
+    protected $collection = "budgets";
+
+    private $categories = array();
+    private $name;
+    private $email;
+    private $description;
+    private $state;
+
+    public function set(array $data)
     {
-        if ($data) {
-            $this->fromArray($data);
+        foreach ($data as $key => $value) {
+            if ($key == "name") {
+                $this->setName($value);
+            }
+
+            if ($key == "email") {
+                $this->setEmail($value);
+            }
+
+            if ($key == "description") {
+                $this->setDescription($value);
+            }
+
+            if (isset(self::$categoryData[$key])) {
+                $this->setCategory($key, $value);
+            }
         }
     }
 
-    public function fromArray(array $data)
+    public function setName($name)
     {
-        if ($data) {
-            $this->defense     = $data['defense'];
-            $this->health      = $data['health'];
-            $this->immigration = $data['immigration'];
-            $this->welfare     = $data['welfare'];
-            $this->taxBreaks   = $data['taxBreaks'];
-            $this->agriculture = $data['agriculture'];
-            $this->education   = $data['education'];
-            $this->energy      = $data['energy'];
-        }
+        $this->name = $name;
+        return $this;
     }
 
-    public function toArray()
+    public function setEmail($email)
     {
-        return [
-            "defense"     => $this->defense,
-            "health"      => $this->health,
-            "immigration" => $this->immigration,
-            "welfare"     => $this->welfare,
-            "taxBreaks"   => $this->taxBreaks,
-            "agriculture" => $this->agriculture,
-            "education"   => $this->education,
-            "energy"      => $this->energy
-        ];
+        $this->email = $email;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setCategory($name, $value)
+    {
+        $this->categories[$name] = $value;
+    }
+
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function getCategory($name)
+    {
+        return $this->categories[$name];
+    }
+
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    public function getState()
+    {
+        return $this->state;
     }
 
     public function jsonSerialize()
     {
-        return $this->toArray();
-    }
+        $data = [
+            "name" => $this->getName(),
+            "email" => $this->getEmail(),
+            "description" => $this->getDescription(),
+            "state" => $this->getState()
+        ];
 
-    public function getDefense()
-    {
-        return $this->defense;
-    }
+        if ($this->getId()) {
+            $data["_id"] = $this->getId();
+        }
 
-    public function setDefense($amount)
-    {
-        $this->defense = $amount;
-        return $this;
-    }
+        foreach ($this->getCategories() as $cat => $value) {
+            $data[$cat] = $value;
+        }
 
-    public function getHealth()
-    {
-        return $this->health;
-    }
-
-    public function setHealth($amount)
-    {
-        $this->health = $amount;
-        return $this;
-    }
-
-    public function getImmigration()
-    {
-        return $this->immigration;
-    }
-
-    public function setImmigration($amount)
-    {
-        $this->immigration = $amount;
-        return $this;
-    }
-
-    public function getWelfare()
-    {
-        return $this->welfare;
-    }
-
-    public function setWelfare($amount)
-    {
-        $this->welfare = $amount;
-        return $this;
-    }
-
-    public function getTaxBreaks()
-    {
-        return $this->taxBreaks;
-    }
-
-    public function setTaxBreaks($amount)
-    {
-        $this->taxBreaks = $amount;
-        return $this;
-    }
-
-    public function getAgriculture()
-    {
-        return $this->agriculture;
-    }
-
-    public function setAgriculture($amount)
-    {
-        $this->agriculture = $amount;
-        return $this;
-    }
-
-    public function getEducation()
-    {
-        return $this->education;
-    }
-
-    public function setEducation($amount)
-    {
-        $this->education = $amount;
-        return $this;
-    }
-
-    public function getEnergy()
-    {
-        return $this->energy;
-    }
-
-    public function setEnergy($amount)
-    {
-        $this->energy = $amount;
-        return $this;
+        return $data;
     }
 
 }
