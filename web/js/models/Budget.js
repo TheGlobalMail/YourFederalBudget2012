@@ -3,7 +3,9 @@ TGM.Models.Budget = Backbone.Model.extend({
     // automatically injected in main.js
     defaults: {},
 
-    url: '/budget',
+    url: '/budget/',
+
+    idAttribute: "_id",
 
     set: function(attribute, value, options)
     {
