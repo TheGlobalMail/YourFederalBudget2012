@@ -11,12 +11,12 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
         var data = {
             name: this.$(".your-name-wrapper input").val(),
+            state: this.$(".your-name-wrapper select").val(),
             email: this.$(".your-email-wrapper input").val(),
-            description: this.$(".budget-description textarea").val()
-        }
+            description: this.$(".budget-description-wrapper textarea").val()
+        };
 
-        this.model.set(data);
-        this.model.save({
+        this.model.save(data, {
             success: this.success,
             error: this.error
         });
@@ -30,7 +30,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
-        console.log(response);
+        model.set('clientId', response.clientId);
     },
 
     error: function(model, response)

@@ -2,7 +2,7 @@
 
 namespace DGM\Service;
 
-interface Santizeable
+interface Sanitizable
 {
 
     public function sanitize();

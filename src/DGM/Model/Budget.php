@@ -1,6 +1,8 @@
 <?php
 
-namespace DGM\Models;
+namespace DGM\Model;
+
+use DGM\Collection\Budgets;
 
 class Budget extends Model implements \JsonSerializable
 {
@@ -9,13 +11,14 @@ class Budget extends Model implements \JsonSerializable
 
     // id is controlled by Model
     protected $id;
-    protected $collection = "budgets";
+    public $collection = "budgets";
 
     private $categories = array();
     private $name;
     private $email;
     private $description;
     private $state;
+    private $clientId;
 
     public function set(array $data)
     {
@@ -36,6 +39,8 @@ class Budget extends Model implements \JsonSerializable
                 $this->setCategory($key, $value);
             }
         }
+
+        return $this;
     }
 
     public function setName($name)
@@ -102,6 +107,11 @@ class Budget extends Model implements \JsonSerializable
         return $this->state;
     }
 
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
     public function jsonSerialize()
     {
         $data = [
@@ -120,6 +130,42 @@ class Budget extends Model implements \JsonSerializable
         }
 
         return $data;
+    }
+
+    public function preSave(array $data)
+    {
+        $uniqueId = false;
+        $budgets = new Budgets($this->db);
+        $loops = 1;
+
+        while (!$uniqueId) {
+            $uniqueId = $this->generateRandomString();
+
+            if (!$budgets->isClientIdUnique($uniqueId)) {
+                $uniqueId = false;
+            }
+
+            $loops += 1;
+
+            if ($loops > 10) {
+                throw new \DomainException("Couldn't generate a unique client id");
+            }
+        }
+
+        $data['clientId'] = $uniqueId;
+
+        return $data;
+    }
+
+    public function postSave(array $data)
+    {
+        $this->clientId = $data['clientId'];
+    }
+
+    private function generateRandomString()
+    {
+        $string = $this->name . $this->email . time() . uniqid('budget_', true);
+        return hash('sha256', hash('sha256', $string));
     }
 
 }

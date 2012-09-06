@@ -3,7 +3,7 @@
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
-    DGM\Models\Budget;
+    DGM\Model\Budget;
 
 $app = new Silex\Application();
 
@@ -21,7 +21,7 @@ $fileConfig = json_decode(file_get_contents(__DIR__ . '/../resources/config.json
 $config = array_merge($config, $fileConfig);
 
 $app['config'] = $config;
-DGM\Models\Budget::$categoryData = $config['categories'];
+Budget::$categoryData = $config['categories'];
 
 $app['db'] = $app->share(function() {
     return new \DGM\Database\MongoDB();
@@ -59,7 +59,7 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
 });
 
 $app->post('/email-page', function(Request $request) use ($app) {
-    $epf = new \DGM\Form\EmailPageForm(new SendGrid('theglobamail', 've*P6ZnB0pX'));
+    $epf = new \DGM\Service\EmailPage(new SendGrid('theglobamail', 've*P6ZnB0pX'));
     $epf->setData($request->request->all());
     $epf->validate();
 
@@ -70,5 +70,7 @@ $app->post('/email-page', function(Request $request) use ($app) {
 
     return $app->json($epf->getErrors(), 400);
 });
+
+$app->mount("/budget", new DGM\Provider\BudgetControllerProvider());
 
 return $app;
