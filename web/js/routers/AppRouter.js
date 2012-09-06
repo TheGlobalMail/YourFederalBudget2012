@@ -41,6 +41,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#budget-allocator-tab")});
         this.views.sidePaneManager.addSidePane("budget-allocator", this.views.sidePanes["budget-allocator"]);
         this.views.sidePaneManager.addSidePane("save-budget", this.views.sidePanes["save-budget"]);
+
+        this.models.userBudget.on('sync', function() {
+            this.navigate("budget/" + this.models.userBudget.id, { trigger: true });
+        }, this);
     },
 
     index: function()
