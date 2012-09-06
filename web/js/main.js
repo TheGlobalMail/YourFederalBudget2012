@@ -10,7 +10,10 @@ $('.popover-link').arrowPopover({
     actionToActivatePopover: 'click'
 });
 
-TGM.userBudget = new TGM.Models.Budget();
+TGM.userBudget = new TGM.Models.Budget({
+    _id: $.jStorage.get('budgetId'),
+});
+
 TGM.federalBudget = new TGM.Models.Budget();
 barGraph.model = TGM.userBudget;
 barGraph.addBudget("user", TGM.userBudget);
@@ -26,3 +29,5 @@ TGM.sidePanes = {
 sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#budget-allocator-tab")});
 sidePaneManager.addSidePane("budget-allocator", TGM.sidePanes["budget-allocator"]);
 sidePaneManager.addSidePane("save-budget", TGM.sidePanes["save-budget"]);
+
+TGM.userBudget.fetch();

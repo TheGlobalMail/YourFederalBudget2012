@@ -1,7 +1,7 @@
 {
     "defence": {
         "label": "Defence",
-        "federalAllocation": 55,
+        "federalAllocation": 5,
         "tooltip": "This is the Defence tooltip for help and quick info",
         "color": "#C8C78C",
         "info": {
@@ -11,7 +11,7 @@
     },
     "publicEducation": {
         "label": "Public Education",
-        "federalAllocation": 48,
+        "federalAllocation": 8,
         "tooltip": "This is the Public Education tooltip for help and quick info",
         "color": "#FF5F53",
         "info": {

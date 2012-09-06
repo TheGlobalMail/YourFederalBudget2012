@@ -23,4 +23,18 @@ class Budgets
         return $cursor->count() == 0;
     }
 
+    public function findById($id)
+    {
+        $budgetData = $this->collection->findOne([ "_id" => new \MongoId($id) ]);
+
+        $budget = new Budget($this->db);
+        $budget->set($budgetData);
+
+        $id = new \ReflectionProperty($budget, 'id');
+        $id->setAccessible(true);
+        $id->setValue($budget, $budgetData['_id']);
+
+        return $budget;
+    }
+
 }

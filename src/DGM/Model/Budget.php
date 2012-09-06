@@ -31,6 +31,10 @@ class Budget extends Model implements \JsonSerializable
                 $this->setEmail($value);
             }
 
+            if ($key == "state") {
+                $this->setState($value);
+            }
+
             if ($key == "description") {
                 $this->setDescription($value);
             }
@@ -122,7 +126,7 @@ class Budget extends Model implements \JsonSerializable
         ];
 
         if ($this->getId()) {
-            $data["_id"] = $this->getId();
+            $data["_id"] = (string) $this->getId();
         }
 
         foreach ($this->getCategories() as $cat => $value) {

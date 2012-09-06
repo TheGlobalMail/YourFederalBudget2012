@@ -1,14 +1,21 @@
+html, body {
+    background-color: #f2f2f2;
+}
+
 header.navbar {
     height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
 }
 
 #main {
-    @appWidth: 940px;
+    @appWidth: 980px;
     @columnRatio: 0.33;
-    height: 650px;
+    height: 630px;
     width: @appWidth;
-    margin: 5px auto;
+    padding: 23px;
+    background-color: @white;
 
     #left-column {
         float: left;
@@ -41,7 +48,7 @@ header.navbar {
                 }
 
                 .border-top {
-                    background-color: #eee;
+                    background-color: @white;
                     height: 3px;
                     clear: both;
                     position: relative;
@@ -64,7 +71,7 @@ header.navbar {
 
         .tab-content {
             padding: 15px;
-            height: 590px;
+            height: 544px;
             border: 1px solid #ddd;
             border-top-color: transparent;
             position: relative;

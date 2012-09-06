@@ -26,6 +26,7 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
         if (this.isSwitching || !id in this.sidePanes) {
             return false;
         }
+
         this.isSwitching = true;
 
         // eeww callback soup, clean up with deferreds?

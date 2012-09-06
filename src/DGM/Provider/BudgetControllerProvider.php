@@ -9,7 +9,8 @@ use Silex\Application,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
     DGM\Model\Budget,
-    DGM\Service\SaveBudget;
+    DGM\Service\SaveBudget,
+    DGM\Collection\Budgets;
 
 class BudgetControllerProvider implements ControllerProviderInterface
 {
@@ -30,6 +31,16 @@ class BudgetControllerProvider implements ControllerProviderInterface
             }
 
             return $app->json([ "errors" => $sb->getErrors() ], 400);
+        });
+
+        $controllers->get('/{id}', function(Request $request, $id) use ($app) {
+            $budget = (new Budgets($app['db']))->findById($id);
+
+            if ($budget->getId()) {
+                return $app->json($budget);
+            }
+
+            return $app->abort(404, 'Budget not found.');
         });
 
         return $controllers;
