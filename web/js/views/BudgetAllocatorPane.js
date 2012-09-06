@@ -48,7 +48,11 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     saveBudget: function()
     {
-        TGM.vent.trigger("showSidePane", "save-budget");
+        if (!this.model.isNew()) {
+            TGM.vent.trigger("showSidePane", "share-budget");
+        } else {
+            TGM.vent.trigger("showSidePane", "save-budget");
+        }
     },
 
     resetBudget: function()
