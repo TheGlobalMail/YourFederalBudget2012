@@ -21,7 +21,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/', function(Request $request) use ($app) {
             $budget = new Budget($app['db']);
-            $sb = new SaveBudget($budget, $app['config']['frontend']['states']);
+            $sb = new SaveBudget($budget, $app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl']);
             $sb->setData($request->request->all());
             $sb->validate();
 
@@ -36,7 +36,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
         $controllers->get('/{id}', function(Request $request, $id) use ($app) {
             $budget = (new Budgets($app['db']))->findById($id);
 
-            if ($budget->getId()) {
+            if ($budget) {
                 return $app->json($budget);
             }
 

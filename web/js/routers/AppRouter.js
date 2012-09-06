@@ -42,8 +42,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         this.views.sidePaneManager.addSidePane("budget-allocator", this.views.sidePanes["budget-allocator"]);
         this.views.sidePaneManager.addSidePane("save-budget", this.views.sidePanes["save-budget"]);
 
-        this.models.userBudget.on('sync', function() {
-            this.navigate("budget/" + this.models.userBudget.id, { trigger: true });
+        this.models.userBudget.on('sync', function(model) {
+            this.navigate("budget/" + model.id, { trigger: true });
         }, this);
     },
 
@@ -59,7 +59,14 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     loadBudget: function(id)
     {
         this.models.userBudget.set('_id', id);
-        this.models.userBudget.fetch();
+
+        var fetchError = _.bind(function(model, response) {
+            if (response.status == 404) {
+                this.navigate("", { trigger: true });
+            }
+        }, this);
+
+        this.models.userBudget.fetch({ error: fetchError });
     }
 
 });

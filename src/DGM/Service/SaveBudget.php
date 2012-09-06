@@ -8,11 +8,16 @@ class SaveBudget extends BaseService implements Sanitizable
 {
 
     private $budget;
+    private $sendGrid;
+    private $appUrl;
+    private $states;
 
-    public function __construct(Budget $budget, array $states)
+    public function __construct(Budget $budget, array $states, \SendGrid $sendGrid, $appUrl)
     {
         $this->budget = $budget;
         $this->states = $states;
+        $this->sendGrid = $sendGrid;
+        $this->appUrl = $appUrl;
     }
 
     public function sanitize()
@@ -48,7 +53,26 @@ class SaveBudget extends BaseService implements Sanitizable
 
     public function save()
     {
-        return $this->budget->set($this->data)->save();
+        $this->budget->set($this->data)->save();
+
+        if ($this->budget->getId()) {
+            $this->send();
+        }
+
+        return $this->budget;
+    }
+
+    public function send()
+    {
+        $mail = new \SendGrid\Mail();
+        $mail->setFrom('info@theglobalmail.org')
+             ->setFromName('The Global Mail')
+             ->setSubject('Your budget')
+             ->setHtml("<p>You made a budget, cool! Go here: {$this->appUrl}budget/{$this->budget->getId()}</p>");
+
+        $mail->addTo($this->budget->getEmail(), $this->budget->getName());
+
+        $this->sendGrid->smtp->send($mail);
     }
 
 }

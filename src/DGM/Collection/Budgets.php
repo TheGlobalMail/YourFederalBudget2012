@@ -27,6 +27,10 @@ class Budgets
     {
         $budgetData = $this->collection->findOne([ "_id" => new \MongoId($id) ]);
 
+        if (!$budgetData) {
+            return false;
+        }
+
         $budget = new Budget($this->db);
         $budget->set($budgetData);
 

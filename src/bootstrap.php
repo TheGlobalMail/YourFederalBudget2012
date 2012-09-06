@@ -3,6 +3,7 @@
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
+    Symfony\Component\HttpKernel\HttpKernelInterface,
     DGM\Model\Budget;
 
 $app = new Silex\Application();
@@ -27,6 +28,14 @@ $app['db'] = $app->share(function() {
     return new \DGM\Database\MongoDB();
 });
 
+$app['budgets'] = $app->share(function(Application $app) {
+    return new \DGM\Collection\Budgets($app['db']);
+});
+
+$app['sendGrid'] = $app->share(function() {
+    return new SendGrid('theglobamail', 've*P6ZnB0pX');
+});
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../templates',
 ));
@@ -35,6 +44,13 @@ $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $data = json_decode($request->getContent(), true);
         $request->request->replace(is_array($data) ? $data : array());
+    }
+});
+
+$app->before(function (Request $request) use ($app) {
+    if ($request->getPathInfo() != '/' && !$request->isXmlHttpRequest()) {
+        $subRequest = Request::create('/', 'GET');
+        return $app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
     }
 });
 
@@ -59,7 +75,7 @@ $app->post('/git-post-receive', function(Request $request) use ($app) {
 });
 
 $app->post('/email-page', function(Request $request) use ($app) {
-    $epf = new \DGM\Service\EmailPage(new SendGrid('theglobamail', 've*P6ZnB0pX'));
+    $epf = new \DGM\Service\EmailPage($app['sendGrid']);
     $epf->setData($request->request->all());
     $epf->validate();
 
