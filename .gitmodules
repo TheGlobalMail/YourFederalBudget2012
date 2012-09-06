@@ -28,3 +28,6 @@
 [submodule "web/vendor/jquery-ui-touch-punch"]
 	path = web/vendor/jquery-ui-touch-punch
 	url = git://github.com/furf/jquery-ui-touch-punch.git
+[submodule "web/vendor/jStorage"]
+	path = web/vendor/jStorage
+	url = git://github.com/andris9/jStorage.git

@@ -6,6 +6,7 @@
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
             "vendor/jquery-ui/ui/jquery.effects.shake.js",
             "vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js",
+            "vendor/jStorage/jstorage.js",
             "vendor/underscore/underscore.js",
             "vendor/backbone/backbone.js",
             "vendor/bootstrap/js/bootstrap-transition.js",
@@ -48,7 +49,7 @@
             "NONAU": "Outside Australia"
         }
     },
-    "appUrl": "http://.thegmail.net.au:8080/",
+    "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
     "budgetAllowance": 400,
     "messages": {
