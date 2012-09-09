@@ -25,10 +25,10 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
         var firstCategoryId = _.chain(this.categorys).keys().first().value();
 
-        // collapse all categories except the first one
-        _.chain(this.categorys)
-            .filter(function(view, categoryId) { return categoryId != firstCategoryId; })
-            .invoke("hide");
+        // // collapse all categories except the first one
+        // _.chain(this.categorys)
+        //     .filter(function(view, categoryId) { return categoryId != firstCategoryId; })
+        //     .invoke("hide");
 
         // currently expanded category is the first one
         this.expandedCategory = this.categorys[firstCategoryId];
