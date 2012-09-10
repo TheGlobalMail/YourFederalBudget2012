@@ -19,6 +19,24 @@ header.navbar {
     }
 }
 
+i {
+    font-size: 1.5em;
+    line-height: .3;
+}
+
+h3 {
+font-size:1.6em;
+line-height: 1.0;
+}
+
+hr {
+    border-top-color: #d6d6d6;
+}
+
+small {
+    line-height: 1.2;
+}
+
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
@@ -28,115 +46,10 @@ header.navbar {
     padding: 1.5%;
     background-color: @white;
 
-    i {
-        font-size: 1.5em;
-        line-height: .3;
-    }
-
-    h3 {
-    font-size:1.6em;
-    line-height: 1.0;
-    }
-
-    hr {
-        border-top-color: #d6d6d6;
-    }
-
-    small {
-        line-height: 1.2;
-    }
-
-    .btn {
-        font-size: .95em;
-        font-weight: bold;
-        text-transform: uppercase;
-        padding: 3% 6%;
-    }
-
-    .btn-link {
-        color: #858585;
-        .border-radius(4px);
-
-        &:hover{
-            background-color: @grayLighter;
-            text-decoration: none;
-        }
-    }
-
-    .btn-inverse {
-        background: #333333;
-        border:none;
-        box-shadow: none;
-    }
-
-    .btn-inverse:hover,
-    .btn-inverse:active,
-    .btn-inverse:focus {
-        background: #000;
-    }
-
     #left-column {
         float: left;
         width: @appWidth * @columnRatio;
         position: relative;
-
-        .nav-tabs {
-            margin-bottom: 0;
-            border-bottom-color: #d6d6d6;
-
-            li {
-                width: 50%;
-                border-bottom: none;
-
-                a {
-                    .ui-title;
-                    font-size: 110%;
-                    text-align: center;
-                    .border-radius(0px);
-                    color: @textColor;
-                    .opacity(70);
-                    background-color: #eee;
-                    position: relative;
-                    border-top: none;
-                    margin-right: 0;
-                    line-height: 1;
-                }
-
-                &:last-child {
-                    .pull-right;
-                }
-
-                .border-top {
-                    background-color: @white;
-                    height: 4px;
-                    clear: both;
-                    position: relative;
-                    top: 1px;
-                }
-            }
-
-            li.active {
-                a {
-                    .opacity(100);
-                    color: @textColor;
-                    background-color: #fff;
-                }
-
-                .border-top {
-                    background-color: @blue;
-                }
-            }
-        }
-
-        .tab-content {
-            padding: 4%;
-            height: 517px;
-            border: 1px solid #d6d6d6;
-            border-top-color: transparent;
-            position: relative;
-            // force all content up so there's no gaps in the side borders
-            top: -1px;
-        }
     }
 
     #right-column {
@@ -145,28 +58,28 @@ header.navbar {
     }
 
     .modal {
-    outline:none;
-    .border-radius(0);
-    padding: 2%;
+        outline:none;
+        .border-radius(0);
+        padding: 2%;
 
-    .modal-header {
-    border-bottom: none;
-    padding:0;
+        .modal-header {
+            border-bottom: none;
+            padding:0;
 
-        h3.title {
-            font-size: 2em;
-            margin-bottom: 1%;
+            h3.title {
+                font-size: 2em;
+                margin-bottom: 1%;
+            }
+
+            .close {
+                font-size: 2.5em;
+            }
         }
 
-        .close {
-            font-size: 2.5em;
+        .modal-body {
+            padding:0;
         }
     }
-
-    .modal-body {
-        padding:0;
-    }
-}
 
 }
 

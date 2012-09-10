@@ -1,14 +1,70 @@
+#left-column {
+    .nav-tabs {
+        margin-bottom: 0;
+        border-bottom-color: #d6d6d6;
+
+        li {
+            width: 50%;
+            border-bottom: none;
+
+            a {
+                .ui-title;
+                font-size: 110%;
+                text-align: center;
+                .border-radius(0px);
+                color: @textColor;
+                .opacity(70);
+                background-color: #eee;
+                position: relative;
+                border-top: none;
+                margin-right: 0;
+                line-height: 1;
+            }
+
+            &:last-child {
+                .pull-right;
+            }
+
+            .border-top {
+                background-color: @white;
+                height: 4px;
+                clear: both;
+                position: relative;
+                top: 1px;
+            }
+        }
+
+        li.active {
+            a {
+                .opacity(100);
+                color: @textColor;
+                background-color: #fff;
+            }
+
+            .border-top {
+                background-color: @blue;
+            }
+        }
+    }
+
+    .tab-content {
+        padding: 4%;
+        height: 517px;
+        border: 1px solid #d6d6d6;
+        border-top-color: transparent;
+        position: relative;
+        // force all content up so there's no gaps in the side borders
+        top: -1px;
+    }
+}
+
 #sidepane-wrapper {
     position: relative;
 
     .sidepane {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-
-    .btn {
-        height: 34px;
+        top: 20px;
+        left: 20px;
+        right: 20px;
     }
 }
