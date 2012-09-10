@@ -3,19 +3,77 @@ html, body {
 }
 
 header.navbar {
-    height: 40px;
+    height: 45px;
     margin-bottom: 0;
     position: relative;
     z-index: 3;
+    background: #1b1b1b;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    position: fixed;
+
+    .brand {
+        font-family: @serifFontFamily;
+        color: white;
+        font-size: 1.7em;
+        font-weight: bold;
+    }
 }
 
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
-    height: 630px;
+    margin-top:40px;
+    height: 627px;
     width: @appWidth;
-    padding: 23px;
+    padding: 1.5%;
     background-color: @white;
+
+    i {
+        font-size: 1.5em;
+        line-height: .3;
+    }
+
+    h3 {
+    font-size:1.6em;
+    line-height: 1.0;
+    }
+
+    hr {
+        border-top-color: #d6d6d6;
+    }
+
+    small {
+        line-height: 1.2;
+    }
+
+    .btn {
+        font-size: .95em;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 3% 6%;
+    }
+
+    .btn-link {
+        color: #858585;
+        .border-radius(4px);
+
+        &:hover{
+            background-color: @grayLighter;
+            text-decoration: none;
+        }
+    }
+
+    .btn-inverse {
+        background: #333333;
+        border:none;
+        box-shadow: none;
+    }
+
+    .btn-inverse:hover,
+    .btn-inverse:active,
+    .btn-inverse:focus {
+        background: #000;
+    }
 
     #left-column {
         float: left;
@@ -24,6 +82,7 @@ header.navbar {
 
         .nav-tabs {
             margin-bottom: 0;
+            border-bottom-color: #d6d6d6;
 
             li {
                 width: 50%;
@@ -32,15 +91,15 @@ header.navbar {
                 a {
                     .ui-title;
                     font-size: 110%;
-                    line-height: 100%;
                     text-align: center;
                     .border-radius(0px);
-                    color: lighten(@textColor, 40%);
+                    color: @textColor;
+                    .opacity(70);
                     background-color: #eee;
                     position: relative;
-                    top: 1px;
                     border-top: none;
                     margin-right: 0;
+                    line-height: 1;
                 }
 
                 &:last-child {
@@ -49,7 +108,7 @@ header.navbar {
 
                 .border-top {
                     background-color: @white;
-                    height: 3px;
+                    height: 4px;
                     clear: both;
                     position: relative;
                     top: 1px;
@@ -70,9 +129,9 @@ header.navbar {
         }
 
         .tab-content {
-            padding: 5px 15px;
-            height: 544px;
-            border: 1px solid #ddd;
+            padding: 4%;
+            height: 517px;
+            border: 1px solid #d6d6d6;
             border-top-color: transparent;
             position: relative;
             // force all content up so there's no gaps in the side borders
@@ -84,7 +143,37 @@ header.navbar {
         float: right;
         width: (@appWidth * (1 - @columnRatio)) - 20px;
     }
+
+    .modal {
+    outline:none;
+    .border-radius(0);
+    padding: 2%;
+
+    .modal-header {
+    border-bottom: none;
+    padding:0;
+
+        h3.title {
+            font-size: 2em;
+            margin-bottom: 1%;
+        }
+
+        .close {
+            font-size: 2.5em;
+        }
+    }
+
+    .modal-body {
+        padding:0;
+    }
 }
+
+}
+
+.modal-backdrop {
+    background: white;
+}
+
 
 .ui-title {
     font-weight: bold;
@@ -94,6 +183,10 @@ header.navbar {
 
 .help-block {
     margin-bottom: 0;
+}
+
+.controls {
+    margin-top: 10px;
 }
 
 .control-label {
@@ -112,3 +205,4 @@ header.navbar {
         margin-bottom: 3px;
     }
 }
+

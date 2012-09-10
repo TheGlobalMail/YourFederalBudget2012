@@ -1,13 +1,19 @@
 #budget-allocator {
+
+    .categories {
+        margin-bottom: 15px;
+        background: url(../img/lhc_fade.png) center top no-repeat;
+        padding: 15px 0 0;
+    }
+
     .category {
-        padding: 5px;
-        border: @grayLight 1px solid;
-        .border-radius(5px);
-        margin-bottom: 5px;
+        border: #e7e7e7 1px solid;
+        border-bottom: none;
         position: relative;
+        height: 52px;
 
         .top {
-            height: 30px;
+            height: 25px;
         }
 
         .top, .slider {
@@ -15,19 +21,44 @@
         }
 
         .slider {
-            margin-top: 5px;
             height: 15px;
 
             .slider-control {
-                width: 250px;
-                margin: 0 auto;
+                width: 76%;
+                margin: 0 0 0 4%;
+                height: 10px;
+                .border-radius(5px);
+                background: #f2f2f2;
+                box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.2);
+                border: none;
+            }
+
+            .ui-slider-handle {
+                width: 18px;
+                height: 18px;
+                top: -.35em;
+                margin-left: -.6em;
+                .border-radius(50%);
+                border: 1px solid #8e8e8e;
+                box-shadow: inset 0 0 1px 1px white, 0 2px 2px rgba(0,0,0,0.2);
+                #gradient.vertical(#e1e1e1,#fff);
+            }
+
+            .ui-slider-handle:hover,
+            .ui-slider-handle:focus,
+            .ui-slider-handle:active {
+                border-color: #666;
+                outline: none;
             }
         }
 
         .title {
             position: absolute;
-            left: 0;
+            left: 4%;
             top: 6px;
+            font-size: .85em;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .spent-box {
@@ -49,14 +80,16 @@
         .federal-allocation {
             @background-color: @gray;
             position: relative;
-            height: 15px;
+            height: 17px;
             background-color: @background-color;
-            color: @grayLighter;
+            color: white;
             .border-radius(5px);
-            padding: 1px 4px 3px;
+            padding: 0px 6px;
             display: inline-block;
-            font-size: 12px;
-            top: 1px;
+            font-size: .8em;
+            top: 2px;
+            border-radius: 3px;
+            z-index: 1;
 
             .arrow {
                 .triangle-up(6px, @background-color);
@@ -68,16 +101,41 @@
         }
     }
 
+    .category:first-child {
+        .border-top-radius(8px);
+    }
+
+    .category:last-child {
+        .border-bottom-radius(8px);
+        border-bottom: 1px solid #e7e7e7;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+    }
+
     .defense .federal-allocation {
         left: 120px;
     }
 
-    .actions {
-        .btn {
-            .ui-title;
-
-        }
+    #save-budget-btn {
+        border-color: #17a549;
+        #gradient.vertical (#1ec25d, #16ae47);
+        padding-left: 0;
+        margin-right: 2%;
+        min-width:155px;
     }
+
+    #save-budget-btn i {
+        padding: 0 6% 0 8%;
+    }
+
+    #save-budget-btn span {
+        border-left:1px solid rgba(255,255,255,0.2);
+        padding-left: 7%;
+    }
+
+
+
+
+
 }
 
 #budget-overview {
@@ -91,21 +149,32 @@
             width: 50%;
             float: left;
             text-transform: uppercase;
-            font-size: 90%;
+            font-size: .85em;
         }
 
         .spent {
             width: 50%;
             float: right;
             text-align: right;
+            font-size: .85em;
+            font-weight: bold;
         }
     }
 
     .progress-bar {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
 
         .progress {
             margin-bottom: 0;
+            .border-radius(10px);
+            background: #f2f2f2;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+
+            .bar {
+                background: #0eb600 url(../img/progress.jpg) top left no-repeat;
+                background-size: cover;
+                box-shadow: none;
+            }
         }
     }
 
@@ -124,7 +193,7 @@
 
     .your-name-wrapper {
         input {
-            width: 183px;
+            width: 195px;
             .pull-left;
         }
 
@@ -192,6 +261,8 @@
             font-size: 90%;
             .pull-right;
             margin-top: 5px;
+            margin-right: 2%;
+            .opacity(80);
             text-align: center;
         }
     }
