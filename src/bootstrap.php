@@ -87,6 +87,6 @@ $app->post('/email-page', function(Request $request) use ($app) {
     return $app->json($epf->getErrors(), 400);
 });
 
-$app->mount("/budget", new DGM\Provider\BudgetControllerProvider());
+$app->mount("/api/budget", new DGM\Provider\BudgetControllerProvider());
 
 return $app;
