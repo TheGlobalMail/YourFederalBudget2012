@@ -8,9 +8,7 @@ TGM.Views.Application = Backbone.View.extend({
             actionToActivatePopover: 'click'
         });
 
-        this.$('.addthis_toolbox a').on('click', function(e) {
-            e.preventDefault();
-        });
+        this.$('.addthis_toolbox a').attr('data-bypass', true);
     }
 
 });
