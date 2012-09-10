@@ -31,3 +31,6 @@
 [submodule "web/vendor/jStorage"]
 	path = web/vendor/jStorage
 	url = git://github.com/andris9/jStorage.git
+[submodule "web/vendor/ZeroClipboard"]
+	path = web/vendor/ZeroClipboard
+	url = git://github.com/jonrohan/ZeroClipboard.git
