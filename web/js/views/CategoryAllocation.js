@@ -27,7 +27,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$slider.slider('value', this.model.get(this.options.category));
 
         this.refreshAmount(null, this.$slider.slider('value'));
-        this.placeFederalAllocation();
     },
 
     onSlide: function(e, ui)
@@ -84,17 +83,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         }
 
         this.$slider.slider('value', value);
-    },
-
-    placeFederalAllocation: function()
-    {
-        var federalAllocation = this.category.federalAllocation;
-        var $federalAllocation = this.$('.federal-allocation');
-        var sliderWidth = this.$slider.width();
-        var federalAllocationPercentage = federalAllocation / DATA.sliderConfig.max;
-        var sliderControlWidth = this.$sliderHandle.width();
-
-        $federalAllocation.css('left', sliderWidth * federalAllocationPercentage - $federalAllocation.width() / 2 + sliderControlWidth / 2 - 1);
     },
 
     expand: function(options)
