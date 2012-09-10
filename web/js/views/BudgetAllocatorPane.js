@@ -1,17 +1,15 @@
 TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     events: {
-        "click #save-budget-btn": "saveBudget",
-        "click #reset-budget-btn": "resetBudget"
+        "click .reset-budget-btn": "resetBudget"
     },
-
-    el: $('#budget-allocator'),
 
     categorys: {},
 
     initialize: function()
     {
         _.bindAll(this);
+        this.$saveButton = this.$('.save-budget-btn');
 
         _.each(this.$('.category'), function(el) {
             var id = $(el).data('id');
@@ -37,6 +35,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
         // tell everyone the first category is open before we listen to the event ourself
         this.expandedCategory.expand({ force: true, doAnimation: false });
+        this.on('shown', this.onShown);
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.switchCategory);
     },
 
@@ -46,18 +45,20 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
         this.expandedCategory = this.categorys[newCategory];
     },
 
-    saveBudget: function()
-    {
-        if (!this.model.isNew()) {
-            TGM.vent.trigger("showSidePane", "share-budget");
-        } else {
-            TGM.vent.trigger("showSidePane", "save-budget");
-        }
-    },
-
     resetBudget: function()
     {
         this.model.resetBudget();
+    },
+
+    onShown: function()
+    {
+        var href;
+        if (this.model.isNew()) {
+            href = "/budget/save";
+        } else {
+            href = "/budget/" + this.model.id + "/save";
+        }
+        this.$saveButton.prop('href', href);
     }
 
 });

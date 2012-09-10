@@ -2,7 +2,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     routes: {
         "":                 "index",
-        "budget/:id":       "loadBudget"
+        "budget/:id":       "loadBudget",
+        "budgets/save":     "saveBudget",
+        "budget/:id/save":  "saveBudget",
+        "budgets":          "viewBudgets"
     },
 
     views: {},
@@ -12,6 +15,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     {
         _.bindAll(this);
 
+        this.views.application = new TGM.Views.Application({ el: $('body') });
         this.views.barGraph = new TGM.Views.BarGraph({ el: $("#visualisation") });
         this.views.moreInfo = new TGM.Views.MoreInfo({ el: $("#more-info") });
 
@@ -20,12 +24,9 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             this.views.barGraph.addCategory(id, value);
         }, this);
 
-        $('.popover-link').arrowPopover({
-            actionToActivatePopover: 'click'
-        });
-
         this.models.userBudget = new TGM.Models.Budget();
         this.models.federalBudget = new TGM.Models.Budget();
+
         this.views.barGraph.model = this.models.userBudget;
         this.views.barGraph.addBudget("user", this.models.userBudget);
         this.views.barGraph.addBudget("federal", this.models.federalBudget);
@@ -34,13 +35,15 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         this.views.emailPage = new TGM.Views.EmailPage({ el: $("#email-page-form") });
 
         this.views.sidePanes = {
-            "budget-allocator": new TGM.Views.BudgetAllocatorPane({ model: this.models.userBudget }),
-            "save-budget": new TGM.Views.SaveBudgetPane({ el: $("#save-budget-pane"), model: this.models.userBudget })
+            "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $("#budget-allocator"), model: this.models.userBudget }),
+            "save-budget":          new TGM.Views.SaveBudgetPane({ el: $("#save-budget-pane"), model: this.models.userBudget }),
+            "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget })
         };
 
-        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#budget-allocator-tab")});
+        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#left-column")});
         this.views.sidePaneManager.addSidePane("budget-allocator", this.views.sidePanes["budget-allocator"]);
         this.views.sidePaneManager.addSidePane("save-budget", this.views.sidePanes["save-budget"]);
+        this.views.sidePaneManager.addSidePane("share-budget", this.views.sidePanes["share-budget"]);
 
         this.models.userBudget.on('sync', function(model) {
             this.navigate("budget/" + model.id, { trigger: true });
@@ -53,6 +56,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         if (budgetId) {
             this.navigate("budget/" + budgetId, { trigger: true });
+        } else {
+            TGM.vent.trigger('showSidePane', 'budget-allocator');
         }
     },
 
@@ -66,7 +71,41 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             }
         }, this);
 
-        this.models.userBudget.fetch({ error: fetchError });
+        var success = _.bind(function() {
+            TGM.vent.trigger('showSidePane', 'budget-allocator');
+        }, this);
+
+        this.models.userBudget.fetch({ success: success, error: fetchError });
+    },
+
+    saveBudget: function(id)
+    {
+        if (!id) {
+            TGM.vent.trigger('showSidePane', 'save-budget');
+            return true;
+        }
+
+        TGM.vent.trigger('showSidePane', 'share-budget');
+        return false;
+
+        var success = _.bind(function() {
+            TGM.vent.trigger('showSidePane', 'share-budget');
+        }, this);
+
+        this.models.userBudget.set('_id', id);
+
+        var fetchError = _.bind(function(model, response) {
+            if (response.status == 404) {
+                this.navigate("", { trigger: true });
+            }
+        }, this);
+
+        this.models.userBudget.fetch({ success: success, error: fetchError });
+    },
+
+    viewBudgets: function()
+    {
+        TGM.vent.trigger('showSidePane', 'other-budgets');
     }
 
 });

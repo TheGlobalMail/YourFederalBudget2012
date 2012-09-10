@@ -72,6 +72,11 @@ TGM.Models.Budget = Backbone.Model.extend({
         }, this);
 
         this.trigger('reset');
+    },
+
+    getUrl: function()
+    {
+        return window.location.origin + "/budget/" + this.id;
     }
 
 });

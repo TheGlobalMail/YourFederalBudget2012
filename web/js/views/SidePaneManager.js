@@ -6,6 +6,7 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
     {
         _.bindAll(this);
         TGM.vent.on("showSidePane", this.showPane);
+        this.tabManager = new TGM.Views.TabManager({ el: this.$('ul') });
     },
 
     addSidePane: function(id, sidePane)
@@ -24,6 +25,13 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
         }
 
         if (this.isSwitching || !id in this.sidePanes) {
+            return false;
+        }
+
+        this.tabManager.selectTab(this.currentPane.getTab());
+
+        if (this.currentPane == this.sidePanes[id]) {
+            this.currentPane.trigger('shown');
             return false;
         }
 

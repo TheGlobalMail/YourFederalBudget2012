@@ -41,7 +41,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
             }
 
             return $app->abort(404, 'Budget not found.');
-        });
+        })->bind('getBudget');
 
         return $controllers;
     }

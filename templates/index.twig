@@ -15,21 +15,20 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <div class="border-top"></div>
-                        <a href="#budget-allocator-tab" data-toggle="tab">Create your budget</a>
+                        <a href="/">Create your budget</a>
                     </li>
                     <li>
                         <div class="border-top"></div>
-                        <a href="#other-budgets-tab" data-toggle="tab">From other readers</a>
+                        <a href="/budgets">From other readers</a>
                     </li>
                 </ul>
 
-                <div class="tab-content">
-                    <div id="budget-allocator-tab" class="tab-pane active fade in">
-                        {% include 'tabs/create-your-budget.twig' %}
-                    </div>
-
-                    <div id="other-budgets-tab" class="tab-pane fade">
-                        Other budgets
+                <div class="tab-content" id="sidepane-wrapper">
+                    <div>
+                        {% include 'sidepanes/budget-allocator.twig' %}
+                        {% include 'sidepanes/save-budget.twig' %}
+                        {% include 'sidepanes/share-budget.twig' %}
+                        {% include 'sidepanes/other-budgets.twig' %}
                     </div>
                 </div>
             </div>

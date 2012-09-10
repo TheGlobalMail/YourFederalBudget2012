@@ -32,10 +32,10 @@ header.navbar {
                 a {
                     .ui-title;
                     font-size: 110%;
+                    line-height: 100%;
                     text-align: center;
                     .border-radius(0px);
-                    color: @textColor;
-                    .opacity(70);
+                    color: lighten(@textColor, 40%);
                     background-color: #eee;
                     position: relative;
                     top: 1px;
@@ -70,7 +70,7 @@ header.navbar {
         }
 
         .tab-content {
-            padding: 15px;
+            padding: 5px 15px;
             height: 544px;
             border: 1px solid #ddd;
             border-top-color: transparent;
@@ -89,6 +89,7 @@ header.navbar {
 .ui-title {
     font-weight: bold;
     text-transform: uppercase;
+    font-family: @baseFontFamily;
 }
 
 .help-block {

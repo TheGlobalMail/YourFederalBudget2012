@@ -4,6 +4,8 @@ TGM.Views.SidePane = Backbone.View.extend({
 
     hide: function(done)
     {
+        this.trigger('hide');
+
         var complete = _.bind(function() {
             this.trigger('hidden');
             done();
@@ -14,12 +16,19 @@ TGM.Views.SidePane = Backbone.View.extend({
 
     show: function(done)
     {
+        this.trigger('show');
+
         var complete = _.bind(function() {
             this.trigger('shown');
             done();
         }, this);
 
         return this.$el.fadeIn({ duration: this.animationSpeed, complete: complete }).promise();
+    },
+
+    getTab: function()
+    {
+        return this.$el.data('tab');
     }
 
 });

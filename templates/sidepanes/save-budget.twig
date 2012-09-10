@@ -1,30 +1,4 @@
-<div id="budget-allocator" class="sidepane">
-    <div id="budget-overview">
-        <div class="top">
-            <div class="title">Total Tax Dollars</div>
-            <div class="spent">$<span id="budget-total">0</span>b</div>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress">
-                <div class="bar" style="width: 60%"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="categories">
-        {% for key, category in app.config.categories %}
-            {% include 'slider-box.twig' with { 'id': key, 'label': category.label, 'federalAllocation': category.federalAllocation } %}
-        {% endfor %}
-    </div>
-
-    <div class="derpa-derp">
-        <button class="btn btn-link" id="reset-budget-btn"><i class="icon-repeat"></i> Reset</button>
-        <button class="btn btn-primary pull-right" id="save-budget-btn"><i class="icon-ok"></i> Save &amp; Share</button>
-    </div>
-</div>
-
-<div id="save-budget-pane" class="sidepane hide">
+<div id="save-budget-pane" class="sidepane hide" data-tab="0">
     <h3>Save your budget</h3>
 
     <form action="#" id="save-budget-form">

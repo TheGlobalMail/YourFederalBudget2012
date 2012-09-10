@@ -40,7 +40,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     reset: function(e)
     {
         e.preventDefault();
-        TGM.vent.trigger("showSidePane", "budget-allocator");
+        window.history.back();
     },
 
     success: function(model, response)
