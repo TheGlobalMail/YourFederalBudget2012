@@ -1,8 +1,35 @@
 #more-info {
+	border-top: 1px solid #d6d6d6;
     height: 200px;
+    margin-top: 3%;
+	padding: 3% 2%;
 
     h2 {
-        font-size: 16px;
-        border-bottom: 1px solid @gray;
+	    font-size: 20px;
+	    margin: 0 0 1%;
+		line-height: 1.0;
+    }
+
+    p {
+		font-family: @serifFontFamily;
+		font-size: 1.2em;
+		margin: 0 0 2%;
+    }
+
+    .read-more {
+		font-size: .8em;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: @grayDark;
+		border: 1px solid #d6d6d6;
+		padding: 1% 1.5%;
+		.border-radius(4px);
+
+			&:hover,
+			&:active,
+			&:focus {
+			text-decoration: none;
+			background-color: @grayLighter;
+	    }
     }
 }
