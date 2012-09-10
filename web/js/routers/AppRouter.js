@@ -44,10 +44,6 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         this.views.sidePaneManager.addSidePane("budget-allocator", this.views.sidePanes["budget-allocator"]);
         this.views.sidePaneManager.addSidePane("save-budget", this.views.sidePanes["save-budget"]);
         this.views.sidePaneManager.addSidePane("share-budget", this.views.sidePanes["share-budget"]);
-
-        this.models.userBudget.on('sync', function(model) {
-            this.navigate("budget/" + model.id, { trigger: true });
-        }, this);
     },
 
     index: function()
@@ -84,9 +80,6 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             TGM.vent.trigger('showSidePane', 'save-budget');
             return true;
         }
-
-        TGM.vent.trigger('showSidePane', 'share-budget');
-        return false;
 
         var success = _.bind(function() {
             TGM.vent.trigger('showSidePane', 'share-budget');
