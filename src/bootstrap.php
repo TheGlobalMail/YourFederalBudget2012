@@ -3,6 +3,7 @@
 use Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
+    Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\HttpKernel\HttpKernelInterface,
     DGM\Model\Budget;
 
@@ -47,13 +48,6 @@ $app->before(function (Request $request) {
     }
 });
 
-$app->before(function (Request $request) use ($app) {
-    if ($request->getPathInfo() != '/' && !$request->isXmlHttpRequest()) {
-        $subRequest = Request::create('/', 'GET');
-        return $app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-    }
-});
-
 ## CONTROLLERS ##
 $app->get('/', function() use ($app) {
     return $app['twig']->render('index.twig', array(
@@ -88,5 +82,14 @@ $app->post('/email-page', function(Request $request) use ($app) {
 });
 
 $app->mount("/api/budget", new DGM\Provider\BudgetControllerProvider());
+
+$app->error(function(NotFoundHttpException $e) use ($app) {
+    if (!$app['request']->isXmlHttpRequest()) {
+        $response = $app->handle(Request::create('/', 'GET'));
+        $response->setStatusCode(200);
+        $response->headers->set('X-Status-Code', 200);
+        return $response;
+    }
+});
 
 return $app;
