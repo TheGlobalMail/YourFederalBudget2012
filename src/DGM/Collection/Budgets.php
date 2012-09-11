@@ -31,12 +31,17 @@ class Budgets
             return false;
         }
 
+        return $this->_makeBudget($budgetData);
+    }
+
+    protected function _makeBudget(array $data)
+    {
         $budget = new Budget($this->db);
-        $budget->set($budgetData);
+        $budget->set($data);
 
         $id = new \ReflectionProperty($budget, 'id');
         $id->setAccessible(true);
-        $id->setValue($budget, $budgetData['_id']);
+        $id->setValue($budget, $data['_id']);
 
         return $budget;
     }
