@@ -230,10 +230,26 @@ background: none;
 color: @grayDark;
 border: 1px solid #d6d6d6;
 font-weight: bold!important;
+box-shadow: none;
     &:hover {
         color: #333;
         background-color: @grayLighter;
         border-color: #d6d6d6;
     }
 }
+
+#at16pt a {
+    text-indent: -9999px;
+    width: 20px;
+    height: 20px;
+    background: url(../img/close.svg) center top no-repeat;
+    background-size: 15px;
+    .opacity(40);
+
+    &:hover {
+        .opacity(100);
+    }
+}
+
+
 
