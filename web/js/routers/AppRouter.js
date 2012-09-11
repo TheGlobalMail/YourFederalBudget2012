@@ -10,6 +10,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     views: {},
     models: {},
+    collections: {},
 
     initialize: function()
     {
@@ -26,6 +27,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         this.models.userBudget = new TGM.Models.Budget();
         this.models.federalBudget = new TGM.Models.Budget();
+
+        this.collections.budgets = new TGM.Collections.Budgets();
 
         this.views.barGraph.model = this.models.userBudget;
         this.views.barGraph.addBudget("user", this.models.userBudget);
