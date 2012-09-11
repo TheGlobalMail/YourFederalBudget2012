@@ -7,17 +7,30 @@
         background-color: @errorBackgroundColor;
         color: @errorTextColor;
         font-weight: bold;
-        .border-radius(2px);
+        .border-radius(0);
         font-size: 110%;
         padding-right: 20px;
         position: relative;
         .box-shadow(0 1px 1px @grayish);
+        text-align: left;
+        padding: 8px 25px 8px 10px;
 
         .close {
             display: block;
             position: absolute;
-            top: 4px;
-            right: 5px;
+            top: 0;
+            right: 0;
+            color: white;
+            .opacity(50);
+            text-shadow: none;
+            padding: 5px;
+
+            &:hover,
+            &:active,
+            &:focus {
+                .opacity(100);
+            }
+
         }
     }
 
