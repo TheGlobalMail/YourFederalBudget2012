@@ -17,6 +17,7 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
 
         this.clip = new ZeroClipboard.Client();
         this.clip.setHandCursor(true);
+        this.clip.addEventListener('onComplete', this.onUrlCopied);
         this.on('shown', this.onShown);
         this.model.on('change', this.onBudgetInfoChanged);
     },
@@ -59,6 +60,16 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         var popUp = window.open('https://plus.google.com/share?url=' + this.model.getUrl(), 'popupwindow', 'scrollbars=yes,width=800,height=400');
         popUp.focus();
         return false;
+    },
+
+    onUrlCopied: function()
+    {
+        var copyWrapper = this.$("#share-budget-copy-url-wrapper");
+        copyWrapper.tooltip({ title: 'Budget URL Copied!', trigger: 'manual', placement: 'right' }).tooltip('show');
+
+        setTimeout(function() {
+            copyWrapper.tooltip('destroy');
+        }, 2000);
     }
 
 });
