@@ -45,9 +45,9 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
-        model.set('clientId', response.clientId);
-        $.jStorage.set('clientId', response.clientId);
-        $.jStorage.set('budgetId', response.success._id);
+        $.jStorage.set('clientId', model.get('clientId'));
+        $.jStorage.set('budgetId', model.id);
+        TGM.vent.trigger('showSidePane', 'share-budget');
     },
 
     error: function(model, response)
