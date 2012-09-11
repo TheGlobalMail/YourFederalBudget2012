@@ -2,9 +2,9 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     routes: {
         "":                 "index",
-        "budget/:id":       "loadBudget",
-        "budgets/save":     "saveBudget",
+        "budget/save":      "saveBudget",
         "budget/:id/save":  "saveBudget",
+        "budget/:id":       "loadBudget",
         "budgets":          "viewBudgets"
     },
 
