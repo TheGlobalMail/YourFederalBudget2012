@@ -9,7 +9,31 @@
     font-size: .95em;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 4% 6%;
+    padding: 4% 5%;
+
+    &:hover,
+    &:active,
+    &:focus
+     {
+        -webkit-transition: all 150ms ease-in-out;
+        -moz-transition: all 150ms ease-in-out;
+        -ms-transition: all 150ms ease-in-out;
+        -o-transition: all 150ms ease-in-out;
+        transition: all 150ms ease-in-out;
+    }
+}
+
+.btn-primary {
+    text-shadow: none;
+    background: #333;
+    border:none;
+
+    &:hover,
+    &:active,
+    &:focus
+     {
+        background-color: black;
+    }
 }
 
 .btn-link {
