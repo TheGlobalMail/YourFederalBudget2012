@@ -1,6 +1,5 @@
 @errorBackgroundColor:  #F64347;
 @errorTextColor:        @white;
-@tooltipArrowColor:     @errorBackgroundColor;
 
 .tooltip.error {
     .tooltip-inner {
@@ -26,18 +25,18 @@
     }
 
     &.top .tooltip-arrow {
-        border-top-color: @tooltipArrowColor;
+        border-top-color: @errorBackgroundColor;
     }
 
     &.right .tooltip-arrow {
-        border-right-color: @tooltipArrowColor;
+        border-right-color: @errorBackgroundColor;
     }
 
     &.left .tooltip-arrow {
-        border-left-color: @tooltipArrowColor;
+        border-left-color: @errorBackgroundColor;
     }
 
     &.bottom .tooltip-arrow {
-        border-bottom-color: @tooltipArrowColor;
+        border-bottom-color: @errorBackgroundColor;
     }
 }
