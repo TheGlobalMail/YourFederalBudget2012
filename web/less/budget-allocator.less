@@ -24,7 +24,7 @@
             height: 15px;
 
             .slider-control {
-                width: 76%;
+                width: 75%;
                 margin: 0 0 0 4%;
                 height: 10px;
                 .border-radius(5px);
@@ -71,10 +71,11 @@
             }
         }
 
-        .info-icon {
+        .info-icon i {
             position: absolute;
             right: 5px;
             top: 6px;
+            display: none;
         }
 
         .federal-allocation {
@@ -109,6 +110,43 @@
         .border-bottom-radius(8px);
         border-bottom: 1px solid #e7e7e7;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+    }
+
+    .category .info-icon {
+        position: absolute;
+        right:3%;
+        top:65%;
+        display: block;
+        width:35px;
+        height: 25px;
+    }
+
+    .category.defence .info-icon {
+        background: url(../img/defence.svg) center top no-repeat;
+    }
+
+    .category.publicEducation .info-icon {
+        background: url(../img/pub-ed.svg) center top no-repeat;
+    }
+
+    .category.privateEduation .info-icon {
+        background: url(../img/priv-ed.svg) center top no-repeat;
+    }
+
+    .category.foreignAid .info-icon {
+        background: url(../img/aid.svg) center top no-repeat;
+    }
+
+    .category.immigration .info-icon {
+        background: url(../img/immigration.svg) center top no-repeat;
+        background-size: 30px;
+        height: 30px;
+        top: 42%;
+    }
+
+    .category.industryAssistance .info-icon {
+        background: url(../img/industry.svg) center top no-repeat;
+        top: 42%;
     }
 
     .defense .federal-allocation {
