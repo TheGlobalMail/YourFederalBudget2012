@@ -1,7 +1,8 @@
 .btn-inverse {
-    .buttonBackground(@btnInverseBackground, @btnInverseBackground, @btnInverseColor, none);
-    border:none;
+    .buttonBackground(@btnInverseBackground, @btnInverseBackground, @btnInverseColor);
+    border: 1px solid @btnInverseColor;
     box-shadow: none;
+    text-shadow: none;
 }
 
 .btn {
@@ -25,6 +26,5 @@
 .btn-inverse:hover,
 .btn-inverse:active,
 .btn-inverse:focus {
-
-    background: #000;
+    background: @grayLighter;
 }

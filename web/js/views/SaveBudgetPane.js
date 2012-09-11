@@ -45,9 +45,9 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
-        model.set('clientId', response.clientId);
-        $.jStorage.set('clientId', response.clientId);
-        $.jStorage.set('budgetId', response.success._id);
+        $.jStorage.set('clientId', model.get('clientId'));
+        $.jStorage.set('budgetId', model.id);
+        TGM.vent.trigger('showSidePane', 'share-budget');
     },
 
     error: function(model, response)
@@ -82,6 +82,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
                 window.location.replace('http://lmgtfy.com/?q=' + encodeURIComponent(this.$state.val()));
             }
 
+            // add close button to message
             var close = $('<a href="#" class="close">&times;</a>').clone();
             message = $("<span/>").text(message).append(close);
 
