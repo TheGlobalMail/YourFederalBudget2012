@@ -44,14 +44,18 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget }),
             "other-budgets":        new TGM.Views.OtherBudgetsPane({ el: $("#other-budgets-pane"), model: this.models.userBudget })
         });
+
+        var budgetId = $.jStorage.get('budgetId');
+        if (budgetId) {
+            this.models.userBudget.set('_id', budgetId);
+            this.models.userBudget.fetch();
+        }
     },
 
     index: function()
     {
-        var budgetId = $.jStorage.get('budgetId');
-
-        if (budgetId) {
-            this.goto("budget", budgetId);
+        if (!this.models.userBudget.isNew()) {
+            this.goto("budget", this.models.userBudget.id);
         } else {
             TGM.vent.trigger('showSidePane', 'budget-allocator');
         }
@@ -59,6 +63,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     loadBudget: function(id)
     {
+        // refactor and use active budget
         this.models.userBudget.set('_id', id);
 
         var fetchError = _.bind(function(model, response) {
@@ -67,11 +72,9 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             }
         }, this);
 
-        var success = _.bind(function() {
-            TGM.vent.trigger('showSidePane', 'budget-allocator');
-        }, this);
+        this.models.userBudget.fetch({ error: fetchError });
 
-        this.models.userBudget.fetch({ success: success, error: fetchError });
+        TGM.vent.trigger('showSidePane', 'budget-allocator');
     },
 
     saveBudget: function(id)
@@ -85,6 +88,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             TGM.vent.trigger('showSidePane', 'share-budget');
         }, this);
 
+        // refactor and use activeBudget
         this.models.userBudget.set('_id', id);
 
         var fetchError = _.bind(function(model, response) {
