@@ -3,14 +3,27 @@
     .categories {
         margin-bottom: 15px;
         background: url(../img/lhc_fade.png) center top no-repeat;
-        padding: 15px 0 0;
+        padding: 12px 0 0;
+    }
+
+    .control-label span {
+        background: #333;
+        color: white;
+        display: inline-block;
+        text-align: center;
+        font-family: @serifFontFamily;
+        font-style: italic;
+        width:18px;
+        height: 18px;
+        .border-radius(50%);
+        margin-bottom: 1.5%;
     }
 
     .category {
         border: #e7e7e7 1px solid;
         border-bottom: none;
         position: relative;
-        height: 52px;
+        height: 50px;
 
         .top {
             height: 25px;
@@ -55,7 +68,7 @@
         .title {
             position: absolute;
             left: 4%;
-            top: 6px;
+            top: 4px;
             font-size: .85em;
             text-transform: uppercase;
             font-weight: bold;
@@ -102,7 +115,7 @@
         }
     }
 
-    .category:first-child {
+    .category.defence {
         .border-top-radius(8px);
     }
 
@@ -114,7 +127,7 @@
 
     .category .info-icon {
         position: absolute;
-        right:3%;
+        right:3.5%;
         top:65%;
         display: block;
         width:35px;
@@ -175,7 +188,17 @@
 
     .top {
         .clearfix;
-        margin-bottom: 2px;
+
+        .toggle {
+                width: 100%;
+                height:46px;
+                border:1px solid @grayDarker;
+                .border-radius(8px);
+                margin-bottom: 2%;
+                font-size: .85em;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
 
         .title {
             width: 50%;
@@ -197,8 +220,9 @@
         margin-bottom: 10px;
 
         .progress {
+            height: 16px;
             margin-bottom: 0;
-            .border-radius(10px);
+            .border-radius(9px);
             background: #f2f2f2;
             box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 
