@@ -58,13 +58,13 @@ small {
 
     #left-column {
         float: left;
-        width: @appWidth * @columnRatio;
+        width: round(@appWidth * @columnRatio);
         position: relative;
     }
 
     #right-column {
         float: right;
-        width: (@appWidth * (1 - @columnRatio)) - 20px;
+        width: round((@appWidth * (1 - @columnRatio)) - 20px);
     }
 
     .modal {
