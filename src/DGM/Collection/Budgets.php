@@ -41,4 +41,14 @@ class Budgets
         return $budget;
     }
 
+    public function fetch($start, $count)
+    {
+        $cursor = $this->collection->find()
+            ->skip($start)
+            ->limit($count)
+            ->sort(array('createdAt' => -1));
+
+        return iterator_to_array($cursor, false);
+    }
+
 }
