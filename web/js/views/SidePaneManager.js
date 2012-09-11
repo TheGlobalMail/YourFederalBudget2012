@@ -6,7 +6,7 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
     {
         _.bindAll(this);
         TGM.vent.on("showSidePane", this.showPane);
-        this.tabManager = new TGM.Views.TabManager({ el: this.$('ul') });
+        this._currentPane();
     },
 
     addSidePane: function(id, sidePane)
@@ -14,7 +14,14 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
         this.sidePanes[id] = sidePane;
     },
 
-    showPane: function(id)
+    addSidePanes: function(sidePanes)
+    {
+        _.each(sidePanes, function(sidePane, id) {
+            this.addSidePane(id, sidePane);
+        }, this);
+    },
+
+    _currentPane: function()
     {
         if (!this.currentPane) {
             var paneEl = this.$('.sidepane:visible');
@@ -23,12 +30,28 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
                 return pane.$el[0] == paneEl[0];
             });
         }
+    },
+
+    selectTab: function(index)
+    {
+        var currentTab = this.$('.nav .active');
+        var newTab = this.$('li').eq(index);
+
+        if (currentTab[0] == newTab[0]) {
+            return false;
+        }
+
+        currentTab.removeClass('active');
+        newTab.addClass('active');
+    },
+
+    showPane: function(id)
+    {
+        this._currentPane();
 
         if (this.isSwitching || !id in this.sidePanes) {
             return false;
         }
-
-        this.tabManager.selectTab(this.currentPane.getTab());
 
         if (this.currentPane == this.sidePanes[id]) {
             this.currentPane.trigger('shown');
@@ -36,7 +59,7 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
         }
 
         this.isSwitching = true;
-
+        this.selectTab(this.sidePanes[id].getTab());
         // eeww callback soup, clean up with deferreds?
         this.currentPane.hide(_.bind(function() {
             this.sidePanes[id].show(_.bind(function() {

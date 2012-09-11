@@ -34,16 +34,12 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         this.views.emailPage = new TGM.Views.EmailPage({ el: $("#email-page-form") });
 
-        this.views.sidePanes = {
+        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#left-column")});
+        this.views.sidePaneManager.addSidePanes({
             "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $("#budget-allocator"), model: this.models.userBudget }),
             "save-budget":          new TGM.Views.SaveBudgetPane({ el: $("#save-budget-pane"), model: this.models.userBudget }),
-            "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget })
-        };
-
-        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#left-column")});
-        this.views.sidePaneManager.addSidePane("budget-allocator", this.views.sidePanes["budget-allocator"]);
-        this.views.sidePaneManager.addSidePane("save-budget", this.views.sidePanes["save-budget"]);
-        this.views.sidePaneManager.addSidePane("share-budget", this.views.sidePanes["share-budget"]);
+            "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget }),
+        });
     },
 
     index: function()
