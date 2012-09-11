@@ -1,11 +1,12 @@
 #left-column {
     .nav-tabs {
         margin-bottom: 0;
-        border-bottom-color: #d6d6d6;
+        border-bottom: none;
 
         li {
             width: 50%;
-            border-bottom: none;
+            border-bottom: 1px solid #d6d6d6;
+            margin-bottom: 0;
 
             a {
                 .ui-title;
@@ -17,6 +18,7 @@
                 background-color: #eee;
                 position: relative;
                 border-top: none;
+                border-bottom: none;
                 margin-right: 0;
                 line-height: 1;
                 cursor: pointer;
@@ -42,10 +44,12 @@
         }
 
         li.active {
+            border-bottom: none;
             a {
                 .opacity(100);
                 color: @textColor;
                 background-color: #fff;
+
             }
 
             .border-top {
@@ -58,7 +62,7 @@
         padding: 4%;
         height: 520px;
         border: 1px solid #d6d6d6;
-        border-top-color: transparent;
+        border-top: none;
         position: relative;
         // force all content up so there's no gaps in the side borders
         top: -1px;
