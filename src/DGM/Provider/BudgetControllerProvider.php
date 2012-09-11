@@ -27,7 +27,10 @@ class BudgetControllerProvider implements ControllerProviderInterface
 
             if ($sb->isValid()) {
                 $sb->save();
-                return $app->json([ "success" => $budget, "clientId" => $budget->getClientId() ]);
+                $json = $budget->jsonSerialize();
+                $json['clientId'] = $budget->getClientId();
+                $json = $app->json($json);
+                return $json;
             }
 
             return $app->json([ "errors" => $sb->getErrors() ], 400);
