@@ -48,7 +48,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         var budgetId = $.jStorage.get('budgetId');
 
         if (budgetId) {
-            this.goto("budget/", budgetId);
+            this.goto("budget", budgetId);
         } else {
             TGM.vent.trigger('showSidePane', 'budget-allocator');
         }
