@@ -1,7 +1,9 @@
 #visualisation {
-    height: 350px;
-    border: 1px solid #333;
+    height: 276px;
+    width: auto;
     position: relative;
+    margin: 60px 0 0 20px;
+    background: url(../img/scale.png) bottom right no-repeat;
 
     .category {
         position: absolute;
@@ -17,5 +19,64 @@
             bottom: 0;
             width: 100%;
         }
+    }
+}
+
+#bar-categories {
+
+    height: 80px;
+    padding-top: 5px;
+    margin: 0 0 0 10px;
+
+    .category {
+        height: 66px;
+        width:82px;
+        float: left;
+        margin-right: 20px;
+        text-align: center;
+        font-size: .85em;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.0;
+        padding: 56px 0 0 0;
+
+    }
+
+    .category.defence {
+        background: url(../img/defence.svg) center 4px no-repeat;
+        background-size: 65px 50px;
+        color: @defence;
+    }
+
+    .category.publicEducation {
+        background: url(../img/pub-ed.svg) center 4px no-repeat;
+        background-size: 60px 45px;
+        color: @pubEd;
+    }
+
+    .category.privateEduation {
+        background: url(../img/priv-ed.svg) center 4px no-repeat;
+        background-size: 65px 50px;
+        color: @privEd;
+    }
+
+
+    .category.immigration {
+        background: url(../img/immigration.svg) center 4px no-repeat;
+        background-size: 44px 47px;
+        color: @immigration;
+    }
+
+    .category.foreignAid {
+        background: url(../img/aid.svg) center 4px no-repeat;
+        background-size: 40px 44px;
+        color: @aid;
+    }
+
+
+    .category.industryAssistance {
+        background: url(../img/industry.svg) center 4px no-repeat;
+        background-size: 44px 45px;
+        color: @industry;
     }
 }

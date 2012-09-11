@@ -1,6 +1,7 @@
 .btn-inverse {
     .buttonBackground(@btnInverseBackground, @btnInverseBackground, @btnInverseColor);
-    border: 1px solid @btnInverseColor;
+    color: @grayDark;
+    border: 1px solid #d6d6d6;
     box-shadow: none;
     text-shadow: none;
 }
@@ -9,7 +10,35 @@
     font-size: .95em;
     font-weight: bold;
     text-transform: uppercase;
-    padding: 4% 6%;
+    padding: 3% 5%;
+
+    &:hover,
+    &:active,
+    &:focus
+     {
+        -webkit-transition: all 150ms ease-in-out;
+        -moz-transition: all 150ms ease-in-out;
+        -ms-transition: all 150ms ease-in-out;
+        -o-transition: all 150ms ease-in-out;
+        transition: all 150ms ease-in-out;
+    }
+}
+
+.btn-success {
+    border-color: #17a549;
+}
+
+.btn-primary {
+    text-shadow: none;
+    background: #333;
+    border:none;
+
+    &:hover,
+    &:active,
+    &:focus
+     {
+        background-color: black;
+    }
 }
 
 .btn-link {

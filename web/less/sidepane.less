@@ -20,6 +20,12 @@
                 margin-right: 0;
                 line-height: 1;
                 cursor: pointer;
+
+                &:hover,
+                &:active,
+                &:focus {
+                    .opacity(90);
+                }
             }
 
             &:last-child {
@@ -50,7 +56,7 @@
 
     .tab-content {
         padding: 4%;
-        height: 517px;
+        height: 520px;
         border: 1px solid #d6d6d6;
         border-top-color: transparent;
         position: relative;
@@ -64,7 +70,7 @@
 
     .sidepane {
         position: absolute;
-        top: 20px;
+        top: 10px;
         left: 20px;
         right: 20px;
     }

@@ -3,14 +3,27 @@
     .categories {
         margin-bottom: 15px;
         background: url(../img/lhc_fade.png) center top no-repeat;
-        padding: 15px 0 0;
+        padding: 12px 0 0;
+    }
+
+    .control-label span {
+        background: #333;
+        color: white;
+        display: inline-block;
+        text-align: center;
+        font-family: @serifFontFamily;
+        font-style: italic;
+        width:18px;
+        height: 18px;
+        .border-radius(50%);
+        margin-bottom: 1.5%;
     }
 
     .category {
         border: #e7e7e7 1px solid;
         border-bottom: none;
         position: relative;
-        height: 52px;
+        height: 50px;
 
         .top {
             height: 25px;
@@ -55,7 +68,7 @@
         .title {
             position: absolute;
             left: 4%;
-            top: 6px;
+            top: 4px;
             font-size: .85em;
             text-transform: uppercase;
             font-weight: bold;
@@ -102,7 +115,7 @@
         }
     }
 
-    .category:first-child {
+    .category.defence {
         .border-top-radius(8px);
     }
 
@@ -114,7 +127,7 @@
 
     .category .info-icon {
         position: absolute;
-        right:3%;
+        right:3.5%;
         top:65%;
         display: block;
         width:35px;
@@ -154,14 +167,11 @@
     }
 
     .save-budget-btn {
-        border-color: #17a549;
-        padding-left: 0;
         margin-right: 2%;
-        min-width: 155px;
     }
 
     .save-budget-btn i {
-        padding: 0 6% 0 8%;
+        padding: 0 6% 0 0;
     }
 
     .save-budget-btn span {
@@ -175,13 +185,25 @@
 
     .top {
         .clearfix;
-        margin-bottom: 2px;
+
+        .toggle {
+                width: 100%;
+                height:46px;
+                border:1px solid @grayDarker;
+                .border-radius(8px);
+                margin-bottom: 2%;
+                font-size: .85em;
+                text-transform: uppercase;
+                font-weight: bold;
+                text-align: center;
+            }
 
         .title {
             width: 50%;
             float: left;
             text-transform: uppercase;
             font-size: .85em;
+            line-height: 1.5;
         }
 
         .spent {
@@ -197,8 +219,9 @@
         margin-bottom: 10px;
 
         .progress {
+            height: 16px;
             margin-bottom: 0;
-            .border-radius(10px);
+            .border-radius(9px);
             background: #f2f2f2;
             box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 
@@ -248,7 +271,7 @@
     .budget-description-wrapper {
         textarea {
             .full-width;
-            height: 80px;
+            height: 110px;
         }
     }
 
@@ -291,12 +314,12 @@
 
         .help-block {
             width: 55%;
-            font-size: @grayLight;
+            font-color: @gray;
             font-size: 90%;
             .pull-right;
             margin-top: 5px;
             margin-right: 2%;
-            .opacity(80);
+            .opacity(100);
             text-align: center;
         }
     }
@@ -350,7 +373,7 @@
 
     .share-buttons {
         width: 150px;
-        margin: 20px auto;
+        margin: 6% auto 12%;
 
         img {
             cursor: pointer;
@@ -370,6 +393,6 @@
 
     .btn-block + p {
         text-align: center;
-        margin: 7px auto;
+        margin: 7px auto 15px;
     }
 }

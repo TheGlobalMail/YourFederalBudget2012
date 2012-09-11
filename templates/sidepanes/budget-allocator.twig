@@ -1,6 +1,8 @@
 <div id="budget-allocator" class="sidepane" data-tab="0">
     <div id="budget-overview">
         <div class="top">
+            <div class="control-label"><span>1</span> Choose amount to calculate:</div>
+            <div class="toggle">Toggle goes here</div>
             <div class="title">Total Tax Dollars</div>
             <div class="spent">$<span id="budget-total">0</span>b</div>
         </div>
@@ -13,6 +15,7 @@
     </div>
 
     <div class="categories">
+        <div class="control-label"><span>2</span> Move sliders to set funding amount:</div>
         {% for key, category in app.config.categories %}
             {% include 'slider-box.twig' with { 'id': key, 'label': category.label, 'federalAllocation': category.federalAllocation } %}
         {% endfor %}
