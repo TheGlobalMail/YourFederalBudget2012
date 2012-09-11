@@ -16,8 +16,20 @@ abstract class Model
         $this->init();
     }
 
+    public function getCreatedAt()
+    {
+        $ts = $this->createdAt->sec * -1;
+        return new \DateTime("@$ts");
+    }
+
+    public function setCreatedAt(\DateTime $date)
+    {
+        $this->createdAt = new \MongoDate($date->getTimestamp());
+    }
+
     public function save()
     {
+        $this->createdAt = new \MongoDate();
         $coll = $this->db->getCollection($this->collection);
         $data = $this->jsonSerialize();
 
