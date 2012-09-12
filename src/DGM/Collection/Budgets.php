@@ -51,7 +51,7 @@ class Budgets
         $cursor = $this->collection->find()
             ->skip($start)
             ->limit($count)
-            ->sort(array('createdAt' => -1));
+            ->sort(array('createdAt' => 1));
 
         // return an array of Budget
         return array_map([$this, '_makeBudget'], iterator_to_array($cursor, false));
