@@ -42,6 +42,10 @@ class Budget extends Model implements \JsonSerializable
             if (isset(self::$categoryData[$key])) {
                 $this->setCategory($key, $value);
             }
+
+            if ($key == "createdAt") {
+                $this->setCreatedAt(new \DateTime("@$value"));
+            }
         }
 
         return $this;
@@ -122,7 +126,8 @@ class Budget extends Model implements \JsonSerializable
             "name" => $this->getName(),
             "email" => $this->getEmail(),
             "description" => $this->getDescription(),
-            "state" => $this->getState()
+            "state" => $this->getState(),
+            "createdAt" => $this->getCreatedAt()->getTimestamp() * 1000
         ];
 
         if ($this->getId()) {

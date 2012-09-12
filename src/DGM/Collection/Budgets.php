@@ -31,14 +31,30 @@ class Budgets
             return false;
         }
 
+        return $this->_makeBudget($budgetData);
+    }
+
+    protected function _makeBudget(array $data)
+    {
         $budget = new Budget($this->db);
-        $budget->set($budgetData);
+        $budget->set($data);
 
         $id = new \ReflectionProperty($budget, 'id');
         $id->setAccessible(true);
-        $id->setValue($budget, $budgetData['_id']);
+        $id->setValue($budget, $data['_id']);
 
         return $budget;
+    }
+
+    public function fetch($start, $count)
+    {
+        $cursor = $this->collection->find()
+            ->skip($start)
+            ->limit($count)
+            ->sort(array('createdAt' => -1));
+
+        // return an array of Budget
+        return array_map([$this, '_makeBudget'], iterator_to_array($cursor, false));
     }
 
 }

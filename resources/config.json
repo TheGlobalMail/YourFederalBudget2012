@@ -19,6 +19,7 @@
             "js/bootstrap.js",
             "js/routers/AppRouter.js",
             "js/models/Budget.js",
+            "js/collections/Budgets.js",
             "js/views/Application.js",
             "js/views/SidePaneManager.js",
             "js/views/SidePane.js",

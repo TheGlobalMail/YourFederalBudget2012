@@ -29,7 +29,7 @@ $app['db'] = $app->share(function() {
     return new \DGM\Database\MongoDB();
 });
 
-$app['budgets'] = $app->share(function(Application $app) {
+$app['budgets'] = $app->share(function(\Silex\Application $app) {
     return new \DGM\Collection\Budgets($app['db']);
 });
 
