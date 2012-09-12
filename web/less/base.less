@@ -4,20 +4,38 @@ html, body {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
-header.navbar {
+header.navbar  {
     height: 45px;
     margin-bottom: 0;
     position: relative;
     z-index: 3;
-    background: #1b1b1b;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     position: fixed;
+    background: #1b1b1b url(../img/header.png) center top no-repeat;
+
+    .navbar-inner {
+        background: none;
+        width: 980px;
+    }
+
+    .home {
+        width: 33px;
+        height: 33px;
+        float: left;
+        margin: 5px 0 0-20px;
+        background: url(../img/logo.svg) center top no-repeat;
+        background-size: 33px;
+        text-indent: -9999px;
+
+    }
 
     .brand {
+        margin-left: 20px;
         font-family: @serifFontFamily;
         color: white;
         font-size: 1.7em;
         font-weight: bold;
+        line-height: 1.0;
     }
 }
 
