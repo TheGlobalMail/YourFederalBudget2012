@@ -22,6 +22,7 @@ TGM.Collections.Budgets = Backbone.Collection.extend({
 
         var _success = _.bind(function(collection, response) {
             this.timesFetched += 1;
+            this.trigger('fetchMore', collection, response);
 
             if (_.isFunction(success)) {
                 success(collection, response);
@@ -40,6 +41,11 @@ TGM.Collections.Budgets = Backbone.Collection.extend({
                 count: count
             }
         });
+    },
+
+    getLastFetched: function()
+    {
+        return this.last(this.resultsPerFetch)
     }
 
 });

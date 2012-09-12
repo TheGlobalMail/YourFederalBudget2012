@@ -22,6 +22,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
         $controllers->get('/list', function(Request $request) use ($app) {
             $start = $request->query->get('start', 0);
             $count = $request->query->get('count', 10);
+            $count = min($count, 100); // cap count at one hundred (prevent dirty requests)
 
             return $app->json($app['budgets']->fetch($start, $count));
         });
