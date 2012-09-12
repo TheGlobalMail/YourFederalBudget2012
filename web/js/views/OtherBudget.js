@@ -28,6 +28,27 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         this.$el.html(html);
 
         return this;
+    },
+
+    doColorBar: function()
+    {
+        var $colorBar = this.$('.color-bar');
+        var totalWidth = $colorBar.width() - 2;
+        var allocationSum = this.model.getTotal();
+        var widthToAllocationRatio = totalWidth / allocationSum;
+
+        _.each(DATA.categories, function(cat, id) {
+            var color = cat.color;
+            var width = this.model.get(id) * widthToAllocationRatio;
+            var bit = this._makeColorBarSection(id, width);
+
+            $colorBar.append(bit);
+        }, this);
+    },
+
+    _makeColorBarSection: function(id, width)
+    {
+        return $("<div/>").css({ width: width, float: "left", height: "100%" }).addClass(id).html('&nbsp;');
     }
 
 });

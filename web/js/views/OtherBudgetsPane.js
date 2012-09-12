@@ -41,6 +41,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
             var view = new TGM.Views.OtherBudget({ model: budget });
             this.$inner.append(view.render().$el);
+            view.doColorBar();
 
             this.otherBudgetViews.push(view);
         }, this);

@@ -19,7 +19,7 @@
             "extended": "<p>This is more information about Public Education</p>"
         }
     },
-    "privateEduation": {
+    "privateEducation": {
         "label": "Private Education",
         "federalAllocation": 52,
         "tooltip": "This is the Private Education tooltip for help and quick info",
