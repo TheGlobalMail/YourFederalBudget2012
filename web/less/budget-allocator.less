@@ -48,9 +48,9 @@
 
             .ui-slider-handle {
                 display: block;
-                width: 18px;
-                height: 18px;
-                top: -.35em;
+                width: 20px;
+                height: 20px;
+                top: -5px;
                 margin-left: -.6em;
                 .border-radius(50%);
                 border: 1px solid #8e8e8e;
@@ -69,10 +69,11 @@
         .title {
             position: absolute;
             left: 4%;
-            top: 4px;
+            top: 50%;
             font-size: .85em;
             text-transform: uppercase;
             font-weight: bold;
+            line-height: 0;
         }
 
         .spent-box {
@@ -137,18 +138,22 @@
 
     .category.defence .info-icon {
         background: url(../img/defence.svg) center top no-repeat;
+        background-size: 35px;
     }
 
     .category.publicEducation .info-icon {
         background: url(../img/pub-ed.svg) center top no-repeat;
+        background-size: 35px;
     }
 
     .category.privateEduation .info-icon {
         background: url(../img/priv-ed.svg) center top no-repeat;
+        background-size: 35px;
     }
 
     .category.foreignAid .info-icon {
         background: url(../img/aid.svg) center top no-repeat;
+        background-size: 25px;
     }
 
     .category.immigration .info-icon {
@@ -160,6 +165,7 @@
 
     .category.industryAssistance .info-icon {
         background: url(../img/industry.svg) center top no-repeat;
+        background-size: 25px;
         top: 42%;
     }
 
@@ -169,11 +175,11 @@
 
     .save-budget-btn {
         margin-right: 2%;
-        min-width: 121px;
+        width: 126px;
     }
 
     .save-budget-btn i {
-        padding: 0 6% 0 0;
+        padding: 0 5px 0 0;
     }
 
     .save-budget-btn span {
@@ -396,5 +402,11 @@
     .btn-block + p {
         text-align: center;
         margin: 7px auto 15px;
+    }
+}
+#other-budgets-pane {
+    h3 {
+        .control-label;
+        line-height: 1.2;
     }
 }

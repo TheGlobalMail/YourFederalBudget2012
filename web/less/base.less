@@ -15,27 +15,73 @@ header.navbar  {
 
     .navbar-inner {
         background: none;
+
+        .container {
         width: 980px;
+        }
+
     }
 
     .home {
         width: 33px;
         height: 33px;
         float: left;
-        margin: 5px 0 0-20px;
+        margin: 5px 0 0;
         background: url(../img/logo.svg) center top no-repeat;
         background-size: 33px;
         text-indent: -9999px;
 
+        &:hover{
+            .opacity(60);
+        }
     }
 
     .brand {
-        margin-left: 20px;
+        margin-left: 10px;
         font-family: @serifFontFamily;
         color: white;
         font-size: 1.7em;
         font-weight: bold;
         line-height: 1.0;
+    }
+
+    .icons {
+        margin-top: 8px;
+        float: right;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        .border-radius(5px);
+
+        .about,
+        .comments,
+        .share,
+        .readlater {
+            font-family: @sansFontFamily;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: .85em;
+            padding: 7px 8px;
+            float: left;
+            color: white;
+            margin: 0;
+            line-height: 1.0;
+
+            &:hover,
+            &:active,
+            &:focus{
+                text-decoration: none;
+                .opacity(60);
+
+            }
+        }
+
+        .share {
+            padding-left: 20px;
+        }
+
+        .about {
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            margin-right: 8px;
+        }
     }
 }
 
@@ -73,10 +119,10 @@ small {
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
-    margin-top:43px;
+    margin-top:40px;
     height: 597px;
     width: @appWidth;
-    padding: 1.5%;
+    padding: 18px 22px;
     background-color: @white;
 
     #left-column {
@@ -106,6 +152,9 @@ small {
 
             .close {
                 font-size: 2.5em;
+                width: 25px;
+                height: 25px;
+                line-height: 0;
             }
         }
 
@@ -135,7 +184,8 @@ small {
     margin-top: 10px;
 }
 
-.control-label {
+.control-label
+ {
     .ui-title;
     font-size: 90%;
     line-height: 1.5;
@@ -188,8 +238,8 @@ background-color: white;
     font-family: inherit;
 }
 
-#at16p, 
-#atie6ifh, 
+#at16p,
+#atie6ifh,
 #atie6cmifh {
 width: 350px;
 }
@@ -225,7 +275,7 @@ font-size: 1.8em;
 font-size: 1.2em!important;
 }
 
-#at16p .atbtn, 
+#at16p .atbtn,
 #at16recap .atbtn {
 border: none;
 width: auto!important;
@@ -242,7 +292,7 @@ color: white;
     }
 }
 
-#at16p .atrse, 
+#at16p .atrse,
 #at16recap .atrse {
 background: none;
 color: @grayDark;
