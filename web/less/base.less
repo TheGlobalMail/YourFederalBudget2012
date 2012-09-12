@@ -1,5 +1,5 @@
 html, body {
-    background-color: #f2f2f2;
+    // background-color: #f2f2f2;
     line-height: 1.2;
     -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -120,7 +120,7 @@ small {
     @appWidth: 980px;
     @columnRatio: 0.33;
     margin-top:40px;
-    height: 597px;
+    height: 580px;
     width: @appWidth;
     padding: 18px 22px;
     background-color: @white;
@@ -140,6 +140,7 @@ small {
         outline:none;
         .border-radius(0);
         padding: 2%;
+        width: 800px;
 
         .modal-header {
             border-bottom: none;
@@ -320,4 +321,50 @@ box-shadow: none;
 }
 
 
+// Larger screens
 
+@media only screen
+    and (min-width : 1260px)
+     {
+        @appWidth: 1200px;
+        @columnRatio: 0.33;
+
+        #main,
+        header.navbar .navbar-inner .container {
+            width: @appWidth;
+        }
+        #main {
+
+            height: 620px;
+
+            #left-column {
+            width: round(@appWidth * @columnRatio);
+
+                .nav-tabs li a {
+                    padding:6% 20%;
+                }
+
+                .tab-content {
+                    height: 550px;
+                }
+
+                #budget-allocator .category {
+                    height: 52px;
+                }
+
+            }
+
+            #right-column {
+            width: round((@appWidth * (1 - @columnRatio)) - 20px);
+
+                #visualisation {
+                    height: 330px;
+                }
+
+            }
+
+        }
+        header.navbar {
+            background-position-x: -523px;
+        }
+    }
