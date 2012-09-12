@@ -1,5 +1,4 @@
 #budget-allocator {
-
     .categories {
         margin-bottom: 12px;
         background: url(../img/lhc_fade.png) center top no-repeat;
@@ -13,7 +12,7 @@
         text-align: center;
         font-family: @serifFontFamily;
         font-style: italic;
-        width:18px;
+        width: 18px;
         height: 18px;
         .border-radius(50%);
         margin-bottom: 1.5%;
@@ -51,11 +50,11 @@
                 width: 20px;
                 height: 20px;
                 top: -5px;
-                margin-left: -.6em;
+                margin-left: -0.6em;
                 .border-radius(50%);
                 border: 1px solid #666;
                 box-shadow: inset 0 0 1px 1px white, 0 2px 2px rgba(0,0,0,0.2);
-                #gradient.vertical(#e1e1e1,#fff);
+                #gradient > .vertical(#e1e1e1,#fff);
             }
 
             .ui-slider-handle:hover,
@@ -67,7 +66,7 @@
                 width: 22px;
                 height: 22px;
                 top: -6px;
-                margin-left: -.7em;
+                margin-left: -0.7em;
 
             }
         }
@@ -76,7 +75,7 @@
             position: absolute;
             left: 4%;
             top: 50%;
-            font-size: .85em;
+            font-size: 0.85em;
             text-transform: uppercase;
             font-weight: bold;
             line-height: 0;
@@ -93,9 +92,6 @@
         }
 
         .info-icon i {
-            position: absolute;
-            right: 5px;
-            top: 6px;
             display: none;
         }
 
@@ -130,7 +126,7 @@
     .category:last-child {
         .border-bottom-radius(8px);
         border-bottom: 1px solid #e7e7e7;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+        .box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
     }
 
     .category .info-icon {
@@ -152,7 +148,7 @@
         background-size: 35px;
     }
 
-    .category.privateEduation .info-icon {
+    .category.privateEducation .info-icon {
         background: url(../img/priv-ed.svg) center top no-repeat;
         background-size: 35px;
     }
@@ -176,8 +172,8 @@
     }
 
     .actions {
-    width: 94%;
-    margin: 0 auto;
+        width: 94%;
+        margin: 0 auto;
     }
 
     .defense .federal-allocation {
@@ -205,16 +201,16 @@
         .clearfix;
 
         .toggle {
-                width: 100%;
-                height:46px;
-                border:1px solid @grayDarker;
-                .border-radius(8px);
-                margin-bottom: 2%;
-                font-size: .85em;
-                text-transform: uppercase;
-                font-weight: bold;
-                text-align: center;
-            }
+            width: 100%;
+            height: 46px;
+            border: 1px solid @grayDarker;
+            .border-radius(8px);
+            margin-bottom: 2%;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+        }
 
         .title {
             width: 50%;
@@ -250,14 +246,13 @@
             }
         }
     }
-
 }
 
 #save-budget-pane {
     .full-width {
-            width: 100%;
-            .box-sizing(border-box);
-            display: block;
+        width: 100%;
+        .box-sizing(border-box);
+        display: block;
     }
 
     h3 {

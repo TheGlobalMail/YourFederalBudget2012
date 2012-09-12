@@ -1,6 +1,5 @@
 html, body {
     line-height: 1.2;
-    -webkit-font-smoothing: subpixel-antialiased;
     text-rendering: geometricPrecision;
 }
 
@@ -9,7 +8,7 @@ header.navbar  {
     margin-bottom: 0;
     position: relative;
     z-index: 3;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    .box-shadow(0 0 5px rgba(0,0,0,0.5));
     position: fixed;
     background: #1b1b1b;
 
@@ -17,9 +16,8 @@ header.navbar  {
         background: none;
 
         .container {
-        width: 980px;
+            width: 980px;
         }
-
     }
 
     .home {
@@ -48,7 +46,6 @@ header.navbar  {
         span {
             font-style: italic;
         }
-
     }
 
     .icons {
@@ -76,13 +73,12 @@ header.navbar  {
             &:focus{
                 text-decoration: none;
                 .opacity(60);
-
             }
         }
 
         .share {
             padding-left: 22px;
-            background-image: url("../img/ico-share.png");
+            background-image: url(../img/ico-share.png);
         }
 
         .about {
@@ -94,7 +90,7 @@ header.navbar  {
 
 .btn [class^="icon-"],
 .btn [class*=" icon-"] {
-    line-height: .35;
+    line-height: 0.35;
 }
 
 i {
@@ -106,8 +102,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h3 {
-font-size:1.6em;
-line-height: 1.0;
+    font-size: 1.6em;
+    line-height: 1.0;
 }
 
 p {
@@ -142,41 +138,7 @@ small {
         float: right;
         width: round((@appWidth * (1 - @columnRatio)) - 20px);
     }
-
-    .modal {
-        outline:none;
-        .border-radius(0);
-        padding: 2%;
-        width: 800px;
-
-        .modal-header {
-            border-bottom: none;
-            padding:0;
-
-            h3.title {
-                font-size: 2em;
-                margin-bottom: 1%;
-            }
-
-            .close {
-                font-size: 2.5em;
-                width: 25px;
-                height: 25px;
-                line-height: 0;
-            }
-        }
-
-        .modal-body {
-            padding:0;
-        }
-    }
-
 }
-
-.modal-backdrop {
-    background: white;
-}
-
 
 .ui-title {
     font-weight: bold;
@@ -192,8 +154,7 @@ small {
     margin-top: 10px;
 }
 
-.control-label
- {
+.control-label {
     .ui-title;
     font-size: 90%;
     line-height: 1.5;
@@ -210,219 +171,3 @@ small {
         margin-bottom: 3px;
     }
 }
-
-// Email share styles
-
-#at16p {
-    background: none;
-}
-
-#at16pi {
-    border: none;
-}
-
-#at16pib {
-    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.3);
-    }
-
-#at16lb {
-background-color: white;
-.opacity(90);
-}
-
-#at16recap,
-#at_msg,
-#at16p label,
-#at16nms,
-#at16sas,
-#at_share .at_item,
-#at16p,
-#at15s,
-#at16p form input,
-#at16p textarea,
-#at16p,
-#atie6ifh,
-#atie6cmifh {
-    font-family: inherit;
-}
-
-#at16p,
-#atie6ifh,
-#atie6cmifh {
-width: 350px;
-}
-
-#at16pm {
-height: auto;
-width: 320px;
-padding:5%;
-border: none;
-border: 1px solid @grayLight;
-}
-
-#at16pt {
-    height: auto;
-    background: none;
-    padding: 5%;
-}
-
-#at_email {
-padding: 5%;
-}
-
-#at16pf,
-#at16meo {
-    display: none;
-}
-
-#at16pt h4 {
-font-size: 1.8em;
-}
-
-#at16pc form label {
-font-size: 1.2em!important;
-}
-
-#at16p .atbtn,
-#at16recap .atbtn {
-border: none;
-width: auto!important;
-padding: 3% 15%!important;
-margin: 5% 5px 0 5px!important;
-font-size: 1.1em!important;
-text-transform: uppercase;
-.border-radius(5px);
-background: @grayDark;
-color: white;
-    &:hover {
-        background: black;
-        color: white;
-    }
-}
-
-#at16p .atrse,
-#at16recap .atrse {
-background: none;
-color: @grayDark;
-border: 1px solid #d6d6d6;
-font-weight: bold!important;
-box-shadow: none;
-    &:hover {
-        color: #333;
-        background-color: @grayLighter;
-        border-color: #d6d6d6;
-    }
-}
-
-#at16pt a {
-    text-indent: -9999px;
-    width: 20px;
-    height: 20px;
-    background: url(../img/close.svg) center top no-repeat;
-    background-size: 15px;
-    .opacity(40);
-
-    &:hover {
-        .opacity(100);
-    }
-}
-
-
-// Larger screens
-
-@media only screen
-    and (min-width : 1060px)
-    {
-        body {
-            background-color: #f2f2f2;
-        }
-    }
-
-@media only screen
-    and (min-width : 1260px) and (min-height: 805px)
-     {
-        @appWidth: 1160px;
-        @columnRatio: 0.33;
-
-        #main,
-        header.navbar .navbar-inner .container {
-            width: @appWidth;
-        }
-
-        header.navbar {
-            height: 55px;
-
-            .home {
-            width: 44px;
-            height: 44px;
-            background-size: 44px;
-            }
-
-            .brand {
-            height: 33px;
-            padding-left: 2.5%;
-            font-size: 2.2em;
-            background-size: auto 55px;
-            }
-
-            .icons {
-            margin-top: 12px;
-            }
-
-            }
-
-        #main {
-
-            height: 660px;
-            padding: 25px 25px;
-            margin-top: 52px;
-
-            #left-column {
-            width: round(@appWidth * @columnRatio);
-
-                .nav-tabs li a {
-                    padding:6% 20%;
-                }
-
-                .tab-content {
-                    height: 570px;
-                }
-
-                #budget-allocator .category {
-                    height: 56px;
-                }
-
-                .bar {
-                background-size: 341px 30px;
-            }
-
-            #other-budgets-pane {
-                hr {
-                    width: 381px;
-
-                }
-
-                .color-bar {
-                        width: 222px;
-                    }
-
-                .other-budgets {
-                    max-height: 496px;
-                }
-
-                        }
-                    }
-
-            #right-column {
-            width: round((@appWidth * (1 - @columnRatio)) - 20px);
-
-                #visualisation {
-                    height: 345px;
-                    background-image: url(../img/scale-lge.png);
-                }
-
-            }
-
-        }
-
-    }
