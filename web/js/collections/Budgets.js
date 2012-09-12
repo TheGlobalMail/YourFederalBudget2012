@@ -19,10 +19,11 @@ TGM.Collections.Budgets = Backbone.Collection.extend({
 
     fetchMore: function(error, success)
     {
-        if (this.full) {
+        if (this.full || this.fetching) {
             return false;
         }
 
+        this.fetching = true;
         this.trigger('fetching');
         error = error || function() {};
 
@@ -39,6 +40,8 @@ TGM.Collections.Budgets = Backbone.Collection.extend({
             if (_.isFunction(success)) {
                 success(collection, response);
             }
+
+            this.fetching = false;
         }, this);
 
         var start = this.timesFetched * this.resultsPerFetch;
