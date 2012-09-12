@@ -12,10 +12,17 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
         this.otherBudgetViews = [];
 
-        this.$('.your-budget').html(this.userBudget.$el);
+        this.$yourBudget = this.$('.your-budget');
         this.$otherBudgets = this.$('.other-budgets');
         this.$inner = this.$('.other-budgets-inner');
         this.$loadingState = this.$('.loading-more');
+
+        if (this.model.isNew()) {
+            this.$yourBudget.hide();
+            this.model.on('sync', this.showUsedBudget);
+        }
+
+        this.$yourBudget.html(this.userBudget.$el);
 
         this.collection.on('fetching', this.fetchingMore);
         this.collection.on('fetched', this.showMoreBudgets);
@@ -41,7 +48,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
     },
 
-    onScroll: function(e, delta, deltaX)
+    onScroll: function()
     {
         var atBottom = this.$otherBudgets.scrollTop() + this.$otherBudgets.outerHeight() > this.$inner.outerHeight(true);
 
@@ -58,6 +65,13 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
     noMoreBudgets: function()
     {
         this.$loadingState.removeClass('loading').addClass('full').text(DATA.messages.otherBudgets.full);
+    },
+
+    showUsedBudget: function()
+    {
+        if (!this.model.isNew() && this.$yourBudget.is(":hidden")) {
+            this.$yourBudget.show();
+        }
     }
 
 });
