@@ -1,5 +1,4 @@
 html, body {
-    // background-color: #f2f2f2;
     line-height: 1.2;
     -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -326,8 +325,12 @@ box-shadow: none;
 @media only screen
     and (min-width : 1260px)
      {
-        @appWidth: 1200px;
+        @appWidth: 1160px;
         @columnRatio: 0.33;
+
+        body {
+            background-color: #f2f2f2;
+        }
 
         #main,
         header.navbar .navbar-inner .container {
@@ -335,7 +338,7 @@ box-shadow: none;
         }
         #main {
 
-            height: 620px;
+            height: 630px;
 
             #left-column {
             width: round(@appWidth * @columnRatio);
@@ -345,7 +348,7 @@ box-shadow: none;
                 }
 
                 .tab-content {
-                    height: 550px;
+                    height: 535px;
                 }
 
                 #budget-allocator .category {
@@ -358,7 +361,7 @@ box-shadow: none;
             width: round((@appWidth * (1 - @columnRatio)) - 20px);
 
                 #visualisation {
-                    height: 330px;
+                    height: 320px;
                 }
 
             }
