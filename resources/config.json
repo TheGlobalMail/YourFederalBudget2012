@@ -61,6 +61,11 @@
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
     "budgetAllowance": 400,
     "messages": {
-        "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to this area first reduce spending elsewhere."
+        "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to this area first reduce spending elsewhere.",
+        "otherBudgets": {
+            "fetched": "Scroll to load more",
+            "fetching": "Moading more...",
+            "full": "No more budgets"
+        }
     }
 }

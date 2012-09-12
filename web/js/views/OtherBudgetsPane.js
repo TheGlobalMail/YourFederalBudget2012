@@ -1,21 +1,26 @@
 TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
     events: {
-        "mousewheel .other-budgets": "onScroll"
+        "mousewheel .other-budgets": "_onScroll"
     },
 
     initialize: function()
     {
+        this._onScroll = _.throttle(this.onScroll, 100);
         _.bindAll(this);
 
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
         this.otherBudgetViews = [];
-        this.collection.on('fetchMore', this.showMoreBudgets);
-        this.collection.fetchMore();
 
         this.$('.your-budget').html(this.userBudget.$el);
         this.$otherBudgets = this.$('.other-budgets');
         this.$inner = this.$('.other-budgets-inner');
+        this.$loadingState = this.$('.loading-more');
+
+        this.collection.on('fetching', this.fetchingMore);
+        this.collection.on('fetched', this.showMoreBudgets);
+        this.collection.on('full', this.noMoreBudgets);
+        this.collection.fetchMore();
     },
 
     showMoreBudgets: function(collection, response)
@@ -32,12 +37,27 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
             this.otherBudgetViews.push(view);
         }, this);
+
+        this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
     },
 
     onScroll: function(e, delta, deltaX)
     {
         var atBottom = this.$otherBudgets.scrollTop() + this.$otherBudgets.outerHeight() > this.$inner.outerHeight(true);
-        console.log('atBottom', atBottom);
+
+        if (atBottom) {
+            this.collection.fetchMore();
+        }
+    },
+
+    fetchingMore: function()
+    {
+        this.$loadingState.addClass('loading').text(DATA.messages.otherBudgets.fetching)
+    },
+
+    noMoreBudgets: function()
+    {
+        this.$loadingState.addClass('full').text(DATA.messages.otherBudgets.full);
     }
 
 });
