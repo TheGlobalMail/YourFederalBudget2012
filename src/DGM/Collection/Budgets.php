@@ -15,6 +15,7 @@ class Budgets
     {
         $this->db = $db;
         $this->collection = $db->getCollection((new Budget($db))->collection);
+        $this->collection->ensureIndex("createdAt");
     }
 
     public function isClientIdUnique($uniqueId)
