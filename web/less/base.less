@@ -10,7 +10,7 @@ header.navbar  {
     z-index: 3;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     position: fixed;
-    background: #1b1b1b url(../img/header.png) center top no-repeat;
+    background: #1b1b1b;
 
     .navbar-inner {
         background: none;
@@ -36,12 +36,13 @@ header.navbar  {
     }
 
     .brand {
-        margin-left: 10px;
+        margin-left: 5px;
         font-family: @serifFontFamily;
         color: white;
         font-size: 1.7em;
         font-weight: bold;
         line-height: 1.0;
+        background: url(../img/header-arrow.png) left top no-repeat;
     }
 
     .icons {
@@ -74,7 +75,8 @@ header.navbar  {
         }
 
         .share {
-            padding-left: 20px;
+            padding-left: 22px;
+            background-image: url("../img/ico-share.png");
         }
 
         .about {
@@ -323,22 +325,51 @@ box-shadow: none;
 // Larger screens
 
 @media only screen
+    and (min-width : 1060px)
+    {
+        body {
+            background-color: #f2f2f2;
+        }
+    }
+
+@media only screen
     and (min-width : 1260px)
      {
         @appWidth: 1160px;
         @columnRatio: 0.33;
 
-        body {
-            background-color: #f2f2f2;
-        }
-
         #main,
         header.navbar .navbar-inner .container {
             width: @appWidth;
         }
+
+        header.navbar {
+            height: 55px;
+
+            .home {
+            width: 44px;
+            height: 44px;
+            background-size: 44px;
+            }
+
+            .brand {
+            height: 33px;
+            padding-left: 2.5%;
+            font-size: 2.2em;
+            background-size: auto 55px;
+            }
+
+            .icons {
+            margin-top: 12px;
+            }
+
+            }
+
         #main {
 
             height: 630px;
+            padding: 25px 25px;
+            margin-top: 52px;
 
             #left-column {
             width: round(@appWidth * @columnRatio);
@@ -355,6 +386,10 @@ box-shadow: none;
                     height: 52px;
                 }
 
+                .bar {
+                background-size: 341px 30px;
+            }
+
             }
 
             #right-column {
@@ -367,7 +402,5 @@ box-shadow: none;
             }
 
         }
-        header.navbar {
-            background-position-x: -523px;
-        }
+
     }
