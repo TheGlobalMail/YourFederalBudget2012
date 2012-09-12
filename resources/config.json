@@ -64,7 +64,7 @@
         "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to this area first reduce spending elsewhere.",
         "otherBudgets": {
             "fetched": "Scroll to load more",
-            "fetching": "Moading more...",
+            "fetching": "Loading more...",
             "full": "No more budgets"
         }
     }
