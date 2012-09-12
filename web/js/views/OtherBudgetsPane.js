@@ -57,7 +57,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
     noMoreBudgets: function()
     {
-        this.$loadingState.addClass('full').text(DATA.messages.otherBudgets.full);
+        this.$loadingState.removeClass('loading').addClass('full').text(DATA.messages.otherBudgets.full);
     }
 
 });
