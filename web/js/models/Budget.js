@@ -2,6 +2,8 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     // automatically injected in main.js
     defaults: {
+        name: "",
+        state: "",
         createdAt: 0 // milliseconds since epoch
     },
 

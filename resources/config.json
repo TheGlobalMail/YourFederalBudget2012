@@ -29,6 +29,7 @@
             "js/views/SaveBudgetPane.js",
             "js/views/ShareBudgetPane.js",
             "js/views/OtherBudgetsPane.js",
+            "js/views/OtherBudget.js",
             "js/views/CategoryAllocation.js",
             "js/views/BudgetOverview.js",
             "js/views/MoreInfo.js",

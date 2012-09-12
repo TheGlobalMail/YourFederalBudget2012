@@ -10,6 +10,8 @@
 </script>
 {% endautoescape %}
 
+{% include 'js-templates/other-budget.twig' %}
+
 {% if app.debug %}
     {% for script in app.config.frontend.scripts %}
         <script src="/{{script}}"></script>

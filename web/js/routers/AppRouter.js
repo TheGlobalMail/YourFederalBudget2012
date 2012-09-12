@@ -27,6 +27,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         this.models.userBudget = new TGM.Models.Budget();
         this.models.federalBudget = new TGM.Models.Budget();
+        this.models.activeBudget = this.models.userBudget;
 
         this.collections.budgets = new TGM.Collections.Budgets();
 
@@ -42,7 +43,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $("#budget-allocator"), model: this.models.userBudget }),
             "save-budget":          new TGM.Views.SaveBudgetPane({ el: $("#save-budget-pane"), model: this.models.userBudget }),
             "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget }),
-            "other-budgets":        new TGM.Views.OtherBudgetsPane({ el: $("#other-budgets-pane"), model: this.models.userBudget })
+            "other-budgets":        new TGM.Views.OtherBudgetsPane({ el: $("#other-budgets-pane"), model: this.models.userBudget, collection: this.collections.budgets })
         });
 
         var budgetId = $.jStorage.get('budgetId');
