@@ -69,6 +69,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         var fetchError = _.bind(function(model, response) {
             if (response.status == 404) {
+                if (id == $.jStorage.get('budgetId')) {
+                    $.jStorage.deleteKey('budgetId');
+                    $.jStorage.deleteKey('clientId');
+                }
                 this.goto();
             }
         }, this);
