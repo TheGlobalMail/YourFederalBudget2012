@@ -65,15 +65,21 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     loadBudget: function(id)
     {
         // refactor and use active budget
-        this.models.userBudget.set('_id', id);
+        if (this.models.userBudget.id != id) {
+            this.models.userBudget.set('_id', id);
 
-        var fetchError = _.bind(function(model, response) {
-            if (response.status == 404) {
-                this.goto();
-            }
-        }, this);
+            var fetchError = _.bind(function(model, response) {
+                if (response.status == 404) {
+                    if (id == $.jStorage.get('budgetId')) {
+                        $.jStorage.deleteKey('budgetId');
+                        $.jStorage.deleteKey('clientId');
+                    }
+                    this.goto();
+                }
+            }, this);
 
-        this.models.userBudget.fetch({ error: fetchError });
+            this.models.userBudget.fetch({ error: fetchError });
+        }
 
         TGM.vent.trigger('showSidePane', 'budget-allocator');
     },

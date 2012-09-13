@@ -72,6 +72,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
     {
         if (!this.model.isNew() && this.$yourBudget.is(":hidden")) {
             this.$yourBudget.show();
+            this.userBudget.doColorBar();
         }
     }
 
