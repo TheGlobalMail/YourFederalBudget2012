@@ -5,12 +5,14 @@
         .ui-title;
         font-size: 13px;
         width: 93%;
+        margin-top: 0;
     }
 
     hr {
         margin-bottom: 0;
         border-bottom: none;
         width: 321px;
+        height: 0;
         margin-left: -16px;
     }
 
@@ -69,15 +71,24 @@
 
         width:94%;
 
-        &:before {
+        .btn.no {
+            .btn-primary;
+            width: 90%;
+            height: 20px;
+            margin: 10px 0 19px;
+        }
+
+        .other-budget {
+            &:before {
             position: absolute;
             content: "";
             width: 40px;
             height: 35px;
             left: -34px;
-            top: 60px;
+            top: 50px;
             background: url(../img/you.png) center top no-repeat;
             z-index: 10;
+        }
         }
 
         .btn-inverse {
@@ -91,7 +102,7 @@
     .other-budgets {
         background: url(../img/lhc_fade.png) center top no-repeat;
         padding: 15px 20px 15px 0;
-        max-height: 344px;
+        max-height: 357px;
         overflow-y: scroll;
 
         .loading-more {
@@ -108,7 +119,8 @@
     .other-budget {
         border: #E7E7E7 1px solid;
         border-bottom: none;
-        padding: 2% 4% 4%;
+        padding: 1.5% 0 3% 4%;
+        width: 96%;
 
         &:first-child {
             .border-top-radius(8px);
@@ -145,7 +157,7 @@
 
         time {
             float: right;
-            margin-top: 6px;
+            margin:6px 7% 0 0;
         }
 
         .btn-primary {
