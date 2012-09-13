@@ -19,7 +19,6 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var c = new Date(data.createdAt);
         data.dateString = [c.getDate(), c.getMonth(), c.getFullYear()].join('/');
         data.dateTime = c.toDateString();
-
         data.editable = this.options.editable;
 
         if (!_.has(data, "_id")) {
@@ -29,7 +28,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var html = this.template(data);
         this.$el.html(html);
 
-        if (this.$el.is(':visible')) { // already attached to dom
+        if (this.$el.parent()) { // already attached to dom
             this.doColorBar();
         }
 
