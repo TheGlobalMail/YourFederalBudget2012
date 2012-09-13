@@ -18,6 +18,8 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var data = this.model.toJSON();
         var c = new Date(data.createdAt);
         data.dateString = [c.getDate(), c.getMonth(), c.getFullYear()].join('/');
+        data.dateTime = c.toDateString();
+
         data.editable = this.options.editable;
 
         if (!_.has(data, "_id")) {
