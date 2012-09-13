@@ -33,9 +33,9 @@
     font-size: 1em!important;
 }
 
-#at_email input, 
+#at_email input,
 #at_email textarea,
-#at_email label, 
+#at_email label,
  {
     font-size: initial;
 }
@@ -125,7 +125,7 @@
     }
 }
 
-#at_promo .at-promo-content, 
+#at_promo .at-promo-content,
 #at_testpromo .at-promo-content {
 display: none;
 }
@@ -144,6 +144,35 @@ text-align: center;
 
 }
 
+// Sharing in header
+.popover {
+    width: auto;
+    padding: 15px 0 0;
+    border:none;
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+    .arrow {
+        display: none;
+    }
+
+    .popover-inner {
+        border: 1px solid #999;
+        padding: 5px;
+        -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+
+        .addthis_toolbox {
+            height: 77px;
+            margin-top: 5px;
+                a {
+                vertical-align: top;
+                }
+            }
+    }
+}
+
 // Twitter Bootstrap Modal
 .modal {
     outline: none;
@@ -151,6 +180,31 @@ text-align: center;
     padding: 30px;
     width: 800px;
     margin-left: -430px;
+
+    &#email-page-form {
+        width: 350px;
+
+        .controls {
+            width: 60%;
+        }
+
+        .btn i {
+            text-indent: -9999px;
+        }
+
+        .close {
+            text-indent: -9999px;
+            width: 20px;
+            height: 20px;
+            background: url(../img/close.svg) center top no-repeat;
+            background-size: 15px;
+            .opacity(40);
+
+            &:hover {
+                .opacity(100);
+            }
+        }
+    }
 
     .modal-header {
         border-bottom: none;
@@ -167,6 +221,11 @@ text-align: center;
             height: 25px;
             line-height: 0;
         }
+    }
+
+    .modal-footer {
+        background: none;
+        margin-top: 8%;
     }
 
     .modal-body {
