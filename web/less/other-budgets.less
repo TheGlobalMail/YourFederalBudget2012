@@ -1,17 +1,21 @@
 #other-budgets-pane {
+
+
     h3 {
         .ui-title;
         font-size: 13px;
+        width: 93%;
     }
 
     hr {
         margin-bottom: 0;
         border-bottom: none;
         width: 321px;
-        margin-left: -20px;
+        margin-left: -16px;
     }
 
     .color-bar {
+        position: relative;
         float: left;
         width: 168px;
         height: 30px;
@@ -22,6 +26,17 @@
 
         div:last-child {
             .border-right-radius(4px);
+        }
+
+        &:before {
+            position: absolute;
+            content: "";
+            width: 97%;
+            height: 2px;
+            left: 1%;
+            #gradient > .vertical(rgba(0,0,0,0.2),rgba(0,0,0,0));
+            z-index: 10;
+            .border-radius(5px);
         }
 
         .defence {
@@ -49,16 +64,34 @@
         }
     }
 
-    .your-budget .btn-inverse {
+
+    .your-budget {
+
+        width:94%;
+
+        &:before {
+            position: absolute;
+            content: "";
+            width: 40px;
+            height: 35px;
+            left: -34px;
+            top: 60px;
+            background: url(../img/you.png) center top no-repeat;
+            z-index: 10;
+        }
+
+        .btn-inverse {
         font-size: .8em;
         padding: 5px 25px;
-        margin-left: 12px;
+        margin-left: 10px;
+    }
+
     }
 
     .other-budgets {
         background: url(../img/lhc_fade.png) center top no-repeat;
-        padding-top: 15px;
-        max-height: 414px;
+        padding: 15px 20px 15px 0;
+        max-height: 344px;
         overflow: scroll;
 
         .loading-more {
@@ -85,6 +118,19 @@
             border-bottom: #E7E7E7 1px solid;
             .border-bottom-radius(8px);
             .box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            border-color: @grayDark;
+            background-color: #f2f2f2;
+            cursor: pointer;
+            -webkit-transition: background 150ms ease-in-out;
+            -moz-transition: background 150ms ease-in-out;
+            -ms-transition: background 150ms ease-in-out;
+            -o-transition: background 150ms ease-in-out;
+            transition: background 150ms ease-in-out;
         }
 
         .name {
