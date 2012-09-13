@@ -29,7 +29,15 @@
 #at16p,
 #atie6ifh,
 #atie6cmifh {
-    font-family: inherit;
+    font-family: @sansFontFamily;
+    font-size: 1em!important;
+}
+
+#at_email input, 
+#at_email textarea,
+#at_email label, 
+ {
+    font-size: initial;
 }
 
 #at16p,
@@ -66,16 +74,18 @@
 }
 
 #at16pc form label {
-    font-size: 1.2em !important;
+    font-size: 1em !important;
 }
 
+#at16p .atbtn,
+#at16recap .atbtn,
 #at16p .atbtn,
 #at16recap .atbtn {
     border: none;
     width: auto!important;
     padding: 3% 15%!important;
     margin: 5% 5px 0 5px!important;
-    font-size: 1.1em!important;
+    font-size: 1em!important;
     text-transform: uppercase;
     .border-radius(5px);
     background: @grayDark;
@@ -113,6 +123,25 @@
     &:hover {
         .opacity(100);
     }
+}
+
+#at_promo .at-promo-content, 
+#at_testpromo .at-promo-content {
+display: none;
+}
+
+#at16pc {
+font-size: 1.2em;
+}
+
+#at16pcc #at_success {
+border-bottom: none;
+text-align: center;
+
+    a {
+        display: none;
+    }
+
 }
 
 // Twitter Bootstrap Modal
