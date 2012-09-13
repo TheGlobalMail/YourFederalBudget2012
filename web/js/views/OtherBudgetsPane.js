@@ -18,11 +18,8 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.$loadingState = this.$('.loading-more');
 
         if (this.model.isNew()) {
-            this.$yourBudget.hide();
             this.model.on('sync', this.showUsedBudget);
         }
-
-        this.$yourBudget.html(this.userBudget.$el);
 
         this.collection.on('fetching', this.fetchingMore);
         this.collection.on('fetched', this.showMoreBudgets);
@@ -70,8 +67,8 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
     showUsedBudget: function()
     {
-        if (!this.model.isNew() && this.$yourBudget.is(":hidden")) {
-            this.$yourBudget.show();
+        if (!this.model.isNew()) {
+            this.$yourBudget.html(this.userBudget.render().$el);
             this.userBudget.doColorBar();
         }
     }

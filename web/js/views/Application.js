@@ -9,6 +9,7 @@ TGM.Views.Application = Backbone.View.extend({
         });
 
         this.$('.addthis_toolbox a').attr('data-bypass', true);
+        this.$el.on('click', '#at16ptx', function(e) { e.preventDefault(); return false; });
     }
 
 });
