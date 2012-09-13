@@ -3,7 +3,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     events: {
         "slide .slider-control": "onSlide",
         "slidestop .slider-control": "onSlide",
-        "keyup .amount": "onManualEntry",
         "click": "expand"
     },
 
@@ -15,7 +14,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
         this.$sliderHandle = this.$('.ui-slider-handle');
-        this.$amount       = this.$('.amount');
         this.$expander     = this.$('.expander');
 
         this.model.on("change:" + options.category, this.refreshAmount);
@@ -60,26 +58,10 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$slider.slider('value', this.model.get(this.options.category));
     },
 
-    onManualEntry: function()
-    {
-        var newVal = this.$amount.val();
-
-        if (newVal.length == 0) {
-            return false; // let them enter nothing, will default to 0 onblur
-        }
-
-        this.model.set(this.options.category, newVal);
-        this.$amount.val(this.model.get(this.options.category));
-    },
-
     refreshAmount: function(model, value)
     {
         if (value < DATA.sliderConfig.min && value > DATA.sliderConfig.max) {
             value = 0;
-        }
-
-        if (this.$amount.val() != value) {
-            this.$amount.val(value);
         }
 
         this.$slider.slider('value', value);
