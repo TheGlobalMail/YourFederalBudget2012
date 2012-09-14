@@ -2,6 +2,9 @@
     body {
         background-color: #f2f2f2;
     }
+    #main {
+        height: 570px;
+    }
 }
 
 @media only screen and (min-width : 1260px) and (min-height: 805px) {
@@ -39,7 +42,7 @@
         margin-top: 52px;
 
         #left-column {
-            width: round(@appWidth * @columnRatio);
+            width: 382px;
 
             .nav-tabs li a {
                 padding: 6% 20%;
@@ -54,22 +57,28 @@
             }
 
             .bar {
-                background-size: 341px 30px;
+                background-size: 344px 30px;
             }
 
             #other-budgets-pane {
                 hr {
                     width: 381px;
+                    margin-left: -19px;
                 }
 
                 .color-bar {
-                    width: 222px;
+                    width: 220px;
                 }
 
                 .other-budgets {
-                    max-height: 496px;
+                    max-height: 437px;
                 }
             }
+
+            #save-budget-pane .budget-description-wrapper textarea {
+                height: 130px;
+            }
+
         }
 
         #right-column {

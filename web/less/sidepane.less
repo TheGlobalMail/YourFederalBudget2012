@@ -59,11 +59,12 @@
     }
 
     .tab-content {
-        padding: 4%;
+        padding: 4% 0 4% 5%;
         height: 490px;
         border: 1px solid #d6d6d6;
         border-top: none;
         position: relative;
+        overflow: visible;
         // force all content up so there's no gaps in the side borders
         top: -1px;
     }
@@ -71,11 +72,11 @@
 
 #sidepane-wrapper {
     position: relative;
+    padding:10px 0 0 20px;
 
     .sidepane {
-        position: absolute;
-        top: 10px;
-        left: 20px;
-        right: 20px;
-    }
+            position: absolute;
+            overflow: visible;
+        }
+
 }

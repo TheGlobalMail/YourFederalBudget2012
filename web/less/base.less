@@ -32,6 +32,7 @@ header.navbar  {
         &:hover{
             .opacity(60);
         }
+
     }
 
     .brand {
@@ -51,7 +52,7 @@ header.navbar  {
     .icons {
         margin-top: 8px;
         float: right;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         .border-radius(5px);
         width: 186px;
         .clearfix;
@@ -84,7 +85,7 @@ header.navbar  {
         }
 
         .about {
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
             margin-right: 8px;
         }
     }
@@ -124,15 +125,16 @@ small {
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
-    margin-top:40px;
-    height: 580px;
+    margin-top:42px;
+    height: 564px;
     width: @appWidth;
     padding: 18px 22px;
     background-color: @white;
 
     #left-column {
         float: left;
-        width: round(@appWidth * @columnRatio);
+        // width: round(@appWidth * @columnRatio);
+        width: 322px;
         position: relative;
     }
 
@@ -153,7 +155,7 @@ small {
 }
 
 .controls {
-    margin-top: 10px;
+    margin: 1.5% 0 5%;
 }
 
 .control-label {
