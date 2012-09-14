@@ -29,8 +29,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     loadBudget: function(id)
     {
-        // refactor and use active budget
-        if (this.models.userBudget.id != id) {
+        // refactor and use active budget (no createdAt means we haven't been fetched from the serva yet)
+        if (this.models.userBudget.id != id || !this.models.userBudget.get('createdAt')) {
             this.models.userBudget.set('_id', id);
 
             var fetchError = _.bind(function(model, response) {
@@ -39,8 +39,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
                         $.jStorage.deleteKey('budgetId');
                         $.jStorage.deleteKey('clientId');
                     }
-                    // clear ID so model.isNew() will work
+                    // clear model so isNew will work
+                    this.models.userBudget.clear();
                     this.models.userBudget.unset('_id');
+                    delete this.models.userBudget['id'];
                     this.goto("");
                 }
             }, this);
@@ -86,8 +88,6 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             // Join arrays, evaluate functions, stringify objects, leave strings/numbers:
             return _.isArray(arg) ? arg.join(',') : _.isFunction(arg) ? arg() : _.isObject(arg) ? $.param(arg) : arg;
         });
-
-        console.log('goto', args[0]);
 
         var uri = (!Backbone.history.options.pushState ? '#' : '') + args.join('/');
         this.navigate(uri, { trigger: true });
