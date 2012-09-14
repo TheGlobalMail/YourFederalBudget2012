@@ -1,7 +1,7 @@
 {
     "defense": {
         "label": "Defense",
-        "federalAllocation": 55,
+        "federalAllocation": 5,
         "tooltip": "This is the Defense tooltip for help and quick info",
         "color": "#C8C78C",
         "info": {
@@ -11,7 +11,7 @@
     },
     "health": {
         "label": "Health",
-        "federalAllocation": 48,
+        "federalAllocation": 4,
         "tooltip": "This is the Health tooltip for help and quick info",
         "color": "#FF5F53",
         "info": {
@@ -21,7 +21,7 @@
     },
     "immigration": {
         "label": "Immigration",
-        "federalAllocation": 50,
+        "federalAllocation": 5,
         "tooltip": "This is the Immigration tooltip for help and quick info",
         "color": "#FF9AC8",
         "info": {
@@ -31,7 +31,7 @@
     },
     "welfare": {
         "label": "Welfare/Social Security",
-        "federalAllocation": 52,
+        "federalAllocation": 2,
         "tooltip": "This is the Welfare/Social Security tooltip for help and quick info",
         "color": "#81AAC7",
         "info": {
@@ -41,7 +41,7 @@
     },
     "taxBreaks": {
         "label": "Tax Breaks",
-        "federalAllocation": 25,
+        "federalAllocation": 2,
         "tooltip": "This is the Tax Breaks tooltip for help and quick info",
         "color": "#A890C7",
         "info": {
@@ -51,7 +51,7 @@
     },
     "agriculture": {
         "label": "Agriculture",
-        "federalAllocation": 38,
+        "federalAllocation": 3.8,
         "tooltip": "This is the Agriculture tooltip for help and quick info",
         "color": "#7FC689",
         "info": {
@@ -61,7 +61,7 @@
     },
     "education": {
         "label": "Education",
-        "federalAllocation": 47,
+        "federalAllocation": 4.7,
         "tooltip": "This is the Education tooltip for help and quick info",
         "color": "#0D99FC",
         "info": {
@@ -71,7 +71,7 @@
     },
     "energy": {
         "label": "Energy",
-        "federalAllocation": 49,
+        "federalAllocation": 4.9,
         "tooltip": "This is the Energy tooltip for help and quick info",
         "color": "#FEFC99",
         "info": {

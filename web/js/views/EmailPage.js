@@ -11,7 +11,6 @@ TGM.Views.EmailPage = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this);
-        $('.email-page-link').on('click', this.show);
         this.$toEmailFields = this.$('.to-email-fields');
         this.$form = this.$('form');
         this.$toEmailField = this.$toEmailFields.children('div:first').clone();

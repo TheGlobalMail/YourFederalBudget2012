@@ -59,7 +59,6 @@ $app->get('/', function() use ($app) {
 $app->post('/git-post-receive', function(Request $request) use ($app) {
     $data = json_decode($request->getContent(), true);
     $request->request->replace(is_array($data) ? $data : array());
-    $repo = $request->request->get('repository');
 
     $dir = realpath(__DIR__ . '/../');
     // @TODO refactor epic one-liner?
