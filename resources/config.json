@@ -39,8 +39,8 @@
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 200,
-            "step": 1
+            "max": 50,
+            "step": 0.1
         },
         "budgetColours": {
             "federal": "#aaa",
@@ -60,7 +60,7 @@
     },
     "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
-    "budgetAllowance": 400,
+    "budgetAllowance": 100,
     "messages": {
         "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to this area first reduce spending elsewhere.",
         "otherBudgets": {
