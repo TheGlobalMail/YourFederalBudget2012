@@ -62,4 +62,4 @@ TGM.bootstrappers = {
         });
     }
 
-}
+};
