@@ -43,8 +43,8 @@ class Budget extends Model implements \JsonSerializable
                 $this->setCategory($key, $value);
             }
 
-            if ($key == "createdAt") {
-                $this->setCreatedAt(new \DateTime("@$value"));
+            if ($key == "createdAt" && $value instanceof \MongoDate) {
+                $this->setCreatedAt($value);
             }
         }
 

@@ -18,20 +18,26 @@ abstract class Model
 
     public function getCreatedAt()
     {
-        $ts = $this->createdAt->sec * -1;
-        return new \DateTime("@$ts");
+        if (!$this->createdAt) {
+            $this->createdAt = new \MongoDate();
+        }
+
+        $ts = $this->createdAt->sec;
+        $date = new \DateTime();
+        $date->setTimestamp($ts);
+        return $date;
     }
 
-    public function setCreatedAt(\DateTime $date)
+    public function setCreatedAt(\MongoDate $date)
     {
-        $this->createdAt = new \MongoDate($date->getTimestamp());
+        $this->createdAt = $date;
     }
 
     public function save()
     {
-        $this->createdAt = new \MongoDate();
         $coll = $this->db->getCollection($this->collection);
         $data = $this->jsonSerialize();
+        $data['createdAt'] = $this->createdAt = new \MongoDate();
 
         $data = $this->preSave($data);
 
