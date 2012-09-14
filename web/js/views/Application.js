@@ -1,5 +1,10 @@
 TGM.Views.Application = Backbone.View.extend({
 
+    events: {
+        "click .email-page-link": "showEmailModal",
+        "click #at16ptx": "doNothing"
+    },
+
     initialize: function()
     {
         _.bindAll(this);
@@ -9,7 +14,19 @@ TGM.Views.Application = Backbone.View.extend({
         });
 
         this.$('.addthis_toolbox a').attr('data-bypass', true);
-        this.$el.on('click', '#at16ptx', function(e) { e.preventDefault(); return false; });
+
+        this.emailPage = new TGM.Views.EmailPage({ el: this.$("#email-page-form") });
+    },
+
+    showEmailModal: function()
+    {
+        this.emailPage.show();
+    },
+
+    doNothing: function(event)
+    {
+        event.preventDefault && event.preventDefault();
+        return false;
     }
 
 });
