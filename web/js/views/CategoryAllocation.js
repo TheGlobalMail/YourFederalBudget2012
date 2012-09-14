@@ -28,6 +28,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
     onSlide: function(e, ui)
     {
+        this.expand();
         // do we need to hide the tooltip?
         if (this.budgetFullyAllocatedTooltipOpen) {
             // cahce function to hide tooltip
@@ -66,7 +67,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$slider.slider('value', value);
     },
 
-    expand: function(options)
+    expand: function()
     {
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
         this.$el.addClass('active');

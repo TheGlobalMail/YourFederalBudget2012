@@ -23,10 +23,10 @@ describe("Budget Over View", function() {
     });
 
     describe("Budget Total", function() {
-        it("should updated the exact total amount when the model changes", function() {
+        it("should update the remaning budget allowance when the model changes", function() {
             model.set('defense', 13);
             this.clock.tick(110);
-            expect(budgetOverview.$el.find("#budget-total").text()).toEqual("41.1");
+            expect(budgetOverview.$el.find("#budget-total").text()).toEqual("58.9");
         });
 
         it("should update the allowance bar width", function() {

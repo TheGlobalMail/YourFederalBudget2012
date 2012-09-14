@@ -25,6 +25,7 @@ class SaveBudget extends BaseService implements Sanitizable
         foreach ($this->data as $key => $value) {
             if ($key == "name" || $key == "email" || $key == "description") {
                 $this->data[$key] = trim($value);
+                $this->data[$key] = strip_tags($value);
             }
 
             if (isset(Budget::$categoryData[$key])) {
