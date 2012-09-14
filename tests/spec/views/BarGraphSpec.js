@@ -15,25 +15,25 @@ describe("Bar Graph Visualisation", function() {
         });
 
         budget1 = new TGM.Models.Budget({
-            defense: 50,
-            health: 52,
-            immigration: 49,
-            welfare: 40,
-            taxBreaks: 20,
-            agriculture: 30,
-            education: 35,
-            energy: 55
+            defense: 5.0,
+            health: 5.2,
+            immigration: 4.9,
+            welfare: 4.0,
+            taxBreaks: 2.0,
+            agriculture: 3.0,
+            education: 3.5,
+            energy: 5.5
         });
 
         budget2 = new TGM.Models.Budget({
-            defense: 40,
-            health: 42,
-            immigration: 39,
-            welfare: 30,
-            taxBreaks: 10,
-            agriculture: 20,
-            education: 25,
-            energy: 45
+            defense: 4.0,
+            health: 4.2,
+            immigration: 3.9,
+            welfare: 3.0,
+            taxBreaks: 1.0,
+            agriculture: 2.0,
+            education: 2.5,
+            energy: 4.5
         });
 
         barGraph.addBudget("user", budget1);

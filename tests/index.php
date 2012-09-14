@@ -13,42 +13,44 @@ $config['categories'] = json_decode(file_get_contents(__DIR__ . '/categories.jso
 $app['config'] = $config;
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Jasmine Spec Runner</title>
+    <title>Jasmine Spec Runner</title>
 
-  <link rel="shortcut icon" type="image/png" href="/tests/lib/jasmine-1.2.0/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="/tests/lib/jasmine-1.2.0/jasmine.css">
+    <link rel="shortcut icon" type="image/png" href="/tests/lib/jasmine-1.2.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="/tests/lib/jasmine-1.2.0/jasmine.css">
 
-  <script>
-  var DATA = {};
-  DATA.categories = <?php echo json_encode($app['config']['categories']); ?>;
-  DATA.sliderConfig = <?php echo json_encode($app['config']['frontend']['slider']); ?>;
-  DATA.budgetColours = <?php echo json_encode($app['config']['frontend']['budgetColours']); ?>;
-  DATA.budgetAllowance = 400;
-  DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
-  </script>
+    <script>
+    var DATA = {};
+    DATA.categories = <?php echo json_encode($app['config']['categories']); ?>;
+    DATA.sliderConfig = <?php echo json_encode($app['config']['frontend']['slider']); ?>;
+    DATA.budgetColours = <?php echo json_encode($app['config']['frontend']['budgetColours']); ?>;
+    DATA.budgetAllowance = 100;
+    DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
+    </script>
 
-  <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
-  <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine-html.js"></script>
-  <script src="/tests/lib/phantom-jasmine/lib/console-runner.js"></script>
-  <script src="/tests/lib/jasmine-jquery/lib/jasmine-jquery.js"></script>
-  <script src="/tests/lib/sinon/sinon-1.4.2.js"></script>
+    <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine-html.js"></script>
+    <script src="/tests/lib/phantom-jasmine/lib/console-runner.js"></script>
+    <script src="/tests/lib/jasmine-jquery/lib/jasmine-jquery.js"></script>
+    <script src="/tests/lib/sinon/sinon-1.4.2.js"></script>
 
-  <?php foreach($app['config']['frontend']['scripts'] as $script): ?>
+    <?= $app['twig']->render('js-templates/other-budget.twig'); ?>
+
+    <?php foreach($app['config']['frontend']['scripts'] as $script): ?>
     <?php if (stripos($script, "main.js") === false): ?>
-    <script src="/web/<?php echo $script; ?>"></script>
-    <?php endif; ?>
-  <?php endforeach; ?>
+        <script src="/web/<?php echo $script; ?>"></script>
+        <?php endif; ?>
+    <?php endforeach; ?>
 
-  <script src="/tests/spec/models/BudgetSpec.js"></script>
-  <script src="/tests/spec/views/BudgetOverviewSpec.js"></script>
-  <script src="/tests/spec/views/BarGraphSpec.js"></script>
-  <script src="/tests/spec/views/BudgetAllocatorPaneSpec.js"></script>
-  <script src="/tests/spec/views/CategoryAllocationSpec.js"></script>
-  <script src="/tests/spec/views/MoreInfoSpec.js"></script>
+    <script src="/tests/spec/models/BudgetSpec.js"></script>
+    <script src="/tests/spec/routers/AppRouterSpec.js"></script>
+    <script src="/tests/spec/views/BudgetOverviewSpec.js"></script>
+    <script src="/tests/spec/views/BarGraphSpec.js"></script>
+    <script src="/tests/spec/views/BudgetAllocatorPaneSpec.js"></script>
+    <script src="/tests/spec/views/CategoryAllocationSpec.js"></script>
+    <script src="/tests/spec/views/MoreInfoSpec.js"></script>
 
 </head>
 
