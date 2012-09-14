@@ -5,8 +5,6 @@ namespace DGM\Service;
 class EmailPage extends BaseService implements Sanitizable
 {
 
-    private $data;
-    private $errors = array();
     private $sendGrid;
 
     public function __construct(\SendGrid $sendGrid)
