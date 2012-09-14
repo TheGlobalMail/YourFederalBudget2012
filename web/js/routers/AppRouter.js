@@ -114,18 +114,17 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         TGM.vent.trigger('showSidePane', 'other-budgets');
     },
 
-    goto: function(slug)
+    goto: function()
     {
-        slug = slug || "";
-
         // Create array of strings from arguments:
-        var args = _.map(Array.prototype.slice.call(arguments, 1), function(arg) {
+        var args = _.map(Array.prototype.slice.call(arguments, 0), function(arg) {
             // Join arrays, evaluate functions, stringify objects, leave strings/numbers:
             return _.isArray(arg) ? arg.join(',') : _.isFunction(arg) ? arg() : _.isObject(arg) ? $.param(arg) : arg;
         });
 
-        var uri = (!Backbone.history.options.pushState ? '#' : '') + slug + '/' + args.join('/');
+        console.log('goto', args[0]);
 
+        var uri = (!Backbone.history.options.pushState ? '#' : '') + args.join('/');
         this.navigate(uri, { trigger: true });
     }
 
