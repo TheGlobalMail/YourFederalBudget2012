@@ -74,7 +74,9 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
                         $.jStorage.deleteKey('budgetId');
                         $.jStorage.deleteKey('clientId');
                     }
-                    this.goto();
+                    // clear ID so model.isNew() will work
+                    this.models.userBudget.unset('_id');
+                    this.goto("");
                 }
             }, this);
 
@@ -100,7 +102,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         var fetchError = _.bind(function(model, response) {
             if (response.status == 404) {
-                this.goto();
+                this.goto("");
             }
         }, this);
 
