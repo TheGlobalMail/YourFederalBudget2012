@@ -1,4 +1,20 @@
-window.appRouter = new TGM.Routers.AppRouter();
+var bootstrap = function() {
+    var find = function(selector) {
+        return $('body').find(selector);
+    }
+
+    _.each(["appViews", "models", "barGraph", "sidePanes"], function(b) {
+        TGM.bootstrappers[b].call(this, find);
+    }, this);
+
+    var budgetId = $.jStorage.get('budgetId');
+    if (budgetId) {
+        this.models.userBudget.set('_id', budgetId);
+        this.models.userBudget.fetch();
+    }
+};
+
+window.appRouter = new TGM.Routers.AppRouter({ bootstrap: bootstrap });
 Backbone.history.start({ pushState: true });
 
 $(document).on("click", "a:not([data-bypass])", function(evt) {

@@ -12,45 +12,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     models: {},
     collections: {},
 
-    initialize: function()
+    initialize: function(options)
     {
         _.bindAll(this);
-
-        this.views.application = new TGM.Views.Application({ el: $('body') });
-        this.views.barGraph = new TGM.Views.BarGraph({ el: $("#visualisation") });
-        this.views.moreInfo = new TGM.Views.MoreInfo({ el: $("#more-info") });
-
-        _.each(DATA.categories, function(value, id) {
-            TGM.Models.Budget.prototype.defaults[id] = value.federalAllocation;
-            this.views.barGraph.addCategory(id, value);
-        }, this);
-
-        this.models.userBudget = new TGM.Models.Budget();
-        this.models.federalBudget = new TGM.Models.Budget();
-        this.models.activeBudget = this.models.userBudget;
-
-        this.collections.budgets = new TGM.Collections.Budgets();
-
-        this.views.barGraph.model = this.models.userBudget;
-        this.views.barGraph.addBudget("user", this.models.userBudget);
-        this.views.barGraph.addBudget("federal", this.models.federalBudget);
-        this.views.barGraph.render();
-
-        this.views.emailPage = new TGM.Views.EmailPage({ el: $("#email-page-form") });
-
-        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $("#left-column")});
-        this.views.sidePaneManager.addSidePanes({
-            "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $("#budget-allocator"), model: this.models.userBudget }),
-            "save-budget":          new TGM.Views.SaveBudgetPane({ el: $("#save-budget-pane"), model: this.models.userBudget }),
-            "share-budget":         new TGM.Views.ShareBudgetPane({ el: $("#share-budget-pane"), model: this.models.userBudget }),
-            "other-budgets":        new TGM.Views.OtherBudgetsPane({ el: $("#other-budgets-pane"), model: this.models.userBudget, collection: this.collections.budgets })
-        });
-
-        var budgetId = $.jStorage.get('budgetId');
-        if (budgetId) {
-            this.models.userBudget.set('_id', budgetId);
-            this.models.userBudget.fetch();
-        }
+        options.bootstrap && options.bootstrap.call(this);
     },
 
     index: function()
