@@ -14,14 +14,13 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
         this.$sliderHandle = this.$('.ui-slider-handle');
-        this.$expander     = this.$('.expander');
 
         this.model.on("change:" + options.category, this.refreshAmount);
 
         this.category = DATA.categories[options.category];
 
         this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
-        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right' });
+        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
 
         this.refreshAmount(null, this.$slider.slider('value'));
@@ -69,39 +68,13 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
     expand: function(options)
     {
-        var defaults = {
-            force: false,
-            doAnimation: true
-        }
-
-        _.defaults(options, defaults);
-
-        if (this.isExpanded() && !options.force) {
-            return false;
-        }
-
-        if (options.doAnimation) {
-            this.$expander.slideDown({ speed: this.animationSpeed });
-        }
-
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
-        this.$el.addClass('visible');
+        this.$el.addClass('active');
     },
 
     collapse: function()
     {
-        this.$expander.slideUp({ speed: this.animationSpeed });
-        this.$el.removeClass('visible');
-    },
-
-    hide: function()
-    {
-        this.$expander.hide();
-    },
-
-    isExpanded: function()
-    {
-        return this.$expander.is(":visible");
+        this.$el.removeClass('active');
     }
 
 });
