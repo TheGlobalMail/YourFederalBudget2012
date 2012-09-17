@@ -1,7 +1,11 @@
 TGM.Models.Budget = Backbone.Model.extend({
 
     // automatically injected in main.js
-    defaults: {},
+    defaults: {
+        name: "",
+        state: "",
+        createdAt: 0 // milliseconds since epoch
+    },
 
     urlRoot: '/api/budget/',
 
@@ -31,8 +35,6 @@ TGM.Models.Budget = Backbone.Model.extend({
                     return;
                 }
 
-                val = Math.round(val);
-
                 // make sure value is in the slider range
                 val = Math.max(DATA.sliderConfig.min, val);
                 val = Math.min(DATA.sliderConfig.max, val);
@@ -42,6 +44,7 @@ TGM.Models.Budget = Backbone.Model.extend({
                     val = DATA.budgetAllowance - (this.getTotal() - this.get(key));
                 }
 
+                val = Math.round(val * 10) / 10;
                 attrs[key] = val;
             }
         }, this);

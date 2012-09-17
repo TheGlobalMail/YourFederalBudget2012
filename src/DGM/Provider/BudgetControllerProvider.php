@@ -19,6 +19,14 @@ class BudgetControllerProvider implements ControllerProviderInterface
     {
         $controllers = $app['controllers_factory'];
 
+        $controllers->get('/list', function(Request $request) use ($app) {
+            $start = $request->query->get('start', 0);
+            $count = $request->query->get('count', 10);
+            $count = min($count, 100); // cap count at one hundred (prevent dirty requests)
+
+            return $app->json($app['budgets']->fetch($start, $count));
+        });
+
         $controllers->post('/', function(Request $request) use ($app) {
             $budget = new Budget($app['db']);
             $sb = new SaveBudget($budget, $app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl']);
@@ -29,15 +37,14 @@ class BudgetControllerProvider implements ControllerProviderInterface
                 $sb->save();
                 $json = $budget->jsonSerialize();
                 $json['clientId'] = $budget->getClientId();
-                $json = $app->json($json);
-                return $json;
+                return $app->json($json);
             }
 
             return $app->json([ "errors" => $sb->getErrors() ], 400);
         });
 
         $controllers->get('/{id}', function(Request $request, $id) use ($app) {
-            $budget = (new Budgets($app['db']))->findById($id);
+            $budget = $app['budgets']->findById($id);
 
             if ($budget) {
                 return $app->json($budget);

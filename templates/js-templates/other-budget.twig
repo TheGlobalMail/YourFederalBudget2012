@@ -1,0 +1,17 @@
+<script id="other-budget-template" type="text/template">
+    <div class="top">
+        <span class="name"><%= name %></span>
+        <small class="state"><%= state %></small>
+        <time datetime="<%= dateTime %>"><%= dateString %></time>
+    </div>
+
+    <div class="bottom">
+        <div class="color-bar"></div>
+
+        <% if (editable) { %>
+            <a href="/budget/<%= _id %>" class="btn btn-inverse">Edit</a>
+        <% } else { %>
+            <button class="btn btn-primary btn-small">Share</button>
+        <% } %>
+    </div>
+</script>

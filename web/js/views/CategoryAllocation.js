@@ -3,7 +3,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     events: {
         "slide .slider-control": "onSlide",
         "slidestop .slider-control": "onSlide",
-        "keyup .amount": "onManualEntry",
         "click": "expand"
     },
 
@@ -15,15 +14,13 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
         this.$sliderHandle = this.$('.ui-slider-handle');
-        this.$amount       = this.$('.amount');
-        this.$expander     = this.$('.expander');
 
         this.model.on("change:" + options.category, this.refreshAmount);
 
         this.category = DATA.categories[options.category];
 
         this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
-        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right' });
+        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
 
         this.refreshAmount(null, this.$slider.slider('value'));
@@ -31,6 +28,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
     onSlide: function(e, ui)
     {
+        this.expand();
         // do we need to hide the tooltip?
         if (this.budgetFullyAllocatedTooltipOpen) {
             // cahce function to hide tooltip
@@ -60,66 +58,24 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$slider.slider('value', this.model.get(this.options.category));
     },
 
-    onManualEntry: function()
-    {
-        var newVal = this.$amount.val();
-
-        if (newVal.length == 0) {
-            return false; // let them enter nothing, will default to 0 onblur
-        }
-
-        this.model.set(this.options.category, newVal);
-        this.$amount.val(this.model.get(this.options.category));
-    },
-
     refreshAmount: function(model, value)
     {
         if (value < DATA.sliderConfig.min && value > DATA.sliderConfig.max) {
             value = 0;
         }
 
-        if (this.$amount.val() != value) {
-            this.$amount.val(value);
-        }
-
         this.$slider.slider('value', value);
     },
 
-    expand: function(options)
+    expand: function()
     {
-        var defaults = {
-            force: false,
-            doAnimation: true
-        }
-
-        _.defaults(options, defaults);
-
-        if (this.isExpanded() && !options.force) {
-            return false;
-        }
-
-        if (options.doAnimation) {
-            this.$expander.slideDown({ speed: this.animationSpeed });
-        }
-
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
-        this.$el.addClass('visible');
+        this.$el.addClass('active');
     },
 
     collapse: function()
     {
-        this.$expander.slideUp({ speed: this.animationSpeed });
-        this.$el.removeClass('visible');
-    },
-
-    hide: function()
-    {
-        this.$expander.hide();
-    },
-
-    isExpanded: function()
-    {
-        return this.$expander.is(":visible");
+        this.$el.removeClass('active');
     }
 
 });

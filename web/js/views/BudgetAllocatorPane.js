@@ -29,20 +29,19 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
         //     .invoke("hide");
 
         // currently expanded category is the first one
-        this.expandedCategory = this.categorys[firstCategoryId];
-
+        this.activeCategory = this.categorys[firstCategoryId];
         this.budgetOverview = new TGM.Views.BudgetOverview({ model: this.model, el: $("#budget-overview") });
 
         // tell everyone the first category is open before we listen to the event ourself
-        this.expandedCategory.expand({ force: true, doAnimation: false });
         this.on('shown', this.onShown);
+        this.activeCategory.expand();
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.switchCategory);
     },
 
     switchCategory: function(newCategory)
     {
-        this.expandedCategory.collapse();
-        this.expandedCategory = this.categorys[newCategory];
+        this.activeCategory.collapse();
+        this.activeCategory = this.categorys[newCategory];
     },
 
     resetBudget: function()
@@ -52,12 +51,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     onShown: function()
     {
-        var href;
-        if (this.model.isNew()) {
-            href = "/budget/save";
-        } else {
-            href = "/budget/" + this.model.id + "/save";
-        }
+        var href = this.model.isNew() ? "/budget/save" : "/budget/" + this.model.id + "/save";
         this.$saveButton.prop('href', href);
     }
 

@@ -1,35 +1,120 @@
 html, body {
-    background-color: #f2f2f2;
+    line-height: 1.2;
+    text-rendering: geometricPrecision;
 }
 
-header.navbar {
+header.navbar  {
     height: 45px;
     margin-bottom: 0;
     position: relative;
     z-index: 3;
-    background: #1b1b1b;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    .box-shadow(0 0 5px rgba(0,0,0,0.5));
     position: fixed;
+    background: #1b1b1b;
+
+    .navbar-inner {
+        background: none;
+
+        .container {
+            width: 980px;
+        }
+    }
+
+    .home {
+        width: 33px;
+        height: 33px;
+        float: left;
+        margin: 5px 0 0;
+        background: url(../img/logo.svg) center top no-repeat;
+        background-size: 33px;
+        text-indent: -9999px;
+
+        &:hover{
+            .opacity(60);
+        }
+
+    }
 
     .brand {
+        margin-left: 5px;
         font-family: @serifFontFamily;
         color: white;
         font-size: 1.7em;
         font-weight: bold;
+        line-height: 1.0;
+        background: url(../img/header-arrow.png) left top no-repeat;
+
+        span {
+            font-style: italic;
+        }
     }
+
+    .icons {
+        margin-top: 8px;
+        float: right;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        .border-radius(5px);
+        width: 186px;
+        .clearfix;
+
+        .about,
+        .comments,
+        .share,
+        .readlater {
+            font-family: @sansFontFamily;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: .85em;
+            padding: 7px 8px;
+            float: left;
+            color: white;
+            margin: 0;
+            line-height: 1.0;
+
+            &:hover,
+            &:active,
+            &:focus{
+                text-decoration: none;
+                .opacity(60);
+            }
+        }
+
+        .share {
+            padding-left: 22px;
+            background-image: url(../img/ico-share.png);
+        }
+
+        .about {
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            margin-right: 8px;
+        }
+    }
+}
+
+.btn [class^="icon-"],
+.btn [class*=" icon-"] {
+    line-height: 0.35;
 }
 
 i {
     font-size: 1.5em;
-    line-height: .3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: @serifFontFamily;
 }
 
 h3 {
-font-size:1.6em;
-line-height: 1.0;
+    font-size: 1.6em;
+    line-height: 1.0;
+}
+
+p {
+    color: @gray;
 }
 
 hr {
+    margin: 14px 0;
     border-top-color: #d6d6d6;
 }
 
@@ -40,53 +125,24 @@ small {
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
-    margin-top:40px;
-    height: 627px;
+    margin-top:42px;
+    height: 564px;
     width: @appWidth;
-    padding: 1.5%;
+    padding: 18px 22px;
     background-color: @white;
 
     #left-column {
         float: left;
-        width: @appWidth * @columnRatio;
+        // width: round(@appWidth * @columnRatio);
+        width: 322px;
         position: relative;
     }
 
     #right-column {
         float: right;
-        width: (@appWidth * (1 - @columnRatio)) - 20px;
+        width: round((@appWidth * (1 - @columnRatio)) - 20px);
     }
-
-    .modal {
-        outline:none;
-        .border-radius(0);
-        padding: 2%;
-
-        .modal-header {
-            border-bottom: none;
-            padding:0;
-
-            h3.title {
-                font-size: 2em;
-                margin-bottom: 1%;
-            }
-
-            .close {
-                font-size: 2.5em;
-            }
-        }
-
-        .modal-body {
-            padding:0;
-        }
-    }
-
 }
-
-.modal-backdrop {
-    background: white;
-}
-
 
 .ui-title {
     font-weight: bold;
@@ -99,12 +155,13 @@ small {
 }
 
 .controls {
-    margin-top: 10px;
+    margin: 1.5% 0 5%;
 }
 
 .control-label {
     .ui-title;
     font-size: 90%;
+    line-height: 1.5;
 
     em {
         font-weight: normal;
@@ -118,4 +175,3 @@ small {
         margin-bottom: 3px;
     }
 }
-

@@ -1,11 +1,13 @@
 #left-column {
     .nav-tabs {
         margin-bottom: 0;
-        border-bottom-color: #d6d6d6;
+        border-bottom: none;
 
         li {
             width: 50%;
-            border-bottom: none;
+            height: 48px;
+            border-bottom: 1px solid #d6d6d6;
+            margin-bottom: 0;
 
             a {
                 .ui-title;
@@ -17,9 +19,16 @@
                 background-color: #eee;
                 position: relative;
                 border-top: none;
+                border-bottom: none;
                 margin-right: 0;
                 line-height: 1;
                 cursor: pointer;
+
+                &:hover,
+                &:active,
+                &:focus {
+                    .opacity(90);
+                }
             }
 
             &:last-child {
@@ -36,10 +45,12 @@
         }
 
         li.active {
+            border-bottom: none;
             a {
                 .opacity(100);
                 color: @textColor;
                 background-color: #fff;
+
             }
 
             .border-top {
@@ -49,11 +60,12 @@
     }
 
     .tab-content {
-        padding: 4%;
-        height: 517px;
+        padding: 4% 0 4% 5%;
+        height: 490px;
         border: 1px solid #d6d6d6;
-        border-top-color: transparent;
+        border-top: none;
         position: relative;
+        overflow: visible;
         // force all content up so there's no gaps in the side borders
         top: -1px;
     }
@@ -61,11 +73,11 @@
 
 #sidepane-wrapper {
     position: relative;
+    padding:10px 0 0 20px;
 
     .sidepane {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
-    }
+            position: absolute;
+            overflow: visible;
+        }
+
 }

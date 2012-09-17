@@ -11,7 +11,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     updateTotal: function()
     {
-        this.$total.text(this.model.getTotal());
+        this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1));
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     }
 

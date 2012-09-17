@@ -1,7 +1,7 @@
 {
     "defence": {
         "label": "Defence",
-        "federalAllocation": 5,
+        "federalAllocation": 24.1,
         "tooltip": "This is the Defence tooltip for help and quick info",
         "color": "#C8C78C",
         "info": {
@@ -11,7 +11,7 @@
     },
     "publicEducation": {
         "label": "Public Education",
-        "federalAllocation": 8,
+        "federalAllocation": 4.6,
         "tooltip": "This is the Public Education tooltip for help and quick info",
         "color": "#FF5F53",
         "info": {
@@ -19,9 +19,9 @@
             "extended": "<p>This is more information about Public Education</p>"
         }
     },
-    "privateEduation": {
+    "privateEducation": {
         "label": "Private Education",
-        "federalAllocation": 52,
+        "federalAllocation": 8.3,
         "tooltip": "This is the Private Education tooltip for help and quick info",
         "color": "#81AAC7",
         "info": {
@@ -31,7 +31,7 @@
     },
     "immigration": {
         "label": "Immigration",
-        "federalAllocation": 50,
+        "federalAllocation": 2.7,
         "tooltip": "This is the Immigration tooltip for help and quick info",
         "color": "#FF9AC8",
         "info": {
@@ -41,7 +41,7 @@
     },
     "foreignAid": {
         "label": "Foreign Aid",
-        "federalAllocation": 25,
+        "federalAllocation": 5.2,
         "tooltip": "This is the Foreign Aid tooltip for help and quick info",
         "color": "#A890C7",
         "info": {
@@ -51,7 +51,7 @@
     },
     "industryAssistance": {
         "label": "Industry Assistance",
-        "federalAllocation": 38,
+        "federalAllocation": 6,
         "tooltip": "This is the Industry Assistance tooltip for help and quick info",
         "color": "#7FC689",
         "info": {

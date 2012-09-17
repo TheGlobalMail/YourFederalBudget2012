@@ -1,6 +1,7 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request,
+use Silex\Application,
+    Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
@@ -30,16 +31,27 @@ $app['db'] = $app->share(function() {
 });
 
 $app['budgets'] = $app->share(function(Application $app) {
-    return new \DGM\Collection\Budgets($app['db']);
+    return new \DGM\Collection\Budgets($app['db'], $app['config']['categories']);
+});
+
+$app['averageBudget'] = $app->share(function(Application $app) {
+    return (new \DGM\Service\AverageBudget($app['budgets'], $app['memcache']))->getAverageBudget();
 });
 
 $app['sendGrid'] = $app->share(function() {
     return new SendGrid('theglobamail', 've*P6ZnB0pX');
 });
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
+$app->register(new SilexMemcache\MemcacheExtension(), [
+    'memcache.library' =>'memcached',
+    'servers' => [
+        ['localhost', '11211']
+    ]
+]);
+
+$app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__.'/../templates',
-));
+]);
 
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
@@ -59,11 +71,10 @@ $app->get('/', function() use ($app) {
 $app->post('/git-post-receive', function(Request $request) use ($app) {
     $data = json_decode($request->getContent(), true);
     $request->request->replace(is_array($data) ? $data : array());
-    $repo = $request->request->get('repository');
 
     $dir = realpath(__DIR__ . '/../');
     // @TODO refactor epic one-liner?
-    $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer update && ./build.php 2>&1 >> logs/build_log.txt");
+    $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install && ./build.php 2>&1 >> logs/build_log.txt");
     $response = $exec == null ? 500 : 200;
     return new Response($exec, $response);
 });

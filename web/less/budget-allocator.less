@@ -1,19 +1,36 @@
+
+
 #budget-allocator {
 
+    width: 90%;
+
     .categories {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         background: url(../img/lhc_fade.png) center top no-repeat;
-        padding: 15px 0 0;
+        padding: 12px 0 0;
+    }
+
+    .control-label span {
+        background: #333;
+        color: white;
+        display: inline-block;
+        text-align: center;
+        font-family: @serifFontFamily;
+        font-style: italic;
+        width: 18px;
+        height: 18px;
+        .border-radius(50%);
+        margin-bottom: 1.5%;
     }
 
     .category {
         border: #e7e7e7 1px solid;
         border-bottom: none;
         position: relative;
-        height: 52px;
+        height: 45px;
 
         .top {
-            height: 25px;
+            height: 54%;
         }
 
         .top, .slider {
@@ -24,7 +41,7 @@
             height: 15px;
 
             .slider-control {
-                width: 76%;
+                width: 75%;
                 margin: 0 0 0 4%;
                 height: 10px;
                 .border-radius(5px);
@@ -34,31 +51,39 @@
             }
 
             .ui-slider-handle {
-                width: 18px;
-                height: 18px;
-                top: -.35em;
-                margin-left: -.6em;
+                display: block;
+                width: 20px;
+                height: 20px;
+                top: -5px;
+                margin-left: -0.6em;
                 .border-radius(50%);
-                border: 1px solid #8e8e8e;
+                border: 1px solid #666;
                 box-shadow: inset 0 0 1px 1px white, 0 2px 2px rgba(0,0,0,0.2);
-                #gradient.vertical(#e1e1e1,#fff);
+                #gradient > .vertical(#e1e1e1,#fff);
             }
 
             .ui-slider-handle:hover,
             .ui-slider-handle:focus,
             .ui-slider-handle:active {
-                border-color: #666;
+                border-color: #444;
+                background:white;
                 outline: none;
+                width: 22px;
+                height: 22px;
+                top: -6px;
+                margin-left: -0.7em;
+
             }
         }
 
         .title {
             position: absolute;
             left: 4%;
-            top: 6px;
-            font-size: .85em;
+            top: 50%;
+            font-size: 0.85em;
             text-transform: uppercase;
             font-weight: bold;
+            line-height: 0;
         }
 
         .spent-box {
@@ -71,10 +96,8 @@
             }
         }
 
-        .info-icon {
-            position: absolute;
-            right: 5px;
-            top: 6px;
+        .info-icon i {
+            display: none;
         }
 
         .federal-allocation {
@@ -101,14 +124,61 @@
         }
     }
 
-    .category:first-child {
+    .category.defence {
         .border-top-radius(8px);
     }
 
     .category:last-child {
         .border-bottom-radius(8px);
         border-bottom: 1px solid #e7e7e7;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+        .box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+    }
+
+    .category .info-icon {
+        position: absolute;
+        right:3.5%;
+        top:55%;
+        display: block;
+        width:35px;
+        height: 25px;
+    }
+
+    .category.defence .info-icon {
+        background: url(../img/defence.svg) center top no-repeat;
+        background-size: 35px;
+    }
+
+    .category.publicEducation .info-icon {
+        background: url(../img/pub-ed.svg) center top no-repeat;
+        background-size: 35px;
+    }
+
+    .category.privateEducation .info-icon {
+        background: url(../img/priv-ed.svg) center top no-repeat;
+        background-size: 35px;
+    }
+
+    .category.foreignAid .info-icon {
+        background: url(../img/aid.svg) center top no-repeat;
+        background-size: 25px;
+    }
+
+    .category.immigration .info-icon {
+        background: url(../img/immigration.svg) center top no-repeat;
+        background-size: 30px;
+        height: 30px;
+        top: 42%;
+    }
+
+    .category.industryAssistance .info-icon {
+        background: url(../img/industry.svg) center top no-repeat;
+        background-size: 25px;
+        top: 42%;
+    }
+
+    .actions {
+        width: 94%;
+        margin: 0 auto;
     }
 
     .defense .federal-allocation {
@@ -116,14 +186,11 @@
     }
 
     .save-budget-btn {
-        border-color: #17a549;
-        padding-left: 0;
-        margin-right: 2%;
-        min-width: 155px;
+        width: 126px;
     }
 
     .save-budget-btn i {
-        padding: 0 6% 0 8%;
+        padding: 0 5px 0 0;
     }
 
     .save-budget-btn span {
@@ -137,13 +204,25 @@
 
     .top {
         .clearfix;
-        margin-bottom: 2px;
+
+        .toggle {
+            width: 100%;
+            height: 46px;
+            border: 1px solid @grayDarker;
+            .border-radius(8px);
+            margin-bottom: 1.5%;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: center;
+        }
 
         .title {
             width: 50%;
             float: left;
             text-transform: uppercase;
             font-size: .85em;
+            line-height: 1.5;
         }
 
         .spent {
@@ -156,29 +235,32 @@
     }
 
     .progress-bar {
-        margin-bottom: 10px;
+        margin-bottom: 4%;
 
         .progress {
+            height: 16px;
             margin-bottom: 0;
-            .border-radius(10px);
+            .border-radius(9px);
             background: #f2f2f2;
             box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 
             .bar {
                 background: #0eb600 url(../img/progress.jpg) top left no-repeat;
-                background-size: cover;
+                background-size: 290px 30px;
                 box-shadow: none;
             }
         }
     }
-
 }
 
 #save-budget-pane {
+
+    width: 90%;
+
     .full-width {
-            width: 100%;
-            .box-sizing(border-box);
-            display: block;
+        width: 100%;
+        .box-sizing(border-box);
+        display: block;
     }
 
     h3 {
@@ -189,7 +271,7 @@
         .clearfix;
 
         input {
-            width: 187px;
+            width: 65%;
             .pull-left;
         }
 
@@ -210,7 +292,7 @@
     .budget-description-wrapper {
         textarea {
             .full-width;
-            height: 80px;
+            height: 90px;
         }
     }
 
@@ -222,9 +304,13 @@
         }
 
         input {
-            margin: 0;
+            margin: -.5% 1% 0 0;
         }
     }
+
+    .control-group {
+        margin-bottom: 0;
+        }
 
     .control-group .error {
         border: 1px solid #F87377;
@@ -235,7 +321,6 @@
             display: block;
             margin: 0;
             .ui-title;
-            height: 40px;
         }
 
         #cancel-save-budget {
@@ -253,18 +338,21 @@
 
         .help-block {
             width: 55%;
-            font-size: @grayLight;
+            font-color: @gray;
             font-size: 90%;
             .pull-right;
             margin-top: 5px;
             margin-right: 2%;
-            .opacity(80);
+            .opacity(100);
             text-align: center;
         }
     }
 }
 
 #share-budget-pane {
+
+    width:90%;
+
     h1 {
         font-size: 21px;
         line-height: 24px;
@@ -285,30 +373,43 @@
         .clearfix;
 
         .budget-url {
-            width: 181px;
+            width: 61%;
             cursor: pointer;
         }
 
         .btn-wrapper {
             position: relative;
             .pull-right;
-            width: 80px;
+            width: 30%;
             height: 28px;
         }
 
         .copy-budget-url {
-            width: 80px;
+            width: 100%;
             height: 28px;
             .ui-title;
             font-size: 10px;
             padding-left: 11px;
             padding-right: 11px;
+
+            &.hover {
+                .opacity(85);
+            }
         }
     }
 
     .share-buttons {
-        width: 110px;
-        margin: 20px auto;
+        width: 150px;
+        margin: 6% auto 12%;
+
+        img {
+            cursor: pointer;
+            margin-left: 3px;
+
+            &:hover {
+                .opacity(70);
+            }
+        }
     }
 
     .btn-block {
@@ -319,6 +420,6 @@
 
     .btn-block + p {
         text-align: center;
-        margin: 7px auto;
+        margin: 7px auto 15px;
     }
 }

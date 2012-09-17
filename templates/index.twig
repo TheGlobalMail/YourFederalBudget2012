@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
     <head>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <title>Your Federal Budget 2012</title>
 
         {% include 'less.twig' %}
@@ -19,7 +22,7 @@
                     </li>
                     <li>
                         <div class="border-top"></div>
-                        <a href="/budgets">From other readers</a>
+                        <a href="/budgets">Saved Budgets <small class="count"></small></a>
                     </li>
                 </ul>
 
@@ -35,6 +38,14 @@
 
             <div id="right-column">
                 <div id="visualisation"></div>
+                <div id="bar-categories">
+                    <div class="category defence">Defence</div>
+                    <div class="category publicEducation">Public education</div>
+                    <div class="category privateEducation">Private education</div>
+                    <div class="category immigration">Immigration</div>
+                    <div class="category foreignAid">Foreign aid</div>
+                    <div class="category industryAssistance">Industry assistance</div>
+                </div>
                 <div id="more-info">
                     <h2 class="title"></h2>
                     <div class="info"></div>

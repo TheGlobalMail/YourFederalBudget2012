@@ -7,8 +7,11 @@
     DATA.budgetAllowance = {{ app.config.budgetAllowance }};
     DATA.messages = {{ app.config.messages|json_encode }};
     DATA.budgetColours = {{ app.config.frontend.budgetColours|json_encode }};
+    DATA.averageBudget = {{ app.averageBudget|json_encode }};
 </script>
 {% endautoescape %}
+
+{% include 'js-templates/other-budget.twig' %}
 
 {% if app.debug %}
     {% for script in app.config.frontend.scripts %}

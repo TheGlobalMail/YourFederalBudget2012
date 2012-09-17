@@ -37,25 +37,22 @@ describe("Budget Allocator View", function() {
         this.clock.restore();
     });
 
-    it("should show the first category slider", function() {
+    it("should actived the first slider box", function() {
         var first = budgetAllocator.$('.category:first');
-        expect(first.find('.expander')).toBeVisible();
-        expect(first).toHaveClass('visible');
+        expect(first).toHaveClass('active');
     });
 
-    it("should hide all other categories", function() {
+    it("shouldn't active other categories", function() {
         var rest = budgetAllocator.$('.category').not(':first');
-        expect(rest.find('.expander')).toBeHidden();
-        expect(rest).not.toHaveClass('visible');
+        expect(rest).not.toHaveClass('active');
     });
 
-    it("should collapse the first category when we switch active category", function() {
+    it("should deactivate the first category when we switch active category", function() {
         TGM.vent.trigger("BudgetAllocatorCategory:expanding", "health");
         // let animation run
         this.clock.tick(1000);
 
         var first = budgetAllocator.$('.category:first');
-        expect(first.find('.expander')).toBeHidden();
-        expect(first).not.toHaveClass('visible');
+        expect(first).not.toHaveClass('active');
     });
 });
