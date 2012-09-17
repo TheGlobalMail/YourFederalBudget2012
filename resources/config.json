@@ -2,6 +2,7 @@
     "frontend": {
         "scripts": [
             "vendor/JSON-js/json2.js",
+            "vendor/color-js/color.js",
             "vendor/jquery/jquery-1.7.2.js",
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
             "vendor/jquery-ui/ui/jquery.effects.shake.js",
@@ -42,10 +43,19 @@
             "max": 50,
             "step": 0.1
         },
-        "budgetColours": {
-            "federal": "#aaa",
-            "user": "#777",
-            "average": "#ccc"
+        "barGraph": {
+            "federal": {
+                "width": 15,
+                "lightenBy": 0.2,
+            },
+            "user": {
+                "width": 60,
+                "lightenBy": 0
+            },
+            "average": {
+                "width": 15,
+                "ligthenBy": 0.3
+            }
         },
         "states": {
             "ACT": "ACT",
