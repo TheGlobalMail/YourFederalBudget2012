@@ -44,7 +44,8 @@
         },
         "budgetColours": {
             "federal": "#aaa",
-            "user": "#777"
+            "user": "#777",
+            "average": "#ccc"
         },
         "states": {
             "ACT": "ACT",

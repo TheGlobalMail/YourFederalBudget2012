@@ -10,10 +10,12 @@ class Budgets
 
     protected $db;
     protected $collection;
+    protected $categories;
 
-    public function __construct(MongoDb $db)
+    public function __construct(MongoDb $db, array $categories)
     {
         $this->db = $db;
+        $this->categories = $categories;
         $this->collection = $db->getCollection((new Budget($db))->collection);
         $this->collection->ensureIndex("createdAt");
     }
@@ -56,6 +58,33 @@ class Budgets
 
         // return an array of Budget
         return array_map([$this, '_makeBudget'], iterator_to_array($cursor, false));
+    }
+
+    public function getAverageBudget()
+    {
+        $cursor = $this->collection->find();
+        $totals = [];
+        $averages = [];
+        $categories = array_keys($this->categories);
+
+        foreach ($categories as $cat) {
+            $totals[$cat] = 0;
+        }
+
+        foreach ($cursor as $row) {
+            foreach ($categories as $cat) {
+                $totals[$cat] += $row[$cat];
+            }
+        }
+
+        foreach ($totals as $cat => $total) {
+            $averages[$cat] = round($total / $cursor->count(), 1);
+        }
+
+        $budget = new Budget($this->db);
+        $budget->set($averages);
+
+        return $budget;
     }
 
 }

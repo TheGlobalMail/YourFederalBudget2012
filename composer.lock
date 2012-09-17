@@ -1,6 +1,12 @@
 {
-    "hash": "da00ccb4e4330b3f007d6f1badcacad3",
+    "hash": "2b6353ed6503afc1f0a4f32b9562c7d3",
     "packages": [
+        {
+            "package": "mheap/silex-memcache",
+            "version": "dev-master",
+            "source-reference": "30d10e59df04520c09e79694b039d99f984ff334",
+            "commit-date": "1347134821"
+        },
         {
             "package": "pimple/pimple",
             "version": "dev-master",
@@ -28,44 +34,44 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "a9e34f08ab00c4cc6c97e7ae8fdf7d0fc367e5f5",
-            "commit-date": "1347298149"
+            "source-reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
+            "commit-date": "1347738639"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.1.x-dev",
-            "source-reference": "6e9726a4e82fe95fcb243e7c4021f7fb2de19b70",
+            "source-reference": "v2.1.1",
             "commit-date": "1347274422"
         },
         {
             "package": "symfony/http-foundation",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.0",
+            "source-reference": "v2.1.1",
             "commit-date": "1346761482"
         },
         {
             "package": "symfony/http-kernel",
             "version": "2.1.x-dev",
-            "source-reference": "cb91ebb2c104f3c24b20ef34b785f8ab75f1ea2d",
-            "commit-date": "1347274422"
+            "source-reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38",
+            "commit-date": "1347354770"
         },
         {
             "package": "symfony/routing",
             "version": "2.1.x-dev",
-            "source-reference": "5069cbd8bf02ed33cfd640b227bb43e816d55f14",
+            "source-reference": "v2.1.1",
             "commit-date": "1347274422"
         },
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "alias-pretty-version": "1.9.x-dev",
-            "alias-version": "1.9.9999999.9999999-dev"
+            "alias-pretty-version": "1.10.x-dev",
+            "alias-version": "1.10.9999999.9999999-dev"
         },
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "68b8c4619c5bbe82bd345fe56070dec8c356610a",
-            "commit-date": "1347025342"
+            "source-reference": "c38e06ff4134820f5acca2b5b0a163251b053d89",
+            "commit-date": "1347806324"
         }
     ],
     "packages-dev": null,
