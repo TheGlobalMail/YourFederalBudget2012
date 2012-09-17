@@ -1,6 +1,7 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request,
+use Silex\Application,
+    Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
@@ -29,17 +30,28 @@ $app['db'] = $app->share(function() {
     return new \DGM\Database\MongoDB();
 });
 
-$app['budgets'] = $app->share(function(\Silex\Application $app) {
-    return new \DGM\Collection\Budgets($app['db']);
+$app['budgets'] = $app->share(function(Application $app) {
+    return new \DGM\Collection\Budgets($app['db'], $app['config']['categories']);
+});
+
+$app['averageBudget'] = $app->share(function(Application $app) {
+    return (new \DGM\Service\AverageBudget($app['budgets'], $app['memcache']))->getAverageBudget();
 });
 
 $app['sendGrid'] = $app->share(function() {
     return new SendGrid('theglobamail', 've*P6ZnB0pX');
 });
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
+$app->register(new SilexMemcache\MemcacheExtension(), [
+    'memcache.library' =>'memcached',
+    'servers' => [
+        ['localhost', '11211']
+    ]
+]);
+
+$app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__.'/../templates',
-));
+]);
 
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {

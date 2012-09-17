@@ -26,6 +26,7 @@ TGM.bootstrappers = {
             TGM.Models.Budget.prototype.defaults[id] = 0;
         }, this);
 
+        this.models.averageBudget = new TGM.Models.Budget(DATA.averageBudget);
         this.models.userBudget = new TGM.Models.Budget();
         this.models.federalBudget = new TGM.Models.Budget();
         this.models.activeBudget = this.models.userBudget;
@@ -48,6 +49,7 @@ TGM.bootstrappers = {
         this.views.barGraph.model = this.models.userBudget;
         this.views.barGraph.addBudget("user", this.models.userBudget);
         this.views.barGraph.addBudget("federal", this.models.federalBudget);
+        this.views.barGraph.addBudget("average", this.models.averageBudget);
         this.views.barGraph.render();
     },
 

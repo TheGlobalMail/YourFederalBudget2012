@@ -7,6 +7,7 @@
     DATA.budgetAllowance = {{ app.config.budgetAllowance }};
     DATA.messages = {{ app.config.messages|json_encode }};
     DATA.budgetColours = {{ app.config.frontend.budgetColours|json_encode }};
+    DATA.averageBudget = {{ app.averageBudget|json_encode }};
 </script>
 {% endautoescape %}
 
