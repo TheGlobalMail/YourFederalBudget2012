@@ -37,3 +37,6 @@
 [submodule "web/vendor/jquery-mousewheel"]
 	path = web/vendor/jquery-mousewheel
 	url = git://github.com/cobbweb/jquery-mousewheel.git
+[submodule "web/vendor/color-js"]
+	path = web/vendor/color-js
+	url = git://github.com/brehaut/color-js.git

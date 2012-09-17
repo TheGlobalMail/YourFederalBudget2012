@@ -22,32 +22,31 @@ TGM.Views.BarGraph = Backbone.View.extend({
     {
         var html = $('<div class="category"/>');
         html.prop('id', 'bar-' + id).addClass(id);
-
-        var budgetsCount = 0;
-        var barWidth = (100 / _.size(this.budgets));
+        var barsWidth = 0;
 
         _.each(this.budgets, function(budget, bid) {
-            var bh = $('<div class="bar"/>');
-            bh.addClass(bid);
-            bh.css({
+            var $bar = $('<div class="bar"/>').addClass(bid);
+            var color = TGM.Color(DATA.categories[id].color).blend(TGM.Color('#fff'), DATA.barGraph[bid].lightenBy);
+            var barWidth = DATA.barGraph[bid].width;
+
+            $bar.css({
                 height: this.calculateBarHeight(budget.get(id)),
-                backgroundColor: DATA.budgetColours[bid],
+                backgroundColor: color.toCSS(),
                 width: barWidth + "%",
-                left: (barWidth * budgetsCount) + "%"
+                left: (barsWidth) + "%"
             });
-            bh.appendTo(html);
+            $bar.appendTo(html);
+
+            barsWidth += barWidth + 2;
 
             budget.on('change:' + id, function(model, value, options) {
-                bh.css('height', this.calculateBarHeight(value));
+                $bar.css('height', this.calculateBarHeight(value));
             }, this);
-
-            budgetsCount += 1;
         }, this);
 
         html.css({
             left: (this.calculateCategoryOffset(this._renderedCategories)),
             height: '100%',
-            backgroundColor: '#eee',
             width: '10%'
         });
 
