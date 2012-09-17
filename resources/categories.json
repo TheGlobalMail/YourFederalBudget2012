@@ -3,7 +3,7 @@
         "label": "Defence",
         "federalAllocation": 24.1,
         "tooltip": "This is the Defence tooltip for help and quick info",
-        "color": "#C8C78C",
+        "color": "#AAA200",
         "info": {
             "short": "<p>More information about Defence</p>",
             "extended": "<p>This is more information about Defence"
@@ -13,7 +13,7 @@
         "label": "Public Education",
         "federalAllocation": 4.6,
         "tooltip": "This is the Public Education tooltip for help and quick info",
-        "color": "#FF5F53",
+        "color": "#A134A3",
         "info": {
             "short": "<p>More information about Public Education</p>",
             "extended": "<p>This is more information about Public Education</p>"
@@ -23,7 +23,7 @@
         "label": "Private Education",
         "federalAllocation": 8.3,
         "tooltip": "This is the Private Education tooltip for help and quick info",
-        "color": "#81AAC7",
+        "color": "#6A3DCA",
         "info": {
             "short": "<p>More information about Private Education</p>",
             "extended": "<p>This is more information about Private Education</p>"
@@ -33,7 +33,7 @@
         "label": "Immigration",
         "federalAllocation": 2.7,
         "tooltip": "This is the Immigration tooltip for help and quick info",
-        "color": "#FF9AC8",
+        "color": "#0971BC",
         "info": {
             "short": "<p>More information about Immigration</p>",
             "extended": "<p>This is more information about Immigration</p>"
@@ -43,7 +43,7 @@
         "label": "Foreign Aid",
         "federalAllocation": 5.2,
         "tooltip": "This is the Foreign Aid tooltip for help and quick info",
-        "color": "#A890C7",
+        "color": "#F54541",
         "info": {
             "short": "<p>More information about Foreign Aid</p>",
             "extended": "<p>This is more information about Foreign Aid</p>"
@@ -53,7 +53,7 @@
         "label": "Industry Assistance",
         "federalAllocation": 6,
         "tooltip": "This is the Industry Assistance tooltip for help and quick info",
-        "color": "#7FC689",
+        "color": "#FD8C2C",
         "info": {
             "short": "<p>More information about Industry Assistance</p>",
             "extended": "<p>This is more information about Industry Assistance</p>"
