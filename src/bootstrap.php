@@ -71,19 +71,22 @@ $app->get('/', function() use ($app) {
 
 $app->post('/git-post-receive', function(Request $request) use ($app) {
     $data = json_decode($request->get('payload'), true);
+    $committedBranch = (isset($data['ref'])) ? $data['ref'] : $request->get('ref');
     $request->request->replace(is_array($data) ? $data : array());
 
     # Only update this deployment if the commit was on the current branch
     $branch = trim($app['config']['branch']);
-    if ($data['ref'] === "refs/heads/$branch"){
+
+    if ($committedBranch === "refs/heads/$branch") {
       $dir = realpath(__DIR__ . '/../');
       // @TODO refactor epic one-liner?
       $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install && ./build.php 2>&1 >> logs/build_log.txt");
       $response = $exec == null ? 500 : 200;
-    }else{
+    } else {
       $exec = "Commit was not on $branch";
       $response = 200;
     }
+
     return new Response($exec, $response);
 });
 
