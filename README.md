@@ -14,3 +14,7 @@ is checked out on.
 When creating a new deployment:
 1. Check the deployment out the correct branch e.g. `git checkout -t origin/staging`.
 2. Create a new web hook for the url
+
+### CI ###
+
+http://198.61.194.153:8080/job/budget2012/
