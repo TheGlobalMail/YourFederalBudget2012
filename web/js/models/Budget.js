@@ -8,7 +8,6 @@ TGM.Models.Budget = Backbone.Model.extend({
     },
 
     urlRoot: '/api/budget/',
-
     idAttribute: "_id",
 
     set: function(attribute, value, options)
@@ -68,18 +67,49 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     resetBudget: function()
     {
-        _.each(this.defaults, function(amount, category) {
-            if (category in DATA.categories) {
-                this.set(category, amount);
-            }
-        }, this);
+        if (this.resetState) {
+            this.set(this.resetState);
+        } else {
+            _.each(this.defaults, function(amount, category) {
+                if (category in DATA.categories) {
+                    this.set(category, amount);
+                }
+            }, this);
+        }
 
+        this.clearCache();
         this.trigger('reset');
     },
 
     getUrl: function()
     {
         return window.location.origin + "/budget/" + this.id;
+    },
+
+    tryCaching: function()
+    {
+        $.jStorage.set('userBudget', this.toJSON());
+    },
+
+    tryRestoreFromCache: function()
+    {
+        var cached = $.jStorage.get('userBudget');
+
+        if (cached) {
+            if (!this.isNew()) {
+                this.resetState = this.toJSON();
+            }
+
+            this.set(cached);
+            return true;
+        }
+
+        return false;
+    },
+
+    clearCache: function()
+    {
+        $.jStorage.deleteKey('userBudget');
     }
 
 });

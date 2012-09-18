@@ -8,9 +8,14 @@ var bootstrap = function() {
     }, this);
 
     var budgetId = $.jStorage.get('budgetId');
+
     if (budgetId) {
         this.models.userBudget.set('_id', budgetId);
-        this.models.userBudget.fetch();
+        this.models.userBudget.fetch({
+            success: _.bind(this.models.userBudget.tryRestoreFromCache, this.models.userBudget)
+        });
+    } else {
+        this.models.userBudget.tryRestoreFromCache();
     }
 };
 

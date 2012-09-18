@@ -144,7 +144,7 @@ class Budget extends Model implements \JsonSerializable
     public function preSave(array $data)
     {
         $uniqueId = false;
-        $budgets = new Budgets($this->db);
+        $budgets = new Budgets($this->db, self::$categoryData);
         $loops = 1;
 
         while (!$uniqueId) {
