@@ -70,7 +70,7 @@ $app->get('/', function() use ($app) {
 });
 
 $app->post('/git-post-receive', function(Request $request) use ($app) {
-    $data = json_decode($request->getContent(), true);
+    $data = json_decode($request->get('payload'), true);
     $request->request->replace(is_array($data) ? $data : array());
 
     # Only update this deployment if the commit was on the current branch

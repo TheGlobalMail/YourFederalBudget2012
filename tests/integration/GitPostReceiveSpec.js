@@ -1,46 +1,8 @@
 #! /usr/bin/env node
 var request = require('request');
 
-var commitOnMaster = {
-  "before": "5aef35982fb2d34e9d9d4502f6ede1072793222d",
-  "repository": {
-    "url": "http://github.com/defunkt/github",
-    "name": "github",
-    "description": "You're lookin' at it.",
-    "watchers": 5,
-    "forks": 2,
-    "private": 1,
-    "owner": {
-      "email": "chris@ozmm.org",
-      "name": "defunkt"
-    }
-  },
-  "commits": [
-  {
-    "id": "41a212ee83ca127e3c8cf465891ab7216a705f59",
-    "url": "http://github.com/defunkt/github/commit/41a212ee83ca127e3c8cf465891ab7216a705f59",
-    "author": {
-      "email": "chris@ozmm.org",
-      "name": "Chris Wanstrath"
-    },
-    "message": "okay i give in",
-    "timestamp": "2008-02-15T14:57:17-08:00",
-    "added": ["filepath.rb"]
-  },
-  {
-    "id": "de8251ff97ee194a289832576287d6f8ad74e3d0",
-    "url": "http://github.com/defunkt/github/commit/de8251ff97ee194a289832576287d6f8ad74e3d0",
-    "author": {
-      "email": "chris@ozmm.org",
-      "name": "Chris Wanstrath"
-    },
-    "message": "update pricing a tad",
-    "timestamp": "2008-02-15T14:36:34-08:00"
-  }
-  ],
-    "after": "de8251ff97ee194a289832576287d6f8ad74e3d0",
-    "ref": "refs/heads/master"
-};
+var commitOnMaster = {payload: '{ "after": "b890f59b9d44d6c5241a2b62194f10feb71fa5b1", "base_ref": "refs/heads/master", "before": "c1bc847eac48ee7adfac5ebe26030b79a137be0e", "commits": [ { "added": [], "author": { "email": "b.j.rossiter@gmail.com", "name": "B.J. Rossiter", "username": "bxjx" }, "committer": { "email": "b.j.rossiter@gmail.com", "name": "B.J. Rossiter", "username": "bxjx" }, "distinct": false, "id": "b890f59b9d44d6c5241a2b62194f10feb71fa5b1", "message": "Minor update to deployment test", "modified": [ "tests/integration/GitPostReceiveSpec.js" ], "removed": [], "timestamp": "2012-09-17T18:08:26-07:00", "url": "https://github.com/TheGlobalMail/YourFederalBudget2012/commit/b890f59b9d44d6c5241a2b62194f10feb71fa5b1" } ], "compare": "https://github.com/TheGlobalMail/YourFederalBudget2012/compare/c1bc847eac48...b890f59b9d44", "created": false, "deleted": false, "forced": false, "head_commit": { "added": [], "author": { "email": "b.j.rossiter@gmail.com", "name": "B.J. Rossiter", "username": "bxjx" }, "committer": { "email": "b.j.rossiter@gmail.com", "name": "B.J. Rossiter", "username": "bxjx" }, "distinct": false, "id": "b890f59b9d44d6c5241a2b62194f10feb71fa5b1", "message": "Minor update to deployment test", "modified": [ "tests/integration/GitPostReceiveSpec.js" ], "removed": [], "timestamp": "2012-09-17T18:08:26-07:00", "url": "https://github.com/TheGlobalMail/YourFederalBudget2012/commit/b890f59b9d44d6c5241a2b62194f10feb71fa5b1" }, "pusher": { "email": "b.j.rossiter@gmail.com", "name": "bxjx" }, ' + 
+  '"ref": "refs/heads/staging", "repository": { "created_at": "2012-08-05T20:33:12-07:00", "description": "Your Federal Budget App", "fork": false, "forks": 0, "has_downloads": true, "has_issues": false, "has_wiki": true, "language": "JavaScript", "name": "YourFederalBudget2012", "open_issues": 0, "organization": "TheGlobalMail", "owner": { "email": null, "name": "TheGlobalMail" }, "private": true, "pushed_at": "2012-09-17T18:12:26-07:00", "size": 2616, "stargazers": 1, "url": "https://github.com/TheGlobalMail/YourFederalBudget2012", "watchers": 1 } }' };
 
 var post = {
   //url: 'http://tgm:passworkd@50.56.179.201:8080/git-post-receive',
