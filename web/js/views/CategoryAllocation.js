@@ -56,6 +56,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         }
 
         this.$slider.slider('value', this.model.get(this.options.category));
+        this.model.tryCaching();
     },
 
     refreshAmount: function(model, value)

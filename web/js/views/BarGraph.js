@@ -6,6 +6,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this);
+        $(window).on('resize', _.throttle(this.onResize, 50));
     },
 
     addCategory: function(id, category)
@@ -57,7 +58,6 @@ TGM.Views.BarGraph = Backbone.View.extend({
     calculateCategoryOffset: function(count)
     {
         var width = this.$el.width() / _.size(this.categories);
-
         return (width * (count - 1)) + 'px';
     },
 
@@ -71,8 +71,17 @@ TGM.Views.BarGraph = Backbone.View.extend({
 
     render: function()
     {
+        this.$el.html('');
         this._renderedCategories = 1;
         _.each(this.categories, this._renderCategory);
+        this.renderedWidth = this.$el.width();
+    },
+
+    onResize: function()
+    {
+        if (this.$el.width() != this.$el.renderedWidth) {
+            this.render();
+        }
     }
 
 });

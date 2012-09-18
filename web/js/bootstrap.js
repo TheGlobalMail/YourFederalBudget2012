@@ -34,6 +34,7 @@ TGM.bootstrappers = {
 
         _.each(DATA.categories, function(value, id) {
             this.models.federalBudget.set(id, value.federalAllocation);
+            this.models.userBudget.set(id, DATA.sliderConfig.max / 10);
         }, this);
 
         this.collections.budgets = new TGM.Collections.Budgets();

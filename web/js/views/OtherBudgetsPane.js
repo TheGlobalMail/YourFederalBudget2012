@@ -1,7 +1,8 @@
 TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
     events: {
-        "mousewheel .other-budgets": "_onScroll"
+        "mousewheel .other-budgets": "_onScroll",
+        "click .your-budget": "triggerEdit"
     },
 
     initialize: function()
@@ -17,9 +18,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.$inner = this.$('.other-budgets-inner');
         this.$loadingState = this.$('.loading-more');
 
-        if (this.model.isNew()) {
-            this.model.on('sync', this.showUsedBudget);
-        }
+        this.model.on('sync', this.showUserBudget);
 
         this.collection.on('fetching', this.fetchingMore);
         this.collection.on('fetched', this.showMoreBudgets);
@@ -65,11 +64,18 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.$loadingState.removeClass('loading').addClass('full').text(DATA.messages.otherBudgets.full);
     },
 
-    showUsedBudget: function()
+    showUserBudget: function()
     {
-        if (!this.model.isNew()) {
-            this.$yourBudget.html(this.userBudget.render().$el);
-            this.userBudget.doColorBar();
+        this.$yourBudget.html(this.userBudget.render().$el);
+        this.userBudget.doColorBar();
+    },
+
+    triggerEdit: function()
+    {
+        if (this.model.isNew()) {
+            window.appRouter.goto("");
+        } else {
+            window.appRouter.goto("budget", this.model.id);
         }
     }
 

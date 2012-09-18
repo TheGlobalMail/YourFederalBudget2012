@@ -2,7 +2,9 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     events: {
         "submit form": "save",
-        "reset form": "reset"
+        "reset form": "reset",
+        "keyup input,textarea": "formUpdate",
+        "change select": "formUpdate"
     },
 
     initialize: function()
@@ -13,6 +15,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state = this.$('.your-name-wrapper select');
         this.$email = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
+        this.model.on('change', this.modelChanged)
     },
 
     onShow: function()
@@ -24,17 +27,20 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     {
         event.preventDefault();
 
-        var data = {
+        this.model.save(this.formToJson(), {
+            success: this.success,
+            error: this.error
+        });
+    },
+
+    formToJson: function()
+    {
+        return {
             name: this.$name.val(),
             state: this.$state.val(),
             email: this.$email.val(),
             description: this.$description.val()
-        };
-
-        this.model.save(data, {
-            success: this.success,
-            error: this.error
-        });
+        }
     },
 
     reset: function(e)
@@ -45,6 +51,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
+        $.jStorage.deleteKey('userBudget');
         $.jStorage.set('clientId', model.get('clientId'));
         $.jStorage.set('budgetId', model.id);
         TGM.vent.trigger('showSidePane', 'share-budget');
@@ -100,6 +107,20 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         } else if (($input[0] == this.$state[0] && !this.$name.hasClass('error')) || $input[0] != this.$state[0]) {
             $input.removeClass('error');
         }
+    },
+
+    formUpdate: function()
+    {
+        this.model.set(this.formToJson());
+        this.model.tryCaching();
+    },
+
+    modelChanged: function()
+    {
+        this.$name.val(this.model.get('name'));
+        this.$state.val(this.model.get('state'));
+        this.$email.val(this.model.get('email'));
+        this.$description.val(this.model.get('description'));
     }
 
 });
