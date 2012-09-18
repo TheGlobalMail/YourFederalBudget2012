@@ -64,6 +64,20 @@ TGM.bootstrappers = {
             "share-budget":         new TGM.Views.ShareBudgetPane({ el: $find("#share-budget-pane"), model: this.models.userBudget }),
             "other-budgets":        new TGM.Views.OtherBudgetsPane({ el: $find("#other-budgets-pane"), model: this.models.userBudget, collection: this.collections.budgets })
         });
+    },
+
+    loadBudgets: function()
+    {
+        var budgetId = $.jStorage.get('budgetId');
+
+        if (budgetId) {
+            this.models.userBudget.set('_id', budgetId);
+            this.models.userBudget.fetch({
+                success: _.bind(this.models.userBudget.tryRestoreFromCache, this.models.userBudget)
+            });
+        } else {
+            this.models.userBudget.tryRestoreFromCache();
+        }
     }
 
 };

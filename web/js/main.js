@@ -3,20 +3,9 @@ var bootstrap = function() {
         return $('body').find(selector);
     }
 
-    _.each(["appViews", "models", "barGraph", "sidePanes"], function(b) {
+    _.each(["appViews", "models", "barGraph", "sidePanes", "loadBudgets"], function(b) {
         TGM.bootstrappers[b].call(this, find);
     }, this);
-
-    var budgetId = $.jStorage.get('budgetId');
-
-    if (budgetId) {
-        this.models.userBudget.set('_id', budgetId);
-        this.models.userBudget.fetch({
-            success: _.bind(this.models.userBudget.tryRestoreFromCache, this.models.userBudget)
-        });
-    } else {
-        this.models.userBudget.tryRestoreFromCache();
-    }
 };
 
 window.appRouter = new TGM.Routers.AppRouter({ bootstrap: bootstrap });
