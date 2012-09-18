@@ -45,16 +45,16 @@
         },
         "barGraph": {
             "federal": {
-                "width": 15,
-                "lightenBy": 0.2,
+                "width": 18,
+                "lightenBy": 0.2
             },
             "user": {
                 "width": 60,
                 "lightenBy": 0
             },
             "average": {
-                "width": 15,
-                "ligthenBy": 0.3
+                "width": 18,
+                "lightenBy": 0.2
             }
         },
         "states": {

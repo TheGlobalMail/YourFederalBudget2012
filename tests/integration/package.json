@@ -1,0 +1,8 @@
+{
+  "name": "git-post-receive-spec",
+  "description": "Scrape JSA provider information",
+  "version": "0.1.0",
+  "dependencies": {
+    "request": "~2.10.0"
+  }
+}

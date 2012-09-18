@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PHP=`which php`
 pid=0

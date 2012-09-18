@@ -19,8 +19,12 @@ class Targets {
 
     public static function clean()
     {
-        Util::rmdir(self::$basePath . "/web/build");
-        Util::mkdir(self::$basePath . "/web/build");
+        $buildDir = self::$basePath . "/web/build";
+
+        if (is_dir($buildDir)) {
+          Util::rmdir($buildDir);
+        }
+        Util::mkdir($buildDir);
     }
 
     public static function less($app)
