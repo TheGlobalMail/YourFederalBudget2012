@@ -25,7 +25,8 @@ $app['config'] = $config;
     var DATA = {};
     DATA.categories = <?php echo json_encode($app['config']['categories']); ?>;
     DATA.sliderConfig = <?php echo json_encode($app['config']['frontend']['slider']); ?>;
-    DATA.budgetColours = <?php echo json_encode($app['config']['frontend']['budgetColours']); ?>;
+    DATA.barGraph = <?php echo json_encode($app['config']['frontend']['barGraph']); ?>;
+    DATA.averageBudget = <?php echo json_encode($app['averageBudget']); ?>;
     DATA.budgetAllowance = 100;
     DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
     </script>
