@@ -39,10 +39,12 @@ var commitOnMaster = {
   }
   ],
     "after": "de8251ff97ee194a289832576287d6f8ad74e3d0",
-    "ref": "refs/heads/master"
+    "ref": "refs/heads/staging"
 };
 
 var post = {
+  //url: 'http://user:password@50.56.179.201:8080/git-post-receive',
+  //url: 'http://user:password@50.56.185.86:8080/git-post-receive',
   url: 'http://localhost:5000/git-post-receive', 
   json: commitOnMaster
 };
