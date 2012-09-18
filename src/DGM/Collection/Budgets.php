@@ -87,4 +87,9 @@ class Budgets
         return $budget;
     }
 
+    public function getBudgetCount()
+    {
+        return $this->collection->find()->count();
+    }
+
 }
