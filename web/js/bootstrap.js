@@ -57,7 +57,7 @@ TGM.bootstrappers = {
 
     sidePanes: function($find)
     {
-        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $find("#left-column")});
+        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $find("#left-column"), model: this.models.userBudget });
         this.views.sidePaneManager.addSidePanes({
             "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $find("#budget-allocator"), model: this.models.userBudget }),
             "save-budget":          new TGM.Views.SaveBudgetPane({ el: $find("#save-budget-pane"), model: this.models.userBudget }),
