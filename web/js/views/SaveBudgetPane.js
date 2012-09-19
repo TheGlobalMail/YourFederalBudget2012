@@ -11,11 +11,18 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     {
         _.bindAll(this);
         this.on('shown', this.onShow);
+
+        // cache inputs
         this.$name = this.$('.your-name-wrapper input');
         this.$state = this.$('.your-name-wrapper select');
         this.$email = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
-        this.model.on('change', this.modelChanged)
+
+        // update form when the model changes (normally from cache restore)
+        this.model.on('change', this.modelChanged);
+
+        // hide errors whenever the sidepane changes
+        TGM.vent.on('showSidePane', this.clearErrors);
     },
 
     onShow: function()
@@ -51,9 +58,16 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
-        $.jStorage.deleteKey('userBudget');
+        this.clearErrors();
+
+        // clear the budget cache
+        model.clearCache();
+
+        // persist budget info in browser storage
         $.jStorage.set('clientId', model.get('clientId'));
         $.jStorage.set('budgetId', model.id);
+
+        // prompt to share their budget
         TGM.vent.trigger('showSidePane', 'share-budget');
     },
 
@@ -78,35 +92,62 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     showError: function($input, message)
     {
         var tooltip = $input.data('tooltip');
+
+        // always hide tooltip
         if (tooltip) {
             tooltip.hide();
             $input.data('tooltip', null);
         }
 
+        // show error if there's a message
         if (message) {
             if ($input[0] == this.$state[0]) {
                 // someone is hacking the state field, let's laugh at them.
                 window.location.replace('http://lmgtfy.com/?q=' + encodeURIComponent(this.$state.val()));
             }
 
-            // add close button to message
-            var close = $('<a href="#" class="close">&times;</a>').clone();
+            // create a close button for the tooltip
+            var close = $('<a href="#" class="close">&times;</a>');
+            // wrap message in HTML and append the close button
             message = $("<span/>").text(message).append(close);
 
-            $input.addClass('error');
+            // create the tooltip
             var tooltip = new $.fn.tooltip.Constructor($input[0], { title: message, trigger: 'manual', placement: 'right' });
+
+            // error state
             tooltip.tip().addClass('error');
+            $input.addClass('error');
+
+            // inject into data like the jQuery wrapper plugin does
             $input.data('tooltip', tooltip);
+
+            // display
             tooltip.show();
 
-            close.on('click', function(e) {
-                e.preventDefault();
+            function closeTooltip() {
                 tooltip.hide();
                 $input.data('tooltip', null);
+            }
+
+            // close and remove the tooltip
+            close.on('click', function(e) {
+                e.preventDefault();
+                closeTooltip();
+                return false;
             });
+
+            $input.on('blur', _.bind(this.showError, this, $input, false));
         } else if (($input[0] == this.$state[0] && !this.$name.hasClass('error')) || $input[0] != this.$state[0]) {
             $input.removeClass('error');
         }
+    },
+
+    clearErrors: function()
+    {
+        // clear error messages (empty messages closes)
+        this.showError(this.$name, false);
+        this.showError(this.$state, false);
+        this.showError(this.$email, false);
     },
 
     formUpdate: function()

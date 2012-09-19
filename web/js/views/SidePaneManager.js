@@ -6,7 +6,12 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
     {
         _.bindAll(this);
         TGM.vent.on("showSidePane", this.showPane);
+        this.model.on('sync', this.updateLabels);
         this._currentPane();
+
+        if (!this.model.isNew()) {
+            this.updateLabels();
+        }
     },
 
     addSidePane: function(id, sidePane)
@@ -68,6 +73,11 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
         }, this));
 
         this.currentPane = this.sidePanes[id];
+    },
+
+    updateLabels: function()
+    {
+        this.$('.nav li:first a').text('Edit your budget');
     }
 
 });

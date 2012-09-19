@@ -27,6 +27,11 @@ TGM.Views.Application = Backbone.View.extend({
     {
         event.preventDefault && event.preventDefault();
         return false;
+    },
+
+    hideAppLoadingOverlay: function()
+    {
+        this.$("#app-loading").fadeOut('fast');
     }
 
 });

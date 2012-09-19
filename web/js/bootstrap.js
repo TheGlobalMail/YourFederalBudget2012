@@ -57,7 +57,7 @@ TGM.bootstrappers = {
 
     sidePanes: function($find)
     {
-        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $find("#left-column")});
+        this.views.sidePaneManager = new TGM.Views.SidePaneManager({ el: $find("#left-column"), model: this.models.userBudget });
         this.views.sidePaneManager.addSidePanes({
             "budget-allocator":     new TGM.Views.BudgetAllocatorPane({ el: $find("#budget-allocator"), model: this.models.userBudget }),
             "save-budget":          new TGM.Views.SaveBudgetPane({ el: $find("#save-budget-pane"), model: this.models.userBudget }),
@@ -69,14 +69,18 @@ TGM.bootstrappers = {
     loadBudgets: function()
     {
         var budgetId = $.jStorage.get('budgetId');
+        var loaded = _.bind(function() {
+            this.models.userBudget.tryRestoreFromCache();
+            this.views.application.hideAppLoadingOverlay();
+        }, this);
 
         if (budgetId) {
             this.models.userBudget.set('_id', budgetId);
             this.models.userBudget.fetch({
-                success: _.bind(this.models.userBudget.tryRestoreFromCache, this.models.userBudget)
+                success: loaded
             });
         } else {
-            this.models.userBudget.tryRestoreFromCache();
+            loaded();
         }
     }
 
