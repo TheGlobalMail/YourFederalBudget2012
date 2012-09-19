@@ -4,8 +4,9 @@ var args = nopt(null, null, process.argv, 2);
 
 var configs = {
   'local': {
-    desired: [
-      {browserName: "firefox"}
+    browsers: [
+      {browserName: "firefox"},
+      {browserName: "chrome"}
     ],
     url: 'http://localhost:5000'
   },
@@ -17,7 +18,7 @@ var configs = {
     processes: 23,
     maxTests: false,
     serviceName: 'sauce',
-    desired: [
+    browsers: [
       {browserName: "internet explorer", version: '8', platform: "XP", proxy: {proxyType: 'direct'}, 'selenium-version': '2.21.0'},
       {browserName: "firefox", version: '10', platform: "Windows 2003", proxy: {proxyType: 'direct'}},
       {browserName: "chrome", version: '', platform: "VISTA", proxy: {proxyType: 'direct'}}
@@ -26,13 +27,14 @@ var configs = {
   }
 };
 
+var conf = exports.config = args['with-sauce'] ? configs.sauce : configs.local;
+
 /*
  * Return a webdriver browser. The browser will either connect to a local
  * selenium server or sauce depending on arguments
  */
-exports.startBrowser = function(cb){
+exports.startBrowser = function(name, browserEnv, cb){
 
-  var conf = args['with-sauce'] ? configs.sauce : configs.local;
   var browser = webdriver.remote(conf.host, conf.port, conf.username, conf.accessKey);
 
   if (args['debug-wd']){
@@ -45,7 +47,9 @@ exports.startBrowser = function(cb){
     });
   }
 
-  browser.init(conf.desired, function(){
+  browserEnv.tags = ['budget2012'];
+  browserEnv.name = name;
+  browser.init(browserEnv, function(){
     browser.get(conf.url, function(err){
       cb(err, browser);
     });
