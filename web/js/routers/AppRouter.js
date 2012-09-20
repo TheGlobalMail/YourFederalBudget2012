@@ -29,26 +29,37 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     loadBudget: function(id)
     {
-        // refactor and use active budget (no createdAt means we haven't been fetched from the serva yet)
+        // refactor and use active budget
         if (this.models.userBudget.id != id) {
-            this.models.activeBudget = new TGM.Models.Budget({ _id: id });
+            // try and get the model from the collection first
+            this.models.activeBudget = this.collections.budgets.get(id);
 
-            var fetchError = _.bind(function(model, response) {
-                if (response.status == 404) {
-                    // clear model so isNew will work
-                    this.models.activeBudget = this.models.userBudget;
-                    this.goto("");
-                }
+            var fetchSuccess = _.bind(function() {
+                TGM.vent.trigger('activeBudget', this.models.activeBudget);
             }, this);
 
-            var fetchSuccess = function() {
-                TGM.vent.trigger('activeBudget', this.models.activeBudget);
-            };
+            if (this.models.activeBudget) {
+                fetchSuccess();
+            } else {
+                this.models.activeBudget = new TGM.Models.Budget({ _id: id });
 
-            this.models.activeBudget.fetch({ error: fetchError });
+                var fetchError = _.bind(function(model, response) {
+                    if (response.status == 404) {
+                        // clear model so isNew will work
+                        this.models.activeBudget = this.models.userBudget;
+                        this.goto("");
+                    }
+                }, this);
+
+                this.models.activeBudget.fetch({ success: fetchSuccess, error: fetchError });
+            }
+
+            TGM.vent.trigger('showSidePane', 'other-budgets');
+        } else {
+            this.models.activeBudget = this.models.userBudget;
+            TGM.vent.trigger('activeBudget', this.models.activeBudget);
+            TGM.vent.trigger('showSidePane', 'budget-allocator');
         }
-
-        TGM.vent.trigger('showSidePane', 'budget-allocator');
     },
 
     saveBudget: function(id)
