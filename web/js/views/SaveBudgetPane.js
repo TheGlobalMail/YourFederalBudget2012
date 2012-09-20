@@ -32,7 +32,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     save: function(e)
     {
-        event.preventDefault();
+        e.preventDefault();
 
         this.model.save(this.formToJson(), {
             success: this.success,

@@ -31,7 +31,6 @@ describe("Application router", function() {
     it("should redirect to / when the user loads a budget that doesn't exist", function() {
         this.server.respondWith("GET", "/api/budget/dud-budget-id", [404, "", ""]);
         var router = getRouter(['models']);
-        Backbone.history.start({ pushState: true });
         spyOn(router, 'goto');
 
         router.loadBudget('dud-budget-id');
@@ -40,8 +39,24 @@ describe("Application router", function() {
         expect(router.goto).toHaveBeenCalledWith('');
     });
 
-    it("should redirect the user to their budget if they have one when the open the index/homepage", function() {
+    it("should make an unsaved userBudget the active budget when returning to Create Your Budget after viewing someone elses budget", function() {
+        var router = getRouter(['models']);
+        var isActive = false;
 
+        router.models.userBudget.set('testVal', 'yes');
+        router.models.activeBudget = new TGM.Models.Budget({ '_id': 'test' });
+
+        TGM.vent.on('activeBudget', function(activeBudget) {
+            if (activeBudget == router.models.userBudget) {
+                isActive = true;
+            }
+        });
+
+        router.index();
+
+        expect(isActive).toBeTruthy();
+        expect(router.models.activeBudget.cid).toEqual(router.models.userBudget.cid);
+        expect(router.models.userBudget.get('testVal')).toEqual('yes');
     });
 
 });

@@ -23,6 +23,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         if (!this.models.userBudget.isNew()) {
             this.goto("budget", this.models.userBudget.id);
         } else {
+            this.models.activeBudget = this.models.userBudget;
+            TGM.vent.trigger('activeBudget', this.models.userBudget);
             TGM.vent.trigger('showSidePane', 'budget-allocator');
         }
     },

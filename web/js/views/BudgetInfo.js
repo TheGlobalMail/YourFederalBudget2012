@@ -18,7 +18,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             this.model = model;
         }
 
-        if (this.model.get('clientId')) {
+        if (this.model.get('clientId') || !this.model.id) {
             this.$title.text('Your budget');
             this.$bottom.css('opacity', 0);
         } else {
