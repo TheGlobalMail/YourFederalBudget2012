@@ -47,7 +47,13 @@ class BudgetControllerProvider implements ControllerProviderInterface
             $budget = $app['budgets']->findById($id);
 
             if ($budget) {
-                return $app->json($budget);
+                $data = $budget->jsonSerialize();
+
+                if ($request->get('clientId') == $budget->getClientId()) {
+                    $data['clientId'] = $budget->getClientId();
+                }
+
+                return $app->json($data);
             }
 
             return $app->abort(404, 'Budget not found.');

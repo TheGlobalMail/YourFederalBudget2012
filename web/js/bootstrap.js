@@ -69,6 +69,7 @@ TGM.bootstrappers = {
     loadBudgets: function()
     {
         var budgetId = $.jStorage.get('budgetId');
+        var clientId = $.jStorage.get('clientId');
 
         var fetchSuccess = _.bind(function() {
             this.models.userBudget.tryRestoreFromCache();
@@ -87,7 +88,10 @@ TGM.bootstrappers = {
             this.models.userBudget.set('_id', budgetId);
             this.models.userBudget.fetch({
                 success: fetchSuccess,
-                error: fetchError
+                error: fetchError,
+                data: {
+                    clientId: clientId
+                }
             });
         } else {
             fetchSuccess();

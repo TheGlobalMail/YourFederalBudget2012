@@ -46,6 +46,10 @@ class Budget extends Model implements \JsonSerializable
             if ($key == "createdAt" && $value instanceof \MongoDate) {
                 $this->setCreatedAt($value);
             }
+
+            if ($key == "clientId") {
+                $this->clientId = $value;
+            }
         }
 
         return $this;
