@@ -31,21 +31,29 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     {
         // refactor and use active budget
         if (this.models.userBudget.id != id) {
-            this.models.activeBudget = new TGM.Models.Budget({ _id: id });
-
-            var fetchError = _.bind(function(model, response) {
-                if (response.status == 404) {
-                    // clear model so isNew will work
-                    this.models.activeBudget = this.models.userBudget;
-                    this.goto("");
-                }
-            }, this);
+            // try and get the model from the collection first
+            this.models.activeBudget = this.collections.budgets.get(id);
 
             var fetchSuccess = _.bind(function() {
                 TGM.vent.trigger('activeBudget', this.models.activeBudget);
             }, this);
 
-            this.models.activeBudget.fetch({ success: fetchSuccess, error: fetchError });
+            if (this.models.activeBudget) {
+                fetchSuccess();
+            } else {
+                this.models.activeBudget = new TGM.Models.Budget({ _id: id });
+
+                var fetchError = _.bind(function(model, response) {
+                    if (response.status == 404) {
+                        // clear model so isNew will work
+                        this.models.activeBudget = this.models.userBudget;
+                        this.goto("");
+                    }
+                }, this);
+
+                this.models.activeBudget.fetch({ success: fetchSuccess, error: fetchError });
+            }
+
             TGM.vent.trigger('showSidePane', 'other-budgets');
         } else {
             this.models.activeBudget = this.models.userBudget;
