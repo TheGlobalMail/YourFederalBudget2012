@@ -2,6 +2,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
 
     template: _.template($("#other-budget-template").html()),
     className: 'other-budget',
+    tagName: 'a',
 
     options: {
         editable: false
@@ -31,6 +32,8 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         if (this.$el.parent()) { // already attached to dom
             this.doColorBar();
         }
+
+        this.$el.prop('href', '/budget/' + this.model.id);
 
         return this;
     },
