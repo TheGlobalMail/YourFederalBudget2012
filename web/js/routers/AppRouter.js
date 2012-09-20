@@ -42,6 +42,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
                 fetchSuccess();
             } else {
                 this.models.activeBudget = new TGM.Models.Budget({ _id: id });
+                this.collections.budgets.unshift(this.models.activeBudget);
 
                 var fetchError = _.bind(function(model, response) {
                     if (response.status == 404) {

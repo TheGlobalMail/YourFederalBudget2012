@@ -43,6 +43,7 @@ TGM.bootstrappers = {
     barGraph: function($find)
     {
         this.views.barGraph = new TGM.Views.BarGraph({ el: $find("#visualisation") });
+        this.views.budgetInfo = new TGM.Views.BudgetInfo({ el: $("#budget-info"), model: this.models.activeBudget });
 
         _.each(DATA.categories, function(value, id) {
             this.views.barGraph.addCategory(id, value);

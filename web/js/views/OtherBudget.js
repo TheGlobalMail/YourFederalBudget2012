@@ -10,8 +10,8 @@ TGM.Views.OtherBudget = Backbone.View.extend({
 
     initialize: function()
     {
-        _.bindAll(this);
-        this.model.on('change', this.render);
+        this.model.on('change', this.render, this);
+        TGM.vent.on('activeBudget', this.onActiveBudget, this);
     },
 
     render: function()
@@ -59,6 +59,15 @@ TGM.Views.OtherBudget = Backbone.View.extend({
     _makeColorBarSection: function(id, width)
     {
         return $("<div/>").css({ width: width, float: "left", height: "100%" }).addClass(id).html('&nbsp;');
+    },
+
+    onActiveBudget: function(activeBudget)
+    {
+        if (this.model.id == activeBudget.id) {
+            this.$el.addClass('active');
+        } else {
+            this.$el.removeClass('active');
+        }
     }
 
 });
