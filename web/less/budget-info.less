@@ -1,0 +1,77 @@
+#budget-info {
+    .top {
+        .clearfix;
+        position: relative;
+
+        h1 {
+            font-size: 28px;
+            margin: 0;
+            margin-right: 270px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        ul {
+            display: block;
+            float: right;
+            list-style: none;
+            position: absolute;
+            right: 0;
+            top: 18px;
+            margin: 0;
+            padding: 0;
+
+            li {
+                display: inline-block;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 10px;
+                margin-left: 16px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                .square {
+                    display: inline-block;
+                    height: 11px;
+                    width: 11px;
+                    background-color: @black;
+                    position: relative;
+                    top: 1px;
+
+                    &.dots {
+                        background-image: url(../img/overlay-dots.png);
+                    }
+
+                    &.lines {
+                        background-image: url(../img/overlay-lines.png);
+                    }
+                }
+            }
+        }
+    }
+
+    .bottom {
+        position: relative;
+        top: -6px;
+
+        a {
+            i {
+                position: relative;
+                top: 3px;
+                margin-right: 1px;
+                font-size: 20px;
+            }
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        time {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 11px;
+        }
+    }
+}

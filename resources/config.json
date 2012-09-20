@@ -25,6 +25,7 @@
             "js/views/Application.js",
             "js/views/SidePaneManager.js",
             "js/views/SidePane.js",
+            "js/views/BudgetInfo.js",
             "js/views/BarGraph.js",
             "js/views/BudgetAllocatorPane.js",
             "js/views/SaveBudgetPane.js",
