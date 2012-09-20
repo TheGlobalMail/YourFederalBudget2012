@@ -95,11 +95,9 @@ TGM.Models.Budget = Backbone.Model.extend({
     {
         var cached = $.jStorage.get('userBudget');
 
-        if (cached) {
-            if (!this.isNew()) {
-                this.resetState = this.toJSON();
-            }
+        this.resetState = this.toJSON();
 
+        if (cached) {
             this.set(cached);
             return true;
         }
@@ -110,6 +108,7 @@ TGM.Models.Budget = Backbone.Model.extend({
     clearCache: function()
     {
         $.jStorage.deleteKey('userBudget');
+        this.resetState = this.toJSON();
     }
 
 });

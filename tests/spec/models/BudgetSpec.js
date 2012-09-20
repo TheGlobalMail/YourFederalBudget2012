@@ -11,6 +11,7 @@ describe("Budget", function() {
     };
 
     beforeEach(function() {
+        $.jStorage.flush();
         budget = new TGM.Models.Budget();
     });
 
@@ -75,7 +76,6 @@ describe("Budget", function() {
 
     it("should reset category to the previous value if you try and set an invalid category amount", function() {
         budget.set('defense', 9.8);
-
         budget.set('defense', 'Needs moar stringzzzz');
 
         expect(budget.get('defense')).toEqual(9.8);
@@ -92,5 +92,37 @@ describe("Budget", function() {
 
         expect(resetTrigger).toBeTruthy();
         expect(budget.get('defense')).toEqual(5.0);
+    });
+
+    it("should cache the budget on request", function() {
+        budget.set({
+            defense: 12.3,
+            health: 6.9
+        });
+        spyOn($.jStorage, "set");
+
+        budget.tryCaching();
+        expect($.jStorage.set).toHaveBeenCalledWith('userBudget', budget.toJSON());
+    });
+
+    it("should restore cached values", function() {
+        budget.set('defense', 3.2);
+        budget.tryCaching();
+
+        budget.set('defense', 4.3);
+        budget.tryRestoreFromCache();
+        expect(budget.get('defense')).toEqual(3.2);
+    });
+
+    it("should reset to last saved for existing budgets", function() {
+        budget.set('_id', 'testing-id');
+        budget.set('defense', 2.1);
+        var defaults = budget.toJSON();
+
+        budget.tryCaching();
+        budget.tryRestoreFromCache();
+        budget.resetBudget();
+
+        expect(budget.toJSON()).toEqual(defaults);
     });
 });

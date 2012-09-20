@@ -22,8 +22,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
         this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
-
-        this.refreshAmount(null, this.$slider.slider('value'));
     },
 
     onSlide: function(e, ui)

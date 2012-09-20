@@ -9,6 +9,8 @@
         {% include 'less.twig' %}
     </head>
     <body>
+        <div id="app-loading"></div>
+
         <header class="navbar navbar-inverse navbar-fixed-top">
             {% include 'header.twig' %}
         </header>
@@ -22,7 +24,7 @@
                     </li>
                     <li>
                         <div class="border-top"></div>
-                        <a href="/budgets">Saved Budgets <small class="count"></small></a>
+                        <a href="/budgets">Saved Budgets <small class="count">({{ app.budgets.getBudgetCount }})</small></a>
                     </li>
                 </ul>
 

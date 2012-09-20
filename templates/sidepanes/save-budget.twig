@@ -3,18 +3,19 @@
 
     <form action="#" id="save-budget-form">
         <div class="control-group your-name-wrapper">
-            <label class="control-label">
+            <label class="control-label" for="yourName">
                 Your Name and State
                 <small class="help-block">This is how you name your budget ie. ‘John’s Budget - NSW’.</small>
-                <div class="controls">
-                    <input type="text" name="yourName" placeholder="Your firstname">
-                    <select name="yourState">
-                        {% for key, value in app.config.frontend.states %}
-                        <option value="{{ key }}">{{ value }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
             </label>
+
+            <div class="controls">
+                <input type="text" name="yourName" placeholder="Your firstname">
+                <select name="yourState">
+                    {% for key, value in app.config.frontend.states %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
 
         <div class="control-group your-email-wrapper">

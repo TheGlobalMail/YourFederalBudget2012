@@ -29,6 +29,12 @@
                 &:focus {
                     .opacity(90);
                 }
+
+                small {
+                    font-weight: normal;
+                    font-size: 90%;
+                    color: lighten(@textColor, 25%);
+                }
             }
 
             &:last-child {
@@ -46,6 +52,7 @@
 
         li.active {
             border-bottom: none;
+
             a {
                 .opacity(100);
                 color: @textColor;
@@ -76,8 +83,8 @@
     padding:10px 0 0 20px;
 
     .sidepane {
-            position: absolute;
-            overflow: visible;
-        }
+        position: absolute;
+        overflow: visible;
+    }
 
 }

@@ -78,13 +78,22 @@ class Budgets
         }
 
         foreach ($totals as $cat => $total) {
-            $averages[$cat] = round($total / $cursor->count(), 1);
+            if ($cursor->count() > 0) {
+                $averages[$cat] = round($total / $cursor->count(), 1);
+            } else {
+                $averages[$cat] = 0; // prevent divison-by-zero if no budgets exist
+            }
         }
 
         $budget = new Budget($this->db);
         $budget->set($averages);
 
         return $budget;
+    }
+
+    public function getBudgetCount()
+    {
+        return $this->collection->find()->count();
     }
 
 }
