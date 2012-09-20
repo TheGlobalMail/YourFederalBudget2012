@@ -30,24 +30,22 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     loadBudget: function(id)
     {
         // refactor and use active budget (no createdAt means we haven't been fetched from the serva yet)
-        if (this.models.userBudget.id != id || !this.models.userBudget.get('createdAt')) {
-            this.models.userBudget.set('_id', id);
+        if (this.models.userBudget.id != id) {
+            this.models.activeBudget = new TGM.Models.Budget({ _id: id });
 
             var fetchError = _.bind(function(model, response) {
                 if (response.status == 404) {
-                    if (id == $.jStorage.get('budgetId')) {
-                        $.jStorage.deleteKey('budgetId');
-                        $.jStorage.deleteKey('clientId');
-                    }
                     // clear model so isNew will work
-                    this.models.userBudget.clear();
-                    this.models.userBudget.unset('_id');
-                    delete this.models.userBudget['id'];
+                    this.models.activeBudget = this.models.userBudget;
                     this.goto("");
                 }
             }, this);
 
-            this.models.userBudget.fetch({ error: fetchError });
+            var fetchSuccess = function() {
+                TGM.vent.trigger('activeBudget', this.models.activeBudget);
+            };
+
+            this.models.activeBudget.fetch({ error: fetchError });
         }
 
         TGM.vent.trigger('showSidePane', 'budget-allocator');

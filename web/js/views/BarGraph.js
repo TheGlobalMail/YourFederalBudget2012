@@ -7,6 +7,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
     {
         _.bindAll(this);
         $(window).on('resize', _.throttle(this.onResize, 50));
+        TGM.vent.on('activeBudget', this.budgetSwap);
     },
 
     addCategory: function(id, category)
@@ -82,6 +83,12 @@ TGM.Views.BarGraph = Backbone.View.extend({
         if (this.$el.width() != this.$el.renderedWidth) {
             this.render();
         }
+    },
+
+    budgetSwap: function(newActiveBudget)
+    {
+        this.model = newActiveBudget;
+        this.render();
     }
 
 });

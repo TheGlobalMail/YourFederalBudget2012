@@ -69,18 +69,28 @@ TGM.bootstrappers = {
     loadBudgets: function()
     {
         var budgetId = $.jStorage.get('budgetId');
-        var loaded = _.bind(function() {
+
+        var fetchSuccess = _.bind(function() {
             this.models.userBudget.tryRestoreFromCache();
             this.views.application.hideAppLoadingOverlay();
         }, this);
 
+        var fetchError = function(model, response) {
+            if (response.status == 404) {
+                $.jStorage.deleteKey('budgetId');
+                $.jStorage.deleteKey('clientId');
+            }
+            fetchSuccess();
+        };
+
         if (budgetId) {
             this.models.userBudget.set('_id', budgetId);
             this.models.userBudget.fetch({
-                success: loaded
+                success: fetchSuccess,
+                error: fetchError
             });
         } else {
-            loaded();
+            fetchSuccess();
         }
     }
 
