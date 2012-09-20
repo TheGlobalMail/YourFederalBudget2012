@@ -140,11 +140,11 @@
             border-color: @grayDark;
             background-color: #f2f2f2;
             cursor: pointer;
-            -webkit-transition: background 150ms ease-in-out;
-            -moz-transition: background 150ms ease-in-out;
-            -ms-transition: background 150ms ease-in-out;
-            -o-transition: background 150ms ease-in-out;
-            transition: background 150ms ease-in-out;
+            .transition(all 150ms ease-in-out);
+        }
+
+        &.active {
+            border-color: @grayDark;
         }
 
         .name {

@@ -11,7 +11,6 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         _.bindAll(this);
 
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
-        this.otherBudgetViews = [];
         this._renderedModels = [];
 
         this.$yourBudget = this.$('.your-budget');
@@ -34,8 +33,8 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         }, this);
 
         _.each(budgets, function(budget) {
-            if (budget.id == this.model.id) {
-                return false; // don't show user budget in this list
+            if (budget.id == this.model.id || !budget.id) {
+                return false; // don't show user budget in this list (or has no id??)
             }
 
             var view = new TGM.Views.OtherBudget({ model: budget });
@@ -43,7 +42,6 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
             view.doColorBar();
 
             this._renderedModels.push(budget.id);
-            this.otherBudgetViews.push(view);
         }, this);
 
         this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
