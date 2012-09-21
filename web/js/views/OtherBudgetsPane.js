@@ -75,6 +75,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
     triggerEdit: function()
     {
         if (this.model.isNew()) {
+            // TODO we should never get to this tree, can this be removed?
             window.appRouter.goto("");
         } else {
             window.appRouter.goto("budget", this.model.id);

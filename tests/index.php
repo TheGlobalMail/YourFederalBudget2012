@@ -55,6 +55,7 @@ $app['config'] = $config;
     <script src="/tests/spec/views/MoreInfoSpec.js"></script>
     <script src="/tests/spec/views/OtherBudgetsPaneSpec.js"></script>
     <script src="/tests/spec/views/ApplicationSpec.js"></script>
+    <script src="/tests/spec/views/OtherBudgetSpec.js"></script>
 
 </head>
 

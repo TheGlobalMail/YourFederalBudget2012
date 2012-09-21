@@ -28,6 +28,7 @@ TGM.Collections.Budgets = Backbone.Collection.extend({
         error = error || function() {};
 
         var _success = _.bind(function(collection, response) {
+            // empty responses means there's no more budgets to fetch (they're all in memory now)
             if (!_.size(response)) {
                 this.full = true;
                 this.trigger('full', collection);
