@@ -10,6 +10,11 @@ TGM.Views.OtherBudget = Backbone.View.extend({
 
     initialize: function()
     {
+        if (this.options.editable) {
+            // override el so we don't nest anchors
+            this.setElement($("<div/>").addClass('other-budget'));
+        }
+
         this.model.on('change', this.render, this);
         TGM.vent.on('activeBudget', this.onActiveBudget, this);
         TGM.vent.on('resized', this.doColorBar, this);
@@ -34,7 +39,9 @@ TGM.Views.OtherBudget = Backbone.View.extend({
             this.doColorBar();
         }
 
-        this.$el.prop('href', '/budget/' + this.model.id);
+        if (!this.options.editable) {
+            this.$el.prop('href', '/budget/' + this.model.id);
+        }
 
         return this;
     },
@@ -44,9 +51,12 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var $colorBar = this.$('.color-bar');
         var totalWidth = $colorBar.width() - 2;
         var allocationSum = this.model.getTotal();
-        var widthToAllocationRatio = totalWidth / allocationSum;
+        var widthToAllocationRatio = totalWidth / DATA.budgetAllowance;
+        var unallocated = this._makeColorBarSection('unallocated', 'auto');
 
-        $colorBar.html(''); // clear existing bar
+        unallocated.css('position', 'absolute');
+
+        $colorBar.html(unallocated); // clear existing bar
 
         _.each(DATA.categories, function(cat, id) {
             var color = cat.color;

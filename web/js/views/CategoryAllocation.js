@@ -27,29 +27,12 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     onSlide: function(e, ui)
     {
         this.expand();
-        // do we need to hide the tooltip?
-        if (this.budgetFullyAllocatedTooltipOpen) {
-            // cahce function to hide tooltip
-            var hideTooltip = _.bind(function() {
-                this.$sliderHandle.tooltip('hide');
-                this.budgetFullyAllocatedTooltipOpen = false;
-            }, this);
 
-            if (+new Date - this.budgetFullyAllocatedTooltipOpen > 3000 || ui.value < this.model.get(this.options.category)) {
-                hideTooltip(); // it's been open longer than 3s, lets hide OR moving slider down
-            } else {
-                // hasn't been up for long, delay hiding it
-                setTimeout(hideTooltip, 3000 - (+new Date - this.budgetFullyAllocatedTooltipOpen));
-            }
-        }
 
         this.model.set(this.options.category, ui.value);
 
         if (ui.value != this.model.get(this.options.category)) {
-            if (!this.budgetFullyAllocatedTooltipOpen) {
-                this.$sliderHandle.tooltip('show');
-                this.budgetFullyAllocatedTooltipOpen = +new Date;
-            }
+
             return false;
         }
 
