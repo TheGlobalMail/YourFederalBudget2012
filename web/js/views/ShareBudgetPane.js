@@ -3,7 +3,6 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
     events: {
         "focus .budget-url": "onBudgetUrlFocus",
         "mouseup .budget-url": "onBudgetUrlMouseUp",
-        "click .return-to-allocator": "showBudgetAllocator",
         "click .googleplusone": "shareOnGooglePlus"
     },
 
