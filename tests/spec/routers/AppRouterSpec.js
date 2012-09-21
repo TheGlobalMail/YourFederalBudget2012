@@ -31,30 +31,26 @@ describe("Application router", function() {
     it("should redirect to / when the user loads a budget that doesn't exist", function() {
         this.server.respondWith("GET", "/api/budget/dud-budget-id", [404, "", ""]);
         var router = getRouter(['models']);
-        spyOn(router, 'goto');
+        var spy = sinon.spy(router, 'goto');
 
         router.loadBudget('dud-budget-id');
         this.server.respond();
 
-        expect(router.goto).toHaveBeenCalledWith('');
+        expect(spy).toHaveBeenCalledWith('');
     });
 
     it("should make an unsaved userBudget the active budget when returning to Create Your Budget after viewing someone elses budget", function() {
         var router = getRouter(['models']);
-        var isActive = false;
+        var spy = sinon.spy();
 
         router.models.userBudget.set('testVal', 'yes');
         router.models.activeBudget = new TGM.Models.Budget({ '_id': 'test' });
 
-        TGM.vent.on('activeBudget', function(activeBudget) {
-            if (activeBudget == router.models.userBudget) {
-                isActive = true;
-            }
-        });
+        TGM.vent.on('activeBudget', spy);
 
         router.index();
 
-        expect(isActive).toBeTruthy();
+        expect(spy).toHaveBeenCalledWith(router.models.userBudget);
         expect(router.models.activeBudget.cid).toEqual(router.models.userBudget.cid);
         expect(router.models.userBudget.get('testVal')).toEqual('yes');
     });

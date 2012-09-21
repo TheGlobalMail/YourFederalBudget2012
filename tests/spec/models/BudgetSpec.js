@@ -1,4 +1,4 @@
-describe("Budget", function() {
+describe("Budget Model", function() {
     var budget, sampleData = {
         defense: 5.0,
         health: 5.2,
@@ -13,6 +13,10 @@ describe("Budget", function() {
     beforeEach(function() {
         $.jStorage.flush();
         budget = new TGM.Models.Budget();
+    });
+
+    afterEach(function() {
+        $.jStorage.flush();
     });
 
     it("should be able to set category amounts", function() {
@@ -83,14 +87,14 @@ describe("Budget", function() {
 
     it("should reset all categories to defaults and trigger reset", function() {
         var defaults = _.clone(TGM.Models.Budget.prototype.defaults);
-        var resetTrigger = false;
+        var resetSpy = sinon.spy();
         _.extend(TGM.Models.Budget.prototype.defaults, sampleData);
 
         var budget = new TGM.Models.Budget({ defense: 40, health: 13 });
-        budget.on('reset', function() { resetTrigger = true; });
+        budget.on('reset', resetSpy);
         budget.resetBudget();
 
-        expect(resetTrigger).toBeTruthy();
+        expect(resetSpy).toHaveBeenCalledOnce();
         expect(budget.get('defense')).toEqual(5.0);
     });
 
@@ -99,10 +103,10 @@ describe("Budget", function() {
             defense: 12.3,
             health: 6.9
         });
-        spyOn($.jStorage, "set");
+        var spy = sinon.spy($.jStorage, "set");
 
         budget.tryCaching();
-        expect($.jStorage.set).toHaveBeenCalledWith('userBudget', budget.toJSON());
+        expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
     });
 
     it("should restore cached values", function() {
