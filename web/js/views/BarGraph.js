@@ -87,7 +87,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
 
     budgetSwap: function(newActiveBudget)
     {
-        this.model = newActiveBudget;
+        this.budgets['user'] = newActiveBudget;
         this.render();
     }
 

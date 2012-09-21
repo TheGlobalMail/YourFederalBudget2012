@@ -11,7 +11,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         _.bindAll(this);
 
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
-        this.otherBudgetViews = [];
+        this._renderedModels = [];
 
         this.$yourBudget = this.$('.your-budget');
         this.$otherBudgets = this.$('.other-budgets');
@@ -21,25 +21,27 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.model.on('sync', this.showUserBudget);
 
         this.collection.on('fetching', this.fetchingMore);
-        this.collection.on('fetched', this.showMoreBudgets);
+        this.collection.on('add', this.showMoreBudgets);
         this.collection.on('full', this.noMoreBudgets);
         this.collection.fetchMore();
     },
 
     showMoreBudgets: function(collection, response)
     {
-        var budgets = collection.getLastFetched();
+        var budgets = this.collection.filter(function(model) {
+            return !_.include(this._renderedModels, model.id);
+        }, this);
 
         _.each(budgets, function(budget) {
-            if (budget.get('_id') == this.model.get('_id')) {
-                return false; // don't show user budget in this list
+            if (budget.id == this.model.id || !budget.id) {
+                return false; // don't show user budget in this list (or has no id??)
             }
 
             var view = new TGM.Views.OtherBudget({ model: budget });
             this.$inner.append(view.render().$el);
             view.doColorBar();
 
-            this.otherBudgetViews.push(view);
+            this._renderedModels.push(budget.id);
         }, this);
 
         this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
