@@ -12,6 +12,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
     {
         this.model.on('change', this.render, this);
         TGM.vent.on('activeBudget', this.onActiveBudget, this);
+        TGM.vent.on('resized', this.doColorBar, this);
     },
 
     render: function()

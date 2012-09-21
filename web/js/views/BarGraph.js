@@ -6,7 +6,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
     initialize: function()
     {
         _.bindAll(this);
-        $(window).on('resize', _.throttle(this.onResize, 50));
+        TGM.vent.on('resized', this.onResize);
         TGM.vent.on('activeBudget', this.budgetSwap);
     },
 
