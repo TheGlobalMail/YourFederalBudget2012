@@ -48,6 +48,14 @@ TGM.Models.Budget = Backbone.Model.extend({
             }
         }, this);
 
+        if (this.getTotal() == DATA.budgetAllowance && !this.budgetFullyAllocated) {
+            this.budgetFullyAllocated = true;
+            TGM.vent.trigger('budgetFullyAllocated', true);
+        } else if (this.budgetFullyAllocated && this.getTotal() < DATA.budgetAllowance) {
+            this.budgetFullyAllocated = false;
+            TGM.vent.trigger('budgetFullyAllocated', false);
+        }
+
         return Backbone.Model.prototype.set.call(this, attrs, null, options);
     },
 

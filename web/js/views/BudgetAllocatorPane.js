@@ -34,6 +34,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
         // tell everyone the first category is open before we listen to the event ourself
         this.on('shown', this.onShown);
+        this.on('hidden', this.onHidden)
         this.activeCategory.expand();
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.switchCategory);
     },
@@ -53,6 +54,11 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
     {
         var href = this.model.isNew() ? "/budget/save" : "/budget/" + this.model.id + "/save";
         this.$saveButton.prop('href', href);
+    },
+
+    onHidden: function()
+    {
+        this.budgetOverview.closeTooltip();
     },
 
     updateLabels: function()
