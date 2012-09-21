@@ -23,7 +23,10 @@
 
     .category {
         border: #e7e7e7 1px solid;
-        border-bottom: none;
+        margin-top: -1px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         position: relative;
         height: 45px;
 
@@ -141,37 +144,73 @@
         height: 32px;
     }
 
-    .category.defence .info-icon {
+    .category.defence {
+        &.active {
+            border-color: #AAA231;
+            z-index: 10;
+        }
+        .info-icon {
         background: url(../img/defence.svg) center top no-repeat;
         background-size: 38px;
+        }
     }
 
-    .category.publicEducation .info-icon {
+    .category.publicEducation {
+        &.active {
+            border-color: #A2359D;
+            z-index: 10;
+        }
+        .info-icon {
         background: url(../img/pub-ed.svg) center top no-repeat;
         background-size: 38px;
+        }
     }
 
-    .category.privateEducation .info-icon {
+    .category.privateEducation {
+        &.active {
+            border-color: #6C3FC2;
+            z-index: 10;
+        }
+        .info-icon {
         background: url(../img/priv-ed.svg) center top no-repeat;
         background-size: 38px;
+        }
     }
 
-    .category.foreignAid .info-icon {
-        background: url(../img/aid.svg) center top no-repeat;
-        background-size: 28px;
-        top:34%;
-    }
-
-    .category.immigration .info-icon {
+    .category.immigration {
+        &.active {
+            border-color: #1072B6;
+            z-index: 10;
+        }
+        .info-icon {
         background: url(../img/immigration.svg) center top no-repeat;
         background-size: 32px;
         top: 26%;
+        }
     }
 
-    .category.industryAssistance .info-icon {
+    .category.foreignAid {
+        &.active {
+            border-color: #F3454C;
+            z-index: 10;
+        }
+        .info-icon {
+        background: url(../img/aid.svg) center top no-repeat;
+        background-size: 28px;
+        top:34%;
+        }
+    }
+
+    .category.industryAssistance {
+        &.active {
+            border-color: #FD8B43;
+            z-index: 10;
+        }
+        .info-icon {
         background: url(../img/industry.svg) center top no-repeat;
         background-size: 28px;
         top: 36%;
+        }
     }
 
     .actions {
@@ -207,6 +246,7 @@
             width: 100%;
             height: 46px;
             position: relative;
+            font-size: 85%;
 
             .side {
                 border: 1px solid darken(@grayLighter, 10%);
@@ -214,7 +254,7 @@
                 color: lighten(@textColor, 40%);
                 width: 50%;
                 height: 100%;
-                text-align: center;
+                text-align: left;
                 margin-bottom: 1.5%;
                 .box-sizing(border-box);
                 cursor: pointer;
@@ -237,7 +277,9 @@
                 top: 50%;
                 margin-top: -10px;
                 padding-top: 4px;
-                font-size: 10px;
+                font-size: 80%;
+                font-style: italic;
+                line-height: 1.5;
                 text-align: center;
                 .box-sizing(border-box);
                 background-color: @grayDark;
@@ -247,17 +289,20 @@
             .federal-spending {
                 float: left;
                 .border-left-radius(4px);
-                padding: 6px;
+                padding: 8px 8% 0 10px;
                 .ui-title;
             }
 
             .your-pretax-income {
                 .border-right-radius(4px);
                 float: right;
+                padding: 3px 0 0 14px;
 
                 label {
                     .ui-title;
                     margin-bottom: 0;
+                    font-size: 90%;
+                    line-height: 1.2;
                 }
 
                 .input-prepend {
@@ -268,7 +313,7 @@
                     }
 
                     input {
-                        width: 105px;
+                        width: 70%;
                         padding: 2px 4px;
                     }
                 }

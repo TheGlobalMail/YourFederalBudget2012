@@ -4,15 +4,15 @@
 .tooltip {
     .tooltip-inner {
         max-width: 200px;
-        padding: 6px 8px 8px;
+        padding: 8px 20px 10px 10px;
         font-size: 1.2em;
         text-align: left;
 
         .close {
             display: block;
             position: absolute;
-            top: 0;
-            right: 2px;
+            top: 4px;
+            right: 6px;
             color: white;
             .opacity(50);
             text-shadow: none;
@@ -40,6 +40,12 @@
         .box-shadow(0 1px 1px @grayish);
         text-align: left;
         padding: 8px 25px 8px 10px;
+
+        .close {
+            top: 0;
+            right: 2px;
+        }
+
     }
 
     &.in {

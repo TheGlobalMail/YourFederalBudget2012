@@ -135,11 +135,20 @@
 
     .other-budget {
         border: #E7E7E7 1px solid;
-        border-bottom: none;
         padding: 0 0 2.5% 4%;
         width: 96%;
+        margin-top: -1px;
         display: block;
         color: @textColor;
+        opacity: .4;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        &.active {
+            opacity: 1;
+            border-bottom: 1px solid;
+        }
 
         &:first-child {
             .border-top-radius(8px);
@@ -154,14 +163,17 @@
         &:hover,
         &:active,
         &:focus {
-            border-color: @grayDark;
+            text-decoration: none;
             background-color: #f2f2f2;
             cursor: pointer;
             .transition(all 150ms ease-in-out);
+            opacity: 1;
         }
 
         &.active {
             border-color: @grayDark;
+            opacity: 1;
+            border-bottom: 1px solid;
         }
 
         .name {
