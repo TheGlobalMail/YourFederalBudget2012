@@ -40,3 +40,6 @@
 [submodule "web/vendor/color-js"]
 	path = web/vendor/color-js
 	url = git://github.com/brehaut/color-js.git
+[submodule "tests/lib/jasmine-sinon"]
+	path = tests/lib/jasmine-sinon
+	url = git://github.com/froots/jasmine-sinon.git

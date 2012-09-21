@@ -35,6 +35,7 @@ $app['config'] = $config;
     <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine-html.js"></script>
     <script src="/tests/lib/phantom-jasmine/lib/console-runner.js"></script>
     <script src="/tests/lib/jasmine-jquery/lib/jasmine-jquery.js"></script>
+    <script src="/tests/lib/jasmine-sinon/lib/jasmine-sinon.js"></script>
     <script src="/tests/lib/sinon/sinon-1.4.2.js"></script>
 
     <?= $app['twig']->render('js-templates/other-budget.twig'); ?>
@@ -53,6 +54,8 @@ $app['config'] = $config;
     <script src="/tests/spec/views/CategoryAllocationSpec.js"></script>
     <script src="/tests/spec/views/MoreInfoSpec.js"></script>
     <script src="/tests/spec/views/OtherBudgetsPaneSpec.js"></script>
+    <script src="/tests/spec/views/ApplicationSpec.js"></script>
+    <script src="/tests/spec/views/OtherBudgetSpec.js"></script>
 
 </head>
 

@@ -7,7 +7,8 @@ TGM.Views.Application = Backbone.View.extend({
 
     initialize: function()
     {
-        _.bindAll(this);
+        _.bindAll(this, 'onResize', 'showEmailModal');
+        this.$window = $(window);
 
         this.$('.popover-link').arrowPopover({
             actionToActivatePopover: 'click'
@@ -16,6 +17,8 @@ TGM.Views.Application = Backbone.View.extend({
         this.$('.addthis_toolbox a').attr('data-bypass', true);
 
         this.emailPage = new TGM.Views.EmailPage({ el: this.$("#email-page-form") });
+        this.$window.on('resize', this.onResize);
+        this.currentSize = this._calculateCurrentSize();
     },
 
     showEmailModal: function()
@@ -32,6 +35,31 @@ TGM.Views.Application = Backbone.View.extend({
     hideAppLoadingOverlay: function()
     {
         this.$("#app-loading").fadeOut('fast');
+    },
+
+    _calculateCurrentSize: function()
+    {
+        var h = this.$window.height(), w = this.$window.width();
+
+        if (w < 1060) {
+            return 'small';
+        }
+
+        if (w < 1260 || h < 805) {
+            return 'medium';
+        }
+
+        return 'large';
+    },
+
+    onResize: function(e)
+    {
+        var newSize = this._calculateCurrentSize();
+
+        if (newSize != this.currentSize) {
+            this.currentSize = newSize;
+            TGM.vent.trigger('resized', newSize);
+        }
     }
 
 });

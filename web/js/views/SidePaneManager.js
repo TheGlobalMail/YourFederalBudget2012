@@ -77,7 +77,7 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
 
     updateLabels: function()
     {
-        this.$('.nav li:first a').text('Edit your budget');
+        this.$('.nav li:first a').text('Edit your budget').prop('href', '/budget/' + this.model.id + '/edit');
     }
 
 });

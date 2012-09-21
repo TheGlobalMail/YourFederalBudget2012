@@ -4,7 +4,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         "":                 "index",
         "budget/save":      "saveBudget",
         "budget/:id/save":  "saveBudget",
-        "budget/:id":       "loadBudget",
+        "budget/:id/edit":  "editBudget",
+        "budget/:id":       "viewBudget",
         "budgets":          "viewBudgets"
     },
 
@@ -21,7 +22,8 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
     index: function()
     {
         if (!this.models.userBudget.isNew()) {
-            this.goto("budget", this.models.userBudget.id);
+            // default route is to edit their saved budget
+            this.goto("budget", this.models.userBudget.id, "edit");
         } else {
             this.models.activeBudget = this.models.userBudget;
             TGM.vent.trigger('activeBudget', this.models.userBudget);
@@ -29,35 +31,45 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         }
     },
 
-    loadBudget: function(id)
+    viewBudget: function(id)
     {
-        // refactor and use active budget
-        if (this.models.userBudget.id != id) {
+        if (this.models.userBudget.id == id) {
+            this.models.activeBudget = this.models.userBudget;
+        } else {
             // try and get the model from the collection first
             this.models.activeBudget = this.collections.budgets.get(id);
+        }
 
-            var fetchSuccess = _.bind(function() {
-                TGM.vent.trigger('activeBudget', this.models.activeBudget);
+        var fetchSuccess = _.bind(function() {
+            TGM.vent.trigger('activeBudget', this.models.activeBudget);
+        }, this);
+
+        if (this.models.activeBudget) {
+            fetchSuccess(); // budget already in memory
+        } else {
+            // budget not loaded so we have to fetch
+            this.models.activeBudget = new TGM.Models.Budget({ _id: id });
+            this.collections.budgets.unshift(this.models.activeBudget);
+
+            var fetchError = _.bind(function(model, response) {
+                if (response.status == 404) {
+                    // budget not found, just show the Saved Budgets pane
+                    this.models.activeBudget = this.models.userBudget;
+                    this.goto("budgets");
+                }
             }, this);
 
-            if (this.models.activeBudget) {
-                fetchSuccess();
-            } else {
-                this.models.activeBudget = new TGM.Models.Budget({ _id: id });
-                this.collections.budgets.unshift(this.models.activeBudget);
+            this.models.activeBudget.fetch({ success: fetchSuccess, error: fetchError });
+        }
 
-                var fetchError = _.bind(function(model, response) {
-                    if (response.status == 404) {
-                        // clear model so isNew will work
-                        this.models.activeBudget = this.models.userBudget;
-                        this.goto("");
-                    }
-                }, this);
+        TGM.vent.trigger('showSidePane', 'other-budgets');
+    },
 
-                this.models.activeBudget.fetch({ success: fetchSuccess, error: fetchError });
-            }
-
-            TGM.vent.trigger('showSidePane', 'other-budgets');
+    editBudget: function(id)
+    {
+        if (this.models.userBudget.id != id) {
+            // can't edit budgets if they aren't yours
+            this.goto("budget", id);
         } else {
             this.models.activeBudget = this.models.userBudget;
             TGM.vent.trigger('activeBudget', this.models.activeBudget);
@@ -90,6 +102,25 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     viewBudgets: function()
     {
+        if (this.models.userBudget.isNew()) {
+            this.models.activeBudget = this.collections.budgets.first();
+
+            if (!this.models.activeBudget) {
+                // collection doesn't have any load, so only trigger activeBudget once fetched
+                this.collections.budgets.on('fetched', function() {
+                    this.models.activeBudget = this.collections.budgets.first();
+                    TGM.vent.trigger('activeBudget', this.models.activeBudget);
+                }, this);
+            } else {
+                // collection has model in memory, trigger now
+                TGM.vent.trigger('activeBudget', this.models.activeBudget);
+            }
+        } else {
+            // user budget is saved, let's show theirs
+            this.models.activeBudget = this.models.userBudget;
+            TGM.vent.trigger('activeBudget', this.models.activeBudget);
+        }
+
         TGM.vent.trigger('showSidePane', 'other-budgets');
     },
 
