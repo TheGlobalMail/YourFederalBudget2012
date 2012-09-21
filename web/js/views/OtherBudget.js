@@ -51,9 +51,12 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var $colorBar = this.$('.color-bar');
         var totalWidth = $colorBar.width() - 2;
         var allocationSum = this.model.getTotal();
-        var widthToAllocationRatio = totalWidth / allocationSum;
+        var widthToAllocationRatio = totalWidth / DATA.budgetAllowance;
+        var unallocated = this._makeColorBarSection('unallocated', 'auto');
 
-        $colorBar.html(''); // clear existing bar
+        unallocated.css('position', 'absolute');
+
+        $colorBar.html(unallocated); // clear existing bar
 
         _.each(DATA.categories, function(cat, id) {
             var color = cat.color;
