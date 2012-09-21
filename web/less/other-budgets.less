@@ -123,6 +123,12 @@
         width: 96%;
         display: block;
         color: @textColor;
+        opacity: .4;
+
+        .active {
+            opacity: 1;
+            border-bottom: 1px solid;
+        }
 
         &:first-child {
             .border-top-radius(8px);
@@ -137,6 +143,7 @@
         &:hover,
         &:active,
         &:focus {
+            text-decoration: none;
             border-color: @grayDark;
             background-color: #f2f2f2;
             cursor: pointer;
