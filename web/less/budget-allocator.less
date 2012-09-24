@@ -246,6 +246,7 @@
             width: 100%;
             height: 46px;
             position: relative;
+            font-size: 85%;
 
             .side {
                 border: 1px solid darken(@grayLighter, 10%);
@@ -253,7 +254,7 @@
                 color: lighten(@textColor, 40%);
                 width: 50%;
                 height: 100%;
-                text-align: center;
+                text-align: left;
                 margin-bottom: 1.5%;
                 .box-sizing(border-box);
                 cursor: pointer;
@@ -276,7 +277,9 @@
                 top: 50%;
                 margin-top: -10px;
                 padding-top: 4px;
-                font-size: 10px;
+                font-size: 80%;
+                font-style: italic;
+                line-height: 1.5;
                 text-align: center;
                 .box-sizing(border-box);
                 background-color: @grayDark;
@@ -286,17 +289,20 @@
             .federal-spending {
                 float: left;
                 .border-left-radius(4px);
-                padding: 6px;
+                padding: 8px 8% 0 10px;
                 .ui-title;
             }
 
             .your-pretax-income {
                 .border-right-radius(4px);
                 float: right;
+                padding: 3px 0 0 14px;
 
                 label {
                     .ui-title;
                     margin-bottom: 0;
+                    font-size: 90%;
+                    line-height: 1.2;
                 }
 
                 .input-prepend {
@@ -307,7 +313,7 @@
                     }
 
                     input {
-                        width: 105px;
+                        width: 70%;
                         padding: 2px 4px;
                     }
                 }
