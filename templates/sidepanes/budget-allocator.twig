@@ -2,7 +2,21 @@
     <div id="budget-overview">
         <div class="top">
             <div class="control-label"><span>1</span> Choose amount to calculate:</div>
-            <div class="toggle">Toggle goes here</div>
+
+            <div class="toggle">
+                <div class="federal-spending side active" data-name="federal-spending">2012-13 Federal Budget Spending</div>
+
+                <div class="or">Or</div>
+
+                <div class="your-pretax-income side" data-name="your-pretax-income">
+                    <label for="your-pretax-income">Your pre-tax income</label>
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>
+                        <input type="number" name="your-pretax-income" step="1">
+                    </div>
+                </div>
+            </div>
+
             <div class="title">Available Tax Dollars</div>
             <div class="spent">$<span id="budget-total">0</span>b</div>
         </div>

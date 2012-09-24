@@ -1,13 +1,21 @@
 TGM.Views.BudgetOverview = Backbone.View.extend({
 
+    events: {
+        'click .toggle .side': 'activateToggle'
+    },
+
     initialize: function()
     {
-        _.bindAll(this, 'closeTooltip');
+        _.bindAll(this, 'closeTooltip', 'activateToggle');
+
         this.$total = this.$("#budget-total");
         this.$progress = this.$('.bar');
+
         this.updateTotal();
+
         this.model.on("change", _.throttle(this.updateTotal, 80), this);
         TGM.vent.on('budgetFullyAllocated', this.budgetFullyAllocated, this);
+
         this.tooltip = new $.fn.tooltip.Constructor(this.$('.progress-bar')[0], {
             trigger: 'manual',
             placement: 'right'
@@ -46,6 +54,18 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     closeTooltip: function()
     {
         this.tooltip.hide();
+    },
+
+    activateToggle: function(e)
+    {
+        var side = $(e.currentTarget);
+
+        if (!side.hasClass('active')) {
+            var currentSide = this.$('.toggle .side.active');
+            currentSide.removeClass('active');
+            side.addClass('active');
+            TGM.vent.trigger('baseCalculation', side.data('name'));
+        }
     }
 
 });

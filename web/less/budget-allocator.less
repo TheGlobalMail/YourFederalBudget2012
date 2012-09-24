@@ -1,7 +1,4 @@
-
-
 #budget-allocator {
-
     width: 90%;
 
     .categories {
@@ -209,13 +206,73 @@
         .toggle {
             width: 100%;
             height: 46px;
-            border: 1px solid @grayDarker;
-            .border-radius(8px);
-            margin-bottom: 1.5%;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            font-weight: bold;
-            text-align: center;
+            position: relative;
+
+            .side {
+                border: 1px solid darken(@grayLighter, 10%);
+                background-color: @grayLighter;
+                color: lighten(@textColor, 40%);
+                width: 50%;
+                height: 100%;
+                text-align: center;
+                margin-bottom: 1.5%;
+                .box-sizing(border-box);
+                cursor: pointer;
+
+                &.active {
+                    background-color: @white;
+                    border-color: @grayish;
+                    color: @textColor;
+                }
+            }
+
+            .or {
+                .ui-title;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                .border-radius(19px);
+                left: 50%;
+                margin-left: -10px;
+                top: 50%;
+                margin-top: -10px;
+                padding-top: 4px;
+                font-size: 10px;
+                text-align: center;
+                .box-sizing(border-box);
+                background-color: @grayDark;
+                color: @white;
+            }
+
+            .federal-spending {
+                float: left;
+                .border-left-radius(4px);
+                padding: 6px;
+                .ui-title;
+            }
+
+            .your-pretax-income {
+                .border-right-radius(4px);
+                float: right;
+
+                label {
+                    .ui-title;
+                    margin-bottom: 0;
+                }
+
+                .input-prepend {
+                    .add-on {
+                        border-right: none;
+                        background-color: @white;
+                        padding: 2px 3px;
+                    }
+
+                    input {
+                        width: 105px;
+                        padding: 2px 4px;
+                    }
+                }
+            }
         }
 
         .title {
@@ -255,7 +312,6 @@
 }
 
 #save-budget-pane {
-
     width: 90%;
 
     .full-width {
@@ -311,7 +367,7 @@
 
     .control-group {
         margin-bottom: 0;
-        }
+    }
 
     .control-group .error {
         border: 1px solid #F87377;
@@ -351,7 +407,6 @@
 }
 
 #share-budget-pane {
-
     width:90%;
 
     h1 {
