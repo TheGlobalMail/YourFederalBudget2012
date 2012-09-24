@@ -70,7 +70,7 @@ TGM.Models.Budget = Backbone.Model.extend({
             }
         });
 
-        return total;
+        return Math.round(total * 10) / 10;
     },
 
     resetBudget: function()
