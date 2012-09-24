@@ -131,6 +131,12 @@ small {
     line-height: 1.2;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
@@ -142,7 +148,6 @@ small {
 
     #left-column {
         float: left;
-        // width: round(@appWidth * @columnRatio);
         width: 322px;
         position: relative;
     }
