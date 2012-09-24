@@ -96,37 +96,64 @@ describe("Budget Model", function() {
 
         expect(resetSpy).toHaveBeenCalledOnce();
         expect(budget.get('defense')).toEqual(5.0);
+        TGM.Models.Budget.prototype.defaults = defaults;
     });
 
-    it("should cache the budget on request", function() {
-        budget.set({
-            defense: 12.3,
-            health: 6.9
+    describe("Budget caching", function() {
+        it("should cache the budget on request", function() {
+            budget.set({
+                defense: 12.3,
+                health: 6.9
+            });
+            var spy = sinon.spy($.jStorage, "set");
+
+            budget.tryCaching();
+            expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
         });
-        var spy = sinon.spy($.jStorage, "set");
 
-        budget.tryCaching();
-        expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
+        it("should restore cached values", function() {
+            budget.set('defense', 3.2);
+            budget.tryCaching();
+
+            budget.set('defense', 4.3);
+            budget.tryRestoreFromCache();
+            expect(budget.get('defense')).toEqual(3.2);
+        });
+
+        it("should reset to last saved for existing budgets", function() {
+            budget.set('_id', 'testing-id');
+            budget.set('defense', 2.1);
+            var defaults = budget.toJSON();
+
+            budget.tryCaching();
+            budget.tryRestoreFromCache();
+            budget.resetBudget();
+
+            expect(budget.toJSON()).toEqual(defaults);
+        });
     });
 
-    it("should restore cached values", function() {
-        budget.set('defense', 3.2);
-        budget.tryCaching();
+    describe("Income-based categories", function() {
+        beforeEach(function() {
+            budget = new TGM.Models.Budget({ defense: 20, health: 17, welfare: 13 });
+        });
 
-        budget.set('defense', 4.3);
-        budget.tryRestoreFromCache();
-        expect(budget.get('defense')).toEqual(3.2);
-    });
+        it("should calculate tax paid on pretax income", function() {
+            var taxPaid = budget.calculateTaxPaidOnIncome(3000);
+            expect(taxPaid).toEqual(1000);
+        });
 
-    it("should reset to last saved for existing budgets", function() {
-        budget.set('_id', 'testing-id');
-        budget.set('defense', 2.1);
-        var defaults = budget.toJSON();
+        it("should calculate category allocation based on pretax income", function() {
+            budget.calculatePretaxIncomeAmounts(30000);
+            var defense = budget.getIncomeBasedAmount('defense');
 
-        budget.tryCaching();
-        budget.tryRestoreFromCache();
-        budget.resetBudget();
+            expect(defense).toEqual(2000); // exact dollars, not in billions :)
+        });
 
-        expect(budget.toJSON()).toEqual(defaults);
+        it("should calculate the income-based budget total", function() {
+            budget.calculatePretaxIncomeAmounts(30000);
+
+            expect(budget.getIncomeBasedTotal()).toEqual(5000);
+        });
     });
 });

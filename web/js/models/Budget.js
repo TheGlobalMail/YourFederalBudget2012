@@ -1,6 +1,6 @@
 TGM.Models.Budget = Backbone.Model.extend({
 
-    // automatically injected in main.js
+    // some are injected in main.js
     defaults: {
         name: "",
         state: "",
@@ -9,6 +9,12 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     urlRoot: '/api/budget/',
     idAttribute: "_id",
+
+    initialize: function()
+    {
+        this.pretaxIncomeAmounts = {};
+        this.on('change', this.recalculatePretaxIncomeAmounts, this);
+    },
 
     set: function(attribute, value, options)
     {
@@ -102,7 +108,6 @@ TGM.Models.Budget = Backbone.Model.extend({
     tryRestoreFromCache: function()
     {
         var cached = $.jStorage.get('userBudget');
-
         this.resetState = this.toJSON();
 
         if (cached) {
@@ -117,6 +122,48 @@ TGM.Models.Budget = Backbone.Model.extend({
     {
         $.jStorage.deleteKey('userBudget');
         this.resetState = this.toJSON();
+    },
+
+    calculatePretaxIncomeAmounts: function(pretaxIncome)
+    {
+        this.taxPaid = this.calculateTaxPaidOnIncome(pretaxIncome);
+
+        _.each(DATA.categories, function(category, id) {
+            var categoryAsPercentage = this.get(id) / DATA.budgetAllowance;
+            this.pretaxIncomeAmounts[id] = Math.round((categoryAsPercentage * this.taxPaid) * 10) / 10;
+        }, this);
+    },
+
+    recalculatePretaxIncomeAmounts: function()
+    {
+        _.each(DATA.categories, function(category, id) {
+            var categoryAsPercentage = this.get(id) / DATA.budgetAllowance;
+            this.pretaxIncomeAmounts[id] = Math.round((categoryAsPercentage * this.taxPaid) * 10) / 10;
+        }, this);
+    },
+
+    calculateTaxPaidOnIncome: function(pretaxIncome)
+    {
+        return pretaxIncome / 3;
+    },
+
+    getIncomeBasedAmount: function(key)
+    {
+        return this.pretaxIncomeAmounts ? this.pretaxIncomeAmounts[key] : this.get.apply(this, arguments);
+    },
+
+    getIncomeBasedTotal: function()
+    {
+        var values = this.pretaxIncomeAmounts;
+        var total = 0;
+
+        _.each(values, function(value, category) {
+            if (category in DATA.categories && value) {
+                total += value;
+            }
+        });
+
+        return total;
     }
 
 });
