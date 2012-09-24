@@ -10,7 +10,15 @@ describe("Budget Over View", function() {
         energy: 5.5
     };
 
-    var $el = $('<div><div id="budget-total">0</div><div class="bar"></div></div>');
+    var $el = $(
+        '<div>' +
+            '<div class="toggle">' +
+                '<div class="side active" data-name="federal-spending"></div>' +
+            '</div>' +
+            '<div id="budget-total">0</div>' +
+            '<div class="bar"></div>'+
+        '</div>'
+    );
 
     beforeEach(function() {
         model = new TGM.Models.Budget(sampleData);
@@ -26,7 +34,7 @@ describe("Budget Over View", function() {
         it("should update the remaning budget allowance when the model changes", function() {
             model.set('defense', 13);
             this.clock.tick(110);
-            expect(budgetOverview.$el.find("#budget-total").text()).toEqual("58.9");
+            expect(budgetOverview.$el.find("#budget-total")).toHaveText("58.9b");
         });
 
         it("should update the allowance bar width", function() {

@@ -1,15 +1,19 @@
 TGM.Views.BudgetOverview = Backbone.View.extend({
 
     events: {
-        'click .toggle .side': 'activateToggle'
+        'click .toggle .side': 'activateToggle',
+        'keyup .your-pretax-income input': 'recalculateIncomeBasedAmounts'
     },
 
     initialize: function()
     {
-        _.bindAll(this, 'closeTooltip', 'activateToggle');
+        this.recalculateIncomeBasedAmounts = _.debounce(this.recalculateIncomeBasedAmounts, 250);
+        _.bindAll(this, 'closeTooltip', 'activateToggle', 'recalculateIncomeBasedAmounts');
 
-        this.$total = this.$("#budget-total");
-        this.$progress = this.$('.bar');
+        this.$total        = this.$("#budget-total");
+        this.$progress     = this.$('.bar');
+        this.$currentSide  = this.$('.toggle .side.active');
+        this.$preTaxIncome = this.$('.your-pretax-income input');
 
         this.updateTotal();
 
@@ -24,7 +28,12 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     updateTotal: function()
     {
-        this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1));
+        if (this.$currentSide.data('name') == 'federal-spending') {
+            this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1) + "b");
+        } else if (this.$currentSide.data('name') == 'your-pretax-income') {
+            this.$total.text(Math.round(this.model.taxPaid - this.model.getIncomeBasedTotal()));
+        }
+
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     },
 
@@ -61,11 +70,25 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         var side = $(e.currentTarget);
 
         if (!side.hasClass('active')) {
-            var currentSide = this.$('.toggle .side.active');
-            currentSide.removeClass('active');
+            this.$currentSide.removeClass('active');
             side.addClass('active');
+            this.$currentSide = side;
             TGM.vent.trigger('baseCalculation', side.data('name'));
+            this.recalculateIncomeBasedAmounts();
         }
+    },
+
+    recalculateIncomeBasedAmounts: function()
+    {
+        var pretaxIncome = parseInt(this.$preTaxIncome.val(), 10);
+        pretaxIncome = Math.min(pretaxIncome, 10000000);
+
+        if (!pretaxIncome || pretaxIncome < 1000) {
+            return false;
+        }
+
+        this.model.calculatePretaxIncomeAmounts(pretaxIncome);
+        this.model.trigger('change');
     }
 
 });
