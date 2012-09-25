@@ -58,7 +58,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     onHidden: function()
     {
-        this.budgetOverview.closeTooltip();
+        this.budgetOverview.closeTooltips();
     },
 
     updateLabels: function()
