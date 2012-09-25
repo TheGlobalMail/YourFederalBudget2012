@@ -1,12 +1,17 @@
+@tooltipBackgroundColor:  #1072B6;
 @errorBackgroundColor:  #F64347;
 @errorTextColor:        @white;
 
 .tooltip {
     .tooltip-inner {
+        background-color: @tooltipBackgroundColor;
         max-width: 200px;
         padding: 8px 20px 10px 10px;
-        font-size: 1.2em;
         text-align: left;
+        .border-radius(0);
+        font-size: 110%;
+        font-weight: bold;
+        .box-shadow(0 1px 1px @grayish);
 
         .close {
             display: block;
@@ -25,6 +30,26 @@
             }
 
         }
+    }
+
+    &.in {
+        .opacity(100);
+    }
+
+    &.top .tooltip-arrow {
+        border-top-color: @tooltipBackgroundColor;
+    }
+
+    &.right .tooltip-arrow {
+        border-right-color: @tooltipBackgroundColor;
+    }
+
+    &.left .tooltip-arrow {
+        border-left-color: @tooltipBackgroundColor;
+    }
+
+    &.bottom .tooltip-arrow {
+        border-bottom-color: @tooltipBackgroundColor;
     }
 }
 
