@@ -105,17 +105,17 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     activateToggle: function(e)
     {
-        var side = $(e.currentTarget);
+        var $side = $(e.currentTarget);
 
-        if (!side.hasClass('active')) {
+        if (!$side.hasClass('active')) {
             this.$currentSide.removeClass('active');
-            side.addClass('active');
-            this.$currentSide = side;
-            TGM.vent.trigger('baseCalculation', side.data('name'));
+            $side.addClass('active');
+            this.$currentSide = $side;
+            TGM.vent.trigger('baseCalculation', $side.data('name'));
 
-            if (side.data('name') == 'your-pretax-income' && !this.$preTaxIncome.val()) {
+            if ($side.data('name') == 'your-pretax-income' && !this.$preTaxIncome.val()) {
                 this.showIncomePrivacyTooltip();
-            } else if (side.data('name') == 'federal-spending') {
+            } else if ($side.data('name') == 'federal-spending') {
                 this.closeIncomePrivacyTooltip();
                 this.$preTaxIncome.blur();
             }
