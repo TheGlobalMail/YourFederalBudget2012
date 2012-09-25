@@ -38,12 +38,17 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     updateTotal: function()
     {
+        var remaining = "$0";
+
         if (this.$currentSide.data('name') == 'federal-spending') {
-            this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1) + "b");
+            var remaining = DATA.budgetAllowance - this.model.getTotal();
+            remaining = accounting.formatMoney(remaining, "$", 1) + "b";
         } else if (this.$currentSide.data('name') == 'your-pretax-income') {
-            this.$total.text(Math.round(this.model.taxPaid - this.model.getIncomeBasedTotal()));
+            var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
+            remaining = accounting.formatMoney(remaining, "$", 2);
         }
 
+        this.$total.text(remaining);
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     },
 

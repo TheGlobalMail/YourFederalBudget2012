@@ -35,7 +35,7 @@ describe("Budget Over View", function() {
         it("should update the remaning budget allowance when the model changes", function() {
             model.set('defense', 13);
             this.clock.tick(110);
-            expect(budgetOverview.$el.find("#budget-total")).toHaveText("58.9b");
+            expect(budgetOverview.$el.find("#budget-total")).toHaveText("$58.9b");
         });
 
         it("should update the allowance bar width", function() {
