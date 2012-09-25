@@ -144,14 +144,15 @@ TGM.Models.Budget = Backbone.Model.extend({
     {
         var categoryAsPercentage = this.get(category) / DATA.budgetAllowance;
         var amount = this.taxPaid * categoryAsPercentage;
-        return amount;
+
+        return Math.round(amount * 10) / 10;
     },
 
     calculateTaxPaidOnIncome: function(pretaxIncome)
     {
         var taxPaid = 0;
 
-        if (pretaxIncome < 6000) {
+        if (pretaxIncome < 6001) {
             taxPaid = 0;
         } else if (pretaxIncome < 37001) {
             taxPaid = (pretaxIncome - 6001) * 0.15;
@@ -163,13 +164,17 @@ TGM.Models.Budget = Backbone.Model.extend({
             taxPaid = (pretaxIncome - 180000) * 0.45 + 54550;
         }
 
+        taxPaid = Math.round(taxPaid * 10) / 10;
         var total = 0;
 
          _.each(DATA.categories, function(category, id) {
             total += category.percentOfFederalBudget;
         });
 
-        return taxPaid * (total / 100);
+        total = Math.round(total * 100) / 100;
+        taxPaid = taxPaid * (total / 100);
+
+        return Math.round(taxPaid * 10) / 10;
     },
 
     getIncomeBasedAmount: function(key)

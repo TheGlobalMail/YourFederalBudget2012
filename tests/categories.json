@@ -2,6 +2,7 @@
     "defense": {
         "label": "Defense",
         "federalAllocation": 5,
+        "percentOfFederalBudget": 6,
         "tooltip": "This is the Defense tooltip for help and quick info",
         "color": "#C8C78C",
         "info": {
@@ -12,6 +13,7 @@
     "health": {
         "label": "Health",
         "federalAllocation": 4,
+        "percentOfFederalBudget": 2.85,
         "tooltip": "This is the Health tooltip for help and quick info",
         "color": "#FF5F53",
         "info": {
@@ -22,6 +24,7 @@
     "immigration": {
         "label": "Immigration",
         "federalAllocation": 5,
+        "percentOfFederalBudget": 5.15,
         "tooltip": "This is the Immigration tooltip for help and quick info",
         "color": "#FF9AC8",
         "info": {
@@ -32,6 +35,7 @@
     "welfare": {
         "label": "Welfare/Social Security",
         "federalAllocation": 2,
+        "percentOfFederalBudget": 0.63,
         "tooltip": "This is the Welfare/Social Security tooltip for help and quick info",
         "color": "#81AAC7",
         "info": {
@@ -41,7 +45,8 @@
     },
     "taxBreaks": {
         "label": "Tax Breaks",
-        "federalAllocation": 2,
+        "federalAllocation": 5.2,
+        "percentOfFederalBudget": 1.38,
         "tooltip": "This is the Tax Breaks tooltip for help and quick info",
         "color": "#A890C7",
         "info": {
@@ -51,7 +56,7 @@
     },
     "agriculture": {
         "label": "Agriculture",
-        "federalAllocation": 3.8,
+        "percentOfFederalBudget": 1.73,
         "tooltip": "This is the Agriculture tooltip for help and quick info",
         "color": "#7FC689",
         "info": {
@@ -62,6 +67,7 @@
     "education": {
         "label": "Education",
         "federalAllocation": 4.7,
+        "percentOfFederalBudget": 0,
         "tooltip": "This is the Education tooltip for help and quick info",
         "color": "#0D99FC",
         "info": {
@@ -72,6 +78,7 @@
     "energy": {
         "label": "Energy",
         "federalAllocation": 4.9,
+        "percentOfFederalBudget": 0,
         "tooltip": "This is the Energy tooltip for help and quick info",
         "color": "#FEFC99",
         "info": {
