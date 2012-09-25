@@ -41,8 +41,10 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     {
         if (yes) {
             this.showTooltip(DATA.messages.budgetFullyAllocated);
+            this.$('.progress-bar').addClass('budget-fully-allocated');
         } else {
             this.closeTooltip();
+            this.$('.progress-bar').removeClass('budget-fully-allocated');
         }
     },
 
