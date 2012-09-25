@@ -36,8 +36,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
                 backgroundColor: color.toCSS(),
                 width: barWidth + "%",
                 left: (barsWidth) + "%"
-            });
-            $bar.appendTo(html);
+            }).appendTo(html);
 
             barsWidth += barWidth + 2;
 
@@ -54,6 +53,12 @@ TGM.Views.BarGraph = Backbone.View.extend({
 
         html.appendTo(this.$el);
         this._renderedCategories += 1;
+    },
+
+    updateUserBar: function(category, id)
+    {
+        var $bar = this.$('#bar-' + id + ' .bar.user');
+        $bar.css('height', this.calculateBarHeight(this.budgets['user'].get(id)));
     },
 
     calculateCategoryOffset: function(count)
@@ -78,6 +83,15 @@ TGM.Views.BarGraph = Backbone.View.extend({
         this.renderedWidth = this.$el.width();
     },
 
+    reRender: function()
+    {
+        if (this._renderedCategories <= 1) {
+            return this.render();
+        }
+
+        _.each(this.categories, this.updateUserBar);
+    },
+
     onResize: function()
     {
         if (this.$el.width() != this.$el.renderedWidth) {
@@ -88,7 +102,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
     budgetSwap: function(newActiveBudget)
     {
         this.budgets['user'] = newActiveBudget;
-        this.render();
+        this.reRender();
     }
 
 });
