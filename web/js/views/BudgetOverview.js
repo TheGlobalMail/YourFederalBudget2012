@@ -103,6 +103,11 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         tooltip.hide();
     },
 
+    closeTooltips: function()
+    {
+        _.each([this.budgetFullyAllocatedTooltip, this.incomePrivacyTooltip], this._closeTooltip, this);
+    },
+
     activateToggle: function(e)
     {
         var side = $(e.currentTarget);
