@@ -23,7 +23,16 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             this.$bottom.css('opacity', 0);
         } else {
             this.$bottom.css('opacity', 100);
-            this.$title.text(this.model.get('name') + "'s budget");
+            var name = this.model.get('name');
+
+            // better grammar for names ending with s
+            if (name.substr(-1) == "s") {
+                name += "' budget";
+            } else {
+                name += "'s budget";
+            }
+
+            this.$title.text(name);
         }
     }
 

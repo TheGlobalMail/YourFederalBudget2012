@@ -2,13 +2,15 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     events: {
         'click .toggle .side': 'activateToggle',
-        'keyup .your-pretax-income input': 'recalculateIncomeBasedAmounts'
+        'click .toggle .side.your-pretax-income': 'onYourPreTaxIncomeClick',
+        'keyup .your-pretax-income input': 'recalculateIncomeBasedAmounts',
+        'blur .your-pretax-income input': 'onPreTaxIncomeBlur'
     },
 
     initialize: function()
     {
         this.recalculateIncomeBasedAmounts = _.debounce(this.recalculateIncomeBasedAmounts, 250);
-        _.bindAll(this, 'closeTooltip', 'activateToggle', 'recalculateIncomeBasedAmounts');
+        _.bindAll(this, 'closeBudgetFullyAllocatedTooltip', 'activateToggle', 'recalculateIncomeBasedAmounts', 'onYourPreTaxIncomeClick');
 
         this.$total        = this.$("#budget-total");
         this.$progress     = this.$('.bar');
@@ -20,10 +22,17 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         this.model.on("change", _.throttle(this.updateTotal, 80), this);
         TGM.vent.on('budgetFullyAllocated', this.budgetFullyAllocated, this);
 
-        this.tooltip = new $.fn.tooltip.Constructor(this.$('.progress-bar')[0], {
+        this.budgetFullyAllocatedTooltip = new $.fn.tooltip.Constructor(this.$('.progress-bar')[0], {
             trigger: 'manual',
             placement: 'right'
         });
+
+        this.incomePrivacyTooltip = new $.fn.tooltip.Constructor(this.$('.side.your-pretax-income')[0], {
+            trigger: 'manual',
+            placement: 'right'
+        });
+
+        this.hasEnteredIncome = false;
     },
 
     updateTotal: function()
@@ -40,29 +49,58 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     budgetFullyAllocated: function(yes)
     {
         if (yes) {
-            this.showTooltip(DATA.messages.budgetFullyAllocated);
+            this.$('.progress-bar').addClass('budget-fully-allocated');
+            this.showBudgetFullyAllocatedTooltip(DATA.messages.budgetFullyAllocated);
         } else {
-            this.closeTooltip();
+            this.$('.progress-bar').removeClass('budget-fully-allocated');
+            this.closeBudgetFullyAllocatedTooltip();
         }
     },
 
-    showTooltip: function(message)
+    showBudgetFullyAllocatedTooltip: function(message)
+    {
+        this._showTooltip(this.budgetFullyAllocatedTooltip, message);
+    },
+
+    closeBudgetFullyAllocatedTooltip: function()
+    {
+        this._closeTooltip(this.budgetFullyAllocatedTooltip);
+    },
+
+    showIncomePrivacyTooltip: function()
+    {
+        var onClose = _.bind(function() {
+            this.hasEnteredIncome = true;
+            this.$preTaxIncome.focus();
+        }, this);
+
+        this._showTooltip(this.incomePrivacyTooltip, DATA.messages.incomePrivacy, onClose);
+    },
+
+    closeIncomePrivacyTooltip: function()
+    {
+        this.incomePrivacyTooltip.tip().find('.close').click();
+    },
+
+    _showTooltip: function(tooltip, message, onClose)
     {
         var $close = $('<a href="#" class="close">&times;</a>');
         var $message = $('<span/>').text(message).append($close);
+        onClose = onClose || function() {};
 
-        this.tooltip.options.title = $message;
-        this.tooltip.show();
+        tooltip.options.title = $message;
+        tooltip.show();
 
         $close.on('click', _.bind(function(e) {
             e.preventDefault();
-            this.closeTooltip();
+            this._closeTooltip(tooltip);
+            onClose(tooltip);
         }, this));
     },
 
-    closeTooltip: function()
+    _closeTooltip: function(tooltip)
     {
-        this.tooltip.hide();
+        tooltip.hide();
     },
 
     activateToggle: function(e)
@@ -74,6 +112,14 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
             side.addClass('active');
             this.$currentSide = side;
             TGM.vent.trigger('baseCalculation', side.data('name'));
+
+            if (side.data('name') == 'your-pretax-income' && !this.$preTaxIncome.val()) {
+                this.showIncomePrivacyTooltip();
+            } else if (side.data('name') == 'federal-spending') {
+                this.closeIncomePrivacyTooltip();
+                this.$preTaxIncome.blur();
+            }
+
             this.recalculateIncomeBasedAmounts();
         }
     },
@@ -87,8 +133,22 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
             return false;
         }
 
+        _.delay(this._closeTooltip, 1200, this.incomePrivacyTooltip)
+
         this.model.calculatePretaxIncomeAmounts(pretaxIncome);
         this.model.trigger('change');
+    },
+
+    onYourPreTaxIncomeClick: function()
+    {
+        this.$preTaxIncome.focus();
+    },
+
+    onPreTaxIncomeBlur: function()
+    {
+        if (this.$preTaxIncome.val()) {
+            this.closeIncomePrivacyTooltip();
+        }
     }
 
 });
