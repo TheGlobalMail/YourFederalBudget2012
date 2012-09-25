@@ -139,21 +139,29 @@ describe("Budget Model", function() {
         });
 
         it("should calculate tax paid on pretax income", function() {
-            var taxPaid = budget.calculateTaxPaidOnIncome(3000);
-            expect(taxPaid).toEqual(1000);
+            var calc = budget.calculateTaxPaidOnIncome;
+
+            expect(calc(3000)).toEqual(0);
+            expect(calc(6000)).toEqual(0);
+            expect(calc(6001)).toEqual(0);
+            expect(calc(6100)).toEqual(2.6);
+            expect(calc(31000)).toEqual(665.2);
+            expect(calc(54321)).toEqual(1746.7);
+            expect(calc(80000)).toEqual(3113.4);
+            expect(calc(81000)).toEqual(3179);
         });
 
         it("should calculate category allocation based on pretax income", function() {
-            budget.calculatePretaxIncomeAmounts(30000);
+            budget.calculatePretaxIncomeAmounts(31000);
             var defense = budget.getIncomeBasedAmount('defense');
 
-            expect(defense).toEqual(2000); // exact dollars, not in billions :)
+            expect(defense).toEqual(133); // exact dollars, not in billions :)
         });
 
         it("should calculate the income-based budget total", function() {
-            budget.calculatePretaxIncomeAmounts(30000);
+            budget.calculatePretaxIncomeAmounts(31000);
 
-            expect(budget.getIncomeBasedTotal()).toEqual(5000);
+            expect(budget.getIncomeBasedTotal()).toEqual(332.6);
         });
     });
 });

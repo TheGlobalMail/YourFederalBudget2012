@@ -129,22 +129,50 @@ TGM.Models.Budget = Backbone.Model.extend({
         this.taxPaid = this.calculateTaxPaidOnIncome(pretaxIncome);
 
         _.each(DATA.categories, function(category, id) {
-            var categoryAsPercentage = this.get(id) / DATA.budgetAllowance;
-            this.pretaxIncomeAmounts[id] = Math.round((categoryAsPercentage * this.taxPaid) * 10) / 10;
+            this.pretaxIncomeAmounts[id] = this.calculatePretaxIncomeAmount(id);
         }, this);
     },
 
     recalculatePretaxIncomeAmounts: function()
     {
         _.each(DATA.categories, function(category, id) {
-            var categoryAsPercentage = this.get(id) / DATA.budgetAllowance;
-            this.pretaxIncomeAmounts[id] = Math.round((categoryAsPercentage * this.taxPaid) * 10) / 10;
+            this.pretaxIncomeAmounts[id] = this.calculatePretaxIncomeAmount(id);
         }, this);
+    },
+
+    calculatePretaxIncomeAmount: function(category)
+    {
+        var categoryAsPercentage = this.get(category) / DATA.budgetAllowance;
+        var amount = this.taxPaid * categoryAsPercentage;
+        return Math.round(amount * 10) / 10;
     },
 
     calculateTaxPaidOnIncome: function(pretaxIncome)
     {
-        return pretaxIncome / 3;
+        var taxPaid = 0;
+
+        if (pretaxIncome < 6001) {
+            taxPaid = 0;
+        } else if (pretaxIncome < 37001) {
+            taxPaid = (pretaxIncome - 6001) * 0.15;
+        } else if (pretaxIncome < 80001) {
+            taxPaid = (pretaxIncome - 37000) * 0.3 + 4650;
+        } else if (pretaxIncome < 180001) {
+            taxPaid = (pretaxIncome - 80000) * 0.37 + 17550;
+        } else {
+            taxPaid = (pretaxIncome - 180000) * 0.45 + 54550;
+        }
+
+        taxPaid = Math.round(taxPaid * 10) / 10;
+        var total = 0;
+
+         _.each(DATA.categories, function(category, id) {
+            total += category.percentOfFederalBudget;
+        });
+
+        total = Math.round(total * 100) / 100;
+        taxPaid = taxPaid * (total / 100);
+        return Math.round(taxPaid * 10) / 10;
     },
 
     getIncomeBasedAmount: function(key)
