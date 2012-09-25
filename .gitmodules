@@ -43,3 +43,6 @@
 [submodule "tests/lib/jasmine-sinon"]
 	path = tests/lib/jasmine-sinon
 	url = git://github.com/froots/jasmine-sinon.git
+[submodule "web/vendor/accounting.js"]
+	path = web/vendor/accounting.js
+	url = git://github.com/josscrowcroft/accounting.js.git
