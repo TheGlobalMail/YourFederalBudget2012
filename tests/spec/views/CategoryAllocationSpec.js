@@ -13,7 +13,7 @@ describe("Category Allocation View", function() {
     var $el = $([
         '<div>',
             '<div class="slider-control"></div>',
-            '<div class="amount"></div>',
+            '<div class="slider-amount"></div>',
             '<div class="expander"></div>',
             '<div class="info-icon"></div>',
         '</div>'
@@ -23,28 +23,22 @@ describe("Category Allocation View", function() {
         model = new TGM.Models.Budget(sampleData);
         categoryAllocation = new TGM.Views.CategoryAllocation({ model: model, el: $el.clone(), category: 'defense' });
         categoryAllocation.$el.appendTo('body');
-        this.clock = sinon.useFakeTimers();
     });
 
     afterEach(function() {
         categoryAllocation.$el.remove();
-        this.clock.restore();
     });
 
-    it("should hide the slider amount when collapsed", function() {
+    it("should deactivate when collapsed", function() {
         categoryAllocation.collapse();
-        this.clock.tick(500);
 
         expect(categoryAllocation.$el).not.toHaveClass('active');
-        expect(categoryAllocation.$('.ui-slider-amount')).toBeHidden();
     });
 
-    it("should show the slider amount when activated", function() {
+    it("should activate when expanded", function() {
         categoryAllocation.expand();
-        this.clock.tick(500);
 
         expect(categoryAllocation.$el).toHaveClass('active');
-        expect(categoryAllocation.$('.ui-slider-amount')).toBeVisible();
     });
 
     it("should update the slider when the model changes", function() {

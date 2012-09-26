@@ -6,8 +6,6 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         "click": "expand"
     },
 
-    amountHTML: '<div class="ui-slider-amount"><div class="arrow"></div><div class="slider-amount"></div></div>',
-
     animationSpeed: 500,
 
     initialize: function(options)
@@ -16,8 +14,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         this.$slider       = this.$('.slider-control').slider(DATA.sliderConfig);
         this.$sliderHandle = this.$('.ui-slider-handle');
-        this.$sliderHandle.append(this.amountHTML);
-        this.$sliderAmount = this.$sliderHandle.find('.slider-amount');
+        this.$sliderAmount = this.$('.slider-amount');
 
         this.model.on("pretaxIncomeChange change:" + options.category, this.refreshAmount);
 
@@ -48,6 +45,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     refreshAmount: function(model)
     {
         var value = model.get(this.options.category);
+
         if (value < DATA.sliderConfig.min && value > DATA.sliderConfig.max) {
             value = 0;
         }
@@ -56,8 +54,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         if (this.activeToggleName == 'your-pretax-income') {
             value = model.getIncomeBasedAmount(this.options.category);
-            var precision = (value >= 10000) ? 0 : 2;
-            var amount = accounting.formatMoney(value, '$', precision);
+            var amount = accounting.formatMoney(value, '$', 2);
         } else {
             var amount = accounting.formatMoney(value, '$', 1) + "b";
         }
@@ -69,13 +66,11 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     {
         TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
         this.$el.addClass('active');
-        this.$sliderAmount.parent().show();
     },
 
     collapse: function()
     {
         this.$el.removeClass('active');
-        this.$sliderAmount.parent().hide();
     },
 
     toggleActivated: function(name)
