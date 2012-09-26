@@ -64,14 +64,13 @@
                     </div>
                 </div>
                 <div id="visualisation"></div>
+
                 <div id="bar-categories">
-                    <div class="category defence">Defence</div>
-                    <div class="category publicEducation">Public education</div>
-                    <div class="category privateEducation">Private education</div>
-                    <div class="category immigration">Immigration</div>
-                    <div class="category foreignAid">Foreign aid</div>
-                    <div class="category industryAssistance">Industry assistance</div>
+                    {% for key, category in app.config.categories %}
+                        <div class="category {{key}}" data-id="{{key}}">{{category.label}}</div>
+                    {% endfor %}
                 </div>
+
                 <div id="more-info">
                     <h2 class="title"></h2>
                     <div class="info"></div>

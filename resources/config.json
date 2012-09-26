@@ -38,6 +38,7 @@
             "js/views/BudgetModeToggler.js",
             "js/views/MoreInfo.js",
             "js/views/EmailPage.js",
+            "js/views/BarCategories.js",
             "js/main.js"
         ],
         "less": "less/budget",
