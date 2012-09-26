@@ -49,7 +49,7 @@ describe("Category Allocation View", function() {
 
     it("should switch to income based amounts when pretax income is calculated", function() {
         model.pretaxIncomeAmounts['defense'] = 213.34;
-        categoryAllocation.activeToggleName = 'your-pretax-income';
+        categoryAllocation.currentBudgetMode = 'your-pretax-income';
         categoryAllocation.refreshAmount(model);
 
         expect(categoryAllocation.$sliderAmount).toHaveText('$213.34');
