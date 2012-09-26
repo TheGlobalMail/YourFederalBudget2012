@@ -13,6 +13,7 @@ describe("Budget Over View", function() {
     var $el = $(
         '<div>' +
             '<div id="budget-total">0</div>' +
+            '<div class="progress-bar"></div>' +
             '<div class="bar"></div>'+
         '</div>'
     );
@@ -38,6 +39,29 @@ describe("Budget Over View", function() {
             var currentWidth = budgetOverview.$progress.width();
             model.set('defense', 10);
             expect(budgetOverview.$progress.width()).toBeGreaterThan(currentWidth);
+        });
+    });
+
+    describe("Full budget allocation", function() {
+        it("should not show the budget fully allocated tooltip when they have tax dollars remaining", function() {
+            expect(budgetOverview.budgetFullyAllocatedTooltip.tip()).toBeHidden();
+            expect(budgetOverview.$('.progress-bar')).not.toHaveClass('budget-fully-allocated');
+        });
+
+        it("should show the budget fully allocated tooltip when they have no tax dollars remaining", function() {
+            budgetOverview.budgetFullyAllocated(true);
+
+            expect(budgetOverview.budgetFullyAllocatedTooltip.tip()).toBeVisible();
+            expect(budgetOverview.$('.progress-bar')).toHaveClass('budget-fully-allocated');
+        });
+
+        it("should hide the budget fully allocated tooltip when they free up tax dollars again", function() {
+            budgetOverview.budgetFullyAllocated(true);
+            budgetOverview.budgetFullyAllocated(false);
+            this.clock.tick(800); // tick for fade animation?
+
+            expect(budgetOverview.budgetFullyAllocatedTooltip.tip()).toBeHidden();
+            expect(budgetOverview.$('.progress-bar')).not.toHaveClass('budget-fully-allocated');
         });
     });
 });
