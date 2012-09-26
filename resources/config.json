@@ -35,6 +35,7 @@
             "js/views/OtherBudget.js",
             "js/views/CategoryAllocation.js",
             "js/views/BudgetOverview.js",
+            "js/views/BudgetModeToggler.js",
             "js/views/MoreInfo.js",
             "js/views/EmailPage.js",
             "js/main.js"
@@ -81,6 +82,7 @@
             "fetching": "Loading more...",
             "full": "No more budgets"
         },
-        "incomePrivacy": "Don't worry! This information is not saved or publicly visible."
+        "incomePrivacy": "Don't worry! This information is not saved or publicly visible.",
+        "lowIncome": "Ah, kinda hard to calculate your contribution when you probably take more than you give."
     }
 }

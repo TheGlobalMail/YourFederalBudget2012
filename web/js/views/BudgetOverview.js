@@ -1,24 +1,13 @@
 TGM.Views.BudgetOverview = Backbone.View.extend({
 
-    events: {
-        'click .toggle .side': 'activateToggle',
-        'click .toggle .side.your-pretax-income': 'onYourPreTaxIncomeClick',
-        'keyup .your-pretax-income input': 'recalculateIncomeBasedAmounts',
-        'blur .your-pretax-income input': 'onPreTaxIncomeBlur'
-    },
-
     initialize: function()
     {
-        this.recalculateIncomeBasedAmounts = _.debounce(this.recalculateIncomeBasedAmounts, 250);
-        _.bindAll(this);
-
-        this.$total        = this.$("#budget-total");
-        this.$progress     = this.$('.bar');
-        this.$currentSide  = this.$('.toggle .side.active');
-        this.$preTaxIncome = this.$('.your-pretax-income input');
+        this.$total    = this.$("#budget-total");
+        this.$progress = this.$('.bar');
 
         this.updateTotal();
 
+        TGM.vent.on('budgetModeChange', this.budgetModeChanged, this);
         this.model.on("change", _.throttle(this.updateTotal, 80), this);
         TGM.vent.on('budgetFullyAllocated', this.budgetFullyAllocated, this);
 
@@ -26,27 +15,20 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
             trigger: 'manual',
             placement: 'right'
         });
+
         this.budgetFullyAllocatedTooltip.tip().addClass('error');
-
-        this.incomePrivacyTooltip = new $.fn.tooltip.Constructor(this.$('.side.your-pretax-income')[0], {
-            trigger: 'manual',
-            placement: 'right'
-        });
-
-        this.hasEnteredIncome = false;
-        TGM.vent.trigger('baseCalculation', this.$currentSide.data('name'));
     },
 
     updateTotal: function()
     {
         var remaining = "$0";
 
-        if (this.$currentSide.data('name') == 'federal-spending') {
-            var remaining = DATA.budgetAllowance - this.model.getTotal();
-            remaining = accounting.formatMoney(remaining, "$", 1) + "b";
-        } else if (this.$currentSide.data('name') == 'your-pretax-income') {
+        if (this.currentBudgetMode == 'your-pretax-income') {
             var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
             remaining = accounting.formatMoney(remaining, "$", 2);
+        } else {
+            var remaining = DATA.budgetAllowance - this.model.getTotal();
+            remaining = accounting.formatMoney(remaining, "$", 1) + "b";
         }
 
         this.$total.text(remaining);
@@ -57,109 +39,35 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     {
         if (yes) {
             this.$('.progress-bar').addClass('budget-fully-allocated');
-            this.showBudgetFullyAllocatedTooltip(DATA.messages.budgetFullyAllocated);
+            this._showTooltip(this.budgetFullyAllocatedTooltip, DATA.messages.budgetFullyAllocated);
         } else {
             this.$('.progress-bar').removeClass('budget-fully-allocated');
             this.closeBudgetFullyAllocatedTooltip();
         }
     },
 
-    showBudgetFullyAllocatedTooltip: function(message)
+    showBudgetFullyAllocatedTooltip: function()
     {
-        this._showTooltip(this.budgetFullyAllocatedTooltip, message);
+        var $close = $('<a href="#" class="close">&times;</a>');
+        var $message = $('<span/>').text(DATA.messages.budgetFullyAllocated).append($close);
+
+        this.budgetFullyAllocatedTooltip.options.title = $message;
+        this.budgetFullyAllocatedTooltip.show();
+
+        $close.on('click', _.bind(function(e) {
+            e.preventDefault();
+            this._closeTooltip(this.budgetFullyAllocatedTooltip);
+        }, this));
     },
 
     closeBudgetFullyAllocatedTooltip: function()
     {
-        this._closeTooltip(this.budgetFullyAllocatedTooltip);
+        this.budgetFullyAllocatedTooltip.hide();
     },
 
-    showIncomePrivacyTooltip: function()
+    budgetModeChanged: function(newBudgetMode)
     {
-        var onClose = _.bind(function() {
-            this.hasEnteredIncome = true;
-            this.$preTaxIncome.focus();
-        }, this);
-
-        this._showTooltip(this.incomePrivacyTooltip, DATA.messages.incomePrivacy, onClose);
-    },
-
-    closeIncomePrivacyTooltip: function()
-    {
-        this.incomePrivacyTooltip.tip().find('.close').click();
-    },
-
-    _showTooltip: function(tooltip, message, onClose)
-    {
-        var $close = $('<a href="#" class="close">&times;</a>');
-        var $message = $('<span/>').text(message).append($close);
-        onClose = onClose || function() {};
-
-        tooltip.options.title = $message;
-        tooltip.show();
-
-        $close.on('click', _.bind(function(e) {
-            e.preventDefault();
-            this._closeTooltip(tooltip);
-            onClose(tooltip);
-        }, this));
-    },
-
-    _closeTooltip: function(tooltip)
-    {
-        tooltip.hide();
-    },
-
-    closeTooltips: function()
-    {
-        _.each([this.budgetFullyAllocatedTooltip, this.incomePrivacyTooltip], this._closeTooltip, this);
-    },
-
-    activateToggle: function(e)
-    {
-        var $side = $(e.currentTarget);
-
-        if (!$side.hasClass('active')) {
-            this.$currentSide.removeClass('active');
-            $side.addClass('active');
-            this.$currentSide = $side;
-            TGM.vent.trigger('baseCalculation', $side.data('name'));
-
-            if ($side.data('name') == 'your-pretax-income' && !this.$preTaxIncome.val()) {
-                this.showIncomePrivacyTooltip();
-                this.recalculateIncomeBasedAmounts();
-            } else if ($side.data('name') == 'federal-spending') {
-                this.closeIncomePrivacyTooltip();
-                this.$preTaxIncome.blur();
-            }
-        }
-    },
-
-    recalculateIncomeBasedAmounts: function()
-    {
-        var pretaxIncome = parseInt(this.$preTaxIncome.val(), 10);
-        pretaxIncome = Math.min(pretaxIncome, 10000000);
-
-        if (!pretaxIncome || pretaxIncome < 18000) {
-            pretaxIncome = 0;
-        }
-
-        _.delay(this._closeTooltip, 1200, this.incomePrivacyTooltip)
-
-        this.model.calculatePretaxIncomeAmounts(pretaxIncome);
-        this.model.trigger('change pretaxIncomeChange', this.model);
-    },
-
-    onYourPreTaxIncomeClick: function()
-    {
-        this.$preTaxIncome.focus();
-    },
-
-    onPreTaxIncomeBlur: function()
-    {
-        if (this.$preTaxIncome.val()) {
-            this.closeIncomePrivacyTooltip();
-        }
+        this.currentBudgetMode = newBudgetMode;
     }
 
 });

@@ -23,7 +23,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
         this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
-        TGM.vent.on('baseCalculation', this.toggleActivated);
+        TGM.vent.on('budgetModeChange', this.budgetModeChanged);
     },
 
     onSlide: function(e, ui)
@@ -52,7 +52,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
         this.$slider.slider('value', value);
 
-        if (this.activeToggleName == 'your-pretax-income') {
+        if (this.currentBudgetMode == 'your-pretax-income') {
             value = model.getIncomeBasedAmount(this.options.category);
             var amount = accounting.formatMoney(value, '$', 2);
         } else {
@@ -73,9 +73,9 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$el.removeClass('active');
     },
 
-    toggleActivated: function(name)
+    budgetModeChanged: function(newBudgetMode)
     {
-        this.activeToggleName = name;
+        this.currentBudgetMode = newBudgetMode;
     }
 
 });
