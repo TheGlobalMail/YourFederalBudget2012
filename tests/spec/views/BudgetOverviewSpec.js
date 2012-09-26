@@ -14,7 +14,9 @@ describe("Budget Over View", function() {
         '<div>' +
             '<div class="toggle">' +
                 '<div class="side active federal-spending" data-name="federal-spending"></div>' +
-                '<div class="side your-pretax-income" data-name="your-pretax-income"></div>' +
+                '<div class="side your-pretax-income" data-name="your-pretax-income">' +
+                    '<input type="number">' +
+                '</div>' +
             '</div>' +
             '<div id="budget-total">0</div>' +
             '<div class="bar"></div>'+
@@ -72,6 +74,42 @@ describe("Budget Over View", function() {
             expect(spy).toHaveBeenCalledWith('your-pretax-income');
 
             TGM.vent.off('baseCalculation', spy);
+        });
+    });
+
+    describe("Your Pre-tax income toggle", function() {
+        it("should attempt to recalculate tax paid on income when activating the pre-tax income side", function() {
+            var spy = sinon.spy(budgetOverview, "recalculateIncomeBasedAmounts");
+
+            budgetOverview.$('.side.your-pretax-income').trigger('click');
+
+            expect(spy).toHaveBeenCalled();
+            budgetOverview.recalculateIncomeBasedAmounts.restore();
+        });
+
+        it("should calculate tax paid on the amount in the pre-tax income field", function() {
+            var spy = sinon.spy();
+            var modelSpy = sinon.spy(budgetOverview.model, "calculatePretaxIncomeAmounts");
+            budgetOverview.model.on('change pretaxIncomeChange', spy);
+            budgetOverview.$preTaxIncome.val('34321');
+
+            budgetOverview.recalculateIncomeBasedAmounts();
+            this.clock.tick(300);
+
+            expect(modelSpy).toHaveBeenCalledWith(34321);
+            expect(spy).toHaveBeenCalledTwice();
+            budgetOverview.model.calculatePretaxIncomeAmounts.restore();
+        });
+
+        it("should set tax paid to zero for incomes under 18000", function() {
+            var modelSpy = sinon.spy(budgetOverview.model, "calculatePretaxIncomeAmounts");
+            budgetOverview.$preTaxIncome.val('17999');
+
+            budgetOverview.recalculateIncomeBasedAmounts();
+            this.clock.tick(300);
+
+            expect(modelSpy).toHaveBeenCalledWith(0);
+            model.calculatePretaxIncomeAmounts.restore();
         });
     });
 });

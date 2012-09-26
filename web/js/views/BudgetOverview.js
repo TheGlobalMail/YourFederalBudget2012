@@ -127,12 +127,11 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
             if ($side.data('name') == 'your-pretax-income' && !this.$preTaxIncome.val()) {
                 this.showIncomePrivacyTooltip();
+                this.recalculateIncomeBasedAmounts();
             } else if ($side.data('name') == 'federal-spending') {
                 this.closeIncomePrivacyTooltip();
                 this.$preTaxIncome.blur();
             }
-
-            this.recalculateIncomeBasedAmounts();
         }
     },
 
@@ -141,8 +140,8 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         var pretaxIncome = parseInt(this.$preTaxIncome.val(), 10);
         pretaxIncome = Math.min(pretaxIncome, 10000000);
 
-        if (!pretaxIncome || pretaxIncome < 1000) {
-            return false;
+        if (!pretaxIncome || pretaxIncome < 18000) {
+            pretaxIncome = 0;
         }
 
         _.delay(this._closeTooltip, 1200, this.incomePrivacyTooltip)
