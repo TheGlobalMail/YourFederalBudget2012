@@ -10,7 +10,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     initialize: function()
     {
         this.recalculateIncomeBasedAmounts = _.debounce(this.recalculateIncomeBasedAmounts, 250);
-        _.bindAll(this, 'closeBudgetFullyAllocatedTooltip', 'activateToggle', 'recalculateIncomeBasedAmounts', 'onYourPreTaxIncomeClick');
+        _.bindAll(this);
 
         this.$total        = this.$("#budget-total");
         this.$progress     = this.$('.bar');
@@ -34,6 +34,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         });
 
         this.hasEnteredIncome = false;
+        TGM.vent.trigger('baseCalculation', this.$currentSide.data('name'));
     },
 
     updateTotal: function()
@@ -147,7 +148,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         _.delay(this._closeTooltip, 1200, this.incomePrivacyTooltip)
 
         this.model.calculatePretaxIncomeAmounts(pretaxIncome);
-        this.model.trigger('change');
+        this.model.trigger('change pretaxIncomeChange', this.model);
     },
 
     onYourPreTaxIncomeClick: function()

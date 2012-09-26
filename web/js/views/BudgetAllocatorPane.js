@@ -30,6 +30,11 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
         var firstCategoryId = _.chain(this.categorys).keys().first().value();
         // currently expanded category is the first one
         this.activeCategory = this.categorys[firstCategoryId];
+        // hide the rest
+        _.chain(this.categorys)
+            .filter(function(view, categoryId) { return categoryId != firstCategoryId; })
+            .invoke("collapse");
+
         this.budgetOverview = new TGM.Views.BudgetOverview({ model: this.model, el: this.$("#budget-overview") });
 
         // tell everyone the first category is open before we listen to the event ourself
