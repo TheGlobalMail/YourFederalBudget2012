@@ -82,7 +82,7 @@
             "fetching": "Loading more...",
             "full": "No more budgets"
         },
-        "incomePrivacy": "Don't worry! This information is not saved or publicly visible.",
+        "incomePrivacy": "Don't worry! Your income will not be saved or be publicly visible.",
         "lowIncome": "Ah, kinda hard to calculate your contribution when you probably take more than you give."
     }
 }

@@ -1,4 +1,6 @@
 #budget-info {
+    height:54px;
+
     .top {
         .clearfix;
         position: relative;
@@ -9,6 +11,7 @@
             margin-right: 270px;
             white-space: nowrap;
             overflow: hidden;
+            line-height: 1.2;
         }
 
         ul {
@@ -17,7 +20,7 @@
             list-style: none;
             position: absolute;
             right: 30px;
-            top: 18px;
+            top: 10px;
             margin: 0;
             padding: 0;
 
@@ -54,12 +57,13 @@
 
     .bottom {
         position: relative;
-        top: -6px;
+        top: -4px;
 
         a {
             i {
                 position: relative;
                 top: 3px;
+                left: 1px;
                 margin-right: 1px;
                 font-size: 20px;
             }
@@ -70,8 +74,9 @@
 
         time {
             display: inline-block;
-            margin-left: 4px;
+            margin-left: 1px;
             font-size: 11px;
+            color: @gray;
         }
     }
 }

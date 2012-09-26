@@ -68,6 +68,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     budgetModeChanged: function(newBudgetMode)
     {
         this.currentBudgetMode = newBudgetMode;
+        this.updateTotal();
     }
 
 });
