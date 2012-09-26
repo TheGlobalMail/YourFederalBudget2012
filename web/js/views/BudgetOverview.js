@@ -21,13 +21,13 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     updateTotal: function()
     {
-        var remaining = "$0";
-
         if (this.currentBudgetMode == 'your-pretax-income') {
             var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
+            remaining = Math.max(remaining, 0);
             remaining = accounting.formatMoney(remaining, "$", 2);
         } else {
             var remaining = DATA.budgetAllowance - this.model.getTotal();
+            remaining = Math.max(remaining, 0);
             remaining = accounting.formatMoney(remaining, "$", 1) + "b";
         }
 
