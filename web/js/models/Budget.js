@@ -148,6 +148,7 @@ TGM.Models.Budget = Backbone.Model.extend({
         return Math.round(amount * 10) / 10;
     },
 
+    // calculate the approximate tax paid on a given income relevant to how much of the budget we are dealing with
     calculateTaxPaidOnIncome: function(pretaxIncome)
     {
         var taxPaid = 0;
@@ -177,11 +178,13 @@ TGM.Models.Budget = Backbone.Model.extend({
         return Math.round(taxPaid * 10) / 10;
     },
 
+    // get the users current contribution to a category paid on their tax paid
     getIncomeBasedAmount: function(key)
     {
         return this.pretaxIncomeAmounts ? this.pretaxIncomeAmounts[key] : this.get.apply(this, arguments);
     },
 
+    // sum the current category allocations in term of pre-tax income
     getIncomeBasedTotal: function()
     {
         var values = this.pretaxIncomeAmounts;
