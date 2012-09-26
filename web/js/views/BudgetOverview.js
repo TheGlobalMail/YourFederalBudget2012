@@ -10,7 +10,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
     initialize: function()
     {
         this.recalculateIncomeBasedAmounts = _.debounce(this.recalculateIncomeBasedAmounts, 250);
-        _.bindAll(this, 'closeBudgetFullyAllocatedTooltip', 'activateToggle', 'recalculateIncomeBasedAmounts', 'onYourPreTaxIncomeClick');
+        _.bindAll(this);
 
         this.$total        = this.$("#budget-total");
         this.$progress     = this.$('.bar');
@@ -34,16 +34,22 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         });
 
         this.hasEnteredIncome = false;
+        TGM.vent.trigger('baseCalculation', this.$currentSide.data('name'));
     },
 
     updateTotal: function()
     {
+        var remaining = "$0";
+
         if (this.$currentSide.data('name') == 'federal-spending') {
-            this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1) + "b");
+            var remaining = DATA.budgetAllowance - this.model.getTotal();
+            remaining = accounting.formatMoney(remaining, "$", 1) + "b";
         } else if (this.$currentSide.data('name') == 'your-pretax-income') {
-            this.$total.text(Math.round(this.model.taxPaid - this.model.getIncomeBasedTotal()));
+            var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
+            remaining = accounting.formatMoney(remaining, "$", 2);
         }
 
+        this.$total.text(remaining);
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     },
 
@@ -142,7 +148,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         _.delay(this._closeTooltip, 1200, this.incomePrivacyTooltip)
 
         this.model.calculatePretaxIncomeAmounts(pretaxIncome);
-        this.model.trigger('change');
+        this.model.trigger('change pretaxIncomeChange', this.model);
     },
 
     onYourPreTaxIncomeClick: function()

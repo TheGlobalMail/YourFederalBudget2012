@@ -18,6 +18,7 @@
             "vendor/bootstrap/js/bootstrap-tab.js",
             "vendor/tgm/popovers.js",
             "vendor/ZeroClipboard/src/javascript/ZeroClipboard.js",
+            "vendor/accounting.js/accounting.js",
             "js/bootstrap.js",
             "js/routers/AppRouter.js",
             "js/models/Budget.js",

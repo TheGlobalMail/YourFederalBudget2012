@@ -74,7 +74,7 @@ TGM.bootstrappers = {
 
         var fetchSuccess = _.bind(function() {
             this.models.userBudget.tryRestoreFromCache();
-            this.views.application.hideAppLoadingOverlay();
+            setTimeout(this.views.application.hideAppLoadingOverlay, 200);
         }, this);
 
         var fetchError = function(model, response) {
