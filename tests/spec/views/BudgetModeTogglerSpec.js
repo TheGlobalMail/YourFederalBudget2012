@@ -53,9 +53,24 @@ describe("Budget Mode Toggler", function() {
         expect(budgetModeToggler.$currentBudgetMode).toHaveClass('your-pretax-income');
         expect(budgetModeToggler.$currentBudgetMode).toHaveClass('active');
         expect(budgetModeToggler.$('.federal-spending')).not.toHaveClass('active');
+        expect(budgetModeToggler.currentBudgetMode).toBe('your-pretax-income');
         expect(spy).toHaveBeenCalledWith('your-pretax-income');
 
         TGM.vent.off('budgetModeChange', spy);
+    });
+
+    it("should revert back to the first mode when clicked", function() {
+        var spy = sinon.spy();
+        TGM.vent.on('budgetModeChange', spy);
+
+        budgetModeToggler.$('.your-pretax-income').trigger('click');
+        budgetModeToggler.$('.federal-spending').trigger('click');
+
+        expect(budgetModeToggler.$currentBudgetMode).toHaveClass('federal-spending');
+        expect(budgetModeToggler.$currentBudgetMode).toHaveClass('active');
+        expect(budgetModeToggler.$('.your-pretax-income')).not.toHaveClass('active');
+        expect(budgetModeToggler.currentBudgetMode).toBe('federal-spending');
+        expect(spy).toHaveBeenCalledWith('federal-spending');
     });
 
     describe("Your Pre-tax income mode", function() {

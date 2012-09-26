@@ -40,6 +40,40 @@ describe("Budget Over View", function() {
             model.set('defense', 10);
             expect(budgetOverview.$progress.width()).toBeGreaterThan(currentWidth);
         });
+
+        it("should update the total when the budget mode is changed", function() {
+            var spy = sinon.spy(budgetOverview, "updateTotal");
+            budgetOverview.budgetModeChanged('your-pretax-income');
+
+            expect(budgetOverview.updateTotal).toHaveBeenCalled();
+            expect(budgetOverview.currentBudgetMode).toBe('your-pretax-income');
+            budgetOverview.updateTotal.restore();
+        });
+
+        it("should update the total with pre-tax income values when that budget mode is selected", function() {
+            budgetOverview.model.taxPaid = 22000;
+            var modelStub = sinon.stub(budgetOverview.model, "getIncomeBasedTotal");
+            modelStub.returns(5000);
+            budgetOverview.currentBudgetMode = 'your-pretax-income';
+
+            budgetOverview.updateTotal();
+            expect(budgetOverview.$total).toHaveText('$17,000.00');
+
+            budgetOverview.model.getIncomeBasedTotal.restore();
+        });
+
+        it("should update the total with federal-spending values when that budget mode is selected", function() {
+            // enable pretax income mode first
+            budgetOverview.model.taxPaid = 22000;
+            budgetOverview.currentBudgetMode = 'your-pretax-income';
+            budgetOverview.updateTotal();
+
+            // enable federal-spending mode again
+            budgetOverview.currentBudgetMode = "federal-spending";
+            budgetOverview.updateTotal();
+
+            expect(budgetOverview.$total).toHaveText('$66.9b');
+        });
     });
 
     describe("Full budget allocation", function() {

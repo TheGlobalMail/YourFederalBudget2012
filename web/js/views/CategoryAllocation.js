@@ -76,6 +76,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     budgetModeChanged: function(newBudgetMode)
     {
         this.currentBudgetMode = newBudgetMode;
+        this.refreshAmount(this.model);
     }
 
 });
