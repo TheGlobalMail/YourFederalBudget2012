@@ -11,13 +11,15 @@ class SaveBudget extends BaseService implements Sanitizable
     private $sendGrid;
     private $appUrl;
     private $states;
+    private $twig;
 
-    public function __construct(Budget $budget, array $states, \SendGrid $sendGrid, $appUrl)
+    public function __construct(Budget $budget, array $states, \SendGrid $sendGrid, $appUrl, \Twig_Environment $twig)
     {
-        $this->budget = $budget;
-        $this->states = $states;
+        $this->budget   = $budget;
+        $this->states   = $states;
         $this->sendGrid = $sendGrid;
-        $this->appUrl = $appUrl;
+        $this->appUrl   = $appUrl;
+        $this->twig     = $twig;
     }
 
     public function sanitize()
@@ -69,7 +71,7 @@ class SaveBudget extends BaseService implements Sanitizable
         $mail->setFrom('info@theglobalmail.org')
              ->setFromName('The Global Mail')
              ->setSubject('Your budget')
-             ->setHtml("<p>You made a budget, cool! Go here: {$this->appUrl}budget/{$this->budget->getId()}</p>");
+             ->setHtml($this->twig->render('emails/budget-saved.twig', [ 'budget' => $this->budget ]));
 
         $mail->addTo($this->budget->getEmail(), $this->budget->getName());
 

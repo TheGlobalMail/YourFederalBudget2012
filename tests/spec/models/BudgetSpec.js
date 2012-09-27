@@ -48,12 +48,12 @@ describe("Budget Model", function() {
     it("should cap category amounts so the total doesn't exceed the budget allowance", function() {
         budget.set(sampleData);
 
-        budget.set('health', 50);
-        budget.set('defense', 50);
+        budget.set('health', 40);
+        budget.set('defense', 46);
         // budget allowance set in test running (index.php)
         expect(budget.getTotal()).toEqual(100);
         // 33.1-5.2+50-5+50-100 = 22.9
-        expect(budget.get('defense')).toEqual(27.1);
+        expect(Math.round(budget.get('defense') * 10) / 10).toEqual(37.1);
     });
 
     it("shouldn't let category value be less than the slider minimum", function() {
