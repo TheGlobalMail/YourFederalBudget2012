@@ -46,6 +46,14 @@
         text-transform: uppercase;
         line-height: 1.0;
         padding: 56px 0 0 0;
+
+        &:hover,
+        &:active,
+        &:focus {
+            .opacity(60);
+            cursor: pointer;
+            .transition(opacity 150ms ease-in-out);
+        }
     }
 
     .category.defence {
