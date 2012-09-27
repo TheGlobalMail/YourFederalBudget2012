@@ -73,4 +73,8 @@ describe("Category Allocation View", function() {
 
         categoryAllocation.refreshAmount.restore();
     });
+
+    it("should have the correct slider amount when first rendered", function() {
+        expect(categoryAllocation.$sliderAmount).toHaveText('$5.0b');
+    });
 });
