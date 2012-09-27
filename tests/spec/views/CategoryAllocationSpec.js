@@ -54,4 +54,27 @@ describe("Category Allocation View", function() {
 
         expect(categoryAllocation.$sliderAmount).toHaveText('$213.34');
     });
+
+    it("should switch back to federal spending amounts when that budget mode is selected again", function() {
+        categoryAllocation.currentBudgetMode = 'your-pretax-income';
+        categoryAllocation.refreshAmount(model);
+
+        categoryAllocation.currentBudgetMode = 'federal-spending';
+        categoryAllocation.refreshAmount(model);
+
+        expect(categoryAllocation.$sliderAmount).toHaveText('$5.0b');
+    });
+
+    it("should refresh the slider amount when the budget mode is switched", function() {
+        var spy = sinon.spy(categoryAllocation, "refreshAmount");
+
+        categoryAllocation.budgetModeChanged('your-pretax-income');
+        expect(spy).toHaveBeenCalled();
+
+        categoryAllocation.refreshAmount.restore();
+    });
+
+    it("should have the correct slider amount when first rendered", function() {
+        expect(categoryAllocation.$sliderAmount).toHaveText('$5.0b');
+    });
 });

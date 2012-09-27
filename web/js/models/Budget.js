@@ -18,7 +18,7 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     set: function(attribute, value, options)
     {
-        var attrs, attr;
+        var attrs, attr, overAllocated = false;
 
         // Handle both `"key", value` and `{key: value}` -style arguments.
         if (_.isObject(attribute) || attribute == null) {
@@ -43,18 +43,19 @@ TGM.Models.Budget = Backbone.Model.extend({
                 // make sure value is in the slider range
                 val = Math.max(DATA.sliderConfig.min, val);
                 val = Math.min(DATA.sliderConfig.max, val);
+                val = Math.round(val * 10) / 10;
 
                 // cap input so value doesn't go over the max budget allowance
                 if (this.getTotal() - (this.get(key) - val) > DATA.budgetAllowance) {
+                    overAllocated = true;
                     val = DATA.budgetAllowance - (this.getTotal() - this.get(key));
                 }
 
-                val = Math.round(val * 10) / 10;
                 attrs[key] = val;
             }
         }, this);
 
-        if (this.getTotal() == DATA.budgetAllowance && !this.budgetFullyAllocated) {
+        if (overAllocated && !this.budgetFullyAllocated) {
             this.budgetFullyAllocated = true;
             TGM.vent.trigger('budgetFullyAllocated', true);
         } else if (this.budgetFullyAllocated && this.getTotal() < DATA.budgetAllowance) {

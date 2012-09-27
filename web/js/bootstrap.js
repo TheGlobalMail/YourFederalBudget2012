@@ -54,6 +54,8 @@ TGM.bootstrappers = {
         this.views.barGraph.addBudget("average", this.models.averageBudget);
         this.views.barGraph.addBudget("federal", this.models.federalBudget);
         this.views.barGraph.render();
+
+        this.views.barCategories = new TGM.Views.BarCategories({ el: $find("#bar-categories") });
     },
 
     sidePanes: function($find)

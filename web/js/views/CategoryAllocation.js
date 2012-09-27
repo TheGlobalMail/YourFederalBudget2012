@@ -24,6 +24,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
         TGM.vent.on('budgetModeChange', this.budgetModeChanged);
+        this.refreshAmount(this.model);
     },
 
     onSlide: function(e, ui)
@@ -76,6 +77,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
     budgetModeChanged: function(newBudgetMode)
     {
         this.currentBudgetMode = newBudgetMode;
+        this.refreshAmount(this.model);
     }
 
 });

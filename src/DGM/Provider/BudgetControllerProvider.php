@@ -29,7 +29,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/', function(Request $request) use ($app) {
             $budget = new Budget($app['db']);
-            $sb = new SaveBudget($budget, $app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl']);
+            $sb = new SaveBudget($budget, $app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl'], $app['twig']);
             $sb->setData($request->request->all());
             $sb->validate();
 

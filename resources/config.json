@@ -4,6 +4,7 @@
             "vendor/JSON-js/json2.js",
             "vendor/color-js/color.js",
             "vendor/jquery/jquery-1.7.2.js",
+            "vendor/jquery.transit/jquery.transit.js",
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
             "vendor/jquery-ui/ui/jquery.effects.shake.js",
             "vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js",
@@ -38,12 +39,13 @@
             "js/views/BudgetModeToggler.js",
             "js/views/MoreInfo.js",
             "js/views/EmailPage.js",
+            "js/views/BarCategories.js",
             "js/main.js"
         ],
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 50,
+            "max": 48.5,
             "step": 0.1
         },
         "barGraph": {
@@ -74,7 +76,7 @@
     },
     "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
-    "budgetAllowance": 100,
+    "budgetAllowance": 48.5,
     "messages": {
         "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to an area first reduce spending elsewhere.",
         "otherBudgets": {

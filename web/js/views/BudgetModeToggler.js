@@ -4,8 +4,11 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
         'click .toggle .side': 'activateBudgetMode',
         'click .toggle .side.your-pretax-income': 'onYourPreTaxIncomeClick',
         'keyup .your-pretax-income input': 'recalculateIncomeBasedAmounts',
-        'blur .your-pretax-income input': 'onPreTaxIncomeBlur'
+        'blur .your-pretax-income input': 'onPretaxIncomeBlur',
+        'focus .your-pretax-income input': 'onPretaxIncomeFocus'
     },
+
+    defaultPretaxIncome: '50000',
 
     initialize: function()
     {
@@ -25,6 +28,7 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
             trigger: 'manual',
             placement: 'right'
         });
+        this.lowIncomeTooltip.tip().addClass('error');
 
         TGM.vent.trigger('baseCalculation', this.$currentBudgetMode.data('name'));
     },
@@ -73,6 +77,7 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
     {
         var $newBudgetMode = $(e.currentTarget);
         var newBudgetMode = $newBudgetMode.data('name');
+        this.pretaxIncomeFocusedThenBlurred = false;
 
         if (newBudgetMode && newBudgetMode != this.currentBudgetMode) {
             // swap the active class
@@ -83,12 +88,11 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
             this.currentBudgetMode = newBudgetMode;
             TGM.vent.trigger('budgetModeChange', newBudgetMode);
 
-            if (newBudgetMode == 'your-pretax-income' && !this.$pretaxIncome.val()) {
+            if (newBudgetMode == 'your-pretax-income' && this.shouldShowIncomePrivacyTooltip()) {
                 this.showIncomePrivacyTooltip();
                 this.recalculateIncomeBasedAmounts();
             } else if (newBudgetMode == 'federal-spending') {
-                this.closeIncomePrivacyTooltip();
-                this._closeTooltip(this.lowIncomeTooltip);
+                this.closeTooltips();
                 this.$pretaxIncome.blur();
             }
         }
@@ -124,11 +128,22 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
         this.$pretaxIncome.focus();
     },
 
-    onPreTaxIncomeBlur: function()
+    onPretaxIncomeBlur: function()
     {
-        if (this.$pretaxIncome.val()) {
-            this.closeIncomePrivacyTooltip();
+        this.closeTooltips();
+        this.pretaxIncomeFocusedThenBlurred = true;
+    },
+
+    onPretaxIncomeFocus: function()
+    {
+        if (this.pretaxIncomeFocusedThenBlurred && this.shouldShowIncomePrivacyTooltip()) {
+            this.showIncomePrivacyTooltip();
         }
+    },
+
+    shouldShowIncomePrivacyTooltip: function()
+    {
+        return this.$pretaxIncome.val() == this.defaultPretaxIncome || !this.$pretaxIncome.val();
     }
 
 });
