@@ -46,3 +46,6 @@
 [submodule "web/vendor/accounting.js"]
 	path = web/vendor/accounting.js
 	url = git://github.com/josscrowcroft/accounting.js.git
+[submodule "web/vendor/jquery.transit"]
+	path = web/vendor/jquery.transit
+	url = git://github.com/rstacruz/jquery.transit.git
