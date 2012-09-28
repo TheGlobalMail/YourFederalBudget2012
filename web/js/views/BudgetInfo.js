@@ -48,6 +48,17 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             placement: 'bottom',
             trigger: 'manual'
         });
+
+        this.budgetDescriptionTooltip.getPosition = function (inside) {
+            var offset = this.$element.offset();
+            offset.left += 108;
+
+            return $.extend({}, (inside ? {top: 0, left: 0} : offset), {
+                width: this.$element[0].offsetWidth,
+                height: this.$element[0].offsetHeight
+            })
+        }
+
         this.$('.about').data('tooltip', this.budgetDescriptionTooltip);
         this.budgetDescriptionTooltip.tip().addClass('budget-description-tooltip');
     },
