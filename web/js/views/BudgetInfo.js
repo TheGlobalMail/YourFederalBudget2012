@@ -4,6 +4,31 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         "click .about": "toggleTooltip"
     },
 
+    days: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+    ],
+
+    months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ],
+
     initialize: function()
     {
         _.bindAll(this);
@@ -45,10 +70,12 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         if (this.model.get('clientId') || !this.model.id) {
             this.$title.text('Your budget');
             this.$bottom.css('opacity', 0);
+            setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
             return this;
         }
 
         // update title
+        this.$bottom.show();
         this.$bottom.css('opacity', 100);
         var title = this.model.get('name');
 
@@ -60,6 +87,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         }
 
         this.$title.text(title);
+        this.$time.html(this.timestampToString(this.model.get('createdAt')));
 
         // update description
         this.$description.text(this.model.get('description'));
@@ -67,6 +95,38 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$state.text(this.model.get('state'));
 
         this.budgetDescriptionTooltip.options.title = $('<div/>').html(this.$tooltipWrap.html());
+    },
+
+    timestampToString: function(timestamp)
+    {
+        var date = new Date(timestamp);
+        var dateString = this.days[date.getDay()] + " " + date.getDate();
+
+        if (dateString.substr(-2, 1) == '1') {
+            dateString += '<super>th</super>'
+        } else {
+            switch (dateString.substr(-1)) { // last number in the date
+                case '1':
+                    dateString += '<super>st</super>';
+                break;
+
+                case '2':
+                    dateString += '<super>nd</super>';
+                break;
+
+                case '3':
+                    dateString += '<super>rd</super>';
+                break;
+
+                default:
+                    dateString += '<super>th</super>';
+                break;
+            }
+        }
+
+        dateString += " " + this.months[date.getMonth()] + ", " + date.getFullYear();
+
+        return dateString;
     }
 
 });

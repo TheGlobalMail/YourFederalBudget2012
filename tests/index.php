@@ -57,6 +57,7 @@ $app['config'] = $config;
     <script src="/tests/spec/views/ApplicationSpec.js"></script>
     <script src="/tests/spec/views/OtherBudgetSpec.js"></script>
     <script src="/tests/spec/views/BudgetModeTogglerSpec.js"></script>
+    <script src="/tests/spec/views/BudgetInfoSpec.js"></script>
 
 </head>
 
