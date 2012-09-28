@@ -48,7 +48,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             placement: 'bottom',
             trigger: 'manual'
         });
-
+        this.$('.about').data('tooltip', this.budgetDescriptionTooltip);
         this.budgetDescriptionTooltip.tip().addClass('budget-description-tooltip');
     },
 
@@ -66,14 +66,16 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
     render: function(model)
     {
         this.model = model || this.model;
+        this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
 
         if (this.model.get('clientId') || !this.model.id) {
             this.$title.text('Your budget');
             this.$bottom.css('opacity', 0);
-            setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
+            this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
             return this;
         }
 
+        this._timeout && clearTimeout(this._timeout);
         // update title
         this.$bottom.show();
         this.$bottom.css('opacity', 100);
@@ -90,7 +92,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$time.html(this.timestampToString(this.model.get('createdAt')));
 
         // update description
-        this.$description.text(this.model.get('description'));
+        this.$description.html("&ldquo;" + this.model.get('description') + "&rdquo;");
         this.$name.text(this.model.get('name'));
         this.$state.text(this.model.get('state'));
 

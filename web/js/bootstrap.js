@@ -83,6 +83,7 @@ TGM.bootstrappers = {
             if (response.status == 404) {
                 $.jStorage.deleteKey('budgetId');
                 $.jStorage.deleteKey('clientId');
+                $.jStorage.deleteKey('userBudget');
             }
             fetchSuccess();
         };
