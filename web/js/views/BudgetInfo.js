@@ -92,7 +92,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$time.html(this.timestampToString(this.model.get('createdAt')));
 
         // update description
-        this.$description.text(this.model.get('description'));
+        this.$description.html("&ldquo;" + this.model.get('description') + "&rdquo;");
         this.$name.text(this.model.get('name'));
         this.$state.text(this.model.get('state'));
 
