@@ -45,6 +45,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
 
     refreshAmount: function(model)
     {
+        model = model || this.model;
         var value = model.get(this.options.category);
 
         if (value < DATA.sliderConfig.min && value > DATA.sliderConfig.max) {

@@ -1,14 +1,14 @@
 TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     events: {
-        "click .reset-budget-btn": "resetBudget"
+        "click .reset-budget-btn": "resetBudget",
+        "click .save-budget-btn": "saveBudget"
     },
-
-    categorys: {},
 
     initialize: function()
     {
         _.bindAll(this);
+        this.categories = {};
         this.$saveButton = this.$('.save-budget-btn');
 
         this.model.on('sync', this.updateLabels);
@@ -25,14 +25,14 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
                 category: id,
                 model: this.model
             });
-            this.categorys[id] = view;
+            this.categories[id] = view;
         }, this);
 
-        var firstCategoryId = _.chain(this.categorys).keys().first().value();
+        var firstCategoryId = _.chain(this.categories).keys().first().value();
         // currently expanded category is the first one
-        this.activeCategory = this.categorys[firstCategoryId];
+        this.activeCategory = this.categories[firstCategoryId];
         // hide the rest
-        _.chain(this.categorys)
+        _.chain(this.categories)
             .filter(function(view, categoryId) { return categoryId != firstCategoryId; })
             .invoke("collapse");
 
@@ -51,7 +51,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
     switchCategory: function(newCategory)
     {
         this.activeCategory.collapse();
-        this.activeCategory = this.categorys[newCategory];
+        this.activeCategory = this.categories[newCategory];
     },
 
     resetBudget: function()
@@ -63,6 +63,18 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
     {
         var href = this.model.isNew() ? "/budget/save" : "/budget/" + this.model.id + "/save";
         this.$saveButton.prop('href', href);
+
+        if ($.jStorage.get('userBudget')) {
+            this.$saveButton.removeClass('disabled');
+        } else {
+            this.$saveButton.addClass('disabled');
+            this.model.on('change', function off() {
+                if ($.jStorage.get('userBudget')) {
+                    this.$saveButton.removeClass('disabled');
+                    this.model.off('changed', off, this);
+                }
+            }, this);
+        }
     },
 
     onHidden: function()
@@ -77,6 +89,14 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
             .css('width', '+=11px')
             .find('span')
                 .text('Update Budget');
+    },
+
+    saveBudget: function(e)
+    {
+        if (this.$saveButton.hasClass('disabled')) {
+            e.preventDefault();
+            return false;
+        }
     }
 
 });
