@@ -17,6 +17,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         });
 
         this.budgetFullyAllocatedTooltip.tip().addClass('error');
+        this.updateTotal();
     },
 
     updateTotal: function()

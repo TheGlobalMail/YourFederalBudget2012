@@ -77,6 +77,10 @@ TGM.Views.SidePaneManager = Backbone.View.extend({
 
     updateLabels: function()
     {
+        if (!this.model.get('clientId')) {
+            // this ain't there budget
+            return false;
+        }
         this.$('.nav li:first a').text('Edit your budget').prop('href', '/budget/' + this.model.id + '/edit');
     }
 

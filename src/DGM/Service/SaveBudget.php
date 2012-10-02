@@ -31,7 +31,7 @@ class SaveBudget extends BaseService implements Sanitizable
             }
 
             if (isset(Budget::$categoryData[$key])) {
-                $this->data[$key] = (int) $value;
+                $this->data[$key] = (float) $value;
             }
         }
     }

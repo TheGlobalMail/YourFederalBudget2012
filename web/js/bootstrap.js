@@ -75,7 +75,18 @@ TGM.bootstrappers = {
         var clientId = $.jStorage.get('clientId');
 
         var fetchSuccess = _.bind(function() {
-            this.models.userBudget.tryRestoreFromCache();
+            if (clientId && (!this.models.userBudget.get('clientId') || this.models.userBudget.get('clientId') != clientId)) {
+                $.jStorage.deleteKey('budgetId');
+                $.jStorage.deleteKey('clientId');
+                $.jStorage.deleteKey('userBudget');
+            } else {
+                this.models.userBudget.tryRestoreFromCache();
+
+                if (!this.models.userBudget.isNew()) {
+                    TGM.vent.trigger('updateMode');
+                }
+            }
+
             setTimeout(this.views.application.hideAppLoadingOverlay, 200);
         }, this);
 

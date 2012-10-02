@@ -67,7 +67,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     editBudget: function(id)
     {
-        if (this.models.userBudget.id != id) {
+        if (this.models.userBudget.id != id || !$.jStorage.get('clientId')) {
             // can't edit budgets if they aren't yours
             this.goto("budget", id);
         } else {
@@ -79,6 +79,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     saveBudget: function(id)
     {
+        if (id && (this.models.userBudget.id != id || !$.jStorage.get('clientId'))) {
+            this.goto("budget", id);
+        }
+
         if (!id) {
             TGM.vent.trigger('showSidePane', 'save-budget');
             return true;

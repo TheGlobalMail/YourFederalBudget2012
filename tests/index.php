@@ -1,17 +1,39 @@
 <?php
 
+use DGM\Util,
+    DGM\Model\Budget;
+
+ini_set('display_errors', 1);
+error_reporting(-1);
+
 $filename = $_SERVER['DOCUMENT_ROOT'] . preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
 if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
+$app = new Silex\Application();
+$app['debug'] = true;
 
-$app = require __DIR__ .'/../src/bootstrap.php';
-$config = $app['config'];
-$config['categories'] = json_decode(file_get_contents(__DIR__ . '/categories.json'), true);
-$app['config'] = $config;
+$config = [
+    'branch' => substr(`git symbolic-ref -q HEAD`, 11),
+    'gitHash' => `git rev-parse HEAD`,
+    'buildId' => substr(`git rev-parse HEAD`, 0, 16),
+    'categories' => Util::loadJSONFile(__DIR__ . '/categories.json'),
+    'appUrl' => 'http://localhost:5001/',
+    'dbname' => 'budgets2012-testing'
+];
 
+$fileConfig = Util::loadJSONFile('./resources/config.json');
+$config = array_merge($fileConfig, $config);
+Budget::$categoryData = $config['categories'];
+
+$app->register(new \DGM\Bootstrap($config));
+
+$app->mount("/api/budget", new DGM\Provider\BudgetControllerProvider());
+$app->mount("/", new DGM\Provider\BaseControllerProvider());
+
+$app->boot();
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,6 +80,7 @@ $app['config'] = $config;
     <script src="/tests/spec/views/OtherBudgetSpec.js"></script>
     <script src="/tests/spec/views/BudgetModeTogglerSpec.js"></script>
     <script src="/tests/spec/views/BudgetInfoSpec.js"></script>
+    <script src="/tests/spec/views/ShareBudgetPaneSpec.js"></script>
 
 </head>
 

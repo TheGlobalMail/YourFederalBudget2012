@@ -6,6 +6,8 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         "click .googleplusone": "shareOnGooglePlus"
     },
 
+    updatedMessage: '<span class="budget-name"></span>, thanks for updating your budget!',
+
     initialize: function()
     {
         _.bindAll(this);
@@ -13,26 +15,50 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         this.$budgetName = this.$('.budget-name');
         this.$budgetUrl  = this.$('.budget-url');
         this.$shareButtons = this.$('.share-buttons');
+        this.$copyWrapper = this.$('#share-budget-copy-url-wrapper');
+        this.$copyButton = this.$("#share-budget-copy-url-btn");
 
-        this.clip = new ZeroClipboard.Client();
-        this.clip.setHandCursor(true);
-        this.clip.addEventListener('onComplete', this.onUrlCopied);
         this.on('shown', this.onShown);
+        this.on('hidden', this.onHidden);
+
         this.model.on('change', this.onBudgetInfoChanged);
+        TGM.vent.on('updateMode', this.updateShareMessage);
+        TGM.vent.on('resized', this.onResize);
     },
 
     onShown: function()
     {
-        this.clip.glue("share-budget-copy-url-btn", "share-budget-copy-url-wrapper");
+        this.clip = new ZeroClipboard.Client();
+        this.clip.setHandCursor(true);
+        this.clip.addEventListener('onComplete', this.onUrlCopied);
+        this.clip.glue(this.$copyButton[0], this.$copyWrapper[0]);
+        this.onBudgetInfoChanged();
         // fix position
         $(this.clip.div).css({ left: 0, top: 0 });
+        this.on('hide', _.once(function() {
+            this.clip.destroy();
+            this.clip.ready = false;
+        }), this);
+    },
+
+    onHidden: function()
+    {
+        if (!this.updateMode) {
+            // model has been created, now trigger update mode
+            // this.updateMode is changed in an event listener
+            TGM.vent.trigger('updateMode');
+        }
     },
 
     onBudgetInfoChanged: function()
     {
         this.$budgetName.text(this.model.get('name'));
         this.$budgetUrl.val(this.model.getUrl());
-        this.clip.setText(this.model.getUrl());
+
+        if (this.clip) {
+            this.clip.setText(this.model.getUrl());
+        }
+
         this.$shareButtons.attr('addthis:url', this.model.getUrl());
         this.$shareButtons.attr('addthis:title', "Check out my budget");
     },
@@ -69,6 +95,18 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         setTimeout(function() {
             copyWrapper.tooltip('destroy');
         }, 2000);
+    },
+
+    updateShareMessage: function()
+    {
+        this.$('h1').html(this.updatedMessage);
+        this.$budgetName = this.$('.budget-name');
+        this.updateMode = true;
+    },
+
+    onResize: function()
+    {
+        this.clip.reposition();
     }
 
 });
