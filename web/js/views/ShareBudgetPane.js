@@ -106,7 +106,9 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
 
     onResize: function()
     {
-        this.clip.reposition();
+        if (this.clip && this.clip.reposition) {
+            this.clip.reposition();
+        }
     }
 
 });

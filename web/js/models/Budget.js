@@ -61,6 +61,8 @@ TGM.Models.Budget = Backbone.Model.extend({
         } else if (this.budgetFullyAllocated && this.getTotal() < DATA.budgetAllowance) {
             this.budgetFullyAllocated = false;
             TGM.vent.trigger('budgetFullyAllocated', false);
+        } else if (overAllocated) {
+            return this;
         }
 
         return Backbone.Model.prototype.set.call(this, attrs, null, options);
