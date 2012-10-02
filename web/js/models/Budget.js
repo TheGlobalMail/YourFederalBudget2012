@@ -14,6 +14,7 @@ TGM.Models.Budget = Backbone.Model.extend({
     {
         this.pretaxIncomeAmounts = {};
         this.on('change', this.recalculatePretaxIncomeAmounts, this);
+        this.on('reset', this.checkForFullAllocation, this);
     },
 
     set: function(attribute, value, options)
@@ -66,6 +67,17 @@ TGM.Models.Budget = Backbone.Model.extend({
         }
 
         return Backbone.Model.prototype.set.call(this, attrs, null, options);
+    },
+
+    checkForFullAllocation: function()
+    {
+        if (this.getTotal() < DATA.budgetAllowance && this.budgetFullyAllocated) {
+            this.budgetFullyAllocated = false;
+            TGM.vent.trigger('budgetFullyAllocated', false);
+        } else if (this.getTotal() >= DATA.budgetAllowance && !this.budgetFullyAllocated) {
+            this.budgetFullyAllocated = true;
+            TGM.vent.trigger('budgetFullyAllocated', true);
+        }
     },
 
     getTotal: function()
