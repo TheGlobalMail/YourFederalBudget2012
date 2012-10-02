@@ -19,12 +19,12 @@ $config = [
     'branch' => substr(`git symbolic-ref -q HEAD`, 11),
     'gitHash' => `git rev-parse HEAD`,
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
-    'categories' => Util::loadJSONFile('./resources/categories.json'),
+    'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
     'appUrl' => 'http://localhost:5000/',
     'dbname' => 'budget2012'
 ];
 
-$fileConfig = Util::loadJSONFile('./resources/config.json');
+$fileConfig = Util::loadJSONFile(__DIR__ . '/../resources/config.json');
 $config = array_merge($fileConfig, $config);
 Budget::$categoryData = $config['categories'];
 
