@@ -36,6 +36,8 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
     showIncomePrivacyTooltip: function()
     {
         var onClose = _.bind(function() {
+            // prevent focus from display the tooltip again
+            this.pretaxIncomeFocusedThenBlurred = false;
             this.$pretaxIncome.focus();
         }, this);
 
@@ -60,6 +62,7 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
             e.preventDefault();
             this._closeTooltip(tooltip);
             onClose(tooltip);
+            return false;
         }, this));
     },
 
@@ -138,6 +141,7 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
     {
         if (this.pretaxIncomeFocusedThenBlurred && this.shouldShowIncomePrivacyTooltip()) {
             this.showIncomePrivacyTooltip();
+            this.pretaxIncomeFocusedThenBlurred = false;
         }
     },
 
