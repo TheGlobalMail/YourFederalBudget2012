@@ -19,4 +19,10 @@ class MongoDB {
         return $this->mongoDb->selectCollection($name);
     }
 
+    public function changeDb($name)
+    {
+        $this->mongo->selectDb($name);
+        return $this;
+    }
+
 }

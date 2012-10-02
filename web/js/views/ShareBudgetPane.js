@@ -6,6 +6,8 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         "click .googleplusone": "shareOnGooglePlus"
     },
 
+    updatedMessage: '<span class="budget-name"></span>, thanks for updating your budget!',
+
     initialize: function()
     {
         _.bindAll(this);
@@ -37,6 +39,15 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
             this.clip.destroy();
             this.clip.ready = false;
         }), this);
+    },
+
+    onHidden: function()
+    {
+        if (!this.updateMode) {
+            // model has been created, now trigger update mode
+            // this.updateMode is changed in an event listener
+            TGM.vent.trigger('updateMode');
+        }
     },
 
     onBudgetInfoChanged: function()
@@ -84,6 +95,13 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         setTimeout(function() {
             copyWrapper.tooltip('destroy');
         }, 2000);
+    },
+
+    updateShareMessage: function()
+    {
+        this.$('h1').html(this.updatedMessage);
+        this.$budgetName = this.$('.budget-name');
+        this.updateMode = true;
     },
 
     onResize: function()

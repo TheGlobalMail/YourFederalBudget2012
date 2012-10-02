@@ -11,7 +11,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
         this.categories = {};
         this.$saveButton = this.$('.save-budget-btn');
 
-        this.model.on('sync', this.updateLabels);
+        TGM.vent.on('updateMode', this.updateLabels);
 
         if (!this.model.isNew()) {
             this.updateLabels();
@@ -69,10 +69,8 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
         } else {
             this.$saveButton.addClass('disabled');
             this.model.on('change', function off() {
-                if ($.jStorage.get('userBudget')) {
-                    this.$saveButton.removeClass('disabled');
-                    this.model.off('changed', off, this);
-                }
+                this.$saveButton.removeClass('disabled');
+                this.model.off('changed', off, this);
             }, this);
         }
     },

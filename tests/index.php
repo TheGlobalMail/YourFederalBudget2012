@@ -8,6 +8,7 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = require __DIR__ .'/../src/bootstrap.php';
+$app['db']->changeDb('budgets-test');
 $config = $app['config'];
 $config['categories'] = json_decode(file_get_contents(__DIR__ . '/categories.json'), true);
 $app['config'] = $config;
@@ -58,6 +59,7 @@ $app['config'] = $config;
     <script src="/tests/spec/views/OtherBudgetSpec.js"></script>
     <script src="/tests/spec/views/BudgetModeTogglerSpec.js"></script>
     <script src="/tests/spec/views/BudgetInfoSpec.js"></script>
+    <script src="/tests/spec/views/ShareBudgetPaneSpec.js"></script>
 
 </head>
 
