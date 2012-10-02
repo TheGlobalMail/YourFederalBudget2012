@@ -7,7 +7,22 @@ use DGM\Build\Util,
     DGM\Build\Targets;
 
 Targets::$basePath = __DIR__;
-$app = require 'src/bootstrap.php';
+
+$app = new Silex\Application();
+
+$config = [
+    'branch' => substr(`git symbolic-ref -q HEAD`, 11),
+    'gitHash' => `git rev-parse HEAD`,
+    'buildId' => substr(`git rev-parse HEAD`, 0, 16),
+    'categories' => \DGM\Util::loadJSONFile(__DIR__ . '/resources/categories.json'),
+    'dbname' => 'budget2012'
+];
+
+$fileConfig = \DGM\Util::loadJSONFile(__DIR__ . '/resources/config.json');
+$config = array_merge($fileConfig, $config);
+
+$app->register(new \DGM\Bootstrap($config));
+$app->boot();
 
 function executeTargets($targets, $app) {
     foreach(explode(" ", $targets) as $target) {
