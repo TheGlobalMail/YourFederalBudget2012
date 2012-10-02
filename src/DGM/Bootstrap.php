@@ -34,7 +34,7 @@ class Bootstrap implements ServiceProviderInterface
         });
 
         $app['sendGrid'] = $app->share(function() {
-            return new SendGrid('theglobamail', 've*P6ZnB0pX');
+            return new \SendGrid('theglobamail', 've*P6ZnB0pX');
         });
 
         $app->register(new \SilexMemcache\MemcacheExtension(), [
