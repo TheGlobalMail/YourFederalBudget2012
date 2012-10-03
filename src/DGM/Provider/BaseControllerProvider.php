@@ -3,7 +3,9 @@
 namespace DGM\Provider;
 
 use Silex\Application,
-    Silex\ControllerProviderInterface;
+    Silex\ControllerProviderInterface,
+    Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpFoundation\Response;
 
 class BaseControllerProvider implements ControllerProviderInterface
 {
