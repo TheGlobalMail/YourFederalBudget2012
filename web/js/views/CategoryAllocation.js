@@ -16,14 +16,17 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$sliderHandle = this.$('.ui-slider-handle');
         this.$sliderAmount = this.$('.slider-amount');
 
-        this.model.on("pretaxIncomeChange change:" + options.category, this.refreshAmount);
-
         this.category = DATA.categories[options.category];
 
         this.$sliderHandle.tooltip({ title: DATA.messages.budgetFullyAllocated, placement: 'right', trigger: 'manual' });
-        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
         this.$slider.slider('value', this.model.get(this.options.category));
+
+        this.$('.info-icon').popover({ content: this.category.tooltip, placement: 'right', trigger: 'click' });
+
         TGM.vent.on('budgetModeChange', this.budgetModeChanged);
+        TGM.vent.on('BudgetAllocatorCategory:expanding', this.expand);
+
+        this.model.on("pretaxIncomeChange change:" + options.category, this.refreshAmount);
         this.refreshAmount(this.model);
     },
 
@@ -64,9 +67,14 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         this.$sliderAmount.text(amount);
     },
 
-    expand: function()
+    expand: function(category)
     {
-        TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
+        if (_.isString(category) && category != this.options.category) {
+            return false;
+        } else if (!_.isString(category)) {
+            TGM.vent.trigger('BudgetAllocatorCategory:expanding', this.options.category);
+        }
+
         this.$el.addClass('active');
     },
 
