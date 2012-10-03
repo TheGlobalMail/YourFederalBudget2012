@@ -12,7 +12,7 @@ describe("Budget Over View", function() {
 
     var $el = $(
         '<div>' +
-            '<div id="budget-total">0</div>' +
+            '<div class="budget-remaining">0</div>' +
             '<div class="progress-bar"></div>' +
             '<div class="bar"></div>'+
         '</div>'
@@ -32,7 +32,7 @@ describe("Budget Over View", function() {
         it("should update the remaning budget allowance when the model changes", function() {
             model.set('defense', 13);
             this.clock.tick(110);
-            expect(budgetOverview.$el.find("#budget-total")).toHaveText("$58.9b");
+            expect(budgetOverview.$(".budget-remaining")).toHaveText("$58.9b");
         });
 
         it("should update the allowance bar width", function() {
