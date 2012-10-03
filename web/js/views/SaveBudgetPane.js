@@ -153,7 +153,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     formUpdate: function()
     {
         this.model.set(this.formToJson());
-        this.model.tryCaching();
+        this.model.cache();
     },
 
     modelChanged: function()

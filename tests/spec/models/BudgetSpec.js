@@ -107,13 +107,13 @@ describe("Budget Model", function() {
             });
             var spy = sinon.spy($.jStorage, "set");
 
-            budget.tryCaching();
+            budget.cache();
             expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
         });
 
         it("should restore cached values", function() {
             budget.set('defense', 3.2);
-            budget.tryCaching();
+            budget.cache();
 
             budget.set('defense', 4.3);
             budget.tryRestoreFromCache();
@@ -125,7 +125,7 @@ describe("Budget Model", function() {
             budget.set('defense', 2.1);
             var defaults = budget.toJSON();
 
-            budget.tryCaching();
+            budget.cache();
             budget.tryRestoreFromCache();
             budget.resetBudget();
 

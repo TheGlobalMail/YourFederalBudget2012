@@ -37,11 +37,18 @@ abstract class Model
     {
         $coll = $this->db->getCollection($this->collection);
         $data = $this->jsonSerialize();
-        $data['createdAt'] = $this->createdAt = new \MongoDate();
+
+        if (!isset($data['createdAt'])) {
+            $data['createdAt'] = $this->createdAt = new \MongoDate();
+        }
+
+        if (isset($data['_id'])) {
+            $data['_id'] = new \MongoId($data['_id']);
+        }
 
         $data = $this->preSave($data);
 
-        $coll->insert($data);
+        $coll->save($data);
         $this->id = $data['_id'];
 
         $this->postSave($data);

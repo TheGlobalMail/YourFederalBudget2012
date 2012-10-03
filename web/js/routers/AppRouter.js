@@ -83,25 +83,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             this.goto("budget", id);
         }
 
-        if (!id) {
-            TGM.vent.trigger('showSidePane', 'save-budget');
-            return true;
-        }
-
-        var success = _.bind(function() {
-            TGM.vent.trigger('showSidePane', 'share-budget');
-        }, this);
-
-        // refactor and use activeBudget
-        this.models.userBudget.set('_id', id);
-
-        var fetchError = _.bind(function(model, response) {
-            if (response.status == 404) {
-                this.goto("");
-            }
-        }, this);
-
-        this.models.userBudget.fetch({ success: success, error: fetchError });
+        TGM.vent.trigger('showSidePane', 'save-budget');
     },
 
     viewBudgets: function()

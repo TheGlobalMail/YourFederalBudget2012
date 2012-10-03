@@ -29,18 +29,43 @@ class BudgetControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/', function(Request $request) use ($app) {
             $budget = new Budget($app['db']);
-            $sb = new SaveBudget($budget, $app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl'], $app['twig']);
-            $sb->setData($request->request->all());
-            $sb->validate();
+            $bp = $app['budgetPersister'];
+            $bp->setBudget($budget);
+            $bp->setData($request->request->all());
+            $bp->validate();
 
-            if ($sb->isValid()) {
-                $sb->save();
+            if ($bp->isValid()) {
+                $bp->save();
                 $json = $budget->jsonSerialize();
                 $json['clientId'] = $budget->getClientId();
                 return $app->json($json);
             }
 
-            return $app->json([ "errors" => $sb->getErrors() ], 400);
+            return $app->json([ "errors" => $bp->getErrors() ], 400);
+        });
+
+        $controllers->put('/{id}', function(Request $request, $id) use ($app) {
+            $budget = $app['budgets']->findById($id);
+
+            if (!$budget) {
+                return $app->abort(404, 'Budget not found.');
+            }
+
+            $bp = $app['budgetPersister'];
+            $bp->setBudget($budget);
+            $bp->setData($request->request->all());
+            $bp->validate();
+
+            if ($bp->isValid()) {
+                $bp->save();
+                $json = $budget->jsonSerialize();
+                $json['clientId'] = $budget->getClientId();
+                return $app->json($json);
+            }
+
+            $statusCode = ($db->isUnauthorized()) ? 403 : 400;
+
+            return $app->json( [ 'errors' => $bp->getErrors() ], $statusCode);
         });
 
         $controllers->get('/{id}', function(Request $request, $id) use ($app) {

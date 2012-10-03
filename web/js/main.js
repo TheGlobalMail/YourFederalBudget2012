@@ -29,3 +29,6 @@ $(document).on("click", "a:not([data-bypass])", function(evt) {
         Backbone.history.navigate(href.attr, true);
     }
 });
+
+// Preload AddThis icons
+(new Image()).src = 'http://ct1.addthis.com/static/r07/widget006_32x32_top.png';

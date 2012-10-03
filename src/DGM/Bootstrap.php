@@ -33,6 +33,10 @@ class Bootstrap implements ServiceProviderInterface
             return new \DGM\Collection\Budgets($app['db'], $app['config']['categories']);
         });
 
+        $app['budgetPersister'] = function() use ($app) {
+            return new \DGM\Service\BudgetPersister($app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl'], $app['twig']);
+        };
+
         $app['sendGrid'] = $app->share(function() {
             return new \SendGrid('theglobamail', 've*P6ZnB0pX');
         });

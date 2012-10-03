@@ -4,7 +4,7 @@ namespace DGM\Service;
 
 use DGM\Model\Budget;
 
-class SaveBudget extends BaseService implements Sanitizable
+class BudgetPersister extends BaseService implements Sanitizable
 {
 
     private $budget;
@@ -13,13 +13,24 @@ class SaveBudget extends BaseService implements Sanitizable
     private $states;
     private $twig;
 
-    public function __construct(Budget $budget, array $states, \SendGrid $sendGrid, $appUrl, \Twig_Environment $twig)
+    private $unauthorized = false;
+    private $updateMode = false;
+
+    public function __construct(array $states, \SendGrid $sendGrid, $appUrl, \Twig_Environment $twig)
     {
-        $this->budget   = $budget;
         $this->states   = $states;
         $this->sendGrid = $sendGrid;
         $this->appUrl   = $appUrl;
         $this->twig     = $twig;
+    }
+
+    public function setbudget(Budget $budget)
+    {
+        $this->budget = $budget;
+
+        if ($this->budget->getId()) {
+            $this->updateMode = true;
+        }
     }
 
     public function sanitize()
@@ -41,6 +52,13 @@ class SaveBudget extends BaseService implements Sanitizable
         $this->sanitize();
         $this->reset();
 
+        if ($this->budget->getId()) {
+            if (!isset($this->data['clientId']) || $this->data['clientId'] != $this->budget->getClientId()) {
+                $this->unauthorized = true;
+                $this->errors['unauthorized'] = "You are not allowed to edit this budget";
+            }
+        }
+
         if (!mb_strlen($this->data['name'])) {
             $this->errors['name'] = "Please enter your firstname";
         }
@@ -58,11 +76,16 @@ class SaveBudget extends BaseService implements Sanitizable
     {
         $this->budget->set($this->data)->save();
 
-        if ($this->budget->getId()) {
+        if (!$this->updateMode) {
             $this->send();
         }
 
         return $this->budget;
+    }
+
+    public function isUnauthorized()
+    {
+        return $this->unauthorized;
     }
 
     public function send()

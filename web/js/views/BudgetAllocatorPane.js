@@ -73,11 +73,9 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
             this.$saveButton.removeClass('disabled');
         } else {
             this.$saveButton.addClass('disabled');
-            this.model.on('change', function off() {
-                if ($.jStorage.get('userBudget')) {
-                    this.$saveButton.removeClass('disabled');
-                    this.model.off('changed', off, this);
-                }
+            this.model.on('cached', function off() {
+                this.$saveButton.removeClass('disabled');
+                this.model.off('changed', off, this);
             }, this);
         }
     },

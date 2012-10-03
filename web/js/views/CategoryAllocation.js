@@ -40,7 +40,7 @@ TGM.Views.CategoryAllocation = Backbone.View.extend({
         }
 
         this.refreshAmount();
-        this.model.tryCaching();
+        this.model.cache();
     },
 
     refreshAmount: function(model)
