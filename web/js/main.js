@@ -18,7 +18,7 @@ $(document).on("click", "a:not([data-bypass])", function(evt) {
     var root = location.origin;
 
     // Ensure the root is part of the anchor href, meaning it's relative.
-    if (href.prop && href.prop.slice(0, root.length) === root) {
+    if (href.prop && href.prop.slice(0, root.length) === root && !/more\-info/.test(href.prop)) {
         // Stop the default event to ensure the link will not cause a page
         // refresh.
         evt.preventDefault();

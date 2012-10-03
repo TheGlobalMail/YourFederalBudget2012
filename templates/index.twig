@@ -85,19 +85,25 @@
                 <div id="more-info">
                     <h2 class="title"></h2>
                     <div class="info"></div>
-                    <div class="modal extended-info hide fade" tabindex="-1" role="dialog" aria-labelledby="extended-info-title" aria-hidden="true">
+                    <div class="modal extended-info hide fade" tabindex="-1" role="dialog" aria-labelledby="extended-info-title" aria-hidden="true" id="more-info-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             <h3 id="extended-info-title" class="title">Modal header</h3>
                         </div>
                         <div class="modal-body"></div>
                     </div>
-                    <a href="#" class="read-more">Read More</a>
+                    <a href="#" class="read-more" data-toggle="modal" data-target="#more-info-modal">Read More</a>
                 </div>
             </div>
         </div>
 
         {% include 'email-page-form.twig' %}
+
+        {% for key, category in app.config.categories %}
+            <div class="hide summary" id="summary-{{key}}">
+                {% include "summaries/#{key}.twig" with { 'id': key, 'category': category } %}
+            </div>
+        {% endfor %}
 
         {% include 'javascript.twig' %}
 

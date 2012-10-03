@@ -55,6 +55,15 @@ class BaseControllerProvider implements ControllerProviderInterface
             return $app->json($epf->getErrors(), 400);
         });
 
+        $controllers->get('/more-info/{id}', function($id) use ($app) {
+            if (isset($app['config']['categories'][$id])) {
+                $category = $app['config']['categories'][$id];
+                return $app['twig']->render("more-info/{$id}.twig", [ "category" => $category, "id" => $id ]);
+            }
+
+            return $app->abort("Category not found", 404);
+        });
+
         return $controllers;
     }
 
