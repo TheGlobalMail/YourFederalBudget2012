@@ -57,7 +57,7 @@ describe("Budget Over View", function() {
             budgetOverview.currentBudgetMode = 'your-pretax-income';
 
             budgetOverview.updateTotal();
-            expect(budgetOverview.$total).toHaveText('$17,000.00');
+            expect(budgetOverview.$remaining).toHaveText('$17,000.00');
 
             budgetOverview.model.getIncomeBasedTotal.restore();
         });
@@ -72,7 +72,7 @@ describe("Budget Over View", function() {
             budgetOverview.currentBudgetMode = "federal-spending";
             budgetOverview.updateTotal();
 
-            expect(budgetOverview.$total).toHaveText('$66.9b');
+            expect(budgetOverview.$remaining).toHaveText('$66.9b');
         });
     });
 
