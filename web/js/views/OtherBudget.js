@@ -79,6 +79,13 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         } else {
             this.$el.removeClass('active');
         }
+    },
+
+    onClose: function()
+    {
+        this.model.off('change', this.render, this);
+        TGM.vent.off('activeBudget', this.onActiveBudget, this);
+        TGM.vent.off('resized', this.doColorBar, this);
     }
 
 });

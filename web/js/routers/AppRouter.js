@@ -54,6 +54,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             var fetchError = _.bind(function(model, response) {
                 if (response.status == 404) {
                     // budget not found, just show the Saved Budgets pane
+                    this.collections.budgets.remove(this.models.activeBudget);
                     this.models.activeBudget = this.models.userBudget;
                     this.goto("budgets");
                 }

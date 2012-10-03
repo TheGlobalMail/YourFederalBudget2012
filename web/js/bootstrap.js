@@ -8,6 +8,13 @@ window.location.origin = window.location.origin || window.location.protocol+'//'
     }
 })();
 
+Backbone.View.prototype.close = function() {
+    this.remove();
+    this.off();
+
+    this.onClose && this.onClose();
+}
+
 var TGM = { Views: {}, Models: {}, Routers: {}, Collections: {} };
 TGM.vent = _.extend({}, Backbone.Events);
 TGM.vent.publish = TGM.vent.trigger;
@@ -34,7 +41,7 @@ TGM.bootstrappers = {
 
         _.each(DATA.categories, function(value, id) {
             this.models.federalBudget.set(id, value.federalAllocation);
-            this.models.userBudget.set(id, DATA.sliderConfig.max / 10);
+            this.models.userBudget.set(id, 3);
         }, this);
 
         this.collections.budgets = new TGM.Collections.Budgets();

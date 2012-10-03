@@ -11,7 +11,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         _.bindAll(this);
 
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
-        this._renderedModels = [];
+        this._renderedModels = {};
 
         this.$yourBudget = this.$('.your-budget');
         this.$otherBudgets = this.$('.other-budgets');
@@ -23,13 +23,21 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.collection.on('fetching', this.fetchingMore);
         this.collection.on('add', this.showMoreBudgets);
         this.collection.on('full', this.noMoreBudgets);
+        this.collection.on('remove', this.removeBudgets);
         this.collection.fetchMore();
+    },
+
+    removeBudgets: function(model)
+    {
+        if (model.id in this._renderedModels) {
+            this._renderedModels[model.id].close();
+        }
     },
 
     showMoreBudgets: function(collection, response)
     {
         var budgets = this.collection.filter(function(model) {
-            return !_.include(this._renderedModels, model.id);
+            return !_.include(_.keys(this._renderedModels), model.id);
         }, this);
 
         _.each(budgets, function(budget) {
@@ -41,7 +49,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
             this.$inner.append(view.render().$el);
             view.doColorBar();
 
-            this._renderedModels.push(budget.id);
+            this._renderedModels[budget.id] = view;
         }, this);
 
         this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
