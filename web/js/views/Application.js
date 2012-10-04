@@ -2,7 +2,8 @@ TGM.Views.Application = Backbone.View.extend({
 
     events: {
         "click .email-page-link": "showEmailModal",
-        "click #at16ptx": "doNothing"
+        "click #at16ptx": "doNothing",
+        "click .googleplusone": "shareOnGooglePlus"
     },
 
     initialize: function()
@@ -19,6 +20,15 @@ TGM.Views.Application = Backbone.View.extend({
         this.emailPage = new TGM.Views.EmailPage({ el: this.$("#email-page-form") });
         this.$window.on('resize', this.onResize);
         this.currentSize = this._calculateCurrentSize();
+    },
+
+    shareOnGooglePlus: function(e)
+    {
+        e.preventDefault();
+        var url = $(e.currentTarget).parents('.addthis_toolbox').attr('addthis:url');
+        var popUp = window.open('https://plus.google.com/share?url=' + url, 'popupwindow', 'scrollbars=yes,width=800,height=400');
+        popUp.focus();
+        return false;
     },
 
     showEmailModal: function()

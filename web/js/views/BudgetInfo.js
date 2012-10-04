@@ -87,15 +87,9 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             this.$title.text('Your budget');
         } else {
             var title = this.model.get('name');
+            title = _.ownerize(title) + " budget";
 
-            // better grammar for names ending with s
-            if (title.substr(-1) == "s") {
-                title += "' budget";
-            } else {
-                title += "'s budget";
-            }
-
-            this.$title.text(title);
+            this.$title.html(title);
         }
 
         if (this.model.isNew()) {

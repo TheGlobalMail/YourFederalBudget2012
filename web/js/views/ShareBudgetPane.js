@@ -2,8 +2,7 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
 
     events: {
         "focus .budget-url": "onBudgetUrlFocus",
-        "mouseup .budget-url": "onBudgetUrlMouseUp",
-        "click .googleplusone": "shareOnGooglePlus"
+        "mouseup .budget-url": "onBudgetUrlMouseUp"
     },
 
     updatedMessage: '<span class="budget-name"></span>, thanks for updating your budget!',
@@ -77,14 +76,6 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
     showBudgetAllocator: function()
     {
         window.appRouter.goto("budget", this.model.id);
-    },
-
-    shareOnGooglePlus: function(e)
-    {
-        e.preventDefault();
-        var popUp = window.open('https://plus.google.com/share?url=' + this.model.getUrl(), 'popupwindow', 'scrollbars=yes,width=800,height=400');
-        popUp.focus();
-        return false;
     },
 
     onUrlCopied: function()

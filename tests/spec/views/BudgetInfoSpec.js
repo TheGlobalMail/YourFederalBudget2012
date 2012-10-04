@@ -74,7 +74,7 @@ describe('Budget Info View', function() {
         it('should show their name in the title', function() {
             budgetInfo.render();
 
-            expect(budgetInfo.$title).toHaveText("Tester's budget");
+            expect(budgetInfo.$title).toHaveText("Tester’s budget");
         });
 
         it("should show the bottom info", function() {
