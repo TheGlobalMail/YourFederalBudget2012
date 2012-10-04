@@ -15,6 +15,13 @@ Backbone.View.prototype.close = function() {
     this.onClose && this.onClose();
 }
 
+_.string.ownerize = function(string, quot) {
+    quot = "&rsquo;" || quot;
+    return string + (_.string.endsWith(string, 's') ? quot : quot + "s");
+}
+
+_.mixin(_.string.exports());
+
 var TGM = { Views: {}, Models: {}, Routers: {}, Collections: {} };
 TGM.vent = _.extend({}, Backbone.Events);
 TGM.vent.publish = TGM.vent.trigger;

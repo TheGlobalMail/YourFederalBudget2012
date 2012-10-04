@@ -49,3 +49,6 @@
 [submodule "web/vendor/jquery.transit"]
 	path = web/vendor/jquery.transit
 	url = git://github.com/rstacruz/jquery.transit.git
+[submodule "web/vendor/underscore.string"]
+	path = web/vendor/underscore.string
+	url = git@github.com:cobbweb/underscore.string.git

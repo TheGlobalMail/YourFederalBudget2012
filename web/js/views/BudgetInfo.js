@@ -41,11 +41,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$tooltipWrap = this.$('.budget-description-tooltip');
         this.$aboutLink   = this.$('.about');
 
-        TGM.vent.on('activeBudget', this.render);
-        this.model.on('sync', this.render);
-        this.render();
-
-        this.budgetDescriptionTooltip = new $.fn.tooltip.Constructor(this.$('.about')[0], {
+        this.budgetDescriptionTooltip = new $.fn.tooltip.Constructor(this.$aboutLink[0], {
             placement: 'bottom',
             trigger: 'manual'
         });
@@ -62,6 +58,10 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
 
         this.$('.about').data('tooltip', this.budgetDescriptionTooltip);
         this.budgetDescriptionTooltip.tip().addClass('budget-description-tooltip');
+
+        TGM.vent.on('activeBudget', this.render);
+        this.model.on('sync change', this.render);
+        this.render();
     },
 
     toggleTooltip: function()
@@ -83,15 +83,23 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
     {
         this.model = model || this.model;
 
-        if (this.model.get('clientId') || !this.model.id) {
+        if (this.model.get('clientId') || this.model.isNew()) {
             this.$title.text('Your budget');
+        } else {
+            var title = this.model.get('name');
+            title = _.ownerize(title) + " budget";
 
-            if (this.model.isNew()) {
-                this.$bottom.css('opacity', 0);
-                this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
-                this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
-            }
-            return this;
+            this.$title.html(title);
+        }
+
+        if (this.model.isNew()) {
+            this.$bottom.css('opacity', 0);
+            this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
+            this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
+        } else {
+            this.$bottom.show();
+            this.$bottom.css('opacity', 100);
+            this._timeout && clearTimeout(this._timeout);
         }
 
         if (this.model.get('description')) {
@@ -101,20 +109,6 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
         }
 
-        this._timeout && clearTimeout(this._timeout);
-        // update title
-        this.$bottom.show();
-        this.$bottom.css('opacity', 100);
-        var title = this.model.get('name');
-
-        // better grammar for names ending with s
-        if (title.substr(-1) == "s") {
-            title += "' budget";
-        } else {
-            title += "'s budget";
-        }
-
-        this.$title.text(title);
         this.$time.html(this.timestampToString(this.model.get('createdAt')));
 
         // update description
@@ -123,7 +117,13 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$state.text(DATA.states[this.model.get('state')]);
 
         this.budgetDescriptionTooltip.options.title = $('<div/>').html(this.$tooltipWrap.html());
-        this.model.get('description') && this.budgetDescriptionTooltip.show();
+
+        if (this.model.get('description') && !this.model.get('clientId')) {
+            this.budgetDescriptionTooltip.show()
+        } else {
+            this.budgetDescriptionTooltip.hide();
+        }
+
         this.bindClose();
     },
 
