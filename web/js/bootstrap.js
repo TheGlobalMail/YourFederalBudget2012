@@ -1,9 +1,16 @@
 window.location.origin = window.location.origin || window.location.protocol+'//'+window.location.host+'/';
 
-(function() {
-    var hasSVG = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
+var TGM = { Views: {}, Models: {}, Routers: {}, Collections: {} };
+TGM.vent = _.extend({}, Backbone.Events);
+TGM.vent.publish = TGM.vent.trigger;
+TGM.Color = net.brehaut.Color;
 
-    if (!hasSVG) {
+(function() {
+    TGM.has = {};
+    TGM.has.SVG = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
+    TGM.has.touch = ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch;
+
+    if (!TGM.has.SVG) {
         $('html').addClass('no-svg');
     }
 })();
@@ -21,11 +28,6 @@ _.string.ownerize = function(string, quot) {
 }
 
 _.mixin(_.string.exports());
-
-var TGM = { Views: {}, Models: {}, Routers: {}, Collections: {} };
-TGM.vent = _.extend({}, Backbone.Events);
-TGM.vent.publish = TGM.vent.trigger;
-TGM.Color = net.brehaut.Color;
 
 TGM.bootstrappers = {
 
