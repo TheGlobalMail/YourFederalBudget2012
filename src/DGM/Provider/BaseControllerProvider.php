@@ -30,7 +30,7 @@ class BaseControllerProvider implements ControllerProviderInterface
             $branch = trim($app['config']['branch']);
 
             if ($committedBranch === "refs/heads/$branch") {
-              $dir = realpath(__DIR__ . '/../');
+              $dir = realpath(__DIR__ . '/../../../');
               // @TODO refactor epic one-liner?
               $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install && ./build.php 2>&1 >> logs/build_log.txt");
               $response = $exec == null ? 500 : 200;
