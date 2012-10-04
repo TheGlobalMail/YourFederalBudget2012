@@ -17,6 +17,7 @@ describe("Budget Model", function() {
 
     afterEach(function() {
         $.jStorage.flush();
+        budget.off();
     });
 
     it("should be able to set category amounts", function() {

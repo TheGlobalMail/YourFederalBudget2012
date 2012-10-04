@@ -51,6 +51,7 @@ $app->boot();
     DATA.averageBudget = <?php echo json_encode($app['averageBudget']); ?>;
     DATA.budgetAllowance = 100;
     DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
+    DATA.states = <?php echo json_encode($app['config']['frontend']['states']); ?>;
     </script>
 
     <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>

@@ -2,8 +2,10 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     initialize: function()
     {
-        this.$total    = this.$("#budget-total");
-        this.$progress = this.$('.bar');
+        this.$remaining = this.$(".budget-remaining");
+        this.$progress  = this.$('.bar');
+        this.$progressBar = this.$('.progress-bar');
+        this.$budgetAllowance = this.$('.budget-allowance');
 
         this.updateTotal();
 
@@ -11,7 +13,7 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
         this.model.on("change", _.throttle(this.updateTotal, 80), this);
         TGM.vent.on('budgetFullyAllocated', this.budgetFullyAllocated, this);
 
-        this.budgetFullyAllocatedTooltip = new $.fn.tooltip.Constructor(this.$('.progress-bar')[0], {
+        this.budgetFullyAllocatedTooltip = new $.fn.tooltip.Constructor(this.$progressBar[0], {
             trigger: 'manual',
             placement: 'right'
         });
@@ -26,23 +28,28 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
             var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
             remaining = Math.max(remaining, 0);
             remaining = accounting.formatMoney(remaining, "$", 2);
+
+            var allowance = accounting.formatMoney(this.model.taxPaid, '$', 2);
         } else {
             var remaining = DATA.budgetAllowance - this.model.getTotal();
             remaining = Math.max(remaining, 0);
             remaining = accounting.formatMoney(remaining, "$", 1) + "b";
+
+            var allowance = accounting.formatMoney(DATA.budgetAllowance, '$', 1) + 'b';
         }
 
-        this.$total.text(remaining);
+        this.$remaining.text(remaining);
+        this.$budgetAllowance.text(allowance);
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     },
 
     budgetFullyAllocated: function(yes)
     {
         if (yes) {
-            this.$('.progress-bar').addClass('budget-fully-allocated');
+            this.$progressBar.addClass('budget-fully-allocated');
             this.showBudgetFullyAllocatedTooltip();
         } else {
-            this.$('.progress-bar').removeClass('budget-fully-allocated');
+            this.$progressBar.removeClass('budget-fully-allocated');
             this.closeBudgetFullyAllocatedTooltip();
         }
     },

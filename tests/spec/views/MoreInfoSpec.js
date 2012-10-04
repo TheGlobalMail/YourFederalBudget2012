@@ -10,43 +10,27 @@ describe("More Info View", function() {
         '</div>'
     ].join(""));
 
+    var summaryTemplate = '<div id="summary-immigration"><span>Immigration</span></div>'
+
     beforeEach(function() {
         moreInfo = new TGM.Views.MoreInfo({ el: $el.clone() });
         this.clock = sinon.useFakeTimers();
         moreInfo.$el.appendTo('body');
+        sinon.stub(jQuery, "ajax");
+        $(summaryTemplate).appendTo('body');
     });
 
     afterEach(function() {
         moreInfo.$el.remove();
         this.clock.restore();
+        jQuery.ajax.restore();
+        $("#summary-immigration").remove();
     });
 
     it("should update short info and title when active category changes", function() {
-        TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'health');
+        TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'immigration');
 
-        expect(moreInfo.$title).toHaveText(/Health/);
-        expect(moreInfo.$info).toHaveText(/Health/);
-    });
-
-    describe("Extended Info", function() {
-        beforeEach(function() {
-            TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'health');
-        });
-
-        it("shouldn't be visible by default", function() {
-            expect(moreInfo.$extendedInfo).toHaveClass('hide');
-        });
-
-        it("should show the modal when read more is click", function() {
-            moreInfo.$('.read-more').trigger('click');
-            this.clock.tick(200)
-
-            expect(moreInfo.$extendedInfo).toBeVisible();
-        });
-
-        it("should update the extended info when active category changes", function() {
-            TGM.vent.trigger('BudgetAllocatorCategory:expanding', 'education');
-            expect(moreInfo.$modalBody).toHaveText(/Education/);
-        });
+        expect(moreInfo.$title).toHaveText(/Immigration/);
+        expect(moreInfo.$info).toHaveText(/Immigration/);
     });
 });

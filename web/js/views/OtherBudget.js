@@ -35,7 +35,11 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var html = this.template(data);
         this.$el.html(html);
 
-        if (this.$el.parent()) { // already attached to dom
+        if (this.model.get('state') == "NONAU") {
+            this.$el.find('.state').hide();
+        }
+
+        if (this.$el.parent()) { // already attached to dom, render color bar
             this.doColorBar();
         }
 
