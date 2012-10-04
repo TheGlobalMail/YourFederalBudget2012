@@ -39,6 +39,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$name        = this.$('.budget-name');
         this.$state       = this.$('.budget-state');
         this.$tooltipWrap = this.$('.budget-description-tooltip');
+        this.$aboutLink   = this.$('.about');
 
         TGM.vent.on('activeBudget', this.render);
         this.model.on('sync', this.render);
@@ -66,8 +67,12 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
     toggleTooltip: function()
     {
         this.budgetDescriptionTooltip.toggle();
+        this.bindClose();
+    },
 
-        this.budgetDescriptionTooltip.options.title.find('.close').on('click', _.bind(function(e) {
+    bindClose: function()
+    {
+        this.budgetDescriptionTooltip.tip().on('click', _.bind(function(e) {
             e.preventDefault();
             this.budgetDescriptionTooltip.hide();
             return false;
@@ -77,13 +82,23 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
     render: function(model)
     {
         this.model = model || this.model;
-        this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
 
         if (this.model.get('clientId') || !this.model.id) {
             this.$title.text('Your budget');
-            this.$bottom.css('opacity', 0);
-            this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
+
+            if (this.model.isNew()) {
+                this.$bottom.css('opacity', 0);
+                this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
+                this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
+            }
             return this;
+        }
+
+        if (this.model.get('description')) {
+            this.$aboutLink.show();
+        } else {
+            this.$aboutLink.hide();
+            this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
         }
 
         this._timeout && clearTimeout(this._timeout);
@@ -105,15 +120,17 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         // update description
         this.$description.html("&ldquo;" + this.model.get('description') + "&rdquo;");
         this.$name.text(this.model.get('name'));
-        this.$state.text(this.model.get('state'));
+        this.$state.text(DATA.states[this.model.get('state')]);
 
         this.budgetDescriptionTooltip.options.title = $('<div/>').html(this.$tooltipWrap.html());
+        this.model.get('description') && this.budgetDescriptionTooltip.show();
+        this.bindClose();
     },
 
     timestampToString: function(timestamp)
     {
         var date = new Date(timestamp);
-        var dateString = this.days[date.getDay()] + " " + date.getDate();
+        var dateString = "Created " + this.days[date.getDay()] + " " + date.getDate();
 
         if (dateString.substr(-2, 1) == '1') {
             dateString += '<super>th</super>'

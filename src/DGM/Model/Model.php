@@ -40,6 +40,8 @@ abstract class Model
 
         if (!isset($data['createdAt'])) {
             $data['createdAt'] = $this->createdAt = new \MongoDate();
+        } else {
+            $data['createdAt'] = $this->createdAt;
         }
 
         if (isset($data['_id'])) {

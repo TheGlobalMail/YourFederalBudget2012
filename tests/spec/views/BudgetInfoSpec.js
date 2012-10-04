@@ -74,19 +74,19 @@ describe('Budget Info View', function() {
             it('should render the full date', function() {
                 budget.set('createdAt', (new Date(2012, 8, 28)).getTime())
                 budgetInfo.render();
-                expect(budgetInfo.$time).toHaveHtml('Friday 28<super>th</super> September, 2012');
+                expect(budgetInfo.$time).toHaveHtml('Created Friday 28<super>th</super> September, 2012');
             });
 
             it('should render 1, 21 or 31 with "st" super script', function() {
                 budget.set('createdAt', (new Date(2012, 8, 1)).getTime());
                 budgetInfo.render();
-                expect(budgetInfo.$time).toHaveHtml('Saturday 1<super>st</super> September, 2012');
+                expect(budgetInfo.$time).toHaveHtml('Created Saturday 1<super>st</super> September, 2012');
             });
 
             it("should render 11 with 'th' superscript", function() {
                 budget.set('createdAt', (new Date(2011, 9, 11)).getTime());
                 budgetInfo.render();
-                expect(budgetInfo.$time).toHaveHtml('Tuesday 11<super>th</super> October, 2011');
+                expect(budgetInfo.$time).toHaveHtml('Created Tuesday 11<super>th</super> October, 2011');
             });
         });
     });

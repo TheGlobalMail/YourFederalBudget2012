@@ -8,6 +8,7 @@
     DATA.messages = {{ app.config.messages|json_encode }};
     DATA.barGraph = {{ app.config.frontend.barGraph|json_encode }};
     DATA.averageBudget = {{ app.averageBudget|json_encode }};
+    DATA.states = {{ app.config.frontend.states|json_encode }};
 </script>
 {% endautoescape %}
 
