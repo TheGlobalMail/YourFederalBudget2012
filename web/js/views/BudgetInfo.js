@@ -60,7 +60,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.budgetDescriptionTooltip.tip().addClass('budget-description-tooltip');
 
         TGM.vent.on('activeBudget', this.render);
-        this.model.on('sync change:description', this.render);
+        this.model.on('sync change', this.render);
         this.render();
     },
 
@@ -117,7 +117,13 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$state.text(DATA.states[this.model.get('state')]);
 
         this.budgetDescriptionTooltip.options.title = $('<div/>').html(this.$tooltipWrap.html());
-        this.model.get('description') && !this.model.get('clientId') && this.budgetDescriptionTooltip.show();
+
+        if (this.model.get('description') && !this.model.get('clientId')) {
+            this.budgetDescriptionTooltip.show()
+        } else {
+            this.budgetDescriptionTooltip.hide();
+        }
+
         this.bindClose();
     },
 
