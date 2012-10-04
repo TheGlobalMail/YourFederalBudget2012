@@ -6,6 +6,7 @@ describe('Budget Info View', function() {
             '<h1></h1>' +
             '<time></time>' +
             '<div class="bottom"></div>' +
+            '<a class="about"></a>' +
         '</div>'
     );
 
@@ -17,6 +18,7 @@ describe('Budget Info View', function() {
 
     afterEach(function() {
         this.clock.restore();
+        budgetInfo.close();
     });
 
     it("should render a different budget when it is activated", function() {
@@ -38,16 +40,27 @@ describe('Budget Info View', function() {
         TGM.Views.BudgetInfo.prototype.initialize = _origInit;
     });
 
+    it("should hide the 'About this budget' link if the budget has no description", function() {
+        var budget = new TGM.Models.Budget({ '_id': '12321', 'name': 'Testering' });
+        budgetInfo.render(budget);
+        expect(budgetInfo.$aboutLink).toBeHidden();
+    });
+
     describe("when users budget is active", function() {
-        it('should titled Your Budget', function() {
+        beforeEach(function() {
+            budget = new TGM.Models.Budget({ 'clientId': '12321bg12'});
+        });
+
+        it('should be titled Your Budget', function() {
+            budget.set('_id', '12321');
             budgetInfo.render(budget);
             expect(budgetInfo.$title).toHaveText('Your budget');
         });
 
-        it('should hide the bottom', function() {
+        it('should hide the bottom if it is a new budget', function() {
             budgetInfo.render(budget);
-            expect(budgetInfo.$bottom).toHaveCss({ opacity: "0" });
             this.clock.tick(500);
+            expect(budgetInfo.$bottom).toHaveCss({ opacity: "0" });
             expect(budgetInfo.$bottom).toHaveCss({ display: 'none' });
         });
     });
