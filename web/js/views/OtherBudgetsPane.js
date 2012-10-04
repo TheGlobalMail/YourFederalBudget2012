@@ -1,22 +1,22 @@
 TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
     events: {
-        "mousewheel .other-budgets": "_onScroll",
         "click .your-budget": "triggerEdit"
     },
 
     initialize: function()
     {
         this._onScroll = _.throttle(this.onScroll, 100);
+        this._initScroll = _.once(this.initScroll);
         _.bindAll(this);
+
+        this.$yourBudget   = this.$('.your-budget');
+        this.$otherBudgets = this.$('.other-budgets');
+        this.$inner        = this.$('.other-budgets-inner');
+        this.$loadingState = this.$('.loading-more');
 
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
         this._renderedModels = {};
-
-        this.$yourBudget = this.$('.your-budget');
-        this.$otherBudgets = this.$('.other-budgets');
-        this.$inner = this.$('.other-budgets-inner');
-        this.$loadingState = this.$('.loading-more');
 
         this.model.on('sync', this.showUserBudget);
 
@@ -25,6 +25,15 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.collection.on('full', this.noMoreBudgets);
         this.collection.on('remove', this.removeBudgets);
         this.collection.fetchMore();
+    },
+
+    initScroll: function()
+    {
+        if (TGM.has.touch) {
+            this.$otherBudgets.on('scroll', this._onScroll);
+        } else {
+            this.$otherBudgets.on('mousewheel', this._onScroll);
+        }
     },
 
     removeBudgets: function(model)
@@ -51,6 +60,8 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
 
             this._renderedModels[budget.id] = view;
         }, this);
+
+        this._initScroll();
 
         this.$loadingState.removeClass('loading').text(DATA.messages.otherBudgets.fetched);
     },

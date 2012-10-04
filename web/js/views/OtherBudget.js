@@ -54,7 +54,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
 
         this.$('.share-buttons').attr({
             'addthis:url': this.model.getUrl(),
-            'addthis:title': 'Check out ' + _.ownerize(this.model.get('name')) + " budget"
+            'addthis:title': 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget"
         });
 
         return this;
