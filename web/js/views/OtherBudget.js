@@ -49,7 +49,8 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         }
 
         this.$('.popover-link').arrowPopover({
-            actionToActivatePopover: 'click'
+            actionToActivatePopover: 'click',
+            placement: 'right'
         });
 
         this.$('.share-buttons').attr({
