@@ -178,7 +178,8 @@ text-align: center;
     outline: none;
     .border-radius(0);
     padding: 30px;
-    width: 800px;
+    width: 890px;
+    height: 500px;
     margin-left: -430px;
 
     &#email-page-form {
@@ -223,6 +224,51 @@ text-align: center;
         }
     }
 
+    p {
+        color: @grayDark;
+    }
+
+    .left {
+        width: 390px;
+        height: 460px;
+        padding-right: 20px;
+        overflow-y:scroll;
+        float: left;
+        border-right: 1px solid #D6D6D6;
+        p:first-of-type {
+            font-weight: bold;
+        }
+    }
+    .right {
+        width:460px;
+        padding-left: 10px;
+        float: right;
+        .related {
+            border-top: 1px solid #D6D6D6;
+            padding-top: 5px;
+            h3 {
+                font-family: @sansFontFamily;
+                font-size: 120%;
+            }
+            .story {
+                float: left;
+                width: 48%;
+                a {
+                    color: @grayDark;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                    img {
+                        width: 60px;
+                        height: auto;
+                        margin-right: 10px;
+                        float: left;
+                    }
+                }
+            }
+        }
+    }
+
     .modal-footer {
         background: none;
         margin-top: 8%;
@@ -230,7 +276,12 @@ text-align: center;
 
     .modal-body {
         padding: 0;
+        overflow: hidden;
+        max-height: none;
     }
+}
+.modal-open .tooltip {
+z-index: 980;
 }
 
 .modal-backdrop {
