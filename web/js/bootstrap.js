@@ -23,7 +23,7 @@ Backbone.View.prototype.close = function() {
 }
 
 _.string.ownerize = function(string, quot) {
-    quot = "&rsquo;" || quot;
+    quot = quot || "&rsquo;";
     return string + (_.string.endsWith(string, 's') ? quot : quot + "s");
 }
 
