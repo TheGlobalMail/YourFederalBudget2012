@@ -94,6 +94,45 @@
     }
 }
 
+.other-budget-share {
+    &.popover {
+        padding:2px;
+        margin-left: 70px;
+        .arrow {
+        background: url(../img/share-budget-arrow.png) top left no-repeat;
+        width: 12px;
+        height: 18px;
+        z-index: 3;
+        display: block;
+        left: -8px;
+        top: 34px;
+        border: none;
+        &:after,&:before {
+            display: none;
+        }
+        }
+        .popover-inner {
+        height: 50px;
+        width: 200px;
+        .border-radius(5px);
+        border: 2px solid @grayDark;
+        h3 {
+            font-family: @sansFontFamily;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .addthis_toolbox {
+            margin-left: 0;
+            a, img {
+                margin: 0 2px;
+                }
+        }
+    }
+
+    }
+}
+
 .budget-description-tooltip {
     &.bottom .tooltip-arrow {
         border: none;

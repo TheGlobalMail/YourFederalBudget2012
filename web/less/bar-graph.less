@@ -37,6 +37,7 @@
     margin: 0 0 0 10px;
 
     .category {
+        position: relative;
         height: 66px;
         width: 13%;
         float: left;
@@ -46,15 +47,26 @@
         font-weight: bold;
         text-transform: uppercase;
         line-height: 1.0;
-        padding: 56px 0 0 0;
+        padding: 54px 0 0 0;
         cursor: pointer;
 
         &:hover,
         &:active,
         &:focus {
-            .opacity(60);
+            .opacity(80);
             cursor: pointer;
             .transition(opacity 150ms ease-in-out);
+        }
+
+        &.active:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 24px;
+            height: 14px;
+            background: url(http://localhost:5000/less/../img/more-info-arrow.png) 0 0 no-repeat;
+            bottom: 26px;
+            left: 36%;
         }
     }
 
