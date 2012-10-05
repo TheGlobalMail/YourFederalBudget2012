@@ -21,7 +21,9 @@ $config = [
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/categories.json'),
     'appUrl' => 'http://localhost:5001/',
-    'dbname' => 'budgets2012-testing'
+    'dbname' => 'budgets2012-testing',
+    'db' =>  "mongodb://localhost:27017",
+    'dbOptions' =>  array()
 ];
 
 $fileConfig = Util::loadJSONFile('./resources/config.json');
