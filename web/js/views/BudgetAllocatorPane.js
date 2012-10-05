@@ -56,6 +56,10 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     resetBudget: function()
     {
+        if (this.updateMode) {
+            return window.appRouter.goto("budgets");
+        }
+
         this.model.resetBudget();
         this.$saveButton.addClass('disabled');
         this.model.on('change', function off() {
@@ -88,6 +92,8 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
 
     updateLabels: function()
     {
+        this.updateMode = true;
+
         this.$saveButton
             .css('width', '+=13px')
             .find('span')
