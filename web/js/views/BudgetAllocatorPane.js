@@ -89,7 +89,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
     updateLabels: function()
     {
         this.$saveButton
-            .css('width', '+=11px')
+            .css('width', '+=13px')
             .find('span')
                 .text('Update Budget');
 
