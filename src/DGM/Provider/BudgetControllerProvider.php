@@ -27,6 +27,12 @@ class BudgetControllerProvider implements ControllerProviderInterface
             return $app->json($app['budgets']->fetch($start, $count));
         });
 
+        $controllers->post('/flag-abuse/{id}', function($id) use ($app) {
+            $yes = $app['flagAbuse']->flagAsAbusive($id);
+
+            return new Response('Flagged', $yes ? 200 : 404);
+        });
+
         $controllers->post('/', function(Request $request) use ($app) {
             $budget = new Budget($app['db']);
             $bp = $app['budgetPersister'];

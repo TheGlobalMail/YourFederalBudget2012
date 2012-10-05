@@ -41,6 +41,10 @@ class Bootstrap implements ServiceProviderInterface
             return new \SendGrid('theglobamail', 've*P6ZnB0pX');
         });
 
+        $app['flagAbuse'] = $app->share(function() use ($app) {
+            return new \DGM\Service\FlagAbuse($app['budgets'], $app['sendGrid'], $app['twig'], $app['config']['admins']);
+        });
+
         $app->register(new \SilexMemcache\MemcacheExtension(), [
             'memcache.library' => 'memcached',
             'servers' => [

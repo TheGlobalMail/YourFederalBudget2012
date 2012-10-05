@@ -213,6 +213,15 @@ TGM.Models.Budget = Backbone.Model.extend({
         });
 
         return total;
+    },
+
+    flagAbusive: function()
+    {
+        if (this.isNew()) {
+            return false;
+        }
+
+        return $.post('/api/budget/flag-abuse/' + this.id);
     }
 
 });

@@ -1,7 +1,7 @@
 #more-info {
 	border-top: 1px solid #d6d6d6;
     height: 100px;
-	margin-top: 14px;
+	margin-top: 2.5%;
 	padding: 2.5% 1%;
 
     h2 {
@@ -21,19 +21,21 @@
     	width: 72%;
     	border-right: 1px solid #d6d6d6;
     	padding-right: 15px;
+
     	ul {
     		margin: 0 0 10px 17px;
+
 	    	li {
 	    		list-style-position: outside;
 	    		list-style-type: square;
 	    		font-family: @serifRegFontFamily;
 	    		line-height: 1.1;
 				font-size: 110%;
-				// color: @gray;
 				margin-bottom: 3px;
 	    	}
+        }
     }
-    }
+
     .number {
     	float: left;
     	width: 23%;
@@ -48,12 +50,12 @@
     	}
     }
 
-    .defence .number {color:@defence;}
-    .publicEducation .number {color:@pubEd;}
-    .privateEducation .number {color:@privEd;}
-    .immigration .number {color:@immigration;}
-    .foreignAid .number {color:@aid;}
-    .industryAssistance .number {color:@industry;}
+    .defence .number { color:@defence; }
+    .publicEducation .number { color:@pubEd; }
+    .privateEducation .number { color:@privEd; }
+    .immigration .number { color:@immigration; }
+    .foreignAid .number { color:@aid; }
+    .industryAssistance .number { color:@industry; }
 
     .read-more {
     	float: left;
@@ -66,9 +68,9 @@
 		padding: 1% 2%;
 		.border-radius(4px);
 
-			&:hover,
-			&:active,
-			&:focus {
+		&:hover,
+		&:active,
+		&:focus {
 			text-decoration: none;
 			background-color: @grayLighter;
 	    }

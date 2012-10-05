@@ -18,6 +18,7 @@ TGM.Color = net.brehaut.Color;
 Backbone.View.prototype.close = function() {
     this.remove();
     this.off();
+    this.dispose();
 
     this.onClose && this.onClose();
 }
