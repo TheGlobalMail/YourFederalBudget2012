@@ -86,6 +86,10 @@
             "full": "No more budgets"
         },
         "incomePrivacy": "Your income will not be saved or publicly visible.",
-        "lowIncome": "Ah, kinda hard to calculate your contribution when you probably take more than you give."
+        "lowIncome": "Ah, kinda hard to calculate your contribution when you probably take more than you give.",
+        "flaggedAsAbusive": "Flagged as abusive"
+    },
+    "admins": {
+        "Andrew Cobby": "andrew.cobby@theglobalmail.org"
     }
 }

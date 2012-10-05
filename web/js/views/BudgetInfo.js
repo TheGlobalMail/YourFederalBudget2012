@@ -40,6 +40,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$state       = this.$('.budget-state');
         this.$tooltipWrap = this.$('.budget-description-tooltip');
         this.$aboutLink   = this.$('.about');
+        this.$flagAbuse   = this.$('.flag-abuse');
 
         this.budgetDescriptionTooltip = new $.fn.tooltip.Constructor(this.$aboutLink[0], {
             placement: 'bottom',
@@ -56,7 +57,7 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             })
         }
 
-        this.$('.about').data('tooltip', this.budgetDescriptionTooltip);
+        this.$aboutLink.data('tooltip', this.budgetDescriptionTooltip);
         this.budgetDescriptionTooltip.tip().addClass('budget-description-tooltip');
 
         TGM.vent.on('activeBudget', this.render);
@@ -68,15 +69,28 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
     {
         this.budgetDescriptionTooltip.toggle();
         this.bindClose();
+        this.bindFlagAbuse();
     },
 
     bindClose: function()
     {
-        this.budgetDescriptionTooltip.tip().on('click', _.bind(function(e) {
+        this.budgetDescriptionTooltip.tip().find('.close').on('click', _.bind(function(e) {
             e.preventDefault();
             this.budgetDescriptionTooltip.hide();
             return false;
         }, this));
+    },
+
+    bindFlagAbuse: function()
+    {
+        this.$flagAbuse = this.budgetDescriptionTooltip.tip().find('.flag-abuse');
+
+        if (this.model.get('clientId')) {
+            return this.$flagAbuse.hide();
+        }
+
+        this.$flagAbuse.show().on('click', this.flagAbuse);
+        this.tryFlaggedAsAbsuive();
     },
 
     render: function(model)
@@ -117,14 +131,54 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
         this.$state.text(DATA.states[this.model.get('state')]);
 
         this.budgetDescriptionTooltip.options.title = $('<div/>').html(this.$tooltipWrap.html());
+        this.tryFlaggedAsAbsuive();
 
         if (this.model.get('description') && !this.model.get('clientId')) {
-            this.budgetDescriptionTooltip.show()
+            this.budgetDescriptionTooltip.show();
         } else {
             this.budgetDescriptionTooltip.hide();
+            this.$flagAbuse.hide();
         }
 
+        this.bindFlagAbuse();
         this.bindClose();
+    },
+
+    tryFlaggedAsAbsuive: function()
+    {
+        var flagged = $.jStorage.get('flagAbuse');
+
+        if (this.model.id && _.indexOf(flagged, this.model.id) != -1) {
+            this.$flagAbuse.text(DATA.messages.flaggedAsAbusive).addClass('disabled');
+            return true;
+        }
+
+        return false;
+    },
+
+    flagAbuse: function(e)
+    {
+        e && e.preventDefault();
+
+        var flagged = $.jStorage.get('flagAbuse');
+
+        if (!flagged) {
+            flagged = []
+            $.jStorage.set('flagAbuse', flagged);
+        }
+
+        this.tryFlaggedAsAbsuive();
+
+        if (_.indexOf(flagged, this.model.id) != -1) {
+            return false;
+        }
+
+        flagged.push(this.model.id);
+        $.jStorage.set('flagAbuse', flagged);
+        this.tryFlaggedAsAbsuive();
+
+        this.model.flagAbusive();
+        return false;
     },
 
     timestampToString: function(timestamp)
