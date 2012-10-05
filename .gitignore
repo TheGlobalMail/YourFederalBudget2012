@@ -1,4 +1,5 @@
 /vendor
+!/vendor/createsend-php
 /atlassian-ide-plugin.xml
 /web/build
 /logs

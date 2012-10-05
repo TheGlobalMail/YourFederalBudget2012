@@ -55,3 +55,6 @@
 [submodule "web/vendor/html5shiv"]
 	path = web/vendor/html5shiv
 	url = https://github.com/aFarkas/html5shiv.git
+[submodule "vendor/createsend-php"]
+	path = vendor/createsend-php
+	url = git://github.com/campaignmonitor/createsend-php.git
