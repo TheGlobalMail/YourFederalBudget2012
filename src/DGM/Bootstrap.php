@@ -26,7 +26,7 @@ class Bootstrap implements ServiceProviderInterface
         $app['config'] = $this->config;
 
         $app['db'] = $app->share(function(Application $app) {
-            return new \DGM\Database\MongoDB($app['config']['dbname']);
+            return new \DGM\Database\MongoDB($app['config']['dbname'], $app['config']['db'], $app['config']['dbOptions']);
         });
 
         $app['budgets'] = $app->share(function(Application $app) {
