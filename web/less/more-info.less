@@ -1,13 +1,16 @@
 #more-info {
 	border-top: 1px solid #d6d6d6;
-    height: 100px;
+    height: 110px;
 	margin-top: 2.5%;
 	padding: 2.5% 1%;
+    .clearfix;
+    position: relative;
 
     h2 {
 	    font-size: 18px;
 	    margin: 0 0 2%;
 		line-height: 0;
+        font-weight: normal;
     }
 
     p {
@@ -19,7 +22,6 @@
     .list {
     	float: left;
     	width: 72%;
-    	border-right: 1px solid #d6d6d6;
     	padding-right: 15px;
 
     	ul {
@@ -44,22 +46,25 @@
     	line-height: 1;
     	text-align: center;
     	padding-left: 10px;
+        border-left: 1px solid #d6d6d6;
+        padding-bottom: 60px;
 
     	.total {
     		font-size: 300%;
     	}
     }
 
-    .defence .number { color:@defence; }
-    .publicEducation .number { color:@pubEd; }
-    .privateEducation .number { color:@privEd; }
-    .immigration .number { color:@immigration; }
-    .foreignAid .number { color:@aid; }
-    .industryAssistance .number { color:@industry; }
+    .defence .number { color: @defence; }
+    .publicEducation .number { color: @pubEd; }
+    .privateEducation .number { color: @privEd; }
+    .immigration .number { color: @immigration; }
+    .foreignAid .number { color: @aid; }
+    .industryAssistance .number { color: @industry; }
 
     .read-more {
-    	float: left;
-    	clear: both;
+        position: absolute;
+        bottom: 0;
+        left: 1%;
 		font-size: .8em;
 		font-weight: bold;
 		text-transform: uppercase;
@@ -74,5 +79,12 @@
 			text-decoration: none;
 			background-color: @grayLighter;
 	    }
+    }
+
+    .read-more.view-graph {
+        right: 29px;
+        width: 80px;
+        text-align: center;
+        left: auto;
     }
 }
