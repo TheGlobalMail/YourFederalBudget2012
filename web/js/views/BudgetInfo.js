@@ -110,11 +110,12 @@ TGM.Views.BudgetInfo = Backbone.View.extend({
             this.$bottom.css('opacity', 0);
             this._timeout = setTimeout(_.bind(this.$bottom.hide, this.$bottom), 300);
             this.budgetDescriptionTooltip && this.budgetDescriptionTooltip.hide();
-        } else {
-            this.$bottom.show();
-            this.$bottom.css('opacity', 100);
-            this._timeout && clearTimeout(this._timeout);
+            return false;
         }
+
+        this.$bottom.show();
+        this.$bottom.css('opacity', 100);
+        this._timeout && clearTimeout(this._timeout);
 
         if (this.model.get('description')) {
             this.$aboutLink.show();
