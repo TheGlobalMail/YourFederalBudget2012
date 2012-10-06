@@ -77,7 +77,7 @@
     },
     "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
-    "budgetAllowance": 48.5,
+    "budgetAllowance": 51.4,
     "messages": {
         "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to an area first reduce spending elsewhere.",
         "otherBudgets": {

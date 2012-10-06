@@ -2,42 +2,42 @@
     "defence": {
         "label": "Defence",
         "federalAllocation": 24.1,
-        "percentOfFederalBudget": 6,
+        "percentOfFederalBudget": 6.53,
         "tooltip": "This is the Defence tooltip for help and quick info",
         "color": "#AAA200"
     },
     "publicEducation": {
         "label": "Public Education",
         "federalAllocation": 4.6,
-        "percentOfFederalBudget": 2.85,
+        "percentOfFederalBudget": 1.25,
         "tooltip": "This is the Public Education tooltip for help and quick info",
         "color": "#A134A3"
     },
     "privateEducation": {
         "label": "Private Education",
         "federalAllocation": 8.3,
-        "percentOfFederalBudget": 5.15,
+        "percentOfFederalBudget": 2.25,
         "tooltip": "This is the Private Education tooltip for help and quick info",
         "color": "#6A3DCA"
     },
     "immigration": {
         "label": "Immigration",
         "federalAllocation": 2.7,
-        "percentOfFederalBudget": 0.63,
+        "percentOfFederalBudget": 0.73,
         "tooltip": "This is the Immigration tooltip for help and quick info",
         "color": "#0971BC"
     },
     "foreignAid": {
         "label": "Foreign Aid",
         "federalAllocation": 5.2,
-        "percentOfFederalBudget": 1.38,
+        "percentOfFederalBudget": 1.41,
         "tooltip": "This is the Foreign Aid tooltip for help and quick info",
         "color": "#F54541"
     },
     "industryAssistance": {
         "label": "Industry Assistance",
         "federalAllocation": 6.5,
-        "percentOfFederalBudget": 1.73,
+        "percentOfFederalBudget": 1.76,
         "tooltip": "This is the Industry Assistance tooltip for help and quick info",
         "color": "#FD8C2C"
     }
