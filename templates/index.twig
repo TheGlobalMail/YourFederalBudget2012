@@ -95,11 +95,14 @@
                         <div class="modal-body"></div>
                     </div>
                     <a href="#" class="read-more" data-toggle="modal" data-target="#more-info-modal">Read More</a>
+                    <a href="#" class="read-more view-graph" data-toggle="modal" data-target="#more-info-modal">View Graph</a>
                 </div>
             </div>
         </div>
 
         {% include 'email-page-form.twig' %}
+        {% include 'intro-modal.twig' %}
+        {% include 'about-tool-modal.twig' %}
 
         {% for key, category in app.config.categories %}
             <div class="hide summary" id="summary-{{key}}">

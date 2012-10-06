@@ -17,6 +17,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state = this.$('.your-name-wrapper select');
         this.$email = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
+        this.$saveButton = this.$("#submit-save-budget");
 
         // update form when the model changes (normally from cache restore)
         this.model.on('change', this.modelChanged);
@@ -33,6 +34,12 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     save: function(e)
     {
         e.preventDefault();
+
+        if (this.$saveButton.prop('disabled')) {
+            return false;
+        }
+
+        this.$saveButton.prop('disabled', true);
 
         this.model.save(this.formToJson(), {
             success: this.success,
@@ -69,10 +76,13 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
         // prompt to share their budget
         TGM.vent.trigger('showSidePane', 'share-budget');
+        this.$saveButton.prop('disabled', false);
     },
 
     error: function(model, response)
     {
+        this.$saveButton.prop('disabled', false);
+
         if (response.status == 400) {
             var data = JSON.parse(response.responseText);
             var errors = _.extend({

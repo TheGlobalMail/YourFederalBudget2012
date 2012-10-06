@@ -8,7 +8,7 @@ TGM.Views.Application = Backbone.View.extend({
 
     initialize: function()
     {
-        _.bindAll(this, 'onResize', 'showEmailModal');
+        _.bindAll(this, 'onResize', 'showEmailModal', 'hideAppLoadingOverlay');
         this.$window = $(window);
 
         this.$('.popover-link').arrowPopover({
@@ -20,6 +20,8 @@ TGM.Views.Application = Backbone.View.extend({
         this.emailPage = new TGM.Views.EmailPage({ el: this.$("#email-page-form") });
         this.$window.on('resize', this.onResize);
         this.currentSize = this._calculateCurrentSize();
+
+        this.$introModal = this.$("#intro-modal");
     },
 
     shareOnGooglePlus: function(e)
@@ -45,6 +47,10 @@ TGM.Views.Application = Backbone.View.extend({
     hideAppLoadingOverlay: function()
     {
         this.$("#app-loading").fadeOut('fast');
+        if (!$.jStorage.get('introModal')) {
+            this.$introModal.modal('show');
+            this.$introModal.on('hide', function() { $.jStorage.set('introModal', true); });
+        }
     },
 
     _calculateCurrentSize: function()
