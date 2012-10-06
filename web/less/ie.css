@@ -2,7 +2,6 @@
 #budget-allocator .category .slider .slider-control,
 #budget-allocator .category .slider .ui-slider-handle
  {
-	filter:none;
 	behavior: url(/vendor/css-pie/PIE.htc);
 }
 
@@ -21,6 +20,10 @@ background: url(../img/logo-sml.png) center top no-repeat;
 	background: #EEE;
 }
 
+#budget-overview .progress-bar .progress {
+	height: 10px;
+}
+
 #budget-overview .top .toggle {
 	font-size: 80%;
 }
@@ -29,3 +32,4 @@ background: url(../img/logo-sml.png) center top no-repeat;
 	font-size: 100%;
 }
 
+#bar-categories .active.category:after {z-index: 1;bottom: 25px;}
