@@ -19,7 +19,7 @@ class BaseControllerProvider implements ControllerProviderInterface
             $html = $app['twig']->render('index.twig', array(
                 'gitHash' => $app['config']['gitHash']
             ));
-            return new Response($html, 200, [ 'Cache-Controll' => 's-maxage=5' ]);
+            return new Response($html, 200, [ 'Cache-Control' => 's-maxage=5,public' ]);
         });
 
         $controllers->post('/git-post-receive', function(Request $request) use ($app) {
@@ -62,7 +62,7 @@ class BaseControllerProvider implements ControllerProviderInterface
             if (isset($app['config']['categories'][$id])) {
                 $category = $app['config']['categories'][$id];
                 $html = $app['twig']->render("more-info/{$id}.twig", [ "category" => $category, "id" => $id ]);
-                return new Response($html, 200, [ 'Cache-Control' => 's-maxage=5' ]);
+                return new Response($html, 200, [ 'Cache-Control' => 's-maxage=5,public' ]);
             }
 
             return $app->abort("Category not found", 404);
