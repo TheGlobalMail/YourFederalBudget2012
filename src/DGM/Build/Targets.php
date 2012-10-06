@@ -39,6 +39,19 @@ class Targets {
         Util::lessCompile($lessFile, $minCssFile, true);
     }
 
+    public static function appcache($app)
+    {
+        $base = self::$basePath;
+        $gitHash = $app['config']['buildId'];
+
+        $caches = array(
+            "/build/budget-$gitHash.min.js",
+            "/build/budget-$gitHash.min.css"
+        );
+
+        Util::generateAppCache("$base/web/youspend2012.appcache", $caches);
+    }
+
     public static function pull()
     {
         Util::write(shell_exec('cd ' . self::$basePath . ' && git pull'));
