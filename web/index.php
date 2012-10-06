@@ -27,4 +27,4 @@ $app->register(new \DGM\Bootstrap($config));
 $app->mount("/api/budget", new DGM\Provider\BudgetControllerProvider());
 $app->mount("/", new \DGM\Provider\BaseControllerProvider());
 
-$app->run();
+$app['http_cache']->run();
