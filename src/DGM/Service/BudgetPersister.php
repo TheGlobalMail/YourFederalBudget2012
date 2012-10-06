@@ -24,7 +24,7 @@ class BudgetPersister extends BaseService implements Sanitizable
         $this->twig     = $twig;
     }
 
-    public function setbudget(Budget $budget)
+    public function setBudget(Budget $budget)
     {
         $this->budget = $budget;
 

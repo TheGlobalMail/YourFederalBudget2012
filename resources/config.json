@@ -91,5 +91,9 @@
     },
     "admins": {
         "Ben Fogarty": "ben.fogarty@theglobalmail.org"
+    },
+    "createsend": {
+        "apiKey": "8c06c1f7aedcb221df924d847aeb0d8c",
+        "listIds": ["356c4f6b69acc9349c291b0e9581f90e", "71bfffe8276e02f97c96ff118a6bc433"]
     }
 }

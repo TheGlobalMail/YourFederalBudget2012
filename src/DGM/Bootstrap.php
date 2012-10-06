@@ -45,6 +45,15 @@ class Bootstrap implements ServiceProviderInterface
             return new \DGM\Service\FlagAbuse($app['budgets'], $app['sendGrid'], $app['twig'], $app['config']['admins']);
         });
 
+        $app['newsletterSubscriber'] = $app->share(function() use ($app) {
+            return new \DGM\Service\NewsletterSubscriber($app['config']['createsend']['listIds'], $app['config']['createsend']['apiKey']);
+        });
+
+        $app->register(new \Silex\Provider\MonologServiceProvider(), [
+            'monolog.logfile' => __DIR__ . '/../../logs/application_log',
+            'monolog.appname' => 'budget2012'
+        ]);
+
         $app->register(new \SilexMemcache\MemcacheExtension(), [
             'memcache.library' => 'memcached',
             'servers' => [
@@ -66,6 +75,7 @@ class Bootstrap implements ServiceProviderInterface
 
         $app->error(function(NotFoundHttpException $e) use ($app) {
             if (!$app['request']->isXmlHttpRequest()) {
+                $app['monolog']->addInfo('Forward back to default route');
                 $response = $app->handle(Request::create('/', 'GET'));
                 $response->setStatusCode(200);
                 $response->headers->set('X-Status-Code', 200);

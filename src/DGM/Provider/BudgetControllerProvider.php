@@ -29,6 +29,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/flag-abuse/{id}', function($id) use ($app) {
             $yes = $app['flagAbuse']->flagAsAbusive($id);
+            $app['monolog']->addInfo("Flagged budget as abusive: $id");
 
             return new Response('Flagged', $yes ? 200 : 404);
         });
@@ -54,6 +55,7 @@ class BudgetControllerProvider implements ControllerProviderInterface
             $budget = $app['budgets']->findById($id);
 
             if (!$budget) {
+                $app['monolog']->addWarning("Budget $id not found.");
                 return $app->abort(404, 'Budget not found.');
             }
 
@@ -69,7 +71,11 @@ class BudgetControllerProvider implements ControllerProviderInterface
                 return $app->json($json);
             }
 
-            $statusCode = ($db->isUnauthorized()) ? 403 : 400;
+            $statusCode = ($bp->isUnauthorized()) ? 403 : 400;
+
+            if ($bp->isUnauthorized()) {
+                $app['monolog']->addAlert("Authorized during budget update failed {$budget->getId()} | {$request->get('clienId')}");
+            }
 
             return $app->json( [ 'errors' => $bp->getErrors() ], $statusCode);
         });
