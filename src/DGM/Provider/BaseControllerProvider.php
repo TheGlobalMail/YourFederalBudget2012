@@ -16,9 +16,10 @@ class BaseControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/', function() use ($app) {
             $app['monolog']->addInfo("Loading app at version {$app['config']['gitHash']}");
-            return $app['twig']->render('index.twig', array(
+            $html = $app['twig']->render('index.twig', array(
                 'gitHash' => $app['config']['gitHash']
             ));
+            return new Response($html, 200, [ 'Cache-Controll' => 's-maxage=5' ]);
         });
 
         $controllers->post('/git-post-receive', function(Request $request) use ($app) {
@@ -60,7 +61,8 @@ class BaseControllerProvider implements ControllerProviderInterface
         $controllers->get('/more-info/{id}', function($id) use ($app) {
             if (isset($app['config']['categories'][$id])) {
                 $category = $app['config']['categories'][$id];
-                return $app['twig']->render("more-info/{$id}.twig", [ "category" => $category, "id" => $id ]);
+                $html = $app['twig']->render("more-info/{$id}.twig", [ "category" => $category, "id" => $id ]);
+                return new Response($html, 200, [ 'Cache-Control' => 's-maxage=5' ]);
             }
 
             return $app->abort("Category not found", 404);
@@ -70,7 +72,7 @@ class BaseControllerProvider implements ControllerProviderInterface
             $budget = $app['budgets']->findById($request->get('budgetId'));
 
             if (!$budget) {
-                // budget not found
+                $app['monolog']->addAlert("Tried subscribing to non-existent budget {$request->get('budgetId')}");
                 return true;
             }
 

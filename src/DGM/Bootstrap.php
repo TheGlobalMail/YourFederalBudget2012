@@ -49,6 +49,10 @@ class Bootstrap implements ServiceProviderInterface
             return new \DGM\Service\NewsletterSubscriber($app['config']['createsend']['listIds'], $app['config']['createsend']['apiKey']);
         });
 
+        $app->register(new \Silex\Provider\HttpCacheServiceProvider(), [
+            'http_cache.cache_dir' => __DIR__ . '/../../cache/'
+        ]);
+
         $app->register(new \Silex\Provider\MonologServiceProvider(), [
             'monolog.logfile' => __DIR__ . '/../../logs/application_log',
             'monolog.appname' => 'budget2012'
