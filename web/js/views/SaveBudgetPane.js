@@ -17,6 +17,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state = this.$('.your-name-wrapper select');
         this.$email = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
+        this.$subscribe = this.$('.subscribe-wrapper input');
         this.$saveButton = this.$("#submit-save-budget");
 
         // update form when the model changes (normally from cache restore)
@@ -39,7 +40,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
             return false;
         }
 
-        this.$saveButton.prop('disabled', true);
+        this.$saveButton.prop('disabled', false);
 
         this.model.save(this.formToJson(), {
             success: this.success,
@@ -65,6 +66,10 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
+        if (this.$subscribe.is(':checked')) {
+            $.post('/subscribe', { budgetId: model.id });
+        }
+
         this.clearErrors();
 
         // clear the budget cache

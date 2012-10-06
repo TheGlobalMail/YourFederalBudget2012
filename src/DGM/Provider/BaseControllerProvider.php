@@ -15,8 +15,8 @@ class BaseControllerProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', function() use ($app) {
+            $app['monolog']->addInfo("Loading app at version {$app['config']['gitHash']}");
             return $app['twig']->render('index.twig', array(
-                'title' => 'Yolo',
                 'gitHash' => $app['config']['gitHash']
             ));
         });
@@ -28,6 +28,7 @@ class BaseControllerProvider implements ControllerProviderInterface
 
             # Only update this deployment if the commit was on the current branch
             $branch = trim($app['config']['branch']);
+            $app['monolog']->addInfo("Build app on $branch");
 
             if ($committedBranch === "refs/heads/$branch") {
               $dir = realpath(__DIR__ . '/../../../');
@@ -49,6 +50,7 @@ class BaseControllerProvider implements ControllerProviderInterface
 
             if ($epf->isValid()) {
                 $epf->send();
+                $app['monolog']->addInfo('Email budget page', $request->request->all());
                 return $app->json(['message' => 'Email(s) sent']);
             }
 
@@ -62,6 +64,20 @@ class BaseControllerProvider implements ControllerProviderInterface
             }
 
             return $app->abort("Category not found", 404);
+        });
+
+        $controllers->post('/subscribe', function(Request $request) use ($app) {
+            $budget = $app['budgets']->findById($request->get('budgetId'));
+
+            if (!$budget) {
+                // budget not found
+                return true;
+            }
+
+            $app['monolog']->addInfo("Attempt to subscribe {$budget->getName()} <{$budget->getEmail()}>");
+
+            $ns = $app['newsletterSubscriber'];
+            $ns->addSubscriber([ 'EmailAddress' => $budget->getEmail(), 'Name' => $budget->getName() ]);
         });
 
         return $controllers;
