@@ -1,11 +1,21 @@
 {
-    "hash": "2b6353ed6503afc1f0a4f32b9562c7d3",
+    "hash": "29bd54afe3c8adfa566f2218da50e210",
     "packages": [
+        {
+            "package": "andylockran/createsend-php",
+            "version": "dev-master",
+            "source-reference": "e6693c5fa305cee061ccf88fb9f3e61cff68bb4b",
+            "commit-date": "1346165890"
+        },
         {
             "package": "mheap/silex-memcache",
             "version": "dev-master",
             "source-reference": "30d10e59df04520c09e79694b039d99f984ff334",
             "commit-date": "1347134821"
+        },
+        {
+            "package": "monolog/monolog",
+            "version": "1.2.1"
         },
         {
             "package": "pimple/pimple",
@@ -22,8 +32,8 @@
         {
             "package": "sendgrid/sendgrid-php",
             "version": "dev-master",
-            "source-reference": "c4835707b25de9ee840d34f23b38f9c2340734cd",
-            "commit-date": "1342721675"
+            "source-reference": "d292263c7df2f6a762b50d7b9ade4e2070f92fae",
+            "commit-date": "1348074723"
         },
         {
             "package": "silex/silex",
@@ -34,32 +44,32 @@
         {
             "package": "silex/silex",
             "version": "dev-master",
-            "source-reference": "97e418fcb0df2dd570732b208ce03e40e3dd2e0b",
-            "commit-date": "1347738639"
+            "source-reference": "fc82b4255ef081dd7d464c5320ca93a902f9190f",
+            "commit-date": "1349013590"
         },
         {
             "package": "symfony/event-dispatcher",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.1",
-            "commit-date": "1347274422"
+            "source-reference": "fb273317c0505ba657aa3d727530d36ae671fb82",
+            "commit-date": "1349363877"
         },
         {
             "package": "symfony/http-foundation",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.1",
-            "commit-date": "1346761482"
+            "source-reference": "64fe72c44346dc6ee0a51075e7722ee0af1388ca",
+            "commit-date": "1349363877"
         },
         {
             "package": "symfony/http-kernel",
             "version": "2.1.x-dev",
-            "source-reference": "584499e64026f41c4be938ed35d8f0a9a9eebd38",
-            "commit-date": "1347354770"
+            "source-reference": "970a66bcaca90d160b3cc920c87c275147a7142b",
+            "commit-date": "1349363877"
         },
         {
             "package": "symfony/routing",
             "version": "2.1.x-dev",
-            "source-reference": "v2.1.1",
-            "commit-date": "1347274422"
+            "source-reference": "0443e2f9a10f49cac77128eb7f11d055fcf4db9d",
+            "commit-date": "1349363877"
         },
         {
             "package": "twig/twig",
@@ -70,8 +80,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "c38e06ff4134820f5acca2b5b0a163251b053d89",
-            "commit-date": "1347806324"
+            "source-reference": "7dd2f1764681df2635c127e45cc3acb43e5d0194",
+            "commit-date": "1349449745"
         }
     ],
     "packages-dev": null,
