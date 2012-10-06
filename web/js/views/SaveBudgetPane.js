@@ -4,7 +4,8 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         "submit form": "save",
         "reset form": "reset",
         "keyup input,textarea": "formUpdate",
-        "change select": "formUpdate"
+        "change select": "formUpdate",
+        "click .subscribe-wrapper input": "cacheIsSubscribeChecked"
     },
 
     initialize: function()
@@ -25,6 +26,13 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
         // hide errors whenever the sidepane changes
         TGM.vent.on('showSidePane', this.clearErrors);
+
+        this.$subscribe.prop('checked', $.jStorage.get('isSubscribeChecked'));
+    },
+
+    cacheIsSubscribeChecked: function()
+    {
+        $.jStorage.set('isSubscribeChecked', this.$subscribe.is(':checked'));
     },
 
     onShow: function()
