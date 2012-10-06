@@ -1,7 +1,6 @@
 /vendor
 /atlassian-ide-plugin.xml
 /web/build
-/logs
 /node_modules
 /cache
 web/youspend2012.appcache
