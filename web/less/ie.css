@@ -32,3 +32,4 @@ background: url(../img/logo-sml.png) center top no-repeat;
 	font-size: 100%;
 }
 
+#bar-categories .active.category:after {z-index: 1;bottom: 25px;}
