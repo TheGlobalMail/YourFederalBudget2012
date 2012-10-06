@@ -4,3 +4,6 @@
 {% else %}
     <link href="/build/budget-{{app.config.gitHash|slice(0,16)}}.min.css" rel="stylesheet">
 {% endif %}
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="/less/ie.css">
+<![endif]-->
