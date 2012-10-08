@@ -27,6 +27,8 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         // hide errors whenever the sidepane changes
         TGM.vent.on('showSidePane', this.clearErrors);
 
+        TGM.vent.on('updateMode', this.refreshLabels);
+
         this.$subscribe.prop('checked', $.jStorage.get('isSubscribeChecked'));
     },
 
@@ -185,6 +187,11 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state.val(this.model.get('state'));
         this.$email.val(this.model.get('email'));
         this.$description.val(this.model.get('description'));
+    },
+
+    refreshLabels: function()
+    {
+        this.$('h3').text('Save your changes');
     }
 
 });

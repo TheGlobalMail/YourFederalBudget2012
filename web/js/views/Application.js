@@ -49,7 +49,12 @@ TGM.Views.Application = Backbone.View.extend({
         this.$("#app-loading").fadeOut('fast');
         if (!$.jStorage.get('introModal')) {
             this.$introModal.modal('show');
-            this.$introModal.on('hide', function() { $.jStorage.set('introModal', true); });
+            this.$introModal.on('hide', function() {
+                TGM.vent.publish('introClosed');
+                $.jStorage.set('introModal', true);
+            });
+        } else {
+            TGM.vent.publish('introClosed');
         }
     },
 
