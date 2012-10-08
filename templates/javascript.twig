@@ -14,13 +14,13 @@
 {% include 'js-templates/other-budget.twig' %}
 
 {% if app.debug == 2 %}
-    <script async defer src="/build/budget-{{app.config.buildId}}.js"></script>
+    <script async src="/build/budget-{{app.config.buildId}}.js"></script>
 {% elseif app.debug %}
     {% for script in app.config.frontend.scripts %}
-        <script src="/{{script}}" ></script>
+        <script src="/{{script}}"></script>
     {% endfor %}
 {% else %}
-    <script async defer src="/build/budget-{{app.config.buildId}}.min.js"></script>
+    <script async src="/build/budget-{{app.config.buildId}}.min.js"></script>
 {% endif %}
 
 <script async type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5004ac3e48e805cd"></script>
