@@ -75,7 +75,7 @@
             "NONAU": "Outside Australia"
         }
     },
-    "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
+    "appUrl": "http://youspend2012.theglobalmail.org/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
     "budgetAllowance": 51.4,
     "messages": {
