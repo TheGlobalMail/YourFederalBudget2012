@@ -16,7 +16,7 @@
 {% if app.debug == 2 %}
     <script async defer src="/build/budget-{{app.config.buildId}}.js" onload="$(main)"></script>
     <!--[if lt IE 9]>
-        <script>$(main());</script>
+        <script>$(main;</script>
     <![endif]-->
 {% elseif app.debug %}
     {% for script in app.config.frontend.scripts %}
@@ -26,7 +26,7 @@
 {% else %}
     <script async defer src="/build/budget-{{app.config.buildId}}.min.js" onload="$(main)"></script>
     <!--[if lt IE 9]>
-        <script>$(main());</script>
+        <script>$(main;</script>
     <![endif]-->
 {% endif %}
 
