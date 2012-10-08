@@ -14,10 +14,9 @@ TGM.Views.MoreInfo = Backbone.View.extend({
     showCategory: function(categoryId)
     {
         // cache current category
-        this.categoryId = categoryId;
-        this.category = DATA.categories[categoryId];
+        var category = DATA.categories[categoryId];
 
-        this.$title.html(this.category.label);
+        this.$title.html(category.label);
         this.$info.html($("#summary-" + categoryId).children().clone());
         this.$readMore.prop('href', '/more-info/' + categoryId);
         this.$extendedInfo.find('.modal-body').load(this.$readMore.prop('href'));
