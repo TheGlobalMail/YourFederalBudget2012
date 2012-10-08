@@ -8,7 +8,7 @@ error_reporting(-1);
 
 require_once __DIR__.'/../vendor/autoload.php';
 $app = new Silex\Application();
-$app['debug'] = true;
+$app['debug'] = 2;
 
 $config = [
     'branch' => substr(`git symbolic-ref -q HEAD`, 11),
