@@ -86,7 +86,7 @@
             "full": "No more budgets"
         },
         "incomePrivacy": "Your income will not be saved or publicly visible.",
-        "lowIncome": "Ah, kinda hard to calculate your contribution when you probably take more than you give.",
+        "lowIncome": "Figure is below the lowest tax bracket. Please enter an amount greater than $18,200.",
         "flaggedAsAbusive": "Flagged as abusive"
     },
     "admins": {
