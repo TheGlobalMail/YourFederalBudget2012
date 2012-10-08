@@ -57,7 +57,7 @@ TGM.Views.BudgetAllocatorPane = TGM.Views.SidePane.extend({
     resetBudget: function()
     {
         if (this.updateMode) {
-            return window.appRouter.goto("budgets");
+            window.appRouter.goto("budgets");
         }
 
         this.model.resetBudget();

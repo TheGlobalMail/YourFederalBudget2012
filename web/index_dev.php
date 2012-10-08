@@ -13,7 +13,7 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
 
 require_once __DIR__.'/../vendor/autoload.php';
 $app = new Silex\Application();
-$app['debug'] = true;
+$app['debug'] = 1;
 
 $config = [
     'branch' => substr(`git symbolic-ref -q HEAD`, 11),

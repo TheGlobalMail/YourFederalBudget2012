@@ -106,7 +106,7 @@ TGM.Views.BudgetModeToggler = Backbone.View.extend({
         var pretaxIncome = parseInt(this.$pretaxIncome.val(), 10);
         pretaxIncome = Math.min(pretaxIncome, 10000000);
 
-        if (!pretaxIncome || pretaxIncome < 18000) {
+        if (!pretaxIncome || pretaxIncome < 18200) {
             if (this.incomePrivacyTooltip.tip().is(':hidden') && this.lowIncomeTooltip.tip().is(':hidden')) {
                 // don't show if we're showing the one about income privacy or already showing
                 this._showTooltip(this.lowIncomeTooltip, DATA.messages.lowIncome);
