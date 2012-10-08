@@ -46,7 +46,7 @@
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 48.5,
+            "max": 51.4,
             "step": 0.1
         },
         "barGraph": {
