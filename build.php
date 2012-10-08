@@ -48,6 +48,10 @@ function executeTarget($target, $app) {
             Targets::pull();
         break;
 
+        case 'appcache':
+            Targets::appcache($app);
+        break;
+
         case 'default':
         default:
             executeTargets('clean javascript less', $app);

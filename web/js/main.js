@@ -1,3 +1,7 @@
+function main() {
+
+ZeroClipboard.setMoviePath('/vendor/ZeroClipboard/ZeroClipboard.swf');
+
 var bootstrap = function() {
     var find = function(selector) {
         return $('body').find(selector);
@@ -32,3 +36,5 @@ $(document).on("click", "a:not([data-bypass])", function(evt) {
 
 // Preload AddThis icons
 (new Image()).src = 'http://ct1.addthis.com/static/r07/widget006_32x32_top.png';
+
+}
