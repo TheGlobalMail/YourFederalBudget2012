@@ -48,7 +48,7 @@ TGM.Views.Application = Backbone.View.extend({
     {
         this.$("#app-loading").fadeOut('fast');
         if (!$.jStorage.get('introModal')) {
-            this.$introModal.hide().removeClass('hide').modal('show');
+            this.$introModal.modal('show');
             this.$introModal.on('hide', function() { $.jStorage.set('introModal', true); });
         }
     },
