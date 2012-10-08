@@ -1,4 +1,4 @@
-function main() {
+TGM.main = _.once(function() {
 
 ZeroClipboard.setMoviePath('/vendor/ZeroClipboard/ZeroClipboard.swf');
 
@@ -37,4 +37,5 @@ $(document).on("click", "a:not([data-bypass])", function(evt) {
 // Preload AddThis icons
 (new Image()).src = 'http://ct1.addthis.com/static/r07/widget006_32x32_top.png';
 
-}
+});
+$(TGM.main);
