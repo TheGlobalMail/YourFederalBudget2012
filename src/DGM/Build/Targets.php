@@ -44,10 +44,14 @@ class Targets {
         $base = self::$basePath;
         $gitHash = $app['config']['buildId'];
 
-        $caches = array(
+        $caches = [
             "/build/budget-$gitHash.min.js",
             "/build/budget-$gitHash.min.css"
-        );
+        ];
+
+        $networks = [
+            "http://fonts.googleapis.com/css?family=Open+Sans:400,600"
+        ];
 
         Util::generateAppCache("$base/web/youspend2012.appcache", $caches);
     }
