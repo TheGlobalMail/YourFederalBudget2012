@@ -13,7 +13,6 @@
 
 {% include 'js-templates/other-budget.twig' %}
 
-{{ app.debug }}
 {% if app.debug == 2 %}
     <script async defer src="/build/budget-{{app.config.buildId}}.js" onload="$(main)"></script>
 {% elseif app.debug %}
