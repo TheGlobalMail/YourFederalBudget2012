@@ -15,6 +15,8 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         this.$inner        = this.$('.other-budgets-inner');
         this.$loadingState = this.$('.loading-more');
 
+        TGM.vent.on('introClosed', this.enableContent);
+
         this.userBudget = new TGM.Views.OtherBudget({ model: this.model, editable: true });
         this._renderedModels = {};
 
@@ -99,6 +101,11 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         } else {
             window.appRouter.goto("budget", this.model.id);
         }
+    },
+
+    enableContent: function()
+    {
+        this.$otherBudgets.css('overflow-y', 'scroll');
     }
 
 });
