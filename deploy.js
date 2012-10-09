@@ -35,7 +35,7 @@ function build(cb){
 
 function cdnSync(cb){
   var container = getContainer();
-  async.forEach(['build', 'img'], function(dir, next){
+  async.forEach(['build', 'img', 'vendor'], function(dir, next){
     console.error('syncing ' + dir + ' to ' + container + '...');
     mirror = CloudfilesMirror({
       localPath: './web/' + dir,
