@@ -19,7 +19,7 @@ class Budget extends Model implements \JsonSerializable
     private $description;
     private $state;
     private $clientId;
-    private $url;
+    private $shortUrl;
 
     public function set(array $data)
     {
@@ -50,6 +50,10 @@ class Budget extends Model implements \JsonSerializable
 
             if ($key == "clientId") {
                 $this->clientId = $value;
+            }
+
+            if ($key == "shortUrl") {
+                $this->shortUrl = $value;
             }
         }
 
@@ -139,8 +143,8 @@ class Budget extends Model implements \JsonSerializable
             $data["_id"] = (string) $this->getId();
         }
 
-        if ($this->getUrl()) {
-            $data['url'] = $this->getUrl();
+        if ($this->getShortUrl()) {
+            $data['shortUrl'] = $this->getShortUrl();
         }
 
         foreach ($this->getCategories() as $cat => $value) {
@@ -196,14 +200,14 @@ class Budget extends Model implements \JsonSerializable
         return hash('sha256', hash('sha256', $string));
     }
 
-    public function getUrl()
+    public function getShortUrl()
     {
-        return $this->url;
+        return $this->shortUrl;
     }
 
-    public function setUrl($url)
+    public function setShortUrl($shortUrl)
     {
-        $this->url = $url;
+        $this->shortUrl = $shortUrl;
         return $this;
     }
 

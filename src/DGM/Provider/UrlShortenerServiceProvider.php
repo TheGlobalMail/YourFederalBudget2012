@@ -16,7 +16,7 @@ class UrlShortenerServiceProvider implements ServiceProviderInterface
                 'api' => $app['config']['bitly'],
                 'appUrl' => $app['config']['appUrl']
             ];
-            return new UrlShortener($config, $app['memcache']);
+            return new UrlShortener($config);
         });
     }
 

@@ -117,7 +117,7 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     getShortUrl: function()
     {
-        return this.get('url') || this.getUrl();
+        return this.get('shortUrl') || this.getUrl();
     },
 
     cache: function()
