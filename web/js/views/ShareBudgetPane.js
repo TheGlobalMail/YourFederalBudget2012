@@ -51,6 +51,10 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
 
     onBudgetInfoChanged: function()
     {
+        if (this.model.isNew()) {
+            return false;
+        }
+
         this.$budgetName.text(this.model.get('name'));
         this.$budgetUrl.val(this.model.getShortUrl());
 
@@ -58,8 +62,13 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
             this.clip.setText(this.model.getShortUrl());
         }
 
-        this.$shareButtons.attr('addthis:url', this.model.getShortUrl());
-        this.$shareButtons.attr('addthis:title', "Check out my budget");
+        var t = window.addthis.toolbox(this.$shareButtons[0], {}, {
+            url: this.model.getShortUrl(),
+            title: 'Check out my budget',
+            email_template: 'Budget_email',
+            email_vars: { ownership: 'their' }
+        });
+        console.log(t);
     },
 
     onBudgetUrlFocus: function()

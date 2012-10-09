@@ -48,25 +48,28 @@ TGM.Views.OtherBudget = Backbone.View.extend({
             this.$el.prop('href', '/budget/' + this.model.id);
         }
 
-        var sb = this.$('.share-buttons').attr({
-            'addthis:url': this.model.getShortUrl(),
-            'addthis:title': 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget"
-        });
+        var sb = this.$('.share-buttons');
+
+        var addThisConfig = {};
+
+        var addThisShareConfig = {
+            url: this.model.getShortUrl(),
+            title: 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget",
+            email_template: 'Budget_email',
+            email_vars: { ownership: this.options.editable ? 'their' : 'a' }
+        }
 
         if (window.ie8) {
             try {
-                window.addthis.button(this.$('.popover-link').removeClass('addthis_toolbox').addClass('addthis_button_compat')[0], {
-                    url: this.model.getShortUrl(),
-                    title: 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget",
-                    email_template: 'Budget_email'
-                });
+                var link = this.$('.popover-link').removeClass('addthis_toolbox').addClass('addthis_button_compat')[0];
+                window.addthis.button(link, addThisConfig, addThisShareConfig);
             } catch(e) {}
         } else {
             this.$('.popover-link').arrowPopover({
                 actionToActivatePopover: 'click',
                 placement: 'right'
             });
-            window.addthis && window.addthis.toolbox(sb[0]);
+            window.addthis && window.addthis.toolbox(sb[0], addThisConfig, addThisShareConfig);
         }
 
         return this;
