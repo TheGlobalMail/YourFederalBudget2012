@@ -9,6 +9,9 @@
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "DGM": "src/" }
+        "psr-0": {
+            "DGM": "src/",
+            "Sly": "vendor/sly/url-shortener-bundle/"
+        }
     }
 }

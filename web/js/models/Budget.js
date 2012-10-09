@@ -115,6 +115,11 @@ TGM.Models.Budget = Backbone.Model.extend({
         return window.location.origin + "/budget/" + this.id;
     },
 
+    getShortUrl: function()
+    {
+        return this.get('shortUrl') || this.getUrl();
+    },
+
     cache: function()
     {
         $.jStorage.set('userBudget', this.toJSON());

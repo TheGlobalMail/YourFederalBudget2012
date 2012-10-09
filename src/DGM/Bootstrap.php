@@ -9,7 +9,13 @@ use Silex\ServiceProviderInterface,
     Symfony\Component\HttpFoundation\ParameterBag,
     Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
     Symfony\Component\HttpKernel\HttpKernelInterface,
-    DGM\Model\Budget;
+    DGM\Model\Budget,
+    DGM\Provider\UrlShortenerServiceProvider,
+    DGM\Database\MongoDB,
+    DGM\Collection\Budgets,
+    DGM\Service\BudgetPersister,
+    DGM\Service\FlagAbuse,
+    DGM\Service\NewsletterSubscriber;
 
 class Bootstrap implements ServiceProviderInterface
 {
@@ -26,28 +32,32 @@ class Bootstrap implements ServiceProviderInterface
         $app['config'] = $this->config;
 
         $app['db'] = $app->share(function(Application $app) {
-            return new \DGM\Database\MongoDB($app['config']['dbname'], $app['config']['db'], $app['config']['dbOptions']);
+            return new MongoDB($app['config']['dbname'], $app['config']['db'], $app['config']['dbOptions']);
         });
 
         $app['budgets'] = $app->share(function(Application $app) {
-            return new \DGM\Collection\Budgets($app['db'], $app['config']['categories']);
+            $b = new Budgets($app['db'], $app['config']['categories']);
+            $b->setUrlShortener($app['urlShortener']);
+            return $b;
         });
 
-        $app['budgetPersister'] = function() use ($app) {
-            return new \DGM\Service\BudgetPersister($app['config']['frontend']['states'], $app['sendGrid'], $app['config']['appUrl'], $app['twig']);
-        };
+        $app['budgetPersister'] = $app->share(function() use ($app) {
+            return new BudgetPersister($app['config']['frontend']['states'], $app['sendGrid'], $app['twig'], $app['urlShortener']);
+        });
 
         $app['sendGrid'] = $app->share(function() {
             return new \SendGrid('theglobamail', 've*P6ZnB0pX');
         });
 
         $app['flagAbuse'] = $app->share(function() use ($app) {
-            return new \DGM\Service\FlagAbuse($app['budgets'], $app['sendGrid'], $app['twig'], $app['config']['admins']);
+            return new FlagAbuse($app['budgets'], $app['sendGrid'], $app['twig'], $app['config']['admins']);
         });
 
         $app['newsletterSubscriber'] = $app->share(function() use ($app) {
-            return new \DGM\Service\NewsletterSubscriber($app['config']['createsend']['listIds'], $app['config']['createsend']['apiKey']);
+            return new NewsletterSubscriber($app['config']['createsend']['listIds'], $app['config']['createsend']['apiKey']);
         });
+
+        $app->register(new UrlShortenerServiceProvider());
 
         $app->register(new \Silex\Provider\HttpCacheServiceProvider(), [
             'http_cache.cache_dir' => __DIR__ . '/../../cache/'
