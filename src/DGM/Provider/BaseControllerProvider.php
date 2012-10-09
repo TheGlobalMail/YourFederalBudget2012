@@ -34,7 +34,7 @@ class BaseControllerProvider implements ControllerProviderInterface
             if ($committedBranch === "refs/heads/$branch") {
               $dir = realpath(__DIR__ . '/../../../');
               // @TODO refactor epic one-liner?
-              $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install && ./build.php 2>&1 >> logs/build_log.txt");
+              $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install 2>&1 >> logs/build_log.txt");
               $response = $exec == null ? 500 : 200;
             } else {
               $exec = "Commit was not on $branch";
