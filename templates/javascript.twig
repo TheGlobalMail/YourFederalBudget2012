@@ -9,6 +9,10 @@
     DATA.averageBudget = {{ app.averageBudget|json_encode }};
     DATA.states = {{ app.config.frontend.states|json_encode }};
 </script>
+
+<script>
+    var addthis_share = { email_template: "Budget_email" };
+</script>
 {% endautoescape %}
 
 {% include 'js-templates/other-budget.twig' %}
