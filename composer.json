@@ -5,7 +5,8 @@
         "sendgrid/sendgrid-php": "dev-master",
         "mheap/Silex-Memcache": "*",
         "andylockran/createsend-php": "*",
-        "monolog/monolog": "1.2.*"
+        "monolog/monolog": "1.2.*",
+        "sly/url-shortener-bundle": "dev-master"
     },
     "minimum-stability": "dev",
     "autoload": {

@@ -2,26 +2,26 @@
 
 namespace DGM\Service;
 
-use DGM\Model\Budget;
+use DGM\Model\Budget,
+    DGM\Service\UrlShortener;
 
 class BudgetPersister extends BaseService implements Sanitizable
 {
 
     private $budget;
     private $sendGrid;
-    private $appUrl;
     private $states;
     private $twig;
 
     private $unauthorized = false;
     private $updateMode = false;
 
-    public function __construct(array $states, \SendGrid $sendGrid, $appUrl, \Twig_Environment $twig)
+    public function __construct(array $states, \SendGrid $sendGrid, \Twig_Environment $twig, UrlShortener $urlShortener)
     {
-        $this->states   = $states;
-        $this->sendGrid = $sendGrid;
-        $this->appUrl   = $appUrl;
-        $this->twig     = $twig;
+        $this->states       = $states;
+        $this->sendGrid     = $sendGrid;
+        $this->twig         = $twig;
+        $this->urlShortener = $urlShortener;
     }
 
     public function setBudget(Budget $budget)
@@ -75,6 +75,7 @@ class BudgetPersister extends BaseService implements Sanitizable
     public function save()
     {
         $this->budget->set($this->data)->save();
+        $this->urlShortener->shorten($this->budget);
 
         if (!$this->updateMode) {
             $this->send();

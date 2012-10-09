@@ -93,5 +93,11 @@
     "createsend": {
         "apiKey": "8c06c1f7aedcb221df924d847aeb0d8c",
         "listIds": ["356c4f6b69acc9349c291b0e9581f90e", "71bfffe8276e02f97c96ff118a6bc433"]
+    },
+    "bitly": {
+        "clientId": "06ecd7303804d3a578c442799a339967808a9c25",
+        "clientSecret": "3a3f6abf14f377ba390d5969998e898a348233c8",
+        "key": "R_b76a2897118ed4ab53aeed19c44b5190",
+        "username": "o_463q5j231r"
     }
 }

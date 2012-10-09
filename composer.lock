@@ -1,11 +1,41 @@
 {
-    "hash": "29bd54afe3c8adfa566f2218da50e210",
+    "hash": "ed8c2eaa3fe486ccd57a6eb487d41fc8",
     "packages": [
         {
             "package": "andylockran/createsend-php",
             "version": "dev-master",
             "source-reference": "e6693c5fa305cee061ccf88fb9f3e61cff68bb4b",
             "commit-date": "1346165890"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "2.3.x-dev",
+            "source-reference": "bb0aebbf234db52df476a2b473d434745b34221c",
+            "commit-date": "1348120518"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "dev-master",
+            "alias-pretty-version": "2.4.x-dev",
+            "alias-version": "2.4.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "dev-master",
+            "source-reference": "443af38271f12e7204b2f73cedb095aa80bebfc3",
+            "commit-date": "1349518785"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "dev-master",
+            "alias-pretty-version": "2.4.x-dev",
+            "alias-version": "2.4.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "dev-master",
+            "source-reference": "65fabc20c9e807c7b5f86741d60d4a0cecab7ebc",
+            "commit-date": "1349703833"
         },
         {
             "package": "mheap/silex-memcache",
@@ -48,28 +78,82 @@
             "commit-date": "1349013590"
         },
         {
+            "package": "sly/url-shortener-bundle",
+            "version": "dev-master",
+            "source-reference": "db055411ea99d41ce7e6b9d35b4b22484c220ea7",
+            "commit-date": "1340896920"
+        },
+        {
+            "package": "symfony/config",
+            "version": "2.1.x-dev",
+            "source-reference": "3f3b6af8930cd6604830de904fda17f60f648cf9",
+            "commit-date": "1349363877"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "alias-pretty-version": "2.2.x-dev",
+            "alias-version": "2.2.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "source-reference": "3eeaa72d00ff5e070917a18308fa59e6eacd1972",
+            "commit-date": "1349709466"
+        },
+        {
+            "package": "symfony/dependency-injection",
+            "version": "2.1.x-dev",
+            "source-reference": "1f1b728f9930e20a0441e90221fddf4670791974",
+            "commit-date": "1349363877"
+        },
+        {
             "package": "symfony/event-dispatcher",
             "version": "2.1.x-dev",
             "source-reference": "fb273317c0505ba657aa3d727530d36ae671fb82",
             "commit-date": "1349363877"
         },
         {
+            "package": "symfony/filesystem",
+            "version": "2.1.x-dev",
+            "source-reference": "de224eb984501c189e7c5827f38dc47789cdb840",
+            "commit-date": "1349363877"
+        },
+        {
+            "package": "symfony/framework-bundle",
+            "version": "2.1.x-dev",
+            "source-reference": "9e0485a47916f3e9845fce058fa610effbf66a31",
+            "commit-date": "1349363877"
+        },
+        {
             "package": "symfony/http-foundation",
             "version": "2.1.x-dev",
-            "source-reference": "64fe72c44346dc6ee0a51075e7722ee0af1388ca",
-            "commit-date": "1349363877"
+            "source-reference": "5f18e1d5b901b320d05230aa91934e7d81f64bb4",
+            "commit-date": "1349553277"
         },
         {
             "package": "symfony/http-kernel",
             "version": "2.1.x-dev",
-            "source-reference": "970a66bcaca90d160b3cc920c87c275147a7142b",
-            "commit-date": "1349363877"
+            "source-reference": "676a7bb2c6c4d5669ca073cceae3ac393748752a",
+            "commit-date": "1349553277"
         },
         {
             "package": "symfony/routing",
             "version": "2.1.x-dev",
             "source-reference": "0443e2f9a10f49cac77128eb7f11d055fcf4db9d",
             "commit-date": "1349363877"
+        },
+        {
+            "package": "symfony/templating",
+            "version": "2.1.x-dev",
+            "source-reference": "25543fdce183a3f6f3075304f59e08b45ddce451",
+            "commit-date": "1349363877"
+        },
+        {
+            "package": "symfony/translation",
+            "version": "2.1.x-dev",
+            "source-reference": "5467d51dafa4409fe9ed0f7256d9a5d2d8077dbd",
+            "commit-date": "1349553277"
         },
         {
             "package": "twig/twig",
@@ -80,8 +164,8 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "7dd2f1764681df2635c127e45cc3acb43e5d0194",
-            "commit-date": "1349449745"
+            "source-reference": "347bc81d6ed8e2bb793236aa9917c7e83f81c2b3",
+            "commit-date": "1349702400"
         }
     ],
     "packages-dev": null,
@@ -90,6 +174,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sendgrid/sendgrid-php": 20
+        "sendgrid/sendgrid-php": 20,
+        "sly/url-shortener-bundle": 20
     }
 }
