@@ -15,7 +15,8 @@ $config = [
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
     'dbname' => 'budget2012',
     'db' =>  "mongodb://localhost:27017",
-    'dbOptions' =>  array()
+    'dbOptions' =>  array(),
+    'assetHost' => 'http://6de8af5c30b5ee99545b-27ce003a9fdd849f043c84ea57356f14.r80.cf1.rackcdn.com'
 ];
 
 $fileConfig = Util::loadJSONFile(__DIR__ . '/../resources/config.json');
