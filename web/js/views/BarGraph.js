@@ -22,8 +22,11 @@ TGM.Views.BarGraph = Backbone.View.extend({
 
     _renderCategory: function(category, id)
     {
-        var html = $('<div class="category"/>');
-        html.prop('id', 'bar-' + id).addClass(id);
+        var $category = $('<div class="category"/>');
+        $category.prop('id', 'bar-' + id).addClass(id);
+        $category.on('click', function() {
+            TGM.vent.trigger('BudgetAllocatorCategory:expanding', id);
+        });
         var barsWidth = 0;
 
         _.each(this.budgets, function(budget, bid) {
@@ -36,8 +39,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
                 backgroundColor: color.toCSS(),
                 width: barWidth + "%",
                 left: (barsWidth) + "%"
-            });
-            $bar.appendTo(html);
+            }).appendTo($category);
 
             barsWidth += barWidth + 2;
 
@@ -46,14 +48,20 @@ TGM.Views.BarGraph = Backbone.View.extend({
             }, this);
         }, this);
 
-        html.css({
+        $category.css({
             left: (this.calculateCategoryOffset(this._renderedCategories)),
             height: '100%',
             width: '10%'
         });
 
-        html.appendTo(this.$el);
+        $category.appendTo(this.$el);
         this._renderedCategories += 1;
+    },
+
+    updateUserBar: function(category, id)
+    {
+        var $bar = this.$('#bar-' + id + ' .bar.user');
+        $bar.css('height', this.calculateBarHeight(this.budgets['user'].get(id)));
     },
 
     calculateCategoryOffset: function(count)
@@ -78,6 +86,15 @@ TGM.Views.BarGraph = Backbone.View.extend({
         this.renderedWidth = this.$el.width();
     },
 
+    reRender: function()
+    {
+        if (this._renderedCategories <= 1) {
+            return this.render();
+        }
+
+        _.each(this.categories, this.updateUserBar);
+    },
+
     onResize: function()
     {
         if (this.$el.width() != this.$el.renderedWidth) {
@@ -88,7 +105,7 @@ TGM.Views.BarGraph = Backbone.View.extend({
     budgetSwap: function(newActiveBudget)
     {
         this.budgets['user'] = newActiveBudget;
-        this.render();
+        this.reRender();
     }
 
 });

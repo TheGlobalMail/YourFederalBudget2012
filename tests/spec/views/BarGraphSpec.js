@@ -43,24 +43,32 @@ describe("Bar Graph Visualisation", function() {
     describe("Bars", function() {
         it("should render a column for each category", function() {
             barGraph.render();
-            expect(barGraph.$el.find('.category').length).toEqual(_.size(DATA.categories));
+            expect(barGraph.$('.category').length).toEqual(_.size(DATA.categories));
         });
 
         it("should render a bar in each column for each category", function() {
             barGraph.render();
-            expect(barGraph.$el.find(".category:first .bar").length).toEqual(2); // budgets added
-            expect(barGraph.$el.find(".bar").length).toEqual(_.size(DATA.categories) * 2); // 2 budget per category
+            expect(barGraph.$(".category:first .bar").length).toEqual(2); // budgets added
+            expect(barGraph.$(".bar").length).toEqual(_.size(DATA.categories) * 2); // 2 budget per category
         });
 
         it("should render bars at the right height", function() {
             barGraph.render();
-            expect(barGraph.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
+            expect(barGraph.$("#bar-defense .user").height()).toEqual(budget1.get('defense'));
         });
 
         it("should update bar height when the model changes", function() {
             barGraph.render();
             budget1.set('defense', 40);
-            expect(barGraph.$el.find("#bar-defense .user").height()).toEqual(budget1.get('defense'));
+            expect(barGraph.$("#bar-defense .user").height()).toEqual(budget1.get('defense'));
+        });
+
+        it("should active the category when it's column/bars are click", function() {
+            var spy = sinon.spy();
+            TGM.vent.on('BudgetAllocatorCategory:expanding', spy);
+            barGraph.render();
+            barGraph.$('.category:first-child').trigger('click');
+            expect(spy).toHaveBeenCalledWith('defense');
         });
     });
 

@@ -11,7 +11,19 @@
         <% if (editable) { %>
             <a href="/budget/<%= _id %>/edit" class="btn btn-inverse">Edit</a>
         <% } else { %>
-            <button class="btn btn-primary btn-small">Share</button>
+            <a class="btn btn-primary btn-small share popover-link carousel-sticky-popover-link" href="javascript:void(0)"><span class="text">Share</span></a>
+            <div id="share-box-<%= _id %>" class="other-budget-share popover share-box">
+                <div class="arrow"></div>
+                <div class="popover-inner">
+                    <h3>Share <%= name %>'s budget</h3>
+                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style share-buttons" addthis:url="" addthis:title="">
+                        <a class="addthis_button_twitter" data-bypass="true"></a>
+                        <a class="addthis_button_facebook" data-bypass="true"></a>
+                        <a class="addthis_button_email" data-bypass="true"></a>
+                        <img src="/img/google_plusone.png" class="googleplusone">
+                    </div>
+                </div>
+            </div>
         <% } %>
     </div>
 </script>

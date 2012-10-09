@@ -10,6 +10,7 @@ describe("Application view", function() {
 
     afterEach(function() {
         TGM.vent.off("resized");
+        appView.close();
     });
 
     function resizeTo(width, height) {

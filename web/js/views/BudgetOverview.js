@@ -2,50 +2,81 @@ TGM.Views.BudgetOverview = Backbone.View.extend({
 
     initialize: function()
     {
-        _.bindAll(this, 'closeTooltip');
-        this.$total = this.$("#budget-total");
-        this.$progress = this.$('.bar');
+        this.$remaining = this.$(".budget-remaining");
+        this.$progress  = this.$('.bar');
+        this.$progressBar = this.$('.progress-bar');
+        this.$budgetAllowance = this.$('.budget-allowance');
+
         this.updateTotal();
+
+        TGM.vent.on('budgetModeChange', this.budgetModeChanged, this);
         this.model.on("change", _.throttle(this.updateTotal, 80), this);
         TGM.vent.on('budgetFullyAllocated', this.budgetFullyAllocated, this);
-        this.tooltip = new $.fn.tooltip.Constructor(this.$('.progress-bar')[0], {
+
+        this.budgetFullyAllocatedTooltip = new $.fn.tooltip.Constructor(this.$progressBar[0], {
             trigger: 'manual',
             placement: 'right'
         });
+
+        this.budgetFullyAllocatedTooltip.tip().addClass('error');
+        this.updateTotal();
     },
 
     updateTotal: function()
     {
-        this.$total.text((DATA.budgetAllowance - this.model.getTotal()).toFixed(1));
+        if (this.currentBudgetMode == 'your-pretax-income') {
+            var remaining = this.model.taxPaid - this.model.getIncomeBasedTotal();
+            remaining = Math.max(remaining, 0);
+            remaining = accounting.formatMoney(remaining, "$", 2);
+
+            var allowance = accounting.formatMoney(this.model.taxPaid, '$', 2);
+        } else {
+            var remaining = DATA.budgetAllowance - this.model.getTotal();
+            remaining = Math.max(remaining, 0);
+            remaining = accounting.formatMoney(remaining, "$", 1) + "b";
+
+            var allowance = accounting.formatMoney(DATA.budgetAllowance, '$', 1) + 'b';
+        }
+
+        this.$remaining.text(remaining);
+        this.$budgetAllowance.text(allowance);
         this.$progress.css('width', (this.model.getTotal() / DATA.budgetAllowance * 100) + "%");
     },
 
     budgetFullyAllocated: function(yes)
     {
         if (yes) {
-            this.showTooltip(DATA.messages.budgetFullyAllocated);
+            this.$progressBar.addClass('budget-fully-allocated');
+            this.showBudgetFullyAllocatedTooltip();
         } else {
-            this.closeTooltip();
+            this.$progressBar.removeClass('budget-fully-allocated');
+            this.closeBudgetFullyAllocatedTooltip();
         }
     },
 
-    showTooltip: function(message)
+    showBudgetFullyAllocatedTooltip: function()
     {
         var $close = $('<a href="#" class="close">&times;</a>');
-        var $message = $('<span/>').text(message).append($close);
+        var $message = $('<span/>').text(DATA.messages.budgetFullyAllocated).append($close);
 
-        this.tooltip.options.title = $message;
-        this.tooltip.show();
+        this.budgetFullyAllocatedTooltip.options.title = $message;
+        this.budgetFullyAllocatedTooltip.show();
 
         $close.on('click', _.bind(function(e) {
             e.preventDefault();
-            this.closeTooltip();
+            this.closeBudgetFullyAllocatedTooltip();
         }, this));
     },
 
-    closeTooltip: function()
+    closeBudgetFullyAllocatedTooltip: function()
     {
-        this.tooltip.hide();
+        this.budgetFullyAllocatedTooltip.hide();
+    },
+
+    budgetModeChanged: function(newBudgetMode)
+    {
+        this.currentBudgetMode = newBudgetMode;
+        this.updateTotal();
     }
 
 });

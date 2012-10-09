@@ -27,6 +27,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         data.dateString = [c.getDate(), c.getMonth()+1, c.getFullYear()].join('/');
         data.dateTime = c.toDateString();
         data.editable = this.options.editable;
+        data.url = this.model.getUrl();
 
         if (!_.has(data, "_id")) {
             data._id = false;
@@ -35,12 +36,30 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         var html = this.template(data);
         this.$el.html(html);
 
-        if (this.$el.parent()) { // already attached to dom
+        if (this.model.get('state') == "NONAU") {
+            this.$el.find('.state').hide();
+        }
+
+        if (this.$el.parent()) { // already attached to dom, render color bar
             this.doColorBar();
         }
 
         if (!this.options.editable) {
             this.$el.prop('href', '/budget/' + this.model.id);
+        }
+
+        this.$('.popover-link').arrowPopover({
+            actionToActivatePopover: 'click',
+            placement: 'right'
+        });
+
+        var sb = this.$('.share-buttons').attr({
+            'addthis:url': this.model.getUrl(),
+            'addthis:title': 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget"
+        });
+
+        if (window.addthis) {
+            window.addthis.toolbox(sb[0]);
         }
 
         return this;
@@ -79,6 +98,13 @@ TGM.Views.OtherBudget = Backbone.View.extend({
         } else {
             this.$el.removeClass('active');
         }
+    },
+
+    onClose: function()
+    {
+        this.model.off('change', this.render, this);
+        TGM.vent.off('activeBudget', this.onActiveBudget, this);
+        TGM.vent.off('resized', this.doColorBar, this);
     }
 
 });

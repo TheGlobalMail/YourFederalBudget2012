@@ -147,6 +147,11 @@ class Budget extends Model implements \JsonSerializable
 
     public function preSave(array $data)
     {
+        if ($this->clientId) {
+            $data['clientId'] = $this->getClientId();
+            return $data;
+        }
+
         $uniqueId = false;
         $budgets = new Budgets($this->db, self::$categoryData);
         $loops = 1;
@@ -155,6 +160,7 @@ class Budget extends Model implements \JsonSerializable
             $uniqueId = $this->generateRandomString();
 
             if (!$budgets->isClientIdUnique($uniqueId)) {
+                file_put_contents("php://stdout", "Failed $loops times");
                 $uniqueId = false;
             }
 
@@ -172,7 +178,11 @@ class Budget extends Model implements \JsonSerializable
 
     public function postSave(array $data)
     {
-        $this->clientId = $data['clientId'];
+        if (!$this->clientId) {
+            $this->clientId = $data['clientId'];
+        }
+
+        return $data;
     }
 
     private function generateRandomString()

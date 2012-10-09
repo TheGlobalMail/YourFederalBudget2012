@@ -1,11 +1,8 @@
-
-
 #budget-allocator {
-
     width: 90%;
 
     .categories {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         background: url(../img/lhc_fade.png) center top no-repeat;
         background-size: 100%;
         padding: 12px 0 0;
@@ -20,15 +17,19 @@
         font-style: italic;
         width: 18px;
         height: 18px;
+        line-height: 1.7;
         .border-radius(50%);
         margin-bottom: 1.5%;
     }
 
     .category {
         border: #e7e7e7 1px solid;
-        border-bottom: none;
+        margin-top: -1px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         position: relative;
-        height: 45px;
+        height: 48px;
 
         .top {
             height: 54%;
@@ -61,6 +62,8 @@
                 border: 1px solid #666;
                 box-shadow: inset 0 0 1px 1px white, 0 2px 2px rgba(0,0,0,0.2);
                 #gradient > .vertical(#e1e1e1,#fff);
+                filter: none;
+                z-index: 20;
             }
 
             .ui-slider-handle:hover,
@@ -73,54 +76,26 @@
                 height: 22px;
                 top: -7px;
                 margin-left: -0.65em;
-
+                z-index: 20;
             }
         }
 
         .title {
             position: absolute;
             left: 5%;
-            top: 50%;
+            top: 35%;
             font-size: 0.85em;
             text-transform: uppercase;
             font-weight: bold;
-            line-height: 0;
-        }
+            line-height: 1;
 
-        .spent-box {
-            position: absolute;
-            right: 30px;
-
-            .amount {
-                width: 25px;
-                text-align: center;
-            }
-        }
-
-        .info-icon i {
-            display: none;
-        }
-
-        .federal-allocation {
-            @background-color: @gray;
-            position: relative;
-            height: 17px;
-            background-color: @background-color;
-            color: white;
-            .border-radius(5px);
-            padding: 0px 6px;
-            display: inline-block;
-            font-size: .8em;
-            top: 2px;
-            border-radius: 3px;
-            z-index: 1;
-
-            .arrow {
-                .triangle-up(6px, @background-color);
-                position: absolute;
-                top: -5px;
-                left: 50%;
-                margin-left: -3px;
+            .slider-amount {
+                display: inline-block;
+                position: relative;
+                top: 0;
+                left: 5px;
+                font-weight: normal;
+                color: lighten(@textColor, 20%);
             }
         }
     }
@@ -144,42 +119,91 @@
         height: 32px;
     }
 
-    .category.defence .info-icon {
-        background: url(../img/defence.svg) center top no-repeat;
-        background-size: 38px;
+    .category.defence {
+        &.active {
+            border-color: #AAA231;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/defence.svg) center top no-repeat;
+            background-size: 38px;
+        }
     }
 
-    .category.publicEducation .info-icon {
-        background: url(../img/pub-ed.svg) center top no-repeat;
-        background-size: 38px;
+    .category.publicEducation {
+        &.active {
+            border-color: #A2359D;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/pub-ed.svg) center top no-repeat;
+            background-size: 38px;
+        }
     }
 
-    .category.privateEducation .info-icon {
-        background: url(../img/priv-ed.svg) center top no-repeat;
-        background-size: 38px;
+    .category.privateEducation {
+        &.active {
+            border-color: #6C3FC2;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/priv-ed.svg) center top no-repeat;
+            background-size: 38px;
+        }
     }
 
-    .category.foreignAid .info-icon {
-        background: url(../img/aid.svg) center top no-repeat;
-        background-size: 28px;
-        top:34%;
+    .category.immigration {
+        &.active {
+            border-color: #1072B6;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/immigration.svg) center top no-repeat;
+            background-size: 32px;
+            top: 26%;
+        }
     }
 
-    .category.immigration .info-icon {
-        background: url(../img/immigration.svg) center top no-repeat;
-        background-size: 32px;
-        top: 26%;
+    .category.foreignAid {
+        &.active {
+            border-color: #F3454C;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/aid.svg) center top no-repeat;
+            background-size: 28px;
+            top:34%;
+        }
     }
 
-    .category.industryAssistance .info-icon {
-        background: url(../img/industry.svg) center top no-repeat;
-        background-size: 28px;
-        top: 36%;
+    .category.industryAssistance {
+        &.active {
+            border-color: #FD8B43;
+            z-index: 10;
+        }
+
+        .info-icon {
+            background: url(../img/industry.svg) center top no-repeat;
+            background-size: 28px;
+            top: 36%;
+        }
     }
 
     .actions {
         width: 94%;
         margin: 0 auto;
+    }
+
+    .privacy-help {
+        font-size: 10px;
+        text-align: center;
+        margin: 7px 0 0;
+        color: @grayLight;
     }
 
     .defense .federal-allocation {
@@ -200,6 +224,52 @@
     }
 }
 
+// PNG Fallback
+.no-svg {
+#budget-allocator {
+    .category .info-icon {
+            height: 38px;
+            top:5px;
+        }
+    .category.defence {
+        .info-icon {
+            background-image: url(../img/defence-sml.png);
+        }
+    }
+
+    .category.publicEducation {
+        .info-icon {
+            background-image: url(../img/pub-ed-sml.png);
+        }
+    }
+
+    .category.privateEducation {
+        .info-icon {
+            background-image: url(../img/priv-ed-sml.png);
+        }
+    }
+
+    .category.immigration {
+        .info-icon {
+            background-image: url(../img/immigration-sml.png);
+        }
+    }
+
+    .category.foreignAid {
+        .info-icon {
+            background-image: url(../img/aid-sml.png);
+        }
+    }
+
+    .category.industryAssistance {
+        .info-icon {
+            background-image: url(../img/industry-sml.png);
+        }
+    }
+}
+}
+
+
 #budget-overview {
     position: relative;
 
@@ -209,17 +279,83 @@
         .toggle {
             width: 100%;
             height: 46px;
-            border: 1px solid @grayDarker;
-            .border-radius(8px);
-            margin-bottom: 1.5%;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            font-weight: bold;
-            text-align: center;
+            position: relative;
+            font-size: 85%;
+
+            .side {
+                border: 1px solid darken(@grayLighter, 10%);
+                background-color: @grayLighter;
+                color: lighten(@textColor, 40%);
+                width: 50%;
+                height: 100%;
+                text-align: left;
+                margin-bottom: 1.5%;
+                .box-sizing(border-box);
+                cursor: pointer;
+
+                &.active {
+                    background-color: @white;
+                    border-color: @grayish;
+                    color: @textColor;
+                }
+            }
+
+            .or {
+                .ui-title;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                .border-radius(19px);
+                left: 50%;
+                margin-left: -10px;
+                top: 50%;
+                margin-top: -10px;
+                padding-top: 4px;
+                font-size: 80%;
+                font-style: italic;
+                line-height: 1.4;
+                text-align: center;
+                .box-sizing(border-box);
+                background-color: @grayDark;
+                color: @white;
+            }
+
+            .federal-spending {
+                float: left;
+                .border-left-radius(4px);
+                padding: 8px 8% 0 10px;
+                .ui-title;
+            }
+
+            .your-pretax-income {
+                .border-right-radius(4px);
+                float: right;
+                padding: 3px 0 0 14px;
+
+                label {
+                    .ui-title;
+                    margin-bottom: 0;
+                    font-size: 90%;
+                    line-height: 1.2;
+                    cursor: pointer;
+                }
+
+                .input-prepend {
+                    .add-on {
+                        border-right: none;
+                        background-color: @white;
+                        padding: 2px 3px;
+                    }
+
+                    input {
+                        width: 70%;
+                        padding: 2px 4px;
+                    }
+                }
+            }
         }
 
         .title {
-            width: 50%;
             float: left;
             text-transform: uppercase;
             font-size: .85em;
@@ -227,19 +363,25 @@
         }
 
         .spent {
-            width: 50%;
             float: right;
-            text-align: right;
+            text-align: left;
             font-size: .85em;
             font-weight: bold;
+            text-transform: uppercase;
         }
     }
 
     .progress-bar {
         margin-bottom: 4%;
 
+        &.budget-fully-allocated {
+            -webkit-box-shadow: 0 0 0 2px #ff6666;
+            box-shadow: 0 0 0 2px #ff6666;
+            .border-radius(9px);
+        }
+
         .progress {
-            height: 16px;
+            height: 12px;
             margin-bottom: 0;
             .border-radius(9px);
             background: #f2f2f2;
@@ -255,7 +397,6 @@
 }
 
 #save-budget-pane {
-
     width: 90%;
 
     .full-width {
@@ -311,7 +452,7 @@
 
     .control-group {
         margin-bottom: 0;
-        }
+    }
 
     .control-group .error {
         border: 1px solid #F87377;
@@ -351,7 +492,6 @@
 }
 
 #share-budget-pane {
-
     width:90%;
 
     h1 {

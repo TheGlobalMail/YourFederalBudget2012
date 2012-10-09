@@ -1,16 +1,12 @@
 TGM.Views.MoreInfo = Backbone.View.extend({
 
-    events: {
-        'click .read-more': "readMore"
-    },
-
     initialize: function()
     {
         _.bindAll(this);
         this.$title        = this.$('.title');
         this.$info         = this.$('.info');
         this.$extendedInfo = this.$('.extended-info');
-        this.$modalBody    = this.$('.modal-body');
+        this.$readMore     = this.$('.read-more');
 
         TGM.vent.on('BudgetAllocatorCategory:expanding', this.showCategory);
     },
@@ -18,17 +14,12 @@ TGM.Views.MoreInfo = Backbone.View.extend({
     showCategory: function(categoryId)
     {
         // cache current category
-        this.categoryId = categoryId;
-        this.category = DATA.categories[categoryId];
+        var category = DATA.categories[categoryId];
 
-        this.$title.text(this.category.label);
-        this.$info.html(this.category.info.short);
-        this.$modalBody.html(this.category.info.extended);
-    },
-
-    readMore: function()
-    {
-        this.$extendedInfo.modal('toggle')
+        this.$title.html(category.label);
+        this.$info.html($("#summary-" + categoryId).children().clone());
+        this.$readMore.prop('href', '/more-info/' + categoryId);
+        this.$extendedInfo.find('.modal-body').load(this.$readMore.prop('href'));
     }
 
 });

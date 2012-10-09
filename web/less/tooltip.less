@@ -1,18 +1,23 @@
+@tooltipBackgroundColor:  #1072B6;
 @errorBackgroundColor:  #F64347;
 @errorTextColor:        @white;
 
 .tooltip {
     .tooltip-inner {
+        background-color: @tooltipBackgroundColor;
         max-width: 200px;
-        padding: 6px 8px 8px;
-        font-size: 1.2em;
+        padding: 8px 20px 10px 10px;
         text-align: left;
+        .border-radius(0);
+        font-size: 110%;
+        font-weight: bold;
+        .box-shadow(0 1px 1px @grayish);
 
         .close {
             display: block;
             position: absolute;
-            top: 0;
-            right: 2px;
+            top: 4px;
+            right: 6px;
             color: white;
             .opacity(50);
             text-shadow: none;
@@ -25,6 +30,26 @@
             }
 
         }
+    }
+
+    &.in {
+        .opacity(100);
+    }
+
+    &.top .tooltip-arrow {
+        border-top-color: @tooltipBackgroundColor;
+    }
+
+    &.right .tooltip-arrow {
+        border-right-color: @tooltipBackgroundColor;
+    }
+
+    &.left .tooltip-arrow {
+        border-left-color: @tooltipBackgroundColor;
+    }
+
+    &.bottom .tooltip-arrow {
+        border-bottom-color: @tooltipBackgroundColor;
     }
 }
 
@@ -40,6 +65,12 @@
         .box-shadow(0 1px 1px @grayish);
         text-align: left;
         padding: 8px 25px 8px 10px;
+
+        .close {
+            top: 0;
+            right: 2px;
+        }
+
     }
 
     &.in {
@@ -61,4 +92,89 @@
     &.bottom .tooltip-arrow {
         border-bottom-color: @errorBackgroundColor;
     }
+}
+
+.other-budget-share {
+    &.popover {
+        padding:2px;
+        margin-left: 70px;
+        .arrow {
+        background: url(../img/share-budget-arrow.png) top left no-repeat;
+        width: 12px;
+        height: 18px;
+        z-index: 3;
+        display: block;
+        left: -8px;
+        top: 34px;
+        border: none;
+        &:after,&:before {
+            display: none;
+        }
+        }
+        .popover-inner {
+        height: 50px;
+        width: 200px;
+        .border-radius(5px);
+        border: 2px solid @grayDark;
+        h3 {
+            font-family: @sansFontFamily;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .addthis_toolbox {
+            margin-left: 0;
+            a, img {
+                margin: 0 2px;
+                }
+        }
+    }
+
+    }
+}
+
+.budget-description-tooltip {
+    &.bottom .tooltip-arrow {
+        border: none;
+        background: url(../img/about-arrow.png) top left no-repeat;
+        width: 18px;
+        height: 8px;
+        top: -2px;
+        left: 25px;
+    }
+
+    .tooltip-inner {
+        width: 300px;
+        max-width: none;
+        padding: 15px;
+        color: @grayDark;
+        border: 1px solid #cbccce;
+        background-color: white;
+        background-color: rgba(255,255,255,.8);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+        .close {
+            color: @gray;
+        }
+
+        .budget-description {
+            font-size: 115%;
+            overflow: hidden;
+        }
+
+        .name-state {
+            font-size: 90%;
+            font-weight: normal;
+            color: @gray;
+            margin-top: 10px;
+        }
+
+        .flag-abuse.disabled {
+            color: @aid;
+        }
+    }
+}
+
+.popover {
+    margin-left: -95px;
 }
