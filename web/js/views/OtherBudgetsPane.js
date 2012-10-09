@@ -34,7 +34,7 @@ TGM.Views.OtherBudgetsPane = TGM.Views.SidePane.extend({
         if (TGM.has.touch) {
             this.$otherBudgets.on('scroll', this._onScroll);
         } else {
-            this.$otherBudgets.on('mousewheel', this._onScroll);
+            this.$otherBudgets.on('scroll mousewheel', this._onScroll);
         }
     },
 
