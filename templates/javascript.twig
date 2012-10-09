@@ -9,6 +9,10 @@
     DATA.averageBudget = {{ app.averageBudget|json_encode }};
     DATA.states = {{ app.config.frontend.states|json_encode }};
 </script>
+<!--[if lte IE 8]>
+<script>window.ie8 = true;</script>
+<![endif]-->
+
 {% endautoescape %}
 
 {% include 'js-templates/other-budget.twig' %}
@@ -23,4 +27,4 @@
     <script async src="{{app.config.assetHost}}/build/budget-{{app.config.buildId}}.min.js"></script>
 {% endif %}
 
-<script async type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5004ac3e48e805cd"></script>
+<script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5004ac3e48e805cd&async=true"></script>

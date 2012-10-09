@@ -56,6 +56,7 @@ TGM.Views.Application = Backbone.View.extend({
         } else {
             TGM.vent.publish('introClosed');
         }
+        window.addthis && window.addthis.init();
     },
 
     _calculateCurrentSize: function()

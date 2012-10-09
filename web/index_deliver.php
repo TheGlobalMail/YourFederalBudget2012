@@ -15,7 +15,6 @@ $config = [
     'gitHash' => `git rev-parse HEAD`,
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
-    'appUrl' => 'http://localhost:5000/',
     'dbname' => 'budget2012',
     'db' =>  "mongodb://localhost:27017",
     'dbOptions' =>  array()
