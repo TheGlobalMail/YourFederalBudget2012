@@ -20,7 +20,7 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         this.on('shown', this.onShown);
         this.on('hidden', this.onHidden);
 
-        this.model.on('change', this.onBudgetInfoChanged);
+        this.model.on('sync change', this.onBudgetInfoChanged);
         TGM.vent.on('updateMode', this.updateShareMessage);
         TGM.vent.on('resized', this.onResize);
     },
@@ -52,13 +52,13 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
     onBudgetInfoChanged: function()
     {
         this.$budgetName.text(this.model.get('name'));
-        this.$budgetUrl.val(this.model.getUrl());
+        this.$budgetUrl.val(this.model.getShortUrl());
 
         if (this.clip) {
-            this.clip.setText(this.model.getUrl());
+            this.clip.setText(this.model.getShortUrl());
         }
 
-        this.$shareButtons.attr('addthis:url', this.model.getUrl());
+        this.$shareButtons.attr('addthis:url', this.model.getShortUrl());
         this.$shareButtons.attr('addthis:title', "Check out my budget");
     },
 

@@ -3,7 +3,8 @@
 namespace DGM\Collection;
 
 use DGM\Model\Budget,
-    DGM\Database\MongoDb;
+    DGM\Database\MongoDb,
+    DGM\Service\UrlShortener;
 
 class Budgets
 {
@@ -11,6 +12,7 @@ class Budgets
     protected $db;
     protected $collection;
     protected $categories;
+    protected $urlShortener;
 
     public function __construct(MongoDb $db, array $categories)
     {
@@ -18,6 +20,11 @@ class Budgets
         $this->categories = $categories;
         $this->collection = $db->getCollection((new Budget($db))->collection);
         $this->collection->ensureIndex("createdAt");
+    }
+
+    public function setUrlShortener(UrlShortener $urlShortener)
+    {
+        $this->urlShortener = $urlShortener;
     }
 
     public function isClientIdUnique($uniqueId)
@@ -45,6 +52,10 @@ class Budgets
         $id = new \ReflectionProperty($budget, 'id');
         $id->setAccessible(true);
         $id->setValue($budget, $data['_id']);
+
+        if ($this->urlShortener) {
+            $this->urlShortener->shorten($budget);
+        }
 
         return $budget;
     }
