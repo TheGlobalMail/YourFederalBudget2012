@@ -56,8 +56,8 @@
         {
             "package": "symfony/http-foundation",
             "version": "2.1.x-dev",
-            "source-reference": "5f18e1d5b901b320d05230aa91934e7d81f64bb4",
-            "commit-date": "1349553277"
+            "source-reference": "5803400b1ddc7115cf9c960f83e0b50029ce768e",
+            "commit-date": "1349773267"
         },
         {
             "package": "symfony/http-kernel",
@@ -68,8 +68,8 @@
         {
             "package": "symfony/routing",
             "version": "2.1.x-dev",
-            "source-reference": "0443e2f9a10f49cac77128eb7f11d055fcf4db9d",
-            "commit-date": "1349363877"
+            "source-reference": "893590dbf4e60786d21cc475695a8c3aa5529f7d",
+            "commit-date": "1349714394"
         },
         {
             "package": "twig/twig",
