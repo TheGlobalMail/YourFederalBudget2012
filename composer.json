@@ -3,10 +3,15 @@
         "silex/silex": "1.0.*",
         "twig/twig": "1.*",
         "sendgrid/sendgrid-php": "dev-master",
-        "mheap/Silex-Memcache": "*"
+        "mheap/Silex-Memcache": "*",
+        "andylockran/createsend-php": "*",
+        "monolog/monolog": "1.2.*"
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "DGM": "src/" }
+        "psr-0": {
+            "DGM": "src/",
+            "Sly": "vendor/sly/url-shortener-bundle/"
+        }
     }
 }

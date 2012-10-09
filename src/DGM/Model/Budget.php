@@ -19,6 +19,7 @@ class Budget extends Model implements \JsonSerializable
     private $description;
     private $state;
     private $clientId;
+    private $url;
 
     public function set(array $data)
     {
@@ -138,6 +139,10 @@ class Budget extends Model implements \JsonSerializable
             $data["_id"] = (string) $this->getId();
         }
 
+        if ($this->getUrl()) {
+            $data['url'] = $this->getUrl();
+        }
+
         foreach ($this->getCategories() as $cat => $value) {
             $data[$cat] = $value;
         }
@@ -147,6 +152,11 @@ class Budget extends Model implements \JsonSerializable
 
     public function preSave(array $data)
     {
+        if ($this->clientId) {
+            $data['clientId'] = $this->getClientId();
+            return $data;
+        }
+
         $uniqueId = false;
         $budgets = new Budgets($this->db, self::$categoryData);
         $loops = 1;
@@ -155,6 +165,7 @@ class Budget extends Model implements \JsonSerializable
             $uniqueId = $this->generateRandomString();
 
             if (!$budgets->isClientIdUnique($uniqueId)) {
+                file_put_contents("php://stdout", "Failed $loops times");
                 $uniqueId = false;
             }
 
@@ -172,13 +183,28 @@ class Budget extends Model implements \JsonSerializable
 
     public function postSave(array $data)
     {
-        $this->clientId = $data['clientId'];
+        if (!$this->clientId) {
+            $this->clientId = $data['clientId'];
+        }
+
+        return $data;
     }
 
     private function generateRandomString()
     {
         $string = $this->name . $this->email . time() . uniqid('budget_', true);
         return hash('sha256', hash('sha256', $string));
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
     }
 
 }

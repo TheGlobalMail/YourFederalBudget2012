@@ -1,4 +1,4 @@
-@media only screen and (min-width : 1060px) {
+@media only screen and (min-width: 1060px) {
     body {
         background-color: #f2f2f2;
     }
@@ -39,7 +39,6 @@
     #main {
         height: 660px;
         padding: 25px 25px;
-        margin-top: 52px;
 
         #left-column {
             width: 382px;
@@ -53,9 +52,18 @@
             }
 
             #budget-allocator {
+                .categories {
+                    margin-bottom: 16px;
+                }
+
                 .category {
                     height: 56px;
+
+                    &.active:after {
+                        bottom: 25px;
+                    }
                 }
+
                 .category .info-icon {
                     right:3.5%;
                     top:46%;
@@ -88,6 +96,10 @@
                 .category.industryAssistance .info-icon {
                     background-size: 34px;
                     top:33%;
+                }
+
+                .privacy-help {
+                    margin: 16px 0 0;
                 }
             }
 
@@ -123,9 +135,30 @@
         #right-column {
             width: round((@appWidth * (1 - @columnRatio)) - 20px);
 
+            #bar-categories .category.active:after {
+                 bottom: 21px;
+            }
+
             #visualisation {
                 height: 345px;
                 background-image: url(../img/scale-lge.png);
+            }
+
+            #more-info {
+                font-size: 110%;
+
+                .read-more.view-graph {
+                    right: 57px;
+                }
+            }
+        }
+
+        .modal {
+            width: 990px;
+            margin-left: -520px;
+
+            .left {
+                width: 480px;
             }
         }
     }

@@ -1,5 +1,6 @@
 html, body {
     line-height: 1.2;
+    -webkit-font-smoothing: subpixel-antialiased;
     text-rendering: geometricPrecision;
 }
 
@@ -14,7 +15,7 @@ header.navbar  {
     position: relative;
     z-index: 3;
     .box-shadow(0 0 5px rgba(0,0,0,0.5));
-    position: fixed;
+    //position: fixed;
     background: #1b1b1b;
 
     .navbar-inner {
@@ -46,7 +47,7 @@ header.navbar  {
         color: white;
         font-size: 1.7em;
         font-weight: bold;
-        line-height: 1.0;
+        line-height: 1.2;
         background: url(../img/header-arrow.png) left top no-repeat;
 
         span {
@@ -96,6 +97,14 @@ header.navbar  {
     }
 }
 
+// PNG Fallback
+
+.no-svg {
+        header.navbar .home {
+        background-image: url(../img/logo.png);
+    }
+}
+
 .btn [class^="icon-"],
 .btn [class*=" icon-"] {
     line-height: 0.35;
@@ -103,6 +112,10 @@ header.navbar  {
 
 i {
     font-size: 1.5em;
+}
+
+a:hover {
+    text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -127,10 +140,16 @@ small {
     line-height: 1.2;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 #main {
     @appWidth: 980px;
     @columnRatio: 0.33;
-    margin-top:42px;
+    //margin-top:42px;
     height: 564px;
     width: @appWidth;
     padding: 18px 22px;
@@ -138,7 +157,6 @@ small {
 
     #left-column {
         float: left;
-        // width: round(@appWidth * @columnRatio);
         width: 322px;
         position: relative;
     }

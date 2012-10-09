@@ -4,20 +4,21 @@
             "vendor/JSON-js/json2.js",
             "vendor/color-js/color.js",
             "vendor/jquery/jquery-1.7.2.js",
+            "vendor/jquery.transit/jquery.transit.js",
             "vendor/jquery-ui/ui/jquery-ui-1.8.22.custom.js",
-            "vendor/jquery-ui/ui/jquery.effects.shake.js",
             "vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js",
             "vendor/jquery-mousewheel/jquery.mousewheel-2.0.0.js",
             "vendor/jStorage/jstorage.js",
             "vendor/underscore/underscore.js",
+            "vendor/underscore.string/lib/underscore.string.js",
             "vendor/backbone/backbone.js",
             "vendor/bootstrap/js/bootstrap-transition.js",
             "vendor/bootstrap/js/bootstrap-tooltip.js",
-            "vendor/bootstrap/js/bootstrap-popover.js",
             "vendor/bootstrap/js/bootstrap-modal.js",
             "vendor/bootstrap/js/bootstrap-tab.js",
             "vendor/tgm/popovers.js",
             "vendor/ZeroClipboard/src/javascript/ZeroClipboard.js",
+            "vendor/accounting.js/accounting.js",
             "js/bootstrap.js",
             "js/routers/AppRouter.js",
             "js/models/Budget.js",
@@ -34,14 +35,16 @@
             "js/views/OtherBudget.js",
             "js/views/CategoryAllocation.js",
             "js/views/BudgetOverview.js",
+            "js/views/BudgetModeToggler.js",
             "js/views/MoreInfo.js",
             "js/views/EmailPage.js",
+            "js/views/BarCategories.js",
             "js/main.js"
         ],
         "less": "less/budget",
         "slider": {
             "min": 0,
-            "max": 50,
+            "max": 51.4,
             "step": 0.1
         },
         "barGraph": {
@@ -70,15 +73,31 @@
             "NONAU": "Outside Australia"
         }
     },
-    "appUrl": "http://budget2012-dev.thegmail.net.au:8080/",
+    "appUrl": "http://youspend2012.theglobalmail.org/",
     "repoUrl": "https://github.com/TheGlobalMail/YourFederalBudget2012",
-    "budgetAllowance": 100,
+    "budgetAllowance": 51.4,
     "messages": {
-        "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to this area first reduce spending elsewhere.",
+        "budgetFullyAllocated": "You've spent all the available tax dollars. To increase funding to an area first reduce spending elsewhere.",
         "otherBudgets": {
             "fetched": "Scroll to load more",
             "fetching": "Loading more...",
             "full": "No more budgets"
-        }
+        },
+        "incomePrivacy": "Your income will not be saved or publicly visible.",
+        "lowIncome": "Figure is below the lowest tax bracket. Please enter an amount greater than $18,200.",
+        "flaggedAsAbusive": "Flagged as abusive"
+    },
+    "admins": {
+        "Ben Fogarty": "ben.fogarty@theglobalmail.org"
+    },
+    "createsend": {
+        "apiKey": "8c06c1f7aedcb221df924d847aeb0d8c",
+        "listIds": ["356c4f6b69acc9349c291b0e9581f90e", "71bfffe8276e02f97c96ff118a6bc433"]
+    },
+    "bitly": {
+        "clientId": "06ecd7303804d3a578c442799a339967808a9c25",
+        "clientSecret": "3a3f6abf14f377ba390d5969998e898a348233c8",
+        "key": "R_b76a2897118ed4ab53aeed19c44b5190",
+        "username": "o_463q5j231r"
     }
 }

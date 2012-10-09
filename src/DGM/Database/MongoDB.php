@@ -8,15 +8,21 @@ class MongoDB {
 
     public $mongoDb;
 
-    public function __construct($connectionString = "mongodb://localhost:27017", $dbname = "budget2012")
+    public function __construct($dbname, $connectionString, $options)
     {
-        $this->mongo = new \Mongo($connectionString);
+        $this->mongo = new \Mongo($connectionString, $options);
         $this->mongoDb = $this->mongo->selectDb($dbname);
     }
 
     public function getCollection($name)
     {
         return $this->mongoDb->selectCollection($name);
+    }
+
+    public function changeDb($name)
+    {
+        $this->mongo->selectDb($name);
+        return $this;
     }
 
 }

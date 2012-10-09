@@ -4,7 +4,8 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         "submit form": "save",
         "reset form": "reset",
         "keyup input,textarea": "formUpdate",
-        "change select": "formUpdate"
+        "change select": "formUpdate",
+        "click .subscribe-wrapper input": "cacheIsSubscribeChecked"
     },
 
     initialize: function()
@@ -17,12 +18,23 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state = this.$('.your-name-wrapper select');
         this.$email = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
+        this.$subscribe = this.$('.subscribe-wrapper input');
+        this.$saveButton = this.$("#submit-save-budget");
 
         // update form when the model changes (normally from cache restore)
         this.model.on('change', this.modelChanged);
 
         // hide errors whenever the sidepane changes
         TGM.vent.on('showSidePane', this.clearErrors);
+
+        TGM.vent.on('updateMode', this.refreshLabels);
+
+        this.$subscribe.prop('checked', $.jStorage.get('isSubscribeChecked'));
+    },
+
+    cacheIsSubscribeChecked: function()
+    {
+        $.jStorage.set('isSubscribeChecked', this.$subscribe.is(':checked'));
     },
 
     onShow: function()
@@ -33,6 +45,12 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     save: function(e)
     {
         e.preventDefault();
+
+        if (this.$saveButton.prop('disabled')) {
+            return false;
+        }
+
+        this.$saveButton.prop('disabled', false);
 
         this.model.save(this.formToJson(), {
             success: this.success,
@@ -58,6 +76,10 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     success: function(model, response)
     {
+        if (this.$subscribe.is(':checked')) {
+            $.post('/subscribe', { budgetId: model.id });
+        }
+
         this.clearErrors();
 
         // clear the budget cache
@@ -69,10 +91,13 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
         // prompt to share their budget
         TGM.vent.trigger('showSidePane', 'share-budget');
+        this.$saveButton.prop('disabled', false);
     },
 
     error: function(model, response)
     {
+        this.$saveButton.prop('disabled', false);
+
         if (response.status == 400) {
             var data = JSON.parse(response.responseText);
             var errors = _.extend({
@@ -153,7 +178,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
     formUpdate: function()
     {
         this.model.set(this.formToJson());
-        this.model.tryCaching();
+        this.model.cache();
     },
 
     modelChanged: function()
@@ -162,6 +187,11 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.$state.val(this.model.get('state'));
         this.$email.val(this.model.get('email'));
         this.$description.val(this.model.get('description'));
+    },
+
+    refreshLabels: function()
+    {
+        this.$('h3').text('Save your changes');
     }
 
 });

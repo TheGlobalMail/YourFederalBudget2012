@@ -54,6 +54,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             var fetchError = _.bind(function(model, response) {
                 if (response.status == 404) {
                     // budget not found, just show the Saved Budgets pane
+                    this.collections.budgets.remove(this.models.activeBudget);
                     this.models.activeBudget = this.models.userBudget;
                     this.goto("budgets");
                 }
@@ -67,7 +68,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     editBudget: function(id)
     {
-        if (this.models.userBudget.id != id) {
+        if (this.models.userBudget.id != id || !$.jStorage.get('clientId')) {
             // can't edit budgets if they aren't yours
             this.goto("budget", id);
         } else {
@@ -79,25 +80,11 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
     saveBudget: function(id)
     {
-        if (!id) {
-            TGM.vent.trigger('showSidePane', 'save-budget');
-            return true;
+        if (id && (this.models.userBudget.id != id || !$.jStorage.get('clientId'))) {
+            this.goto("budget", id);
         }
 
-        var success = _.bind(function() {
-            TGM.vent.trigger('showSidePane', 'share-budget');
-        }, this);
-
-        // refactor and use activeBudget
-        this.models.userBudget.set('_id', id);
-
-        var fetchError = _.bind(function(model, response) {
-            if (response.status == 404) {
-                this.goto("");
-            }
-        }, this);
-
-        this.models.userBudget.fetch({ success: success, error: fetchError });
+        TGM.vent.trigger('showSidePane', 'save-budget');
     },
 
     viewBudgets: function()

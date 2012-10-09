@@ -55,4 +55,17 @@ describe("Budget Allocator View", function() {
         var first = budgetAllocator.$('.category:first');
         expect(first).not.toHaveClass('active');
     });
+
+    it("should hide tooltips on child views when it's been hidden", function() {
+        var budgetOverviewMock = sinon.mock(budgetAllocator.budgetOverview);
+        budgetOverviewMock.expects("closeBudgetFullyAllocatedTooltip").once();
+
+        var budgetModeTogglerMock = sinon.mock(budgetAllocator.budgetModeToggler);
+        budgetModeTogglerMock.expects('closeTooltips').once();
+
+        budgetAllocator.onHidden();
+
+        budgetOverviewMock.verify();
+        budgetModeTogglerMock.verify();
+    });
 });

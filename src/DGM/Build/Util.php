@@ -94,4 +94,34 @@ class Util {
         self::write($message . "\n");
     }
 
+    public static function generateAppCache($destination, array $caches = array(), array $fallbacks = array(), array $networks = array())
+    {
+        $output = [ "CACHE MANIFEST" ];
+
+        if ($caches) {
+            $output[] = "CACHE:";
+            foreach ($caches as $cache) {
+                $output[] = $cache;
+            }
+        }
+
+        if ($fallbacks) {
+            $output[] = "FALLBACK:";
+            foreach ($fallbacks as $fallback) {
+                $output[] = $fallback;
+            }
+        }
+
+        if ($networks) {
+            $output[] = "NETWORK:";
+            foreach ($networks as $network) {
+                $output[] = $network;
+            }
+        }
+
+        $output = implode("\n", $output);
+        self::writeln("Generating appcache file $destination");
+        file_put_contents($destination, $output);
+    }
+
 }

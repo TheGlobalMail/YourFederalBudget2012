@@ -2,11 +2,15 @@
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
     <head>
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
+        {% include 'less.twig' %}
+        <!--[if lt IE 9]>
+        <script src="/vendor/html5shiv/dist/html5shiv.js"></script>
+        <![endif]-->
+        <script type="text/javascript" src="//use.typekit.net/pyz3jsr.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <title>Your Federal Budget 2012</title>
-
-        {% include 'less.twig' %}
     </head>
     <body>
         <div id="app-loading"></div>
@@ -59,35 +63,52 @@
                     </div>
 
                     <div class="bottom">
-                        <a href="/about/budget" class="about"><i class="icon-info-sign"></i> About this budget</a>
+                        <a href="javascript:void(0)" class="about"><i class="icon-info-sign"></i> About this budget</a>
                         <time>Created Friday 21st September, 2012</time>
+
+                        <div class="budget-description-tooltip hide">
+                            <a href="#" class="close">&times;</a>
+                            <div class="budget-description"></div>
+                            <div class="name-state">
+                                <span class="budget-name"></span> from <span class="budget-state"></span>
+                                <a href="#" class="flag-abuse pull-right">Flag Abuse</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="visualisation"></div>
+
                 <div id="bar-categories">
-                    <div class="category defence">Defence</div>
-                    <div class="category publicEducation">Public education</div>
-                    <div class="category privateEducation">Private education</div>
-                    <div class="category immigration">Immigration</div>
-                    <div class="category foreignAid">Foreign aid</div>
-                    <div class="category industryAssistance">Industry assistance</div>
+                    {% for key, category in app.config.categories %}
+                        <div class="category {{key}}" data-id="{{key}}">{{category.label}}</div>
+                    {% endfor %}
                 </div>
+
                 <div id="more-info">
-                    <h2 class="title"></h2>
+                    <h2><strong class="title"></strong> in summary</h2>
                     <div class="info"></div>
-                    <div class="modal extended-info hide fade" tabindex="-1" role="dialog" aria-labelledby="extended-info-title" aria-hidden="true">
+                    <div class="modal extended-info hide fade" tabindex="-1" role="dialog" aria-labelledby="extended-info-title" aria-hidden="true" id="more-info-modal">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             <h3 id="extended-info-title" class="title">Modal header</h3>
                         </div>
                         <div class="modal-body"></div>
                     </div>
-                    <a href="#" class="read-more">Read More</a>
+                    <a href="#" class="read-more" data-toggle="modal" data-target="#more-info-modal">Read More</a>
+                    <a href="#" class="read-more view-graph" data-toggle="modal" data-target="#more-info-modal">View details</a>
                 </div>
             </div>
         </div>
 
         {% include 'email-page-form.twig' %}
+        {% include 'intro-modal.twig' %}
+        {% include 'about-tool-modal.twig' %}
+
+        {% for key, category in app.config.categories %}
+            <div class="hide summary" id="summary-{{key}}">
+                {% include "summaries/#{key}.twig" with { 'id': key, 'category': category } %}
+            </div>
+        {% endfor %}
 
         {% include 'javascript.twig' %}
 

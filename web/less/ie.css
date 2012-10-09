@@ -1,0 +1,35 @@
+/*behavior: url(/vendor/css-pie/PIE.htc);*/
+#budget-allocator .category .slider .slider-control,
+#budget-allocator .category .slider .ui-slider-handle
+ {
+	behavior: url(/vendor/css-pie/PIE.htc);
+}
+
+.btn {
+	font-size: 11px;
+}
+
+.no-svg header.navbar .home {
+background: url(../img/logo-sml.png) center top no-repeat;
+}
+
+#budget-overview .progress-bar .progress,
+#budget-allocator .category .slider .slider-control
+{
+	filter:none;
+	background: #EEE;
+}
+
+#budget-overview .progress-bar .progress {
+	height: 10px;
+}
+
+#budget-overview .top .toggle {
+	font-size: 80%;
+}
+
+#left-column .nav-tabs li a {
+	font-size: 100%;
+}
+
+#bar-categories .active.category:after {z-index: 1;bottom: 25px;}

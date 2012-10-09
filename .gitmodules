@@ -21,7 +21,7 @@
 	url = git://github.com/velesin/jasmine-jquery.git
 [submodule "tests/lib/phantom-jasmine"]
 	path = tests/lib/phantom-jasmine
-	url = git://github.com/jcarver989/phantom-jasmine.git
+	url = git://github.com/cobbweb/phantom-jasmine.git
 [submodule "web/vendor/JSON-js"]
 	path = web/vendor/JSON-js
 	url = git://github.com/douglascrockford/JSON-js.git
@@ -43,3 +43,15 @@
 [submodule "tests/lib/jasmine-sinon"]
 	path = tests/lib/jasmine-sinon
 	url = git://github.com/froots/jasmine-sinon.git
+[submodule "web/vendor/accounting.js"]
+	path = web/vendor/accounting.js
+	url = git://github.com/josscrowcroft/accounting.js.git
+[submodule "web/vendor/jquery.transit"]
+	path = web/vendor/jquery.transit
+	url = git://github.com/rstacruz/jquery.transit.git
+[submodule "web/vendor/underscore.string"]
+	path = web/vendor/underscore.string
+	url = git@github.com:cobbweb/underscore.string.git
+[submodule "web/vendor/html5shiv"]
+	path = web/vendor/html5shiv
+	url = https://github.com/aFarkas/html5shiv.git

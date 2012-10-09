@@ -2,22 +2,35 @@
 
 namespace DGM\Service;
 
-use DGM\Model\Budget;
+use DGM\Model\Budget,
+    DGM\Service\UrlShortener;
 
-class SaveBudget extends BaseService implements Sanitizable
+class BudgetPersister extends BaseService implements Sanitizable
 {
 
     private $budget;
     private $sendGrid;
-    private $appUrl;
     private $states;
+    private $twig;
 
-    public function __construct(Budget $budget, array $states, \SendGrid $sendGrid, $appUrl)
+    private $unauthorized = false;
+    private $updateMode = false;
+
+    public function __construct(array $states, \SendGrid $sendGrid, \Twig_Environment $twig, UrlShortener $urlShortener)
+    {
+        $this->states       = $states;
+        $this->sendGrid     = $sendGrid;
+        $this->twig         = $twig;
+        $this->urlShortener = $urlShortener;
+    }
+
+    public function setBudget(Budget $budget)
     {
         $this->budget = $budget;
-        $this->states = $states;
-        $this->sendGrid = $sendGrid;
-        $this->appUrl = $appUrl;
+
+        if ($this->budget->getId()) {
+            $this->updateMode = true;
+        }
     }
 
     public function sanitize()
@@ -29,7 +42,7 @@ class SaveBudget extends BaseService implements Sanitizable
             }
 
             if (isset(Budget::$categoryData[$key])) {
-                $this->data[$key] = (int) $value;
+                $this->data[$key] = (float) $value;
             }
         }
     }
@@ -38,6 +51,13 @@ class SaveBudget extends BaseService implements Sanitizable
     {
         $this->sanitize();
         $this->reset();
+
+        if ($this->budget->getId()) {
+            if (!isset($this->data['clientId']) || $this->data['clientId'] != $this->budget->getClientId()) {
+                $this->unauthorized = true;
+                $this->errors['unauthorized'] = "You are not allowed to edit this budget";
+            }
+        }
 
         if (!mb_strlen($this->data['name'])) {
             $this->errors['name'] = "Please enter your firstname";
@@ -55,12 +75,18 @@ class SaveBudget extends BaseService implements Sanitizable
     public function save()
     {
         $this->budget->set($this->data)->save();
+        $this->urlShortener->shorten($this->budget);
 
-        if ($this->budget->getId()) {
+        if (!$this->updateMode) {
             $this->send();
         }
 
         return $this->budget;
+    }
+
+    public function isUnauthorized()
+    {
+        return $this->unauthorized;
     }
 
     public function send()
@@ -69,7 +95,7 @@ class SaveBudget extends BaseService implements Sanitizable
         $mail->setFrom('info@theglobalmail.org')
              ->setFromName('The Global Mail')
              ->setSubject('Your budget')
-             ->setHtml("<p>You made a budget, cool! Go here: {$this->appUrl}budget/{$this->budget->getId()}</p>");
+             ->setHtml($this->twig->render('emails/budget-saved.twig', [ 'budget' => $this->budget ]));
 
         $mail->addTo($this->budget->getEmail(), $this->budget->getName());
 

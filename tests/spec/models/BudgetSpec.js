@@ -17,6 +17,7 @@ describe("Budget Model", function() {
 
     afterEach(function() {
         $.jStorage.flush();
+        budget.off();
     });
 
     it("should be able to set category amounts", function() {
@@ -48,12 +49,12 @@ describe("Budget Model", function() {
     it("should cap category amounts so the total doesn't exceed the budget allowance", function() {
         budget.set(sampleData);
 
-        budget.set('health', 50);
-        budget.set('defense', 50);
+        budget.set('health', 40);
+        budget.set('defense', 46);
         // budget allowance set in test running (index.php)
         expect(budget.getTotal()).toEqual(100);
         // 33.1-5.2+50-5+50-100 = 22.9
-        expect(budget.get('defense')).toEqual(27.1);
+        expect(Math.round(budget.get('defense') * 10) / 10).toEqual(37.1);
     });
 
     it("shouldn't let category value be less than the slider minimum", function() {
@@ -96,37 +97,72 @@ describe("Budget Model", function() {
 
         expect(resetSpy).toHaveBeenCalledOnce();
         expect(budget.get('defense')).toEqual(5.0);
+        TGM.Models.Budget.prototype.defaults = defaults;
     });
 
-    it("should cache the budget on request", function() {
-        budget.set({
-            defense: 12.3,
-            health: 6.9
+    describe("Budget caching", function() {
+        it("should cache the budget on request", function() {
+            budget.set({
+                defense: 12.3,
+                health: 6.9
+            });
+            var spy = sinon.spy($.jStorage, "set");
+
+            budget.cache();
+            expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
         });
-        var spy = sinon.spy($.jStorage, "set");
 
-        budget.tryCaching();
-        expect(spy).toHaveBeenCalledWith('userBudget', budget.toJSON());
+        it("should restore cached values", function() {
+            budget.set('defense', 3.2);
+            budget.cache();
+
+            budget.set('defense', 4.3);
+            budget.tryRestoreFromCache();
+            expect(budget.get('defense')).toEqual(3.2);
+        });
+
+        it("should reset to last saved for existing budgets", function() {
+            budget.set('_id', 'testing-id');
+            budget.set('defense', 2.1);
+            var defaults = budget.toJSON();
+
+            budget.cache();
+            budget.tryRestoreFromCache();
+            budget.resetBudget();
+
+            expect(budget.toJSON()).toEqual(defaults);
+        });
     });
 
-    it("should restore cached values", function() {
-        budget.set('defense', 3.2);
-        budget.tryCaching();
+    describe("Income-based categories", function() {
+        beforeEach(function() {
+            budget = new TGM.Models.Budget({ defense: 20, health: 17, welfare: 13 });
+        });
 
-        budget.set('defense', 4.3);
-        budget.tryRestoreFromCache();
-        expect(budget.get('defense')).toEqual(3.2);
-    });
+        it("should calculate tax paid on pretax income", function() {
+            var calc = budget.calculateTaxPaidOnIncome;
 
-    it("should reset to last saved for existing budgets", function() {
-        budget.set('_id', 'testing-id');
-        budget.set('defense', 2.1);
-        var defaults = budget.toJSON();
+            expect(calc(3000)).toEqual(0);
+            expect(calc(6000)).toEqual(0);
+            expect(calc(6001)).toEqual(0);
+            expect(calc(6100)).toEqual(2.6);
+            expect(calc(31000)).toEqual(665.2);
+            expect(calc(54321)).toEqual(1746.7);
+            expect(calc(80000)).toEqual(3113.4);
+            expect(calc(81000)).toEqual(3179);
+        });
 
-        budget.tryCaching();
-        budget.tryRestoreFromCache();
-        budget.resetBudget();
+        it("should calculate category allocation based on pretax income", function() {
+            budget.calculatePretaxIncomeAmounts(31000);
+            var defense = budget.getIncomeBasedAmount('defense');
 
-        expect(budget.toJSON()).toEqual(defaults);
+            expect(defense).toEqual(133); // exact dollars, not in billions :)
+        });
+
+        it("should calculate the income-based budget total", function() {
+            budget.calculatePretaxIncomeAmounts(31000);
+
+            expect(budget.getIncomeBasedTotal()).toEqual(332.6);
+        });
     });
 });

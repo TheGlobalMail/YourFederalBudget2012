@@ -7,23 +7,25 @@ TGM.Views.SidePane = Backbone.View.extend({
         this.trigger('hide');
 
         var complete = _.bind(function() {
+            this.$el.css({ opacity: 0, display: 'none' });
             this.trigger('hidden');
-            done();
+            done && done();
         }, this);
 
-        return this.$el.fadeOut({ duration: this.animationSpeed, complete: complete }).promise();
+        return this.$el.transition({ opacity: 0, duration: this.animationSpeed, complete: complete }).promise();
     },
 
     show: function(done)
     {
         this.trigger('show');
+        this.$el.css({ opacity: 0, display: 'block' });
 
         var complete = _.bind(function() {
             this.trigger('shown');
-            done();
+            done && done();
         }, this);
 
-        return this.$el.fadeIn({ duration: this.animationSpeed, complete: complete }).promise();
+        return this.$el.transition({ opacity: 1, duration: this.animationSpeed, complete: complete }).promise();
     },
 
     getTab: function()
