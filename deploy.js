@@ -26,17 +26,17 @@ function getContainer(){
 }
 
 function checkout(cb){
-  exec('git checkout ' + env, cb);
+  run('git checkout ' + env, cb);
 }
 
 function build(cb){
-  exec('./build.php', cb);
+  run('./build.php', cb);
 }
 
 function cdnSync(cb){
   var container = getContainer();
   async.forEach(['build', 'img', 'vendor'], function(dir, next){
-    console.error('syncing ' + dir + ' to ' + container + '...');
+    console.error('Syncing ' + dir + ' to ' + container + '...');
     mirror = CloudfilesMirror({
       localPath: './web/' + dir,
       remoteBase: dir,
@@ -47,19 +47,34 @@ function cdnSync(cb){
     });
     mirror.on('error', next);
     mirror.on('end', function(err){
+      console.error(('Syncing ' + dir + ' to ' + container + ' OK').green)
       next();
     });
   }, cb);
 }
 
 function push(cb){
-  exec('git push origin HEAD', cb);
+  run('git push origin HEAD', cb);
+}
+
+function run(cmd, cb){
+  console.log('Running command: ' + cmd);
+  exec(cmd, function(err, stdout, stderr){
+    if (err){
+      console.error(stdout.blue);
+      console.error(stderr.pink);
+      console.error(('Running command: ' + cmd + ' ERROR').red);
+    }else{
+      console.error(('Running command: ' + cmd + ' OK').green);
+    }
+    cb(err);
+  });
 }
 
 parseArgs();
 async.series([checkout, build, cdnSync, push], function(err){
   if (err){
-    console.error(err.red);
+    console.error(('ERROR: ' + err).red);
     process.exit(1);
   }
   console.error('ok'.green);
