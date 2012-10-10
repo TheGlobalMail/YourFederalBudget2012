@@ -1,14 +1,14 @@
 TGM.Views.Application = Backbone.View.extend({
 
     events: {
-        "click .email-page-link": "showEmailModal",
         "click #at16ptx": "doNothing",
-        "click .googleplusone": "shareOnGooglePlus"
+        "click .googleplusone": "shareOnGooglePlus",
+        "show .about-tool,.extended-info": "onModalShow"
     },
 
     initialize: function()
     {
-        _.bindAll(this, 'onResize', 'showEmailModal', 'hideAppLoadingOverlay');
+        _.bindAll(this, 'onResize', 'hideAppLoadingOverlay');
         this.$window = $(window);
 
         this.$('.popover-link').arrowPopover({
@@ -17,7 +17,6 @@ TGM.Views.Application = Backbone.View.extend({
 
         this.$('.addthis_toolbox a').attr('data-bypass', true);
 
-        this.emailPage = new TGM.Views.EmailPage({ el: this.$("#email-page-form") });
         this.$window.on('resize', this.onResize);
         this.currentSize = this._calculateCurrentSize();
 
@@ -31,11 +30,6 @@ TGM.Views.Application = Backbone.View.extend({
         var popUp = window.open('https://plus.google.com/share?url=' + url, 'popupwindow', 'scrollbars=yes,width=800,height=400');
         popUp.focus();
         return false;
-    },
-
-    showEmailModal: function()
-    {
-        this.emailPage.show();
     },
 
     doNothing: function(event)
@@ -81,6 +75,16 @@ TGM.Views.Application = Backbone.View.extend({
         if (newSize != this.currentSize) {
             this.currentSize = newSize;
             TGM.vent.trigger('resized', newSize);
+        }
+    },
+
+    onModalShow: function(e)
+    {
+        var $modal = $(e.currentTarget);
+
+        if ($modal.hasClass('modal')) {
+            var label = $modal.find('.modal-header h3, .modal-header h2').text();
+            _gaq.push(['_trackEvent', 'Modal', 'Show', label]);
         }
     }
 

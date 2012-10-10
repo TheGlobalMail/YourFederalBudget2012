@@ -51,10 +51,6 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
 
     onBudgetInfoChanged: function()
     {
-        if (this.model.isNew()) {
-            return false;
-        }
-
         this.$budgetName.text(this.model.get('name'));
         this.$budgetUrl.val(this.model.getShortUrl());
 
@@ -62,13 +58,14 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
             this.clip.setText(this.model.getShortUrl());
         }
 
-        var t = window.addthis.toolbox(this.$shareButtons[0], {}, {
-            url: this.model.getShortUrl(),
-            title: 'Check out my budget',
-            email_template: 'Budget_email',
-            email_vars: { ownership: 'their' }
-        });
-        console.log(t);
+        if (window.addthis) {
+            window.addthis.toolbox(this.$shareButtons[0], {}, {
+                url: this.model.getShortUrl(),
+                title: "How would YOU spend your tax dollars? Check out my 'Budget remix', and try this great new interactive tool #auspol",
+                email_template: 'Budget_email',
+                email_vars: { ownership: 'their' }
+            });
+        }
     },
 
     onBudgetUrlFocus: function()

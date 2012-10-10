@@ -54,7 +54,7 @@ TGM.Views.OtherBudget = Backbone.View.extend({
 
         var addThisShareConfig = {
             url: this.model.getShortUrl(),
-            title: 'Check out ' + _.ownerize(this.model.get('name'), "'") + " budget",
+            title: "How would YOU spend your tax dollars? Check out " + _.ownerize(this.model.get('name'), "'") + " 'Budget remix', and try this great new interactive tool",
             email_template: 'Budget_email',
             email_vars: { ownership: this.options.editable ? 'their' : 'a' }
         }

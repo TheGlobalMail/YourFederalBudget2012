@@ -28,6 +28,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             this.models.activeBudget = this.models.userBudget;
             TGM.vent.trigger('activeBudget', this.models.userBudget);
             TGM.vent.trigger('showSidePane', 'budget-allocator');
+            _gaq.push(['_trackPageview']);
         }
     },
 
@@ -42,6 +43,10 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         var fetchSuccess = _.bind(function() {
             TGM.vent.trigger('activeBudget', this.models.activeBudget);
+            if (this.models.activeBudget != this.models.userBudget) {
+                _gaq.push(['_trackPageview']);
+                _gaq.push(['_trackEvent', 'Budget', 'View', this.models.activeBudget.id])
+            }
         }, this);
 
         if (this.models.activeBudget) {
@@ -75,16 +80,18 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
             this.models.activeBudget = this.models.userBudget;
             TGM.vent.trigger('activeBudget', this.models.activeBudget);
             TGM.vent.trigger('showSidePane', 'budget-allocator');
+            _gaq.push(['_trackPageview']);
         }
     },
 
     saveBudget: function(id)
     {
         if (id && (this.models.userBudget.id != id || !$.jStorage.get('clientId'))) {
-            this.goto("budget", id);
+            return this.goto("budget", id);
         }
 
         TGM.vent.trigger('showSidePane', 'save-budget');
+        _gaq.push(['_trackPageview']);
     },
 
     viewBudgets: function()
@@ -109,6 +116,7 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
         }
 
         TGM.vent.trigger('showSidePane', 'other-budgets');
+        _gaq.push(['_trackPageview']);
     },
 
     goto: function()
