@@ -14,12 +14,12 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
         this.on('shown', this.onShow);
 
         // cache inputs
-        this.$name = this.$('.your-name-wrapper input');
-        this.$state = this.$('.your-name-wrapper select');
-        this.$email = this.$('.your-email-wrapper input');
+        this.$name        = this.$('.your-name-wrapper input');
+        this.$state       = this.$('.your-name-wrapper select');
+        this.$email       = this.$('.your-email-wrapper input');
         this.$description = this.$('.budget-description-wrapper textarea');
-        this.$subscribe = this.$('.subscribe-wrapper input');
-        this.$saveButton = this.$("#submit-save-budget");
+        this.$subscribe   = this.$('.subscribe-wrapper input');
+        this.$saveButton  = this.$("#submit-save-budget");
 
         // update form when the model changes (normally from cache restore)
         this.model.on('change', this.modelChanged);
@@ -60,11 +60,16 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     formToJson: function()
     {
-        return {
+        var json = {
             name: this.$name.val(),
             state: this.$state.val(),
             email: this.$email.val(),
             description: this.$description.val()
+        }
+
+        if (json.description.length > 500) {
+            json.description = json.description.substr(0, 500);
+            this.$description.val(json.description);
         }
     },
 
@@ -177,6 +182,7 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
 
     formUpdate: function()
     {
+        var json = this.formToJson();
         this.model.set(this.formToJson());
         this.model.cache();
     },
