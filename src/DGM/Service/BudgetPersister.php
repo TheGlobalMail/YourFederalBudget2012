@@ -37,13 +37,23 @@ class BudgetPersister extends BaseService implements Sanitizable
     {
         foreach ($this->data as $key => $value) {
             if ($key == "name" || $key == "email" || $key == "description") {
-                $this->data[$key] = trim($value);
-                $this->data[$key] = strip_tags($value);
+                $value = trim($value);
+                $value = strip_tags($value);
+            }
+
+            if ($key == "name" || $key == "email") {
+                $value = substr($value, 0, 50);
+            }
+
+            if ($key == "description") {
+                $value = substr($value, 0, 500);
             }
 
             if (isset(Budget::$categoryData[$key])) {
-                $this->data[$key] = (float) $value;
+                $value = (float) $value;
             }
+
+            $this->data[$key] = $value;
         }
     }
 
