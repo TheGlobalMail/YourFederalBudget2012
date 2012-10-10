@@ -44,7 +44,7 @@ class BaseControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/deploy', function(Request $request) use ($app) {
             $auth = $request->get('auth');
-            
+
             $branch = trim($app['config']['branch']);
             if ($auth !== 'ac2aa55ec8adecc56501fc32cc22ec38'){
               $app['monolog']->addInfo("Rejected deploy with bad auth: {$auth}");
