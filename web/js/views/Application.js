@@ -2,7 +2,8 @@ TGM.Views.Application = Backbone.View.extend({
 
     events: {
         "click #at16ptx": "doNothing",
-        "click .googleplusone": "shareOnGooglePlus"
+        "click .googleplusone": "shareOnGooglePlus",
+        "show .about-tool,.extended-info": "onModalShow"
     },
 
     initialize: function()
@@ -74,6 +75,16 @@ TGM.Views.Application = Backbone.View.extend({
         if (newSize != this.currentSize) {
             this.currentSize = newSize;
             TGM.vent.trigger('resized', newSize);
+        }
+    },
+
+    onModalShow: function(e)
+    {
+        var $modal = $(e.currentTarget);
+
+        if ($modal.hasClass('modal')) {
+            var label = $modal.find('.modal-header h3, .modal-header h2').text();
+            _gaq.push(['_trackEvent', 'Modal', 'Show', label]);
         }
     }
 
