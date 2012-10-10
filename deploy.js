@@ -95,7 +95,7 @@ function deploy(cb){
       console.error(('Triggering deploy on ' + server + ' OK').green);
       done();
     });
-  });
+  }, cb);
 }
 
 async.series([build, cdnSync, deploy], function(err){
