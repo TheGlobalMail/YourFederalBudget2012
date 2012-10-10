@@ -54,6 +54,7 @@ $app->boot();
     DATA.budgetAllowance = 100;
     DATA.messages = <?php echo json_encode($app['config']['messages']); ?>;
     DATA.states = <?php echo json_encode($app['config']['frontend']['states']); ?>;
+    var _gaq = _gaq || [];
     </script>
 
     <script type="text/javascript" src="/tests/lib/jasmine-1.2.0/jasmine.js"></script>
