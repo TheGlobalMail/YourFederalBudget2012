@@ -232,7 +232,7 @@ TGM.Models.Budget = Backbone.Model.extend({
     sync: function(method)
     {
         if (method == "update" || "method" == "create") {
-            _gaq.push(['_trackEvent', 'Budget', _(method).capitalize(), this.get('name')])
+            _gaq.push(['_trackEvent', 'Budget', _(method).capitalize(), this._id])
         }
 
         return Backbone.Model.prototype.sync.apply(this, arguments);
