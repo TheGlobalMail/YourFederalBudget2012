@@ -42,6 +42,9 @@ TGM.Routers.AppRouter = Backbone.Router.extend({
 
         var fetchSuccess = _.bind(function() {
             TGM.vent.trigger('activeBudget', this.models.activeBudget);
+            if (this.models.activeBudget != this.models.userBudget) {
+                _gaq.push(['_trackEvent', 'Budget', 'View', this.models.activeBudget.id])
+            }
         }, this);
 
         if (this.models.activeBudget) {
