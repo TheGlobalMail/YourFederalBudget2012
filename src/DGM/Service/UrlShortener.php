@@ -9,36 +9,15 @@ class UrlShortener
 {
 
     private $shortener;
-    private $memcaced;
     private $config;
 
     const CACHE_NS = 'urls:';
 
-    public function __construct(array $config, \Memcached $memcached)
+    public function __construct(array $config)
     {
         $this->config = $config;
         $this->shortener = new Bitly();
         $this->shortener->setConfig($config);
-        $this->memcached = $memcached;
-    }
-
-    protected function _shortenUrl($url)
-    {
-        $key = self::CACHE_NS . $url;
-        $shortUrl = $this->memcached->get($key);
-
-        if (!$shortUrl) {
-            $response = $this->shortener->shorten($url);
-
-            if (isset($response['shortUrl'])) {
-                $shortUrl = $response['shortUrl'];
-                $this->memcached->set($key, $shortUrl);
-            } else {
-                return false;
-            }
-        }
-
-        return $shortUrl;
     }
 
     public function shorten(Budget $budget)
@@ -47,10 +26,18 @@ class UrlShortener
             return false;
         }
 
-        $longUrl  = $this->config['appUrl'] . 'budget/' . (string) $budget->getId();
-        $shortUrl = $this->_shortenUrl($longUrl);
+        if ($budget->getShortUrl()) {
+            return $budget->getShortUrl();
+        }
 
-        $budget->setUrl($shortUrl);
+
+        $longUrl  = $this->config['appUrl'] . 'budget/' . (string) $budget->getId();
+        $response = $this->shortener->shorten($longUrl);
+
+        if (isset($response['shortUrl'])) {
+            $shortUrl = $response['shortUrl'];
+            $budget->setShortUrl($shortUrl)->save();
+        }
 
         return $shortUrl;
     }

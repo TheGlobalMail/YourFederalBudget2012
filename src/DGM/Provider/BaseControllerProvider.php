@@ -44,20 +44,6 @@ class BaseControllerProvider implements ControllerProviderInterface
             return new Response($exec, $response);
         });
 
-        $controllers->post('/email-page', function(Request $request) use ($app) {
-            $epf = new \DGM\Service\EmailPage($app['sendGrid']);
-            $epf->setData($request->request->all());
-            $epf->validate();
-
-            if ($epf->isValid()) {
-                $epf->send();
-                $app['monolog']->addInfo('Email budget page', $request->request->all());
-                return $app->json(['message' => 'Email(s) sent']);
-            }
-
-            return $app->json($epf->getErrors(), 400);
-        });
-
         $controllers->get('/more-info/{id}', function($id) use ($app) {
             if (isset($app['config']['categories'][$id])) {
                 $category = $app['config']['categories'][$id];

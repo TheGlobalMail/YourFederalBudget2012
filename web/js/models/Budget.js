@@ -117,7 +117,7 @@ TGM.Models.Budget = Backbone.Model.extend({
 
     getShortUrl: function()
     {
-        return this.get('url') || this.getUrl();
+        return this.get('shortUrl') || this.getUrl();
     },
 
     cache: function()
@@ -227,6 +227,15 @@ TGM.Models.Budget = Backbone.Model.extend({
         }
 
         return $.post('/api/budget/flag-abuse/' + this.id);
+    },
+
+    sync: function(method)
+    {
+        if (method == "update" || "method" == "create") {
+            _gaq.push(['_trackEvent', 'Budget', _(method).capitalize(), this.get('name')])
+        }
+
+        return Backbone.Model.prototype.sync.apply(this, arguments);
     }
 
 });
