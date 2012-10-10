@@ -71,6 +71,8 @@ TGM.Views.SaveBudgetPane = TGM.Views.SidePane.extend({
             json.description = json.description.substr(0, 500);
             this.$description.val(json.description);
         }
+
+        return json;
     },
 
     reset: function(e)
