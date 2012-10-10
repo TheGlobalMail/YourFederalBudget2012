@@ -58,12 +58,14 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
             this.clip.setText(this.model.getShortUrl());
         }
 
-        window.addthis.toolbox(this.$shareButtons[0], {}, {
-            url: this.model.getShortUrl(),
-            title: 'Check out my budget',
-            email_template: 'Budget_email',
-            email_vars: { ownership: 'their' }
-        });
+        if (window.addthis) {
+            window.addthis.toolbox(this.$shareButtons[0], {}, {
+                url: this.model.getShortUrl(),
+                title: 'Check out my budget',
+                email_template: 'Budget_email',
+                email_vars: { ownership: 'their' }
+            });
+        }
     },
 
     onBudgetUrlFocus: function()
