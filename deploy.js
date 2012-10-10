@@ -3,6 +3,9 @@ var CloudfilesMirror = require("cloudfiles-mirror");
 var exec = require('child_process').exec;
 var async = require("async");
 var colors = require('colors');
+var request = require('request');
+
+var auth = 'ac2aa55ec8adecc56501fc32cc22ec38';
 var apiKey, env;
 
 function parseArgs(){
@@ -25,8 +28,15 @@ function getContainer(){
   }
 }
 
-function checkout(cb){
-  run('git checkout ' + env, cb);
+function getServers(){
+  if (env === 'staging'){
+    return ['50.56.185.86'];
+  }else if (env === 'production'){
+    return ['50.56.172.114', '198.101.231.69'];
+  }else{
+    console.error('unknown environment: ' + env + '. Should be staging or production');
+    process.exit(1);
+  }
 }
 
 function build(cb){
@@ -53,12 +63,8 @@ function cdnSync(cb){
   }, cb);
 }
 
-function push(cb){
-  run('git push origin HEAD', cb);
-}
-
 function run(cmd, cb){
-  console.log('Running command: ' + cmd);
+  console.error('Running command: ' + cmd);
   exec(cmd, function(err, stdout, stderr){
     if (err){
       console.error(stdout.blue);
@@ -71,8 +77,29 @@ function run(cmd, cb){
   });
 }
 
+function deploy(cb){
+  var servers = getServers();
+  async.forEach(servers, function(server, done){ 
+    console.error('Triggering deploy on ' + server);
+    request({method: 'POST', url: 'http://' + server + '/deploy', form: {auth: auth}}, function(err, res, body){
+      if (err){
+        console.error(('ERROR: ' + err).red);
+        return cb('Triggering deploy on ' + server + ' ERROR');
+      }
+      if (res.statusCode != 200){
+        console.error(('ERROR: status code was ' + res.statusCode).red);
+        console.error(('ERROR: ' + body).red);
+        return cb('Triggering deploy on ' + server + ' ERROR');
+      }
+      console.error(body);
+      console.error(('Triggering deploy on ' + server + ' OK').green);
+      cb();
+    });
+  });
+}
+
 parseArgs();
-async.series([checkout, build, cdnSync, push], function(err){
+async.series([build, cdnSync, deploy], function(err){
   if (err){
     console.error(('ERROR: ' + err).red);
     process.exit(1);

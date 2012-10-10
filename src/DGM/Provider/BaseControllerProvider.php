@@ -27,18 +27,34 @@ class BaseControllerProvider implements ControllerProviderInterface
             $committedBranch = (isset($data['ref'])) ? $data['ref'] : $request->get('ref');
             $request->request->replace(is_array($data) ? $data : array());
 
-            # Only update this deployment if the commit was on the current branch
             $branch = trim($app['config']['branch']);
-            $app['monolog']->addInfo("Build app on $branch");
-
-            if ($committedBranch === "refs/heads/$branch") {
+            if ($branch !== "master"){
+              $app['monolog']->addInfo("Rejected github hook as not on master branch");
+              $exec = "Commit was not on master and will be ignored";
+              $response = 200;
+            } else{
+              $app['monolog']->addInfo("Build app on $branch");
               $dir = realpath(__DIR__ . '/../../../');
-              // @TODO refactor epic one-liner?
               $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install 2>&1 >> logs/build_log.txt");
               $response = $exec == null ? 500 : 200;
-            } else {
-              $exec = "Commit was not on $branch";
-              $response = 200;
+            }
+
+            return new Response($exec, $response);
+        });
+
+        $controllers->post('/deploy', function(Request $request) use ($app) {
+            $auth = $request->get('auth');
+            
+            $branch = trim($app['config']['branch']);
+            if ($auth !== 'ac2aa55ec8adecc56501fc32cc22ec38'){
+              $app['monolog']->addInfo("Rejected deploy with bad auth: {$auth}");
+              $exec = "Auth error";
+              $response = 500;
+            }else{
+              $app['monolog']->addInfo("Build app on $branch");
+              $dir = realpath(__DIR__ . '/../../../');
+              $exec = shell_exec("cd $dir && git pull && git submodule update --init && composer install 2>&1 >> logs/build_log.txt");
+              $response = $exec == null ? 500 : 200;
             }
 
             return new Response($exec, $response);
