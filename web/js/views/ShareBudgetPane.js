@@ -61,7 +61,7 @@ TGM.Views.ShareBudgetPane = TGM.Views.SidePane.extend({
         if (window.addthis) {
             window.addthis.toolbox(this.$shareButtons[0], {}, {
                 url: this.model.getShortUrl(),
-                title: 'Check out my budget',
+                title: "How would YOU spend your tax dollars? Check out my 'Budget remix', and try this great new interactive tool #auspol",
                 email_template: 'Budget_email',
                 email_vars: { ownership: 'their' }
             });
