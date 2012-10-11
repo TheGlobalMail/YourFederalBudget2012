@@ -23,7 +23,8 @@ $config = [
     'appUrl' => 'http://localhost:5001/',
     'dbname' => 'budgets2012-testing',
     'db' =>  "mongodb://localhost:27017",
-    'dbOptions' =>  array()
+    'dbOptions' =>  array(),
+    'assetHost' => ''
 ];
 
 $fileConfig = Util::loadJSONFile('./resources/config.json');
