@@ -96,7 +96,7 @@ class Budget extends Model implements \JsonSerializable
 
     public function getName()
     {
-        return $this->name;
+        return preg_replace("/(?:'?s)?\s+(?:bu(?:d|s)get)/i", "", $this->name);
     }
 
     public function getEmail()
