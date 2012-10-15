@@ -103,7 +103,8 @@ class Bootstrap implements ServiceProviderInterface
     public function boot(Application $app)
     {
         $app['averageBudget'] = $app->share(function(Application $app) {
-            return (new \DGM\Service\AverageBudget($app['budgets'], $app['memcache']))->getAverageBudget();
+            //return (new \DGM\Service\AverageBudget($app['budgets'], $app['memcache']))->getAverageBudget();
+            return (new \DGM\Service\AverageBudget($app['budgets'], null))->getAverageBudget();
         });
     }
 
