@@ -21,6 +21,9 @@ class AverageBudget
 
     public function getAverageBudget()
     {
+        // XXX Currently not using memcached
+        return $this->budgets->getAverageBudget();
+
         $averageBudget = $this->memcached->get(self::CACHE_KEY);
 
         if ($this->memcached->getResultCode() == \Memcached::RES_NOTFOUND) {

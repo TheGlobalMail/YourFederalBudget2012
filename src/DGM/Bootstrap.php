@@ -68,12 +68,14 @@ class Bootstrap implements ServiceProviderInterface
             'monolog.appname' => 'budget2012'
         ]);
 
+        /*
         $app->register(new \SilexMemcache\MemcacheExtension(), [
             'memcache.library' => 'memcached',
             'servers' => [
                 ['localhost', '11211']
             ]
         ]);
+         */
 
         $app->register(new \Silex\Provider\TwigServiceProvider(), [
             'twig.path' => __DIR__.'/../../templates',

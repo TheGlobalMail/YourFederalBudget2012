@@ -11,9 +11,11 @@ return array(
     'Symfony\\Component\\HttpKernel' => $vendorDir . '/symfony/http-kernel/',
     'Symfony\\Component\\HttpFoundation' => $vendorDir . '/symfony/http-foundation/',
     'Symfony\\Component\\EventDispatcher' => $vendorDir . '/symfony/event-dispatcher/',
+    'Sly' => $baseDir . '/vendor/sly/url-shortener-bundle/',
     'SilexMemcache' => $vendorDir . '/mheap/silex-memcache/src',
     'Silex' => $vendorDir . '/silex/silex/src/',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs',
     'Pimple' => $vendorDir . '/pimple/pimple/lib/',
+    'Monolog' => $vendorDir . '/monolog/monolog/src/',
     'DGM' => $baseDir . '/src/',
 );

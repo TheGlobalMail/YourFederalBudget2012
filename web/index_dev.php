@@ -20,8 +20,8 @@ $config = [
     'gitHash' => `git rev-parse HEAD`,
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
-    'dbname' => 'budget2012',
-    'db' =>  "mongodb://localhost:27017",
+    'dbname' => 'orchestra_95c04d2a_d242e',
+    'db' =>  "mongodb://95c04d2a:bnoj4mvt07iieo706lefcek9lb@ds039717.mongolab.com:39717",
     'dbOptions' =>  array(),
     'assetHost' => ''
 ];
