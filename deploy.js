@@ -54,8 +54,10 @@ function cdnSync(cb){
       container: container,
       auth : { username: 'theglobalmail', apiKey: argv.key},
       cdnEnabled: true,
-      pushOnBoot: true
+      pushOnBoot: true,
+      headers: { '\\.(eot|svg|ttf|woff)$': ['Access-Control-Allow-Origin: *'] }
     });
+    mirror.mime.define({'application/octet-stream': ['woff']});
     mirror.on('error', next);
     mirror.on('end', function(err){
       console.error(('Syncing ' + dir + ' to ' + container + ' OK').green)
