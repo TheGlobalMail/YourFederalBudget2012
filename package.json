@@ -8,7 +8,7 @@
     "nopt": "~2.0.0",
     "should": "~1.1.0",
     "async": "~0.1.22",
-    "cloudfiles-mirror": "git://github.com/bxjx/cloudfiles-mirror.git#emit_end",
+    "cloudfiles-mirror": "git://github.com/bxjx/cloudfiles-mirror.git",
     "colors": "~0.6.0-1",
     "optimist": "~0.3.4"
   },
