@@ -17,6 +17,7 @@ $config = [
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
     'dbname' => 'orchestra_95c04d2a_d242e',
     'db' =>  "mongodb://95c04d2a:bnoj4mvt07iieo706lefcek9lb@ds039717.mongolab.com:39717",
+    'assetHost' => '',
     'dbOptions' =>  array()
 ];
 
