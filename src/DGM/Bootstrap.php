@@ -4,7 +4,7 @@ namespace DGM;
 
 use Silex\ServiceProviderInterface,
     Silex\Application,
-    Monolog\Handler\MongoDBHandler,
+    Monolog\Handler\SyslogHandler,
     Symfony\Component\HttpFoundation\Request,
     Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\ParameterBag,
@@ -65,7 +65,7 @@ class Bootstrap implements ServiceProviderInterface
         ]);
 
         $app->register(new \Silex\Provider\MonologServiceProvider(), [
-          'monolog.handler' => new MongoDBHandler($app['db']->mongo, $app['config']['dbname'], 'logs')
+          'monolog.handler' =>  new SyslogHandler('budget2012')
         ]);
 
         /*
