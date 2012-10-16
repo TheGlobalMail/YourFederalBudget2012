@@ -16,7 +16,7 @@ $config = [
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
     'dbname' => 'orchestra_95c04d2a_d242e',
-    'db' =>  "mongodb://95c04d2a:bnoj4mvt07iieo706lefcek9lb@ds039717.mongolab.com:39717",
+    'db' =>  "mongodb://95c04d2a:bnoj4mvt07iieo706lefcek9lb@ds039717.mongolab.com:39717/orchestra_95c04d2a_d242e",
     'assetHost' => '',
     'dbOptions' =>  array()
 ];
