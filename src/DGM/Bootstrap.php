@@ -65,7 +65,7 @@ class Bootstrap implements ServiceProviderInterface
         ]);
 
         $app->register(new \Silex\Provider\MonologServiceProvider(), [
-            'monolog.handler' => new MongoDBHandler($app['db']->mongo, 'logs', $app['config']['branch']),
+          'monolog.handler' => new MongoDBHandler($app['db']->mongo, $app['config']['dbname'], $app['config']['branch']),
             'monolog.appname' => 'budget2012'
         ]);
 
