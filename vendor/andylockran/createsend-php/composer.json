@@ -1,0 +1,23 @@
+{
+    "name": "andylockran/createsend-php",
+    "type": "library",
+    "description": "CampaignMonitor CreateSend Library for the v3 api",
+    "keywords": ["campaignmonitor","createsend-php","Campaign Monitor", "Mail Chimp"],
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "CampaignMonitor",
+            "homepage": "http://www.campaignmonitor.com/"
+        },
+        {
+	        "name": "Andy Loughran",
+	        "homepage": "http://www.andyloughran.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0"
+        },
+    "autoload": {
+        "classmap": ["/","class/"]
+    }
+}
