@@ -13,8 +13,7 @@ $config = [
     'gitHash' => `git rev-parse HEAD`,
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
-    'db' => 'mongodb://db-production2,db-production1',
-    'dbOptions' => array("replicaSet" => "dbproduction"),
+    'db' => 'mongodb://db-production1',
     'dbname' => 'budget2012',
     'assetHost' => 'http://9d13444fc29e94942058-e7acde355f751313b3672e46489208df.r75.cf1.rackcdn.com'
 ];
