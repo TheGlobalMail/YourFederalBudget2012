@@ -32,7 +32,7 @@ class Bootstrap implements ServiceProviderInterface
         $app['config'] = $this->config;
 
         $app['db'] = $app->share(function(Application $app) {
-            return new MongoDB($app['config']['dbname'], $app['config']['db'], $app['config']['dbOptions']);
+            return new MongoDB($app['config']['dbname'], $app['config']['db']);
         });
 
         $app['budgets'] = $app->share(function(Application $app) {
