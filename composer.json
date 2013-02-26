@@ -3,7 +3,6 @@
         "silex/silex": "1.0.*",
         "twig/twig": "1.*",
         "sendgrid/sendgrid-php": "dev-master",
-        "mheap/Silex-Memcache": "*",
         "andylockran/createsend-php": "*",
         "monolog/monolog": "1.2.*"
     },
