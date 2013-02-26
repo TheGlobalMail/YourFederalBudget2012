@@ -51,7 +51,7 @@
 	url = git://github.com/rstacruz/jquery.transit.git
 [submodule "web/vendor/underscore.string"]
 	path = web/vendor/underscore.string
-	url = git@github.com:cobbweb/underscore.string.git
+	url = git://github.com/cobbweb/underscore.string.git
 [submodule "web/vendor/html5shiv"]
 	path = web/vendor/html5shiv
 	url = https://github.com/aFarkas/html5shiv.git
