@@ -9,9 +9,10 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Silex\Application();
 
 $config = [
-    'branch' => substr(`git symbolic-ref -q HEAD`, 11),
-    'gitHash' => `git rev-parse HEAD`,
-    'buildId' => substr(`git rev-parse HEAD`, 0, 16),
+    // Hard coding git details as heroku exports source 
+    'branch' => 'production', // substr(`git symbolic-ref -q HEAD`, 11),
+    'gitHash' => '0c133f3fee2167f1', // `git rev-parse HEAD`,
+    'buildId' => '0c133f3fee2167f1', //substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
     'db' => 'mongodb://heroku:4acba4a42863ba17b18dd350af109785@juliet.mongohq.com:10059/app12425727',
     'dbname' => 'app12425727',
