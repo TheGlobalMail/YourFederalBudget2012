@@ -6,6 +6,8 @@ You need PHP 5.4, MongoDB and Composer!
 
 ### Deployment ###
 
+Use heroku:
+
 `git push -f budget2012_buildpack branch:master`
 
 ### CI ###
