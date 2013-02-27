@@ -6,7 +6,7 @@ You need PHP 5.4, MongoDB and Composer!
 
 ### Deployment ###
 
-Bounce. Use heroku:
+Bounce2. Use heroku:
 
 `git push -f budget2012_buildpack branch:master`
 
