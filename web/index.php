@@ -13,7 +13,7 @@ $config = [
     'gitHash' => `git rev-parse HEAD`,
     'buildId' => substr(`git rev-parse HEAD`, 0, 16),
     'categories' => Util::loadJSONFile(__DIR__ . '/../resources/categories.json'),
-    'db' => 'mongodb://heroku:4acba4a42863ba17b18dd350af109785@juliet.mongohq.com:10059',
+    'db' => 'mongodb://heroku:4acba4a42863ba17b18dd350af109785@juliet.mongohq.com:10059/app12425727',
     'dbname' => 'app12425727',
     'assetHost' => 'http://9d13444fc29e94942058-e7acde355f751313b3672e46489208df.r75.cf1.rackcdn.com'
 ];

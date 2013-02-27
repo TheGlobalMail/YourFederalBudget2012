@@ -10,7 +10,7 @@ class MongoDB {
 
     public function __construct($dbname, $connectionString)
     {
-        $this->mongo = new \Mongo($connectionString);
+        $this->mongo = new \MongoClient($connectionString);
         $this->mongoDb = $this->mongo->selectDb($dbname);
     }
 
