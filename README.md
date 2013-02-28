@@ -10,6 +10,8 @@ Use heroku:
 
 `git push heroku branch:master`
 
+and hope.
+
 ### CI ###
 
 http://198.61.194.153:8080/job/budget2012/
