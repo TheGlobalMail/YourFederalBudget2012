@@ -8,7 +8,7 @@ You need PHP 5.4, MongoDB and Composer!
 
 Use heroku:
 
-`git push heroku branch:master`
+`git push heroku production:master`
 
 and hope.
 
