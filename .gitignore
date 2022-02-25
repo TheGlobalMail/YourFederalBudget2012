@@ -1,6 +1,0 @@
-/vendor/*
-!/vendor/sly*
-/atlassian-ide-plugin.xml
-/web/build
-/node_modules
-/cache
